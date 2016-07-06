@@ -28,6 +28,7 @@ gem 'rsolr', '~> 1.0'
 gem 'devise'
 gem 'devise-guests', '~> 0.3'
 gem 'dotenv-rails'
+gem 'hydra-role-management'
 
 group :development, :test do
   gem 'byebug'
