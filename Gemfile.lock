@@ -202,6 +202,8 @@ GEM
       railties (>= 3.2, < 5.1)
     foreigner (1.7.4)
       activerecord (>= 3.0.0)
+    foreman (0.82.0)
+      thor (~> 0.19.1)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     google-api-client (0.8.6)
@@ -646,6 +648,7 @@ DEPENDENCIES
   devise
   devise-guests (~> 0.3)
   fcrepo_wrapper
+  foreman
   jbuilder (~> 2.0)
   jquery-rails
   rails (= 4.2.6)
