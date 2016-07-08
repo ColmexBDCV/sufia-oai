@@ -3,12 +3,13 @@ lock '3.5.0'
 
 set :application, 'purple'
 set :repo_url, 'git@code.osu.edu:osul-ads/purple.git'
+set :tmp_dir, "/home/rails/tmp/#{fetch(:application)}"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
-# set :deploy_to, '/var/www/my_app_name'
+set :deploy_to, '/var/www/purple'
 
 # Default value for :scm is :git
 # set :scm, :git
