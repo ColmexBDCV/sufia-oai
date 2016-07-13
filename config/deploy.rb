@@ -1,15 +1,20 @@
 # config valid only for current version of Capistrano
 lock '3.5.0'
 
-set :application, 'purple'
+set :application, 'dcs'
 set :repo_url, 'git@code.osu.edu:osul-ads/purple.git'
-set :tmp_dir, "/home/rails/tmp/#{fetch(:application)}"
 
-# Default branch is :master
-# ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
+# Default branch is master
+set :branch, ENV['BRANCH'] || "master"
+
+set :rvm_ruby_version, 'ruby-2.3.1'
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, '/var/www/purple'
+set :deploy_to, "/home/rails/apps/#{fetch(:application)}"
+set :tmp_dir, "/home/rails/tmp/#{fetch(:application)}"
+
+set :linked_files, %w{.env config/analytics.yml config/blacklight.yml config/database.yml config/fedora.yml config/redis.yml config/secrets.yml config/solr.yml}
+set :linked_dirs, %w{ log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/assets}
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -36,15 +41,21 @@ set :deploy_to, '/var/www/purple'
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
+
+# Deployment Tasks
+# ==================
 namespace :deploy do
 
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
+  desc 'Restart application'
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      execute "mkdir -p #{release_path.join('tmp')}"
+      execute :touch, release_path.join('tmp/restart.txt')
     end
   end
+
+  # Deployment Hooks
+  after :publishing, :restart
+  after :restart, :ping
 
 end
