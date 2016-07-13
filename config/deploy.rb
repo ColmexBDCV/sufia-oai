@@ -7,7 +7,7 @@ set :repo_url, 'git@code.osu.edu:osul-ads/purple.git'
 # Default branch is master
 set :branch, ENV['BRANCH'] || "master"
 
-set :rvm_ruby_version, 'ruby-2.3.0'
+set :rvm_ruby_version, 'ruby-2.3.1'
 
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, "/home/rails/apps/#{fetch(:application)}"
