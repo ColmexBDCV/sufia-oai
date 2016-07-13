@@ -30,10 +30,11 @@ gem 'devise-guests', '~> 0.3'
 gem 'dotenv-rails'
 gem 'hydra-role-management'
 
+gem 'solr_wrapper', '>= 0.3'
+gem 'fcrepo_wrapper'
+
 group :development, :test do
   gem 'byebug'
-  gem 'solr_wrapper', '>= 0.3'
-  gem 'fcrepo_wrapper'
   gem 'rspec-rails'
   gem 'capybara'
 end
