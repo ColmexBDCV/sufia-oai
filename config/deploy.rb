@@ -56,6 +56,5 @@ namespace :deploy do
 
   # Deployment Hooks
   after :publishing, :restart
-  after :restart, :ping
 
 end
