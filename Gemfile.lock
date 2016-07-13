@@ -424,9 +424,6 @@ GEM
     os (0.9.6)
     parslet (1.7.1)
       blankslate (>= 2.0, <= 4.0)
-    passenger (5.0.29)
-      rack
-      rake (>= 0.8.1)
     pkg-config (1.1.7)
     posix-spawn (0.3.11)
     qa (0.7.0)
@@ -709,7 +706,6 @@ DEPENDENCIES
   hydra-role-management
   jbuilder (~> 2.0)
   jquery-rails
-  passenger
   rails (= 4.2.6)
   rsolr (~> 1.0)
   rspec-rails
