@@ -13,7 +13,7 @@ set :rvm_ruby_version, 'ruby-2.3.0'
 set :deploy_to, "/home/rails/apps/#{fetch(:application)}"
 set :tmp_dir, "/home/rails/tmp/#{fetch(:application)}"
 
-set :linked_files, %w{.env config/analytics.yml config/blacklight.yml config/database.yml config/fedora.yml config/redis.yml config/secrets.yml config/solr.yml}
+set :linked_files, %w{.env config/analytics.yml config/blacklight.yml config/database.yml config/fedora.yml config/redis.yml config/solr.yml}
 set :linked_dirs, %w{ log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/assets}
 
 # Default value for :scm is :git
