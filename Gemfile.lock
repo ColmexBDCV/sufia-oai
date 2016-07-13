@@ -260,6 +260,7 @@ GEM
       signet (~> 0.7)
     haml (4.0.7)
       tilt
+    highline (1.7.8)
     htmlentities (4.3.4)
     httmultiparty (0.3.16)
       httparty (>= 0.7.3)
@@ -703,6 +704,7 @@ DEPENDENCIES
   dotenv-rails
   fcrepo_wrapper
   foreman
+  highline
   hydra-role-management
   jbuilder (~> 2.0)
   jquery-rails
