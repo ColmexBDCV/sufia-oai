@@ -29,6 +29,7 @@ gem 'devise'
 gem 'devise-guests', '~> 0.3'
 gem 'dotenv-rails'
 gem 'hydra-role-management'
+gem 'pg'
 
 gem 'solr_wrapper', '>= 0.3'
 gem 'fcrepo_wrapper'
