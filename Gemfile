@@ -30,6 +30,7 @@ gem 'devise'
 gem 'devise-guests', '~> 0.3'
 gem 'hydra-role-management'
 gem 'pg'
+gem 'js-routes'
 
 gem 'solr_wrapper', '>= 0.3'
 gem 'fcrepo_wrapper'
