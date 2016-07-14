@@ -1,9 +1,9 @@
 image: osul/centos6-ruby:2.3
 
-services:
-  - redis
-  - fedora
-  - solr
+# services:
+#   - redis
+#   - fedora
+#   - solr
 
 before_script:
   # Configure SSH deployment key inside docker image
