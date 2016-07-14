@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.2.6'
+gem 'dotenv-rails', :require => 'dotenv/rails-now'
 gem 'sqlite3'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
@@ -27,7 +28,6 @@ gem 'active_fedora-noid', :git => 'https://github.com/projecthydra-labs/active_f
 gem 'rsolr', '~> 1.0'
 gem 'devise'
 gem 'devise-guests', '~> 0.3'
-gem 'dotenv-rails'
 gem 'hydra-role-management'
 gem 'pg'
 

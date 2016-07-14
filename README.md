@@ -77,6 +77,12 @@ start, the use `Ctrl-C` to close the program.
     $ solr_wrapper -d solr/config/ --collection_name hydra-development
     $ fcrepo_wrapper -p 8984
 
+### Subdirectory installation
+
+If you are planning to run the application in a subdirectory, (i.e. at
+`http://example.com/myapp/`) set the `RAILS_RELATIVE_URL_ROOT` environment
+variable to the relative path. (ex: `RAILS_RELATIVE_URL_ROOT='/myapp'`)
+
 Use
 ---
 

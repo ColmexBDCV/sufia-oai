@@ -6,6 +6,9 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+# Load dotenv varibales early in initialization
+Dotenv::Railtie.load
+
 module Dcs
   class Application < Rails::Application
     
