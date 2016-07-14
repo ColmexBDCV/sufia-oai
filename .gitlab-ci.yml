@@ -18,8 +18,8 @@ before_script:
   - bundle exec rake db:schema:load
   - bundle exec rake db:test:prepare
 
-  - solr_wrapper --config config/solr_wrapper_test.yml
-  - fcrepo_wrapper --config config/fcrepo_wrapper_test.yml
+  - sudo solr_wrapper --config config/solr_wrapper_test.yml
+  - sudo fcrepo_wrapper --config config/fcrepo_wrapper_test.yml
 
 rspec:
   script:
