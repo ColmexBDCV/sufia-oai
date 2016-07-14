@@ -10,8 +10,8 @@ set :branch, ENV['BRANCH'] || "master"
 set :rvm_ruby_version, 'ruby-2.3.1'
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, "/home/rails/apps/#{fetch(:application)}"
-set :tmp_dir, "/home/rails/tmp/#{fetch(:application)}"
+set :deploy_to, "/var/www/purple"
+set :tmp_dir, "/var/www/tmp/purple"
 
 set :linked_files, %w{.env config/analytics.yml config/blacklight.yml config/database.yml config/fedora.yml config/redis.yml config/solr.yml}
 set :linked_dirs, %w{ log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/assets}
