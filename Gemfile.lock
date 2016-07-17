@@ -703,6 +703,7 @@ PLATFORMS
 DEPENDENCIES
   active_fedora-noid!
   byebug
+  capistrano (~> 3.5.0)
   capistrano-rails
   capistrano-rvm
   capybara

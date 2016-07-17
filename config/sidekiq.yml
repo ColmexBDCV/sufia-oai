@@ -1,0 +1,3 @@
+concurrency: 5
+logfile: log/sidekiq.log
+timeout: 10
