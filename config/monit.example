@@ -1,6 +1,6 @@
 check process sidekiq
   with pidfile /var/www/purple/current/tmp/pids/sidekiq.pid
-  start program = "/bin/su - rails -c 'source /usr/local/rvm/scripts/rvm && cd /var/www/purple/current && bundle exec sidekiq --pidfile /var/www/purple/current/tmp/pids/sidekiq.pid --environment production -d'" with timeout 30 seconds
+  start program = "/bin/su - rails -c 'source /home/rails/.rvm/scripts/rvm && cd /var/www/purple/current && bundle exec sidekiq --pidfile /var/www/purple/current/tmp/pids/sidekiq.pid --environment production -d'" with timeout 30 seconds
 
-  stop program = "/bin/su - rails -c 'source /usr/local/rvm/scripts/rvm && cd /var/www/purple/current && bundle exec sidekiqctl stop /var/www/purple/current/tmp/pids/sidekiq.pid' 11" with timeout 12 seconds
+  stop program = "/bin/su - rails -c 'source /home/rails/.rvm/scripts/rvm && cd /var/www/purple/current && bundle exec sidekiqctl stop /var/www/purple/current/tmp/pids/sidekiq.pid' 11" with timeout 12 seconds
   group dcs-sidekiq

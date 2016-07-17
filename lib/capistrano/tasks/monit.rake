@@ -50,7 +50,7 @@ namespace :monit do
 
   def run_monit_command(argument)
     on roles(fetch(:monit_role)) do
-      fetch(:monit_services).times do |service|
+      fetch(:monit_services).each do |service|
         sudo_if_needed "#{fetch(:monit_bin)} #{argument} #{service}"
       end
     end

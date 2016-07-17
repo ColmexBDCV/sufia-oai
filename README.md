@@ -49,6 +49,15 @@ You may also require [ghostscript](8) if it does not come with your compiled
 version LibreOffice. `brew install ghostscript` should resolve the dependency on
 a Mac.
 
+### Production
+
+When deploying to production, be sure to install Monit. You will need to create
+a monitored service for Sidekiq (see `config/monit.example`) and allow the rails
+user to execute `monit` via sudo without a password. For example:
+
+    rails ALL=(ALL) NOPASSWD: /usr/bin/monit
+    Defaults:rails !requiretty
+
 Installation
 ------------
 
