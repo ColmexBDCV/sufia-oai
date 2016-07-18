@@ -26,3 +26,9 @@ terms:
     - id: http://www.europeana.eu/portal/rights/rr-r.html
       term: All rights reserved
       active: true
+    - id: https://library.osu.edu/statements/rights/post-1923/      
+      term: This item, made available for research and educational purposes, may be protected by copyright; the user is responsible for making a final determination of copyright status.
+      active: true
+    - id: https://library.osu.edu/statements/rights/pre-1923/      
+      term: The Ohio State University Libraries believes this object is in the Public Domain, users are responsible for making a final determination of copyright status before reproducing.      
+      active: true

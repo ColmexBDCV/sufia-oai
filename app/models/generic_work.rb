@@ -37,12 +37,7 @@ class GenericWork < ActiveFedora::Base
   property :work_type, predicate: ::RDF::URI.new('http://purl.org/vra/Work'), multiple: true do |index|
     index.as :stored_searchable, :facetable
   end
-
-  # http://www.loc.gov/standards/vracore/VRA_Core4_Element_Description.pdf#page2
-  property :collection_identifier, predicate: ::RDF::URI.new('http://purl.org/vra/Collection'), multiple: false do |index|
-    index.as :stored_searchable, :facetable
-  end
-       
+      
   # ::RDF::URI.new("http://www.loc.gov/standards/premis/v2/premis-v2-3.xsd#preservationLevelValue")
   property :preservation_level, predicate: ::RDF::Vocab::PREMIS.PreservationLevel, multiple: false do |index|
     index.as :stored_searchable, :facetable
