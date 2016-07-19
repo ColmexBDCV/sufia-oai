@@ -23,7 +23,7 @@ gem 'hydra-role-management'
 gem 'pg'
 gem 'js-routes'
 
-gem 'solr_wrapper', '>= 0.3'
+gem 'solr_wrapper', '~> 0.14.2'
 gem 'fcrepo_wrapper'
 
 group :development, :test do

@@ -27,7 +27,7 @@ First, you'll need a working Ruby installation. You can install this via your
 operating system's package manager, but we recommend using a dedicated Ruby
 version manager such as [chruby](10), [RVM](11), or rbenv.
 
-We recommend Ruby 2.3.
+We recommend Ruby 2.3.1.
 
 ### Characterization
 
@@ -52,7 +52,7 @@ a Mac.
 ### Production
 
 When deploying to production, be sure to install Monit. You will need to create
-a monitored service for Sidekiq (see `config/monit.example`) and allow the rails
+a monitored service for Sidekiq (see `config/monit.example`) and allow the Rails
 user to execute `monit` via sudo without a password. For example:
 
     rails ALL=(ALL) NOPASSWD: /usr/bin/monit
@@ -95,15 +95,15 @@ variable to the relative path. (ex: `RAILS_RELATIVE_URL_ROOT='/myapp'`)
 Use
 ---
 
-Start Redis, Solr, and Fedora using a single foreman command:
+Start Redis, Solr, Fedora, and Sidekiq using a single foreman command:
 
     $ bundle exec foreman start
 
 Then, in a separate terminal window, start the Rails development server:
 
-    $ bundle exec rails start
+    $ bundle exec rails server
 
-You can now navigate to the Sufia 7 application at `http://localhost:3000`. You
+You can now navigate to the DCS application at `http://localhost:3000`. You
 can also access Solr at `http://localhost:8983/` and Fedora at
 `http://localhost:8984/`.
 

@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+set -m
+
+_term() {
+  echo "Caught SIGTERM signal, shutting down Solr..."
+  kill -TERM "$child" 2>/dev/null
+  wait "$child"
+  exit 0
+}
+
+_kill() {
+  echo "Caught SIGKILL signal, killing Solr!"
+  kill -KILL "$child" 2>/dev/null
+  exit 0
+}
+
+_catch() {
+  wait "$child"
+  exit 0
+}
+
+trap _term SIGTERM
+trap _kill SIGKILL
+trap _catch SIGINT
+
+solr_wrapper -d solr/config/ --collection_name hydra-development &
+
+child=$! 
+wait "$child"

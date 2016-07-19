@@ -1,7 +1,11 @@
-:concurrency: 5
-:timeout: 10
-:logfile: log/sidekiq.log
 :queues:
   - default
   - event
   - ingest
+development:
+  :concurrency: 5
+  :timeout: 3
+production:
+  :concurrency: 25
+  :timeout: 10
+  :logfile: ./log/sidekiq.log
