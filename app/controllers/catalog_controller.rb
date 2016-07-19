@@ -107,10 +107,8 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("identifier", :stored_searchable), label: "Identifier"
     config.add_show_field solr_name("staff_notes", :stored_searchable), label: "Notes"
     config.add_show_field solr_name("spatial", :stored_searchable), label: "Spatial"
-    config.add_show_field solr_name("staff_notes", :stored_searchable), label: "Notes"
     config.add_show_field solr_name("alternative", :stored_searchable), label: "Alternative"
     config.add_show_field solr_name("temporal", :stored_searchable), label: "Time Period"
-    config.add_show_field solr_name("format", :stored_searchable), label: "File Format"
     config.add_show_field solr_name("provenance", :stored_searchable), label: "Provenance"
     config.add_show_field solr_name("work_type", :stored_searchable), label: "Genre"
 
