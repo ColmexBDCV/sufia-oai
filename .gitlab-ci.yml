@@ -1,8 +1,7 @@
-image: osul/centos6-ruby:2.3
+image: osul/centos7-ruby:2.3
 
 before_script:
   # Configure SSH deployment key inside docker image
-  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
   - eval $(ssh-agent -s)
   - ssh-add <(echo "$SSH_PRIVATE_KEY")
   - mkdir -p ~/.ssh
