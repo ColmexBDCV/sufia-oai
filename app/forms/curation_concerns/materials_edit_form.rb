@@ -1,17 +1,16 @@
-module Sufia
-  module Forms
-    module MaterialsEditForm
-      extend ActiveSupport::Concern
+module CurationConcerns
+  module MaterialsEditForm
+    extend ActiveSupport::Concern
 
-      module ClassMethods
+    module ClassMethods
 
-        def build_permitted_params
-          permitted = super
-          permitted << { :materials_attributes => [:material_type, :material, :id, :_destroy] }
-          permitted
-        end
-        
+      def build_permitted_params
+        permitted = super
+        permitted << { :materials_attributes => [:material_type, :material, :id, :_destroy] }
+        permitted
       end
+        
+    end
 
       # This is required so that fields_for will draw a nested form.
       # See ActionView::Helpers#nested_attributes_association?
@@ -20,16 +19,15 @@ module Sufia
       #   model.agents_attributes= attributes
       # end
 
-      def materials_attributes= attributes
-        model.materials_attributes= attributes
-      end
+    def materials_attributes= attributes
+      model.materials_attributes= attributes
+    end
         
-      def material_terms
-        [:material_type, :material]
-      end
+    def material_terms
+      [:material_type, :material]
+    end
       
 
       
-    end
   end
 end
