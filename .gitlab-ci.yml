@@ -1,8 +1,5 @@
 image: osul/centos6-ruby:2.3
 
-services:
-  - java:latest
-
 before_script:
   # Configure SSH deployment key inside docker image
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
@@ -20,9 +17,6 @@ before_script:
   - bundle exec rake db:schema:load
   - bundle exec rake db:test:prepare
 
-  - fcrepo_wrapper --config config/fcrepo_wrapper_test.yml
-  - solr_wrapper --config config/solr_wrapper_test.yml
-
 rspec:
   script:
-    - xvfb-run -a bundle exec rspec
+    - xvfb-run -a bundle exec rake spec
