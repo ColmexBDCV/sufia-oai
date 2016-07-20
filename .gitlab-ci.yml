@@ -1,6 +1,6 @@
 image: osul/centos7-ruby:2.3
 
-service:
+services:
   - java
 
 before_script:
