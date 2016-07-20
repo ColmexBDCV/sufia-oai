@@ -4,6 +4,16 @@ class GenericWork < ActiveFedora::Base
   include ::CurationConcerns::WorkBehavior
   include ::CurationConcerns::BasicMetadata
   include Sufia::WorkBehavior
+
+  accepts_nested_attributes_for :materials, allow_destroy: true
+  accepts_nested_attributes_for :measurements, allow_destroy: true
+
+  alias_method :materials_attributes_without_uniqueness=, :materials_attributes=
+  alias_method :materials_attributes=, :attributes_with_uniqueness=
+
+  alias_method :measurements_attributes_without_uniqueness=, :measurements_attributes=
+  alias_method :measurements_attributes=, :attributes_with_uniqueness=
+
   self.human_readable_type = 'Work'
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []
