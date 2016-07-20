@@ -9,6 +9,7 @@ before_script:
   # Copy CI test YAMLs
   - cp -f /fcrepo_wrapper_test.yml config/fcrepo_wrapper_test.yml
   - cp -f /solr_wrapper_test.yml config/solr_wrapper_test.yml
+  - mkdir /cache/tmp/solr-test
 
   # Set up environment
   - bundle exec rake db:create RAILS_ENV=test
