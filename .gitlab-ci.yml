@@ -1,8 +1,5 @@
 image: osul/centos6-ruby:2.3
 
-services:
-  - java:8
-
 before_script:
   # Configure SSH deployment key inside docker image
   - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
@@ -10,6 +7,9 @@ before_script:
   - ssh-add <(echo "$SSH_PRIVATE_KEY")
   - mkdir -p ~/.ssh
   - '[[ -f /.dockerinit ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+  # Try installing Java
+  - 'which java || ( apt-get install openjdk-8-jre -y )'
 
   # Install dependencies
   - ruby -v
