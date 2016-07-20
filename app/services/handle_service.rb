@@ -1,5 +1,3 @@
-require 'handle'
-
 class HandleService
 
   def initialize(generic_file)
