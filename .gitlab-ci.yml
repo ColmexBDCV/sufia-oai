@@ -1,4 +1,4 @@
-image: osul/centos7-ruby:2.3
+image: osul/centos6-ruby:2.3
 
 services:
   - java
