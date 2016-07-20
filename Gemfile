@@ -29,8 +29,8 @@ gem 'fcrepo_wrapper'
 
 group :development, :test do
   gem 'byebug'
-  gem 'rspec-rails'
-  gem 'capybara'
+  gem 'rspec-rails', '~> 3.5'
+  gem 'factory_girl_rails'
 end
 
 group :development do
@@ -41,4 +41,10 @@ group :development do
   gem 'capistrano-rvm'
   gem 'highline'
   gem 'foreman'
+end
+
+group :test do
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers', '~> 3.1'
 end
