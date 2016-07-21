@@ -7,6 +7,7 @@ before_script:
   - bundle install --jobs $(nproc) --path=/cache/bundler
 
   # Clean solr and fedora before use
+  - fuser -k 8985/tcp
   - solr_wrapper clean
   - fcrepo_wrapper clean
 
