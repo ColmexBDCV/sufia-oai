@@ -6,9 +6,10 @@ before_script:
   - touch log/test.log
   - bundle install --jobs $(nproc) --path=/cache/bundler
 
-  # Make some directories
-  - mkdir tmp/solr-test
-  - mkdir tmp/fcrepo4-test-data
+  # The above commands will remove the instance directories.
+  # Gitlab needs them to exist before the runner can use them.
+  - mkdir -p /cache/solr-test
+  - mkdir -p /cache/fcrepo4-test-data
 
   # Set up environment
   - bundle exec rake db:create RAILS_ENV=test
