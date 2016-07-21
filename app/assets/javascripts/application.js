@@ -20,7 +20,9 @@
 //= require sufia
 //= require_tree .
 
-$(document).ready(function(e) {
+var ready = function() {
   $('#material-fields').nestedFields();
   $('#measurement-fields').nestedFields();
-});
+};
+
+$(document).on('turbolinks:load', ready);
