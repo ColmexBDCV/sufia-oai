@@ -6,10 +6,16 @@ before_script:
   - touch log/test.log
   - bundle install --jobs $(nproc) --path=/cache/bundler
 
+  - mkdir -p /cache/solr-test
+  - mkdir -p /cache/fcrepo4-test-data
+
   # Set up environment
   - bundle exec rake db:create RAILS_ENV=test
   - RAILS_ENV=test bundle exec rake db:reset
 
+  - solr_wrapper --config config/solr_wrapper_test_ci.yml
+  - fcrepo_wrapper --config config/fcrepo_wrapper_test.yml
+
 rspec:
   script:
-    - xvfb-run -a bundle exec rake spec
+    - xvfb-run -a bundle exec rspec
