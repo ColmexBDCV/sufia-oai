@@ -6,16 +6,6 @@ before_script:
   - touch log/test.log
   - bundle install --jobs $(nproc) --path=/cache/bundler
 
-  # Clean solr and fedora before use
-  - rm -rf /cache/solr-test/server/solr/hydra-test/data/index/write.lock
-  - solr_wrapper clean
-  - fcrepo_wrapper clean
-
-  # The above commands will remove the instance directories.
-  # Gitlab needs them to exist before the runner can use them.
-  - mkdir -p /cache/solr-test
-  - mkdir -p /cache/fcrepo4-test-data
-
   # Set up environment
   - bundle exec rake db:create RAILS_ENV=test
   - RAILS_ENV=test bundle exec rake db:reset
