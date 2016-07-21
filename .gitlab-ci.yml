@@ -6,6 +6,7 @@ before_script:
   - touch log/test.log
   - bundle install --jobs $(nproc) --path=/cache/bundler
 
+  - rm -rf /cache/solr-test/server/solr/hydra-test/data/index/write.lock
   - mkdir -p /cache/solr-test
   - mkdir -p /cache/fcrepo4-test-data
 
@@ -15,4 +16,4 @@ before_script:
 
 rspec:
   script:
-    - xvfb-run -a bundle exec rake spec
+    - xvfb-run -a bundle exec rake spec_ci
