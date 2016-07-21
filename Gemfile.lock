@@ -84,6 +84,8 @@ GEM
       multi_json (>= 1.0.0)
     autoprefixer-rails (6.3.7)
       execjs
+    awesome_nested_fields (0.6.4)
+      rails (>= 3.0.0)
     awesome_nested_set (3.1.1)
       activerecord (>= 4.0.0, < 5.1)
     babel-source (5.8.35)
@@ -407,7 +409,6 @@ GEM
     multipart-post (2.0.0)
     nest (1.1.2)
       redis
-    nested_form (0.3.2)
     net-http-persistent (2.9.4)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -711,6 +712,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_fedora-noid!
+  awesome_nested_fields
   byebug
   capistrano (~> 3.5.0)
   capistrano-rails
@@ -729,7 +731,6 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   js-routes
-  nested_form
   pg
   rails (= 4.2.6)
   rsolr (~> 1.0)

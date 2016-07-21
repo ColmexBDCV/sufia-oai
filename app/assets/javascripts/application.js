@@ -14,8 +14,13 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-// Required by Blacklight
 //= require blacklight/blacklight
+//= require jquery.nested-fields
 
 //= require sufia
 //= require_tree .
+
+$(document).ready(function(e) {
+  $('#material-fields').nestedFields();
+  $('#measurement-fields').nestedFields();
+});

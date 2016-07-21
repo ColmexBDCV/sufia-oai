@@ -2,7 +2,7 @@
 <h4>Measurements</h4>
 <div id="measurement-fields" class="form-inline">
   <div class="items">
-    <%= f.fields_for :measurement do |fields| %>
+    <%= f.nested_fields_for :measurements do |fields| %>
       <fieldset class="item">
 
         <div class="form-group">

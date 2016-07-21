@@ -2,7 +2,7 @@
 <h4>Materials</h4>
 <div id="material-fields" class="form-inline">
   <div class="items">
-    <%= f.fields_for :material do |fields| %>
+    <%= f.nested_fields_for :materials do |fields| %>
       <fieldset class="item">
 
         <div class="form-group">

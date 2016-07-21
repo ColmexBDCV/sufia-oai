@@ -12,7 +12,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'sidekiq'
 gem 'sinatra', :require => false
-gem 'nested_form'
+gem 'awesome_nested_fields'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
