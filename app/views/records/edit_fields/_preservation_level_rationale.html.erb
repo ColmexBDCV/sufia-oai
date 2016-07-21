@@ -1,2 +1,1 @@
 <%= f.input :preservation_level_rationale, as: :select, collection: PreservationLevelRationalesService.select_all_options, include_blank: true, item_helper: method(:include_current_value), input_html: { class: 'form-control'} %>
-<%= PreservationLevelRationalesService.select_all_options.to_yaml %>

@@ -407,6 +407,7 @@ GEM
     multipart-post (2.0.0)
     nest (1.1.2)
       redis
+    nested_form (0.3.2)
     net-http-persistent (2.9.4)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -728,6 +729,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   js-routes
+  nested_form
   pg
   rails (= 4.2.6)
   rsolr (~> 1.0)
