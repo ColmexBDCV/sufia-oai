@@ -6,7 +6,10 @@ before_script:
   - touch log/test.log
   - bundle install --jobs $(nproc) --path=/cache/bundler
 
-  # The above commands will remove the instance directories.
+  # remove the instance directories every time we test
+  - rm -rf /cache/solr-test/*
+  - rm -rf /cache/fcrepo4-test-data/*
+
   # Gitlab needs them to exist before the runner can use them.
   - mkdir -p /cache/solr-test
   - mkdir -p /cache/fcrepo4-test-data
