@@ -1,0 +1,22 @@
+<h2><%= t('.header') %></h2>
+<table class="table table-striped <%= dom_class(presenter) %> attributes" <%= presenter.microdata_type_to_html %>>
+  <thead>
+    <tr><th><%= t('.attribute_name_label') %></th><th><%= t('.attribute_values_label') %></th></tr>
+  </thead>
+  <tbody>
+    <%= render 'attribute_rows', presenter: presenter %>
+    <%= presenter.attribute_to_html(:alternative, render_as: :linked, search_field: 'alternative_tesim') %>
+    <%= presenter.attribute_to_html(:format, render_as: :linked, search_field: 'format_tesim') %>
+    <%= presenter.attribute_to_html(:handle) %>
+    <%= presenter.attribute_to_html(:preservation_level, render_as: :linked, search_field: 'preservation_level_tesim') %>
+    <%= presenter.attribute_to_html(:preservation_level_rationale, render_as: :linked, search_field: 'preservation_level_rationale_tesim') %>
+    <%= presenter.attribute_to_html(:provenance, render_as: :linked, search_field: 'provenance_tesim') %>
+    <%= presenter.attribute_to_html(:spatial, render_as: :linked, search_field: 'spatial_tesim') %>
+    <%= presenter.attribute_to_html(:staff_notes, render_as: :linked, search_field: 'staff_notes_tesim') %>
+    <%= presenter.attribute_to_html(:temporal, render_as: :linked, search_field: 'temporal_tesim') %>
+    <%= presenter.attribute_to_html(:work_type, render_as: :linked, search_field: 'work_type_tesim') %>
+    <%= presenter.attribute_to_html(:embargo_release_date) %>
+    <%= presenter.attribute_to_html(:lease_expiration_date) %>
+    <%= presenter.attribute_to_html(:rights, render_as: :rights) %>
+  </tbody>
+</table>
