@@ -4,7 +4,8 @@ module Sufia
     delegate :based_near, :related_url, :depositor, :identifier, :resource_type,
              :keyword, :itemtype, :alternative, :format, 
              :handle, :preservation_level, :preservation_level_rationale, 
-             :provenance, :spatial, :staff_notes, :temporal, :work_type, to: :solr_document
+             :provenance, :spatial, :staff_notes, :temporal, :work_type,
+             :material, :material_type, :measurement, :measurement_unit, :measurement_type, to: :solr_document
 
     def editor?
       current_ability.can?(:edit, solr_document)

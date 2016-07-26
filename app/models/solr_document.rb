@@ -53,6 +53,25 @@ class SolrDocument
     self[Solrizer.solr_name('work_type')]
   end
 
+  def material
+    self[Solrizer.solr_name('material')]
+  end
+
+  def material_type
+    self[Solrizer.solr_name('material_type')]
+  end
+
+  def measurement
+    self[Solrizer.solr_name('measurement')]
+  end
+
+  def measurement_unit
+    self[Solrizer.solr_name('measurement_unit')]
+  end
+
+  def measurement_type
+    self[Solrizer.solr_name('measurement_type')]
+  end
   # Email uses the semantic field mappings below to generate the body of an email.
   SolrDocument.use_extension(Blacklight::Document::Email)
 

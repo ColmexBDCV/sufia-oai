@@ -113,7 +113,9 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("work_type", :stored_searchable), label: "Genre"
     config.add_show_field solr_name("material", :stored_searchable), label: "Material"
     config.add_show_field solr_name("material_type", :stored_searchable), label: "Material Type"
-
+    config.add_show_field solr_name("measurement", :stored_searchable), label: "Measurement"
+    config.add_show_field solr_name("measurement_unit", :stored_searchable), label: "Measurement Unit"
+    config.add_show_field solr_name("measurement_type", :stored_searchable), label: "Measurement Type"
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
     #
