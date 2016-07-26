@@ -12,6 +12,66 @@ class SolrDocument
 
   # self.unique_key = 'id'
 
+
+  def alternative
+    self[Solrizer.solr_name('alternative')]
+  end
+
+  def format 
+    self[Solrizer.solr_name('format')]
+  end
+
+  def handle 
+    self[Solrizer.solr_name('handle')]
+  end
+
+  def preservation_level 
+    self[Solrizer.solr_name('preservation_level')]
+  end
+
+  def preservation_level_rationale 
+    self[Solrizer.solr_name('preservation_level_rationale')]
+  end
+
+  def provenance 
+    self[Solrizer.solr_name('provenance')]
+  end
+
+  def spatial 
+    self[Solrizer.solr_name('spatial')]
+  end
+
+  def staff_notes 
+    self[Solrizer.solr_name('staff_notes')]
+  end
+
+  def temporal 
+    self[Solrizer.solr_name('temporal')]
+  end
+
+  def work_type
+    self[Solrizer.solr_name('work_type')]
+  end
+
+  def material
+    self[Solrizer.solr_name('material')]
+  end
+
+  def material_type
+    self[Solrizer.solr_name('material_type')]
+  end
+
+  def measurement
+    self[Solrizer.solr_name('measurement')]
+  end
+
+  def measurement_unit
+    self[Solrizer.solr_name('measurement_unit')]
+  end
+
+  def measurement_type
+    self[Solrizer.solr_name('measurement_type')]
+  end
   # Email uses the semantic field mappings below to generate the body of an email.
   SolrDocument.use_extension(Blacklight::Document::Email)
 
