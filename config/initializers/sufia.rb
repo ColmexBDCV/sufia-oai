@@ -90,6 +90,10 @@ Sufia.config do |config|
   # This must be a lambda that returns a Pathname
   #  config.upload_path = ->() { Rails.root + 'tmp' + 'uploads' }
 
+  CurationConcerns.config.callback.set(:after_update_metadata) do |curation_concern, user|
+    HandleService.new(curation_concern).mint
+  end
+
   # If browse-everything has been configured, load the configs.  Otherwise, set to nil.
   begin
     if defined? BrowseEverything

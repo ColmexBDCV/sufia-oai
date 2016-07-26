@@ -1,3 +1,5 @@
+require 'handle'
+
 class HandleService
 
   def initialize(generic_file)
@@ -29,7 +31,7 @@ class HandleService
     end
 
     def handle_needed?
-      @generic_file.handle.blank? and file_is_visible? and file_has_no_active_imports?
+      @generic_file.handle.blank? and file_is_visible? # and file_has_no_active_imports?
     end
 
     def create_handle!
@@ -44,7 +46,7 @@ class HandleService
         record = conn.create_record(handle)
 
         # add field
-        url =  "#{@url}files/#{@generic_file.id}"
+        url =  "#{@url}#{@generic_file.id}"
         record.add(:URL, url).index = 2
         record << Handle::Field::HSAdmin.new("0.NA/#{@prefix}")
 

@@ -271,6 +271,7 @@ GEM
       signet (~> 0.7)
     haml (4.0.7)
       tilt
+    handle-system (0.1.1)
     highline (1.7.8)
     htmlentities (4.3.4)
     httmultiparty (0.3.16)
@@ -726,6 +727,7 @@ DEPENDENCIES
   factory_girl_rails
   fcrepo_wrapper
   foreman
+  handle-system
   highline
   hydra-role-management
   jbuilder (~> 2.0)
