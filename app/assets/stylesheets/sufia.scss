@@ -13,3 +13,16 @@
 @import "blacklight_gallery/slideshow";
 @import "blacklight_gallery/osd_viewer";
 @import 'sufia/sufia';
+
+#home_header {
+  background-image: url(image-path('glacier.jpg'));
+}
+
+.navbar-brand {
+  padding: 10px 15px;
+}
+
+.logo-brand {
+  height: 24px;
+  width: 24px;
+}
