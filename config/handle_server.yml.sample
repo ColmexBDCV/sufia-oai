@@ -1,5 +1,9 @@
 default: &default
-  mint: false
+  mint: true
+  prefix: 1811.1
+  index: 300
+  admin_priv_key: "/Users/chris/admpriv.bin"
+  url: "http://localhost:3000/concern/generic_works/"
 
 development:
   <<: *default

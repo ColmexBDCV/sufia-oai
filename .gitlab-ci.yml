@@ -5,6 +5,7 @@ before_script:
   - touch log/application.log
   - touch log/test.log
   - bundle install --jobs $(nproc) --path=/cache/bundler
+  - cp config/handle_server.yml.sample config/handle_server.yml
 
   # remove the instance directories every time we test
   - rm -rf /cache/solr-test/*
