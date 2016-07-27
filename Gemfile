@@ -33,6 +33,7 @@ gem 'fcrepo_wrapper'
 group :development, :test do
   gem 'byebug'
   gem 'rspec-rails', '~> 3.5'
+  gem 'rspec-mocks', '~> 3.5'
   gem 'factory_girl_rails'
 end
 
