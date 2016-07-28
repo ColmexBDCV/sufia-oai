@@ -1,13 +1,20 @@
 image: osul/centos7-ruby:2.3
 
 before_script:
+  # Configure SSH deployment key inside docker image
+  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+  - eval $(ssh-agent -s)
+  - ssh-add <(echo "$SSH_PRIVATE_KEY")
+  - mkdir -p ~/.ssh
+  - '[[ -f /.dockerinit ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+  # Setup the environment
   - gem install bundler
   - touch log/application.log
   - touch log/test.log
   - bundle install --jobs $(nproc) --path=/cache/bundler
   - cp config/handle_server.yml.sample config/handle_server.yml
   - cp config/local_env.yml.sample config/local_env.yml
-
   - if [ ! -d /cache/hsj-8.1.1/ ]; then git clone git@code.osu.edu:osul-ads/hsj-8.1.1.git /cache/hsj-8.1.1; fi
 
   # remove the instance directories every time we test
