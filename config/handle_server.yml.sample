@@ -2,7 +2,7 @@ default: &default
   mint: true
   prefix: 1811.1
   index: 300
-  admin_priv_key: "/Users/chris/admpriv.bin"
+  admin_priv_key: "/cache/hsj-8.1.1/admpriv.bin"
   url: "http://localhost:3000/concern/generic_works/"
 
 development:
