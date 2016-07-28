@@ -21,6 +21,8 @@ before_script:
   - if [ ! -d /cache/hsj-8.1.1/ ]; then git clone git@code.osu.edu:osul-ads/hsj-8.1.1.git /cache/hsj-8.1.1; fi
   - mkdir ~/.handle
   - echo "140.254.87.133 10.0.0.168" > ~/.handle/local_addresses
+  - echo "$REDIS_TEST_CONFIG" > config/redis.yml
+  - cat config/redis.yml
 
   # remove the instance directories every time we test
   - rm -rf /cache/solr-test/*
