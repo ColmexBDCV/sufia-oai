@@ -21,7 +21,7 @@ Rails.application.routes.draw do
   curation_concerns_basic_routes
   curation_concerns_embargo_management
   concern :exportable, Blacklight::Routes::Exportable.new
-
+  resources :featured_collections
   resources :solr_documents, only: [:show], path: '/catalog', controller: 'catalog' do
     concerns :exportable
   end
