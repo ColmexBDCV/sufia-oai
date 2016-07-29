@@ -3,6 +3,10 @@
 require 'rails_helper'
 include Warden::Test::Helpers
 
+Sidekiq.configure_client do |config|
+  config.redis = { url: "redis://#{Redis.current.host}:6379/1", namespace: "cms_queues"}
+end
+
 RSpec.feature 'Create a GenericWork' do
   context 'a logged in user' do
     let(:user_attributes) do
