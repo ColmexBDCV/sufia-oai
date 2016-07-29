@@ -141,6 +141,17 @@ ActiveRecord::Schema.define(version: 20160729184229) do
   add_index "follows", ["followable_id", "followable_type"], name: "fk_followables"
   add_index "follows", ["follower_id", "follower_type"], name: "fk_follows"
 
+  create_table "identities", force: :cascade do |t|
+    t.string   "uid",        null: false
+    t.string   "provider",   null: false
+    t.integer  "user_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "identities", ["provider", "uid"], name: "index_identities_on_provider_and_uid", unique: true
+  add_index "identities", ["user_id"], name: "index_identities_on_user_id"
+
   create_table "local_authorities", force: :cascade do |t|
     t.string "name"
   end

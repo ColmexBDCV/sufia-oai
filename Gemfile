@@ -21,6 +21,8 @@ gem 'active_fedora-noid', :git => 'https://github.com/projecthydra-labs/active_f
 gem 'rsolr', '~> 1.0'
 gem 'devise'
 gem 'devise-guests', '~> 0.3'
+gem 'omniauth'
+gem 'omniauth-shibboleth'
 gem 'hydra-role-management'
 gem 'pg'
 gem 'js-routes'
