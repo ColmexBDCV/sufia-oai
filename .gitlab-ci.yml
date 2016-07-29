@@ -22,7 +22,8 @@ before_script:
   - mkdir ~/.handle
   - echo "140.254.87.133 10.0.0.168" > ~/.handle/local_addresses
   - echo "$REDIS_TEST_CONFIG" > config/redis.yml
-  - cat config/redis.yml
+  - echo "$FCREPO_WRAPPER_TEST" > config/fcrepo_wrapper_test.yml
+  - echo "$SOLR_WRAPPER_TEST" > config/solr_wrapper_test.yml
 
   # remove the instance directories every time we test
   - rm -rf /cache/solr-test/*
@@ -38,4 +39,4 @@ before_script:
 
 rspec:
   script:
-    - xvfb-run -a bundle exec rake spec_ci
+    - xvfb-run -a bundle exec rake spec
