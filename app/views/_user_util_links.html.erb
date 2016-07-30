@@ -23,7 +23,7 @@
     </li><!-- /.btn-group -->
   <% else %>
     <li>
-      <%= link_to main_app.omniauth_authorize_path(:user, login_strategy) do %>
+      <%= link_to omniauth_authorize_path(:user, login_strategy) do %>
         <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Login
       <% end %>
     </li>
