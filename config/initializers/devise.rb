@@ -252,7 +252,7 @@ Devise.setup do |config|
     request_type: :header,
     uid_field: 'eppn',
     name_field: 'displayName',
-    :info_fields => {:email => 'mail', :first_nam => 'givenName', :last_name => 'sn'}
+    :info_fields => {:email => 'mail', :first_name => 'givenName', :last_name => 'sn'}
   }
 
   # ==> Warden configuration

@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   include Sufia::User
   include Sufia::UserUsageStats
 
-  has_many :identities
+  has_many :identities, dependent: :destroy
 
   if Blacklight::Utils.needs_attr_accessible?
     attr_accessible :email, :password, :password_confirmation

@@ -10,7 +10,7 @@ RSpec.describe User, type: :model do
   end
 
   describe "associations" do
-    it { is_expected.to have_many(:identities) }
+    it { is_expected.to have_many(:identities).dependent(:destroy) }
   end
 
   describe '#to_s' do
