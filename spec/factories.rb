@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :featured_collection do
   end
-    
+
   factory :identity do
     uid "test@example.com"
     provider "myprovider"
@@ -22,7 +22,7 @@ FactoryGirl.define do
     info do
       {
         email: 'test@example.com',
-        name: 'Test User',
+        name: 'Test User'
       }
     end
   end
