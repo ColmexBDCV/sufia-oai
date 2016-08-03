@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160706184945) do
+ActiveRecord::Schema.define(version: 20160729184229) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "user_id",       null: false
@@ -84,6 +84,16 @@ ActiveRecord::Schema.define(version: 20160706184945) do
   add_index "domain_terms_local_authorities", ["domain_term_id", "local_authority_id"], name: "dtla_by_ids2"
   add_index "domain_terms_local_authorities", ["local_authority_id", "domain_term_id"], name: "dtla_by_ids1"
 
+  create_table "featured_collections", force: :cascade do |t|
+    t.integer  "order",         default: 5
+    t.string   "collection_id"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "featured_collections", ["collection_id"], name: "index_featured_collections_on_collection_id"
+  add_index "featured_collections", ["order"], name: "index_featured_collections_on_order"
+
   create_table "featured_works", force: :cascade do |t|
     t.integer  "order",      default: 5
     t.string   "work_id"
@@ -130,6 +140,17 @@ ActiveRecord::Schema.define(version: 20160706184945) do
 
   add_index "follows", ["followable_id", "followable_type"], name: "fk_followables"
   add_index "follows", ["follower_id", "follower_type"], name: "fk_follows"
+
+  create_table "identities", force: :cascade do |t|
+    t.string   "uid",        null: false
+    t.string   "provider",   null: false
+    t.integer  "user_id",    null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "identities", ["provider", "uid"], name: "index_identities_on_provider_and_uid", unique: true
+  add_index "identities", ["user_id"], name: "index_identities_on_user_id"
 
   create_table "local_authorities", force: :cascade do |t|
     t.string "name"

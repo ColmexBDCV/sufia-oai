@@ -11,6 +11,8 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'sidekiq'
+gem 'sinatra', :require => false
+gem 'awesome_nested_fields'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -19,17 +21,24 @@ gem 'active_fedora-noid', :git => 'https://github.com/projecthydra-labs/active_f
 gem 'rsolr', '~> 1.0'
 gem 'devise'
 gem 'devise-guests', '~> 0.3'
+gem 'omniauth'
+gem 'omniauth-shibboleth'
 gem 'hydra-role-management'
 gem 'pg'
 gem 'js-routes'
+
+gem 'handle-system'
 
 gem 'solr_wrapper', '~> 0.14.2'
 gem 'fcrepo_wrapper'
 
 group :development, :test do
   gem 'byebug'
-  gem 'rspec-rails'
-  gem 'capybara'
+  gem 'rspec-rails', '~> 3.5'
+  gem 'rspec-mocks', '~> 3.5'
+  gem 'factory_girl_rails'
+  gem 'rubocop', '~> 0.42.0', require: false
+  gem 'rubocop-rspec', '~> 1.5.1', require: false
 end
 
 group :development do
@@ -40,4 +49,10 @@ group :development do
   gem 'capistrano-rvm'
   gem 'highline'
   gem 'foreman'
+end
+
+group :test do
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers', '~> 3.1'
 end

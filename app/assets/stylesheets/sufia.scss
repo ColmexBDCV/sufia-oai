@@ -13,3 +13,31 @@
 @import "blacklight_gallery/slideshow";
 @import "blacklight_gallery/osd_viewer";
 @import 'sufia/sufia';
+
+#home_header {
+  background-image: url(image-path('glacier.jpg'));
+}
+
+.navbar-brand {
+  padding: 10px 15px;
+}
+
+.logo-brand {
+  height: 24px;
+  width: 24px;
+}
+
+#logo {
+  margin-left: 5px;
+}
+.navbar-text{
+}
+#osu-library-logo{
+ color: #222;
+}
+.login-link {
+  margin-right: 10px;
+}
+.user-options {
+  margin-right: 10px;
+}

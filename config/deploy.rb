@@ -14,7 +14,7 @@ set :rvm_ruby_version, 'ruby-2.3.1'
 set :deploy_to, "/var/www/purple"
 set :tmp_dir, "/var/www/tmp/purple"
 
-set :linked_files, %w{.env config/analytics.yml config/blacklight.yml config/database.yml config/fedora.yml config/redis.yml config/solr.yml}
+set :linked_files, %w{.env config/analytics.yml config/blacklight.yml config/database.yml config/fedora.yml config/redis.yml config/solr.yml config/handle_server.yml}
 set :linked_dirs, %w{ log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/assets}
 
 set :pty, false

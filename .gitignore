@@ -7,6 +7,9 @@
 # Ignore bundler config.
 /.bundle
 
+# Ignore local environment configuration
+.env
+
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-journal
@@ -14,14 +17,18 @@
 # Ignore all logfiles and tempfiles.
 /log/*
 !/log/.keep
-/tmp
+/tmp/*
+!/tmp/.keep
 /public/uploads
-.ruby-version
+/spec/examples.txt
 
 # Ignore history and dump files
 .byebug_history
 dump.rdb
 
+# Ignore certain YAMLs
+config/handle_server.yml
+config/local_env.yml
 
 # OSX hidden files
 .DS_Store

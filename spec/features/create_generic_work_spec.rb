@@ -3,7 +3,7 @@
 require 'rails_helper'
 include Warden::Test::Helpers
 
-feature 'Create a GenericWork' do
+RSpec.feature 'Create a GenericWork' do
   context 'a logged in user' do
     let(:user_attributes) do
       { email: 'test@example.com' }
@@ -19,7 +19,13 @@ feature 'Create a GenericWork' do
     scenario do
       visit new_curation_concerns_generic_work_path
       fill_in 'Title', with: 'Test GenericWork'
-      click_button 'Create GenericWork'
+      fill_in 'Creator', with: 'Person, Test'
+      fill_in 'Keyword', with: 'Test'
+      check 'agreement'
+      find("#generic_work_rights").find(:xpath, 'option[1]').select_option
+      click_on "Files"
+      attach_file("files[]", Rails.root + 'spec/fixtures/cat.jpg')
+      click_button 'Save'
       expect(page).to have_content 'Test GenericWork'
     end
   end

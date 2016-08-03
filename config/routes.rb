@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
   
   Hydra::BatchEdit.add_routes(self)
@@ -9,7 +11,7 @@ Rails.application.routes.draw do
     concerns :searchable
   end
 
-  devise_for :users
+  devise_for :users, :controllers => { :omniauth_callbacks => 'omniauth_callbacks' }
   mount Hydra::RoleManagement::Engine => '/'
 
   mount CurationConcerns::Engine, at: '/'
@@ -19,7 +21,7 @@ Rails.application.routes.draw do
   curation_concerns_basic_routes
   curation_concerns_embargo_management
   concern :exportable, Blacklight::Routes::Exportable.new
-
+  resources :featured_collections
   resources :solr_documents, only: [:show], path: '/catalog', controller: 'catalog' do
     concerns :exportable
   end
@@ -33,6 +35,10 @@ Rails.application.routes.draw do
   end
 
   Hydra::BatchEdit.add_routes(self)
+
+  authenticate :user, lambda { |u| u.admin? } do
+    mount Sidekiq::Web => '/jobs'
+  end
 
   # This must be the very last route in the file because it has a catch-all route for 404 errors.
   # This behavior seems to show up only in production mode.
