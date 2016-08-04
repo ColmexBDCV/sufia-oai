@@ -15,7 +15,7 @@ class GenericWork < ActiveFedora::Base
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []
   validates :title, presence: { message: 'Your work must have a title.' }
-  
+
   property :staff_notes, predicate: ::RDF::URI.new("https://library.osu.edu/ns#StaffNotes"), multiple: true do |index|
     index.type :text
   end
@@ -44,7 +44,7 @@ class GenericWork < ActiveFedora::Base
   property :work_type, predicate: ::RDF::URI.new('http://purl.org/vra/Work'), multiple: true do |index|
     index.as :stored_searchable, :facetable
   end
-      
+
   # ::RDF::URI.new("http://www.loc.gov/standards/premis/v2/premis-v2-3.xsd#preservationLevelValue")
   property :preservation_level, predicate: ::RDF::Vocab::PREMIS.PreservationLevel, multiple: false do |index|
     index.as :stored_searchable, :facetable
@@ -58,5 +58,4 @@ class GenericWork < ActiveFedora::Base
   property :handle, predicate: ::RDF::Vocab::Identifiers.hdl do |index|
     index.as :stored_searchable, :facetable
   end
-
 end

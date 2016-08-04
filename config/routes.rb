@@ -1,17 +1,16 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  
   Hydra::BatchEdit.add_routes(self)
   mount Blacklight::Engine => '/'
-  
+
   concern :searchable, Blacklight::Routes::Searchable.new
 
   resource :catalog, only: [:index], as: 'catalog', path: '/catalog', controller: 'catalog' do
     concerns :searchable
   end
 
-  devise_for :users, :controllers => { :omniauth_callbacks => 'omniauth_callbacks' }
+  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
   mount Hydra::RoleManagement::Engine => '/'
 
   mount CurationConcerns::Engine, at: '/'
@@ -36,7 +35,7 @@ Rails.application.routes.draw do
 
   Hydra::BatchEdit.add_routes(self)
 
-  authenticate :user, lambda { |u| u.admin? } do
+  authenticate :user, -> (u) { u.admin? } do
     mount Sidekiq::Web => '/jobs'
   end
 

@@ -14,7 +14,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
   end
 
-  alias_method :shibboleth, :all
+  alias shibboleth all
 
   def developer
     all

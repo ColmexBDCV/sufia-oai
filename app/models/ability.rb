@@ -1,6 +1,5 @@
 class Ability
   include Hydra::Ability
-  
   include CurationConcerns::Ability
   include Sufia::Ability
 
@@ -24,6 +23,5 @@ class Ability
       can [:create, :show, :add_user, :remove_user, :index, :edit, :update, :destroy], Role
       can [:create, :destroy], FeaturedCollection
     end
-
   end
 end

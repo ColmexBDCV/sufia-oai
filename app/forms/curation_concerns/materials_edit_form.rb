@@ -5,21 +5,13 @@ module CurationConcerns
     module ClassMethods
       def build_permitted_params
         permitted = super
-        permitted << { :materials_attributes => [:material_type, :material, :id, :_destroy] }
+        permitted << { materials_attributes: [:material_type, :material, :id, :_destroy] }
       end
     end
 
     included do
+      delegate :materials, :materials_attributes=, to: :model
       self.terms += [ :materials_attributes ]
     end
-
-    def materials_attributes= attributes
-      model.materials_attributes= attributes
-    end
-
-    def materials
-      model.materials
-    end
-
   end
 end

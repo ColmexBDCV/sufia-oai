@@ -23,7 +23,7 @@ module Sufia
         solr_document.send key
       end
     end
-    
+
     def display_feature_link?
       user_can_feature_collections? && solr_document.public? && FeaturedCollection.can_create_another? && !featured?
     end
@@ -31,17 +31,18 @@ module Sufia
     def display_unfeature_link?
       user_can_feature_collections? && solr_document.public? && featured?
     end
- 
-    private
-      def featured?
-        if @featured.nil?
-          @featured = FeaturedCollection.where(collection_id: solr_document.id).exists?
-        end
-        @featured
-      end
 
-      def user_can_feature_collections?
-        current_ability.can?(:create, FeaturedCollection)
+    private
+
+    def featured?
+      if @featured.nil?
+        @featured = FeaturedCollection.where(collection_id: solr_document.id).exists?
       end
+      @featured
+    end
+
+    def user_can_feature_collections?
+      current_ability.can?(:create, FeaturedCollection)
+    end
   end
 end

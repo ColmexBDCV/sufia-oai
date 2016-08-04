@@ -10,6 +10,5 @@ module CurationConcerns
     def self.reflect_on_association(association)
       ::GenericWork.reflect_on_association(association)
     end
-
   end
 end
