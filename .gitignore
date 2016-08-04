@@ -26,10 +26,6 @@
 .byebug_history
 dump.rdb
 
-# Ignore certain YAMLs
-config/handle_server.yml
-config/local_env.yml
-
 # OSX hidden files
 .DS_Store
 .AppleDouble

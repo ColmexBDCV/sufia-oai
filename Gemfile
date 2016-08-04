@@ -29,7 +29,7 @@ gem 'js-routes'
 
 gem 'handle-system'
 
-gem 'solr_wrapper', '~> 0.14.2'
+gem 'solr_wrapper', '~> 0.15'
 gem 'fcrepo_wrapper'
 
 group :development, :test do
