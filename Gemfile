@@ -16,7 +16,7 @@ gem 'awesome_nested_fields'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-gem 'sufia', '7.0.0.beta4'
+gem 'sufia', '7.0.0'
 gem 'active_fedora-noid', :git => 'https://github.com/projecthydra-labs/active_fedora-noid.git', ref: '8107a47121919ab250784b22e6ee7b066fa711db'
 gem 'rsolr', '~> 1.0'
 gem 'devise'
