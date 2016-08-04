@@ -5,21 +5,13 @@ module CurationConcerns
     module ClassMethods
       def build_permitted_params
         permitted = super
-        permitted << { :measurements_attributes => [:measurement, :measurement_unit, :measurement_type, :id, :_destroy] }
+        permitted << { measurements_attributes: [:measurement, :measurement_unit, :measurement_type, :id, :_destroy] }
       end
     end
 
     included do
+      delegate :measurements, :measurements_attributes=, to: :model
       self.terms += [ :measurements_attributes ]
     end
-
-    def measurements_attributes= attributes
-      model.measurements_attributes= attributes
-    end
-
-    def measurements
-      model.measurements
-    end
-      
   end
 end

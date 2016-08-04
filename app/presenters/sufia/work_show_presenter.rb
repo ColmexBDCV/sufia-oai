@@ -2,10 +2,11 @@ module Sufia
   class WorkShowPresenter < ::CurationConcerns::WorkShowPresenter
     # delegate fields from Sufia::Works::Metadata to solr_document
     delegate :based_near, :related_url, :depositor, :identifier, :resource_type,
-             :keyword, :itemtype, :alternative, :format, 
-             :handle, :preservation_level, :preservation_level_rationale, 
-             :provenance, :spatial, :staff_notes, :temporal, :work_type,
-             :material, :material_type, :measurement, :measurement_unit, :measurement_type, to: :solr_document
+             :keyword, :itemtype, :alternative, :format, :handle,
+             :preservation_level, :preservation_level_rationale, :provenance,
+             :spatial, :staff_notes, :temporal, :work_type, :material,
+             :material_type, :measurement, :measurement_unit, :measurement_type,
+             to: :solr_document
 
     def editor?
       current_ability.can?(:edit, solr_document)
@@ -34,15 +35,15 @@ module Sufia
 
     private
 
-      def featured?
-        if @featured.nil?
-          @featured = FeaturedWork.where(work_id: solr_document.id).exists?
-        end
-        @featured
+    def featured?
+      if @featured.nil?
+        @featured = FeaturedWork.where(work_id: solr_document.id).exists?
       end
+      @featured
+    end
 
-      def user_can_feature_works?
-        current_ability.can?(:create, FeaturedWork)
-      end
+    def user_can_feature_works?
+      current_ability.can?(:create, FeaturedWork)
+    end
   end
 end

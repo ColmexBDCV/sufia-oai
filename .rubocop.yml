@@ -58,6 +58,10 @@ Metrics/MethodLength:
   Enabled: true
   Max: 40
 
+Metrics/ClassLength:
+  Enabled: true
+  Max: 300
+
 ##################### Rails ##################################
 
 # Enables Rails cops.
