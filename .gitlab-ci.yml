@@ -1,7 +1,21 @@
 image: osul/centos7-ruby:2.3
 
-services:
-  - redis
+variables:
+  SOLR_CORE_NAME: "dcs-test"
+  SOLR_CONFIG_DIR: "solr/config"
+  SOLR_URL: "http://osul__solr:8983/solr/dcs-test"
+  FEDORA_URL: "http://osul__fedora:8080/fcrepo/rest"
+  REDIS_HOST: "redis"
+  REDIS_PORT: "6379"
+  HDL_HOME: "vendor/hsj/8.1.1"
+  HDL_KEY: "vendor/hsj/8.1.1/admpriv.bin"
+  HDL_PREFIX: "1811.1"
+  HDL_MINT: "true"
+
+cache:
+  paths:
+  - vendor/hsj/
+  - vendor/bundle/
 
 before_script:
   # Configure SSH deployment key inside docker image
@@ -12,31 +26,26 @@ before_script:
   - '[[ -f /.dockerinit ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
 
   # Setup the environment
-  - gem install bundler
-  - touch log/application.log
-  - touch log/test.log
-  - bundle install --jobs $(nproc) --path=/cache/bundler
-  - cp config/handle_server.yml.sample config/handle_server.yml
-  - cp ./.env.example ./.env
-  - if [ ! -d /cache/hsj-8.1.1/ ]; then git clone git@code.osu.edu:osul-ads/hsj-8.1.1.git /cache/hsj-8.1.1; fi
+  - bundle install --deployment --jobs $(nproc)
+  - if [ ! -d vendor/hsj/8.1.1/ ]; then git clone git@code.osu.edu:osul-ads/hsj-8.1.1.git vendor/hsj/8.1.1; fi
   - mkdir ~/.handle
   - echo "140.254.87.133 10.0.0.168" > ~/.handle/local_addresses
-  - echo "$REDIS_TEST_CONFIG" > config/redis.yml
-  - echo "$FCREPO_WRAPPER_TEST" > config/fcrepo_wrapper_test.yml
-  - echo "$SOLR_WRAPPER_TEST" > config/solr_wrapper_test.yml
-
-  # remove the instance directories every time we test
-  - rm -rf /cache/solr-test/*
-  - rm -rf /cache/fcrepo4-test-data/*
-
-  # Gitlab needs them to exist before the runner can use them.
-  - mkdir -p /cache/solr-test
-  - mkdir -p /cache/fcrepo4-test-data
-
-  # Set up environment
-  - bundle exec rake db:create RAILS_ENV=test
-  - RAILS_ENV=test bundle exec rake db:reset
+  - bundle exec rake db:schema:load
+  - bundle exec rake db:test:prepare
 
 rspec:
+  services:
+    - redis
+    - osul/fedora:4.5.1
+    - osul/solr:6.1
   script:
     - xvfb-run -a bundle exec rake spec
+
+rubocop:
+  cache:
+    paths:
+    - vendor/bundle/
+  before_script:
+    - bundle install --deployment --jobs $(nproc)
+  script:
+    - bundle exec rubocop

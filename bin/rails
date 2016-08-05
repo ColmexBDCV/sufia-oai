@@ -1,4 +1,11 @@
 #!/usr/bin/env ruby
+
+# Start code coverage analysis is in test environment
+if ENV['RAILS_ENV'] == 'test'
+  require 'simplecov'
+  puts "Simplecov started"
+end
+
 begin
   load File.expand_path('../spring', __FILE__)
 rescue LoadError => e
