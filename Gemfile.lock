@@ -1,13 +1,3 @@
-GIT
-  remote: https://github.com/projecthydra-labs/active_fedora-noid.git
-  revision: 8107a47121919ab250784b22e6ee7b066fa711db
-  ref: 8107a47121919ab250784b22e6ee7b066fa711db
-  specs:
-    active_fedora-noid (2.0.0.beta1)
-      active-fedora (>= 9.7, < 11)
-      noid (~> 0.9)
-      rails (~> 4.2.6)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -51,6 +41,10 @@ GEM
     active_attr (0.9.0)
       activemodel (>= 3.0.2, < 5.1)
       activesupport (>= 3.0.2, < 5.1)
+    active_fedora-noid (2.0.0.beta1)
+      active-fedora (>= 9.7, < 11)
+      noid (~> 0.9)
+      rails (~> 4.2.6)
     activejob (4.2.6)
       activesupport (= 4.2.6)
       globalid (>= 0.3.0)
@@ -213,6 +207,7 @@ GEM
     devise-guests (0.5.0)
       devise
     diff-lcs (1.2.5)
+    docile (1.1.5)
     dotenv (2.1.1)
     dotenv-rails (2.1.1)
       dotenv (= 2.1.1)
@@ -613,6 +608,11 @@ GEM
     simple_form (3.1.1)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
+    simplecov (0.11.2)
+      docile (~> 1.1.0)
+      json (~> 1.8)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
     sinatra (1.4.7)
       rack (~> 1.5)
       rack-protection (~> 1.4)
@@ -730,7 +730,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_fedora-noid!
   awesome_nested_fields
   byebug
   capistrano (~> 3.5.0)
@@ -764,6 +763,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   shoulda-matchers (~> 3.1)
   sidekiq
+  simplecov
   sinatra
   solr_wrapper (~> 0.15)
   spring

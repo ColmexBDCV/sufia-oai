@@ -17,7 +17,6 @@ gem 'awesome_nested_fields'
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'sufia', '7.0.0'
-gem 'active_fedora-noid', :git => 'https://github.com/projecthydra-labs/active_fedora-noid.git', ref: '8107a47121919ab250784b22e6ee7b066fa711db'
 gem 'rsolr', '~> 1.0'
 gem 'devise'
 gem 'devise-guests', '~> 0.3'
@@ -55,4 +54,5 @@ group :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'shoulda-matchers', '~> 3.1'
+  gem 'simplecov', require: false
 end
