@@ -42,6 +42,9 @@ rspec:
     - xvfb-run -a bundle exec rake spec
 
 rubocop:
+  cache:
+    paths:
+    - vendor/bundle/
   before_script:
     - bundle install --deployment --jobs $(nproc)
   script:
