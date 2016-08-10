@@ -4,7 +4,7 @@ variables:
   SOLR_CORE_NAME: "dcs-test"
   SOLR_CONFIG_DIR: "solr/config"
   SOLR_URL: "http://osul__solr:8983/solr/dcs-test"
-  FEDORA_URL: "http://osul__fedora:8080/fcrepo/rest"
+  FEDORA_URL: "http://osul__fcrepo:8080/fcrepo/rest"
   REDIS_HOST: "redis"
   REDIS_PORT: "6379"
   HDL_HOME: "vendor/hsj/8.1.1"
@@ -36,7 +36,7 @@ before_script:
 rspec:
   services:
     - redis
-    - osul/fedora:4.5.1
+    - osul/fcrepo:4.5.1
     - osul/solr:6.1
   script:
     - xvfb-run -a bundle exec rake spec
