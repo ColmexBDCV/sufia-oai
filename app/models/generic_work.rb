@@ -58,4 +58,23 @@ class GenericWork < ActiveFedora::Base
   property :handle, predicate: ::RDF::Vocab::Identifiers.hdl do |index|
     index.as :stored_searchable, :facetable
   end
+
+  def to_solr
+    result = super
+    measurement_hash = {"measurement_tesim" => [], "measurement_sim" => []}
+    self.measurements.each do |m|
+      measurement = m.measurement.to_s + " " + m.measurement_type + " " + m.measurement_unit
+      measurement_hash["measurement_tesim"] << measurement
+      measurement_hash["measurement_sim"] << measurement
+    end
+    material_hash = {"material_tesim" => [], "material_sim" => []}
+    self.materials.each do |m|
+      material = m.material.to_s + ", " + m.material_type.to_s
+      material_hash["material_tesim"] << material
+      material_hash["material_sim"] << material
+    end
+    result = result.merge(material_hash)
+    result = result.merge(measurement_hash)
+  end
+
 end
