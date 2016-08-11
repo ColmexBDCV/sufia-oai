@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160811192625) do
+ActiveRecord::Schema.define(version: 20160811194524) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "user_id",       null: false
@@ -217,6 +217,18 @@ ActiveRecord::Schema.define(version: 20160811192625) do
 
   add_index "mailboxer_receipts", ["notification_id"], name: "index_mailboxer_receipts_on_notification_id"
   add_index "mailboxer_receipts", ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type"
+
+  create_table "memberships", force: :cascade do |t|
+    t.integer  "unit_id"
+    t.integer  "user_id"
+    t.string   "level",      null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "memberships", ["level"], name: "index_memberships_on_level"
+  add_index "memberships", ["unit_id"], name: "index_memberships_on_unit_id"
+  add_index "memberships", ["user_id"], name: "index_memberships_on_user_id"
 
   create_table "proxy_deposit_requests", force: :cascade do |t|
     t.string   "work_id",                               null: false

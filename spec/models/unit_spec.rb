@@ -5,4 +5,9 @@ RSpec.describe Unit, type: :model do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_presence_of(:key) }
   end
+
+  describe "associations" do
+    it { is_expected.to have_many(:memberships).dependent(:destroy) }
+    it { is_expected.to have_many(:members) }
+  end
 end

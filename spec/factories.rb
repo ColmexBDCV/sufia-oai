@@ -18,6 +18,12 @@ FactoryGirl.define do
     password 'password'
   end
 
+  factory :membership do
+    unit
+    user
+    level "MyString"
+  end
+
   factory :auth_hash, class: OmniAuth::AuthHash do
     skip_create
 
