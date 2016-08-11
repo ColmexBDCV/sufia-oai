@@ -1,4 +1,9 @@
 FactoryGirl.define do
+  factory :unit do
+    name "My Unit"
+    key "myunit"
+  end
+
   factory :featured_collection do
   end
 
