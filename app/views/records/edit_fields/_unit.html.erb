@@ -1,0 +1,1 @@
+<%= f.input :unit, as: :select, collection: Unit.all.map{|unit| [unit.name, unit.key]}, include_blank: false, item_helper: method(:include_current_value), input_html: { class: 'form-control'} %>

@@ -15,6 +15,11 @@ class GenericWork < ActiveFedora::Base
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []
   validates :title, presence: { message: 'Your work must have a title.' }
+  validates :unit, presence: { message: 'Your work must belong to a unit.'}
+
+  property :unit, predicate: ::RDF::URI.new('https://library.osu.edu/ns#unit'), multiple: false do |index|
+    index.as :stored_searchable
+  end
 
   property :staff_notes, predicate: ::RDF::URI.new("https://library.osu.edu/ns#StaffNotes"), multiple: true do |index|
     index.type :text

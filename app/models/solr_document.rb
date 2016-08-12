@@ -10,6 +10,10 @@ class SolrDocument
 
   # self.unique_key = 'id'
 
+  def unit
+    self[Solrizer.solr_name('unit')]
+  end
+
   def alternative
     self[Solrizer.solr_name('alternative')]
   end
