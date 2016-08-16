@@ -8,44 +8,41 @@ class SolrDocument
   # Adds Sufia behaviors to the SolrDocument.
   include Sufia::SolrDocumentBehavior
 
-
-
   # self.unique_key = 'id'
-
 
   def alternative
     self[Solrizer.solr_name('alternative')]
   end
 
-  def format 
+  def format
     self[Solrizer.solr_name('format')]
   end
 
-  def handle 
+  def handle
     self[Solrizer.solr_name('handle')]
   end
 
-  def preservation_level 
+  def preservation_level
     self[Solrizer.solr_name('preservation_level')]
   end
 
-  def preservation_level_rationale 
+  def preservation_level_rationale
     self[Solrizer.solr_name('preservation_level_rationale')]
   end
 
-  def provenance 
+  def provenance
     self[Solrizer.solr_name('provenance')]
   end
 
-  def spatial 
+  def spatial
     self[Solrizer.solr_name('spatial')]
   end
 
-  def staff_notes 
+  def staff_notes
     self[Solrizer.solr_name('staff_notes')]
   end
 
-  def temporal 
+  def temporal
     self[Solrizer.solr_name('temporal')]
   end
 
@@ -72,6 +69,7 @@ class SolrDocument
   def measurement_type
     self[Solrizer.solr_name('measurement_type')]
   end
+
   # Email uses the semantic field mappings below to generate the body of an email.
   SolrDocument.use_extension(Blacklight::Document::Email)
 
@@ -85,7 +83,6 @@ class SolrDocument
   # Recommendation: Use field names from Dublin Core
   use_extension(Blacklight::Document::DublinCore)
 
-  # Do content negotiation for AF models. 
-
+  # Do content negotiation for AF models.
   use_extension( Hydra::ContentNegotiation )
 end

@@ -1,0 +1,15 @@
+default: &default
+  mint: <%= ENV['HDL_MINT'].present? ? true : false %>
+  prefix: <%= ENV['HDL_PREFIX'] || 1234 %>
+  index: 300
+  admin_priv_key: <%= ENV['HDL_KEY'] || "tmp/hdl/admpriv.bin" %>
+  url: <%= ENV['HDL_URL'] || "http://localhost:3000/concern/generic_works/" %>
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default

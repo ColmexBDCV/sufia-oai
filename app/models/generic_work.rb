@@ -15,7 +15,7 @@ class GenericWork < ActiveFedora::Base
   # Change this to restrict which works can be added as a child.
   # self.valid_child_concerns = []
   validates :title, presence: { message: 'Your work must have a title.' }
-  
+
   property :staff_notes, predicate: ::RDF::URI.new("https://library.osu.edu/ns#StaffNotes"), multiple: true do |index|
     index.type :text
   end
@@ -44,7 +44,7 @@ class GenericWork < ActiveFedora::Base
   property :work_type, predicate: ::RDF::URI.new('http://purl.org/vra/Work'), multiple: true do |index|
     index.as :stored_searchable, :facetable
   end
-      
+
   # ::RDF::URI.new("http://www.loc.gov/standards/premis/v2/premis-v2-3.xsd#preservationLevelValue")
   property :preservation_level, predicate: ::RDF::Vocab::PREMIS.PreservationLevel, multiple: false do |index|
     index.as :stored_searchable, :facetable
@@ -57,6 +57,24 @@ class GenericWork < ActiveFedora::Base
 
   property :handle, predicate: ::RDF::Vocab::Identifiers.hdl do |index|
     index.as :stored_searchable, :facetable
+  end
+
+  def to_solr
+    result = super
+    measurement_hash = {"measurement_tesim" => [], "measurement_sim" => []}
+    self.measurements.each do |m|
+      measurement = m.measurement.to_s + " " + m.measurement_type + " " + m.measurement_unit
+      measurement_hash["measurement_tesim"] << measurement
+      measurement_hash["measurement_sim"] << measurement
+    end
+    material_hash = {"material_tesim" => [], "material_sim" => []}
+    self.materials.each do |m|
+      material = m.material.to_s + ", " + m.material_type.to_s
+      material_hash["material_tesim"] << material
+      material_hash["material_sim"] << material
+    end
+    result = result.merge(material_hash)
+    result = result.merge(measurement_hash)
   end
 
 end

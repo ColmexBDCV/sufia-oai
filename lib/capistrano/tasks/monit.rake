@@ -10,14 +10,11 @@ end
 
 namespace :deploy do
   before :starting, :check_monit_hooks do
-    if fetch(:monit_default_hooks)
-      invoke 'monit:add_default_hooks'
-    end
+    invoke 'monit:add_default_hooks' if fetch(:monit_default_hooks)
   end
 end
 
 namespace :monit do
-
   task :add_default_hooks do
     before 'deploy:updating',  'monit:stop'
     after  'deploy:published', 'monit:start'
@@ -63,5 +60,4 @@ namespace :monit do
   def use_sudo?
     fetch(:monit_use_sudo)
   end
-
 end

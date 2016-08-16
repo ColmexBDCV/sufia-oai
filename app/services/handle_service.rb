@@ -1,7 +1,6 @@
 require 'handle'
 
 class HandleService
-
   def initialize(generic_file)
     @generic_file = generic_file
 
@@ -24,52 +23,52 @@ class HandleService
     @generic_file.handle
   end
 
-
+  # Begin private methods
   private
-    def minting_disabled?
-      ! @mint_handles
+
+  def minting_disabled?
+    !@mint_handles
+  end
+
+  def handle_needed?
+    @generic_file.handle.blank? && file_is_visible? # && file_has_no_active_imports?
+  end
+
+  def create_handle!
+    # Create handle string
+    handle = "#{@prefix}/#{SecureRandom.uuid}"
+
+    begin
+      # Set up an authenticated connection
+      conn = Handle::Connection.new("0.NA/#{@prefix}", @index, @admpriv, '')
+
+      # Create an empty record
+      record = conn.create_record(handle)
+
+      # add field
+      url =  "#{@url}#{@generic_file.id}"
+      record.add(:URL, url).index = 2
+      record << Handle::Field::HSAdmin.new("0.NA/#{@prefix}")
+
+      # Manipulate permissions
+      record.last.perms.public_read = false
+
+      record.save
+      @generic_file.handle = [handle]
+      @generic_file.save
+      Rails.logger.info "The handle #{handle} was successfully created for file #{@generic_file.id}"
+
+    rescue Handle::HandleError => e
+      Rails.logger.error "ERROR! A new handle could not be minted for file #{@generic_file.id}. The exception was:"
+      Rails.logger.error "#{e.class}: #{e.message}"
     end
+  end
 
-    def handle_needed?
-      @generic_file.handle.blank? and file_is_visible? # and file_has_no_active_imports?
-    end
+  def file_is_visible?
+    @generic_file.visibility != Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
+  end
 
-    def create_handle!
-      # Create handle string
-      handle = "#{@prefix}/#{SecureRandom.uuid}"
-
-      begin
-        # Set up an authenticated connection
-        conn = Handle::Connection.new("0.NA/#{@prefix}", @index, @admpriv, '')
-
-        # Create an empty record
-        record = conn.create_record(handle)
-
-        # add field
-        url =  "#{@url}#{@generic_file.id}"
-        record.add(:URL, url).index = 2
-        record << Handle::Field::HSAdmin.new("0.NA/#{@prefix}")
-
-        # Manipulate permissions
-        record.last.perms.public_read = false
-
-        record.save
-        @generic_file.handle = [handle]
-        @generic_file.save
-        Rails.logger.info "The handle #{handle} was successfully created for file #{@generic_file.id}"
-
-      rescue Handle::HandleError => e
-        Rails.logger.error "ERROR! A new handle could not be minted for file #{@generic_file.id}. The exception was:"
-        Rails.logger.error "#{e.class}: #{e.message}"
-      end
-    end
-
-    def file_is_visible?
-      @generic_file.visibility != Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
-    end
-
-    def file_has_no_active_imports?
-      Import.with_imported_file(@generic_file).where.not(status: Import.statuses[:final]).empty?
-    end
-
+  def file_has_no_active_imports?
+    Import.with_imported_file(@generic_file).where.not(status: Import.statuses[:final]).empty?
+  end
 end

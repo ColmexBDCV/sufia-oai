@@ -1,13 +1,3 @@
-GIT
-  remote: https://github.com/projecthydra-labs/active_fedora-noid.git
-  revision: 8107a47121919ab250784b22e6ee7b066fa711db
-  ref: 8107a47121919ab250784b22e6ee7b066fa711db
-  specs:
-    active_fedora-noid (2.0.0.beta1)
-      active-fedora (>= 9.7, < 11)
-      noid (~> 0.9)
-      rails (~> 4.2.6)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -51,6 +41,10 @@ GEM
     active_attr (0.9.0)
       activemodel (>= 3.0.2, < 5.1)
       activesupport (>= 3.0.2, < 5.1)
+    active_fedora-noid (2.0.0.beta1)
+      active-fedora (>= 9.7, < 11)
+      noid (~> 0.9)
+      rails (~> 4.2.6)
     activejob (4.2.6)
       activesupport (= 4.2.6)
       globalid (>= 0.3.0)
@@ -63,10 +57,6 @@ GEM
       arel (~> 6.0)
     activerecord-import (0.15.0)
       activerecord (>= 3.2)
-    activeresource (4.1.0)
-      activemodel (~> 4.0)
-      activesupport (~> 4.0)
-      rails-observers (~> 0.1.2)
     activesupport (4.2.6)
       i18n (~> 0.7)
       json (~> 1.7, >= 1.7.7)
@@ -77,6 +67,8 @@ GEM
     addressable (2.3.8)
     airbrussh (1.0.2)
       sshkit (>= 1.6.1, != 1.7.0)
+    almond-rails (0.0.3)
+      rails (>= 4.2, < 6)
     arel (6.0.3)
     ast (2.3.0)
     autoparse (0.3.3)
@@ -111,8 +103,8 @@ GEM
       blacklight (~> 6.0)
       cancancan (~> 1.8)
       deprecation (~> 1.0)
-    blacklight-gallery (0.5.0)
-      blacklight (> 6.0.0.pre, < 7)
+    blacklight-gallery (0.6.1)
+      blacklight (~> 6.3)
       bootstrap-sass (~> 3.0)
       openseadragon (>= 0.2.0)
       rails
@@ -125,7 +117,7 @@ GEM
       sass (>= 3.3.4)
     bootstrap_form (2.4.0)
     breadcrumbs_on_rails (2.3.1)
-    browse-everything (0.10.2)
+    browse-everything (0.10.3)
       bootstrap-sass
       dropbox-sdk (>= 1.6.2)
       font-awesome-rails
@@ -168,6 +160,7 @@ GEM
       json (>= 1.7)
       mime-types (>= 1.16)
       mimemagic (>= 0.3.0)
+    clipboard-rails (1.5.10)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.1.x)
@@ -177,7 +170,7 @@ GEM
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.2)
     connection_pool (2.2.0)
-    curation_concerns (1.1.0)
+    curation_concerns (1.3.0)
       active_attr
       active_fedora-noid (~> 2.0.0.beta1)
       awesome_nested_set (~> 3.0)
@@ -185,6 +178,7 @@ GEM
       blacklight_advanced_search (~> 6.0)
       breadcrumbs_on_rails (~> 2.3)
       browse-everything (~> 0.10)
+      clipboard-rails (~> 1.5)
       deprecation (~> 1.0)
       hydra-editor (>= 2, < 4)
       hydra-head (>= 10.0.0, < 11)
@@ -213,6 +207,7 @@ GEM
     devise-guests (0.5.0)
       devise
     diff-lcs (1.2.5)
+    docile (1.1.5)
     dotenv (2.1.1)
     dotenv-rails (2.1.1)
       dotenv (= 2.1.1)
@@ -240,8 +235,6 @@ GEM
       jquery-rails
     font-awesome-rails (4.6.3.1)
       railties (>= 3.2, < 5.1)
-    foreigner (1.7.4)
-      activerecord (>= 3.0.0)
     foreman (0.82.0)
       thor (~> 0.19.1)
     globalid (0.3.6)
@@ -275,18 +268,18 @@ GEM
     handle-system (0.1.1)
     hashie (3.4.4)
     highline (1.7.8)
+    hiredis (0.6.1)
     htmlentities (4.3.4)
     httmultiparty (0.3.16)
       httparty (>= 0.7.3)
       mimemagic
       multipart-post
     http_logger (0.5.1)
-    httparty (0.13.7)
-      json (~> 1.8)
+    httparty (0.14.0)
       multi_xml (>= 0.5.2)
-    hydra-access-controls (10.0.1)
+    hydra-access-controls (10.0.2)
       active-fedora (>= 10.0.0.beta1, < 11)
-      activesupport (~> 4.0)
+      activesupport (>= 4, < 6)
       blacklight (>= 5.16)
       blacklight-access_controls (~> 0.5)
       cancancan (~> 1.8)
@@ -295,8 +288,8 @@ GEM
       blacklight
       curation_concerns (>= 0.12.0.pre2)
       rails
-    hydra-core (10.0.1)
-      hydra-access-controls (= 10.0.1)
+    hydra-core (10.0.2)
+      hydra-access-controls (= 10.0.2)
       rails (~> 4.0)
     hydra-derivatives (3.1.1)
       active-fedora (>= 9.0, < 11)
@@ -311,12 +304,12 @@ GEM
       simple_form (~> 3.1.0)
     hydra-file_characterization (0.3.3)
       activesupport (>= 3.0.0)
-    hydra-head (10.0.1)
-      hydra-access-controls (= 10.0.1)
-      hydra-core (= 10.0.1)
+    hydra-head (10.0.2)
+      hydra-access-controls (= 10.0.2)
+      hydra-core (= 10.0.2)
       rails (>= 3.2.6)
-    hydra-pcdm (0.8.0)
-      active-fedora (~> 10.0.0.beta2)
+    hydra-pcdm (0.8.1)
+      active-fedora (~> 10.0)
       mime-types (>= 1)
     hydra-role-management (0.2.2)
       blacklight
@@ -395,23 +388,22 @@ GEM
     mail_form (1.5.1)
       actionmailer (>= 3.2, < 5)
       activemodel (>= 3.2, < 5)
-    mailboxer (0.13.0)
+    mailboxer (0.14.0)
       carrierwave (>= 0.5.8)
-      foreigner (>= 0.9.1)
-      rails (>= 3.2.0)
+      rails (>= 4.2.0)
     memoist (0.14.0)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
     mime-types-data (3.2016.0521)
-    mimemagic (0.3.1)
+    mimemagic (0.3.2)
     mini_magick (4.5.1)
     mini_portile2 (2.1.0)
     minitest (5.9.0)
     multi_json (1.12.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    nest (1.1.2)
-      redis
+    nest (2.0.0)
+      redic
     net-http-persistent (2.9.4)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -441,7 +433,7 @@ GEM
       rack (>= 1.0, < 3)
     omniauth-shibboleth (1.2.1)
       omniauth (>= 1.0.0)
-    openseadragon (0.2.1)
+    openseadragon (0.3.0)
       rails (> 3.2.0)
     orm_adapter (0.5.0)
     os (0.9.6)
@@ -453,7 +445,7 @@ GEM
     pkg-config (1.1.7)
     posix-spawn (0.3.11)
     powerpack (0.1.1)
-    qa (0.7.0)
+    qa (0.8.0)
       activerecord-import
       deprecation
       faraday
@@ -483,8 +475,6 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.3)
       loofah (~> 2.0)
-    rails-observers (0.1.2)
-      activemodel (~> 4.0)
     rails_autolink (1.1.6)
       rails (> 3.1)
     railties (4.2.6)
@@ -547,6 +537,8 @@ GEM
       rdf (~> 1.99)
     rdoc (4.2.2)
       json (~> 1.4)
+    redic (1.5.0)
+      hiredis
     redis (3.3.0)
     redis-namespace (1.5.2)
       redis (~> 3.0, >= 3.0.4)
@@ -616,6 +608,11 @@ GEM
     simple_form (3.1.1)
       actionpack (~> 4.0)
       activemodel (~> 4.0)
+    simplecov (0.11.2)
+      docile (~> 1.1.0)
+      json (~> 1.8)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
     sinatra (1.4.7)
       rack (~> 1.5)
       rack-protection (~> 1.4)
@@ -626,7 +623,7 @@ GEM
       httparty (>= 0.11.0)
       oauth2 (>= 0.9.2)
     slop (4.3.0)
-    solr_wrapper (0.14.2)
+    solr_wrapper (0.15.0)
       faraday
       ruby-progressbar
       rubyzip
@@ -651,7 +648,7 @@ GEM
     sprockets (3.6.3)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
-    sprockets-es6 (0.9.0)
+    sprockets-es6 (0.9.1)
       babel-source (>= 5.8.11)
       babel-transpiler
       sprockets (>= 3.0.0)
@@ -664,13 +661,13 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     stomp (1.4.1)
-    sufia (7.0.0.beta4)
-      activeresource (~> 4.0)
+    sufia (7.0.0)
       acts_as_follower (>= 0.1.1, < 0.3)
+      almond-rails (~> 0.0.1)
       blacklight-gallery (~> 0.1)
-      browse-everything (~> 0.10)
+      browse-everything (>= 0.10.3)
       carrierwave (~> 0.9)
-      curation_concerns (>= 1.0.0.beta9, < 2)
+      curation_concerns (~> 1.1)
       daemons (~> 1.1)
       flot-rails (~> 0.0.6)
       font-awesome-rails (~> 4.2)
@@ -681,10 +678,11 @@ GEM
       legato (~> 0.3)
       mail_form (~> 1.5)
       mailboxer (~> 0.12)
-      nest (~> 1.1)
+      nest (~> 2.0)
       oauth
       oauth2 (~> 0.9)
       posix-spawn
+      qa (~> 0.8)
       redis-namespace (~> 1.5.2)
       select2-rails (~> 3.5.9)
       tinymce-rails (~> 4.1)
@@ -695,10 +693,10 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.5)
-    tinymce-rails (4.4.0)
+    tinymce-rails (4.4.1)
       railties (>= 3.1.1)
-    tinymce-rails-imageupload (4.0.16.beta)
-      railties (>= 3.2, < 5)
+    tinymce-rails-imageupload (4.0.17.beta)
+      railties (>= 3.2, < 6)
       tinymce-rails (~> 4.0)
     turbolinks (5.0.0)
       turbolinks-source (~> 5)
@@ -722,8 +720,8 @@ GEM
     xml-simple (1.1.5)
     xpath (2.0.0)
       nokogiri (~> 1.3)
-    yaml_db (0.3.0)
-      rails (>= 3.0, < 4.3)
+    yaml_db (0.4.0)
+      rails (>= 3.0, < 5.1)
       rake (>= 0.8.7)
     zeroclipboard-rails (0.0.13)
       railties (>= 3.1)
@@ -732,7 +730,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_fedora-noid!
   awesome_nested_fields
   byebug
   capistrano (~> 3.5.0)
@@ -766,11 +763,12 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   shoulda-matchers (~> 3.1)
   sidekiq
+  simplecov
   sinatra
-  solr_wrapper (~> 0.14.2)
+  solr_wrapper (~> 0.15)
   spring
   sqlite3
-  sufia (= 7.0.0.beta4)
+  sufia (= 7.0.0)
   turbolinks
   uglifier (>= 1.3.0)
   web-console (~> 2.0)

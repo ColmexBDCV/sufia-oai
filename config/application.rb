@@ -11,11 +11,9 @@ Dotenv::Railtie.load
 
 module Dcs
   class Application < Rails::Application
-
     config.generators do |g|
-      g.test_framework :rspec, :spec => true
+      g.test_framework :rspec, spec: true
     end
-
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -31,13 +29,5 @@ module Dcs
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
-
-    config.active_job.queue_adapter = :sidekiq
-
-    # Add local_env.yml
-    env_file = File.join(Rails.root, 'config', 'local_env.yml')
-    YAML.load(File.open(env_file)).each do |key, value|
-    ENV[key.to_s] = value
-    end if File.exists?(env_file)
   end
 end
