@@ -16,7 +16,7 @@
 //= require turbolinks
 //= require blacklight/blacklight
 //= require jquery.nested-fields
-
+//= require cocoon
 //= require sufia
 //= require_tree .
 

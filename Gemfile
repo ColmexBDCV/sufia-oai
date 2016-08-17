@@ -25,6 +25,7 @@ gem 'omniauth-shibboleth'
 gem 'pg'
 gem 'js-routes'
 gem 'simple_form'
+gem 'cocoon'
 gem 'handle-system'
 
 gem 'solr_wrapper', '~> 0.15'

@@ -1,0 +1,5 @@
+<div class="nested-fields">
+  <%= f.input :user_id, collection: User.all, include_blank: "Please select a user", input_html: { class: 'form-control select2-field' } %>
+  <%= f.input :level %>
+  <%= link_to_remove_association "remove member", f %>
+</div>

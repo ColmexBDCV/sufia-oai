@@ -71,7 +71,7 @@ class UnitsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def create_params
     params.require(:unit).permit(:name, :description, :contact_info, :key,
-      memberships_attributes: [:user_id, :level])
+      memberships_attributes: [:id, :user_id, :level, :_destroy])
   end
 
   def update_params
