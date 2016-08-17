@@ -16,12 +16,16 @@ FactoryGirl.define do
   factory :user do
     email 'test@example.com'
     password 'password'
+
+    factory :admin_user do
+      admin true
+    end
   end
 
   factory :membership do
     unit
     user
-    level "MyString"
+    level "Manager"
   end
 
   factory :auth_hash, class: OmniAuth::AuthHash do

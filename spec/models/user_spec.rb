@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   describe "modules" do
     it { is_expected.to include_module(Hydra::User) }
-    it { is_expected.to include_module(Hydra::RoleManagement::UserRoles) }
     it { is_expected.to include_module(CurationConcerns::User) }
     it { is_expected.to include_module(Sufia::User) }
     it { is_expected.to include_module(Sufia::UserUsageStats) }
@@ -20,6 +19,18 @@ RSpec.describe User, type: :model do
 
     it 'returns the user email' do
       expect(user.to_s).to eq user.email
+    end
+  end
+
+  describe '#admin?' do
+    it 'returns true when the user is an admin' do
+      user = build(:admin_user)
+      expect(user.admin?).to be true
+    end
+
+    it 'returns false when the user is not an admin' do
+      user = build(:user)
+      expect(user.admin?).to be false
     end
   end
 

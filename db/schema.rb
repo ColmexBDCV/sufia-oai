@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160811194524) do
+ActiveRecord::Schema.define(version: 20160817163804) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "user_id",       null: false
@@ -255,18 +255,6 @@ ActiveRecord::Schema.define(version: 20160811194524) do
   add_index "proxy_deposit_rights", ["grantee_id"], name: "index_proxy_deposit_rights_on_grantee_id"
   add_index "proxy_deposit_rights", ["grantor_id"], name: "index_proxy_deposit_rights_on_grantor_id"
 
-  create_table "roles", force: :cascade do |t|
-    t.string "name"
-  end
-
-  create_table "roles_users", id: false, force: :cascade do |t|
-    t.integer "role_id"
-    t.integer "user_id"
-  end
-
-  add_index "roles_users", ["role_id", "user_id"], name: "index_roles_users_on_role_id_and_user_id"
-  add_index "roles_users", ["user_id", "role_id"], name: "index_roles_users_on_user_id_and_role_id"
-
   create_table "searches", force: :cascade do |t|
     t.text     "query_params"
     t.integer  "user_id"
@@ -378,8 +366,10 @@ ActiveRecord::Schema.define(version: 20160811194524) do
     t.string   "arkivo_subscription"
     t.binary   "zotero_token"
     t.string   "zotero_userid"
+    t.boolean  "admin",                  default: false
   end
 
+  add_index "users", ["admin"], name: "index_users_on_admin"
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 

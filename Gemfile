@@ -22,7 +22,6 @@ gem 'devise'
 gem 'devise-guests', '~> 0.3'
 gem 'omniauth'
 gem 'omniauth-shibboleth'
-gem 'hydra-role-management'
 gem 'pg'
 gem 'js-routes'
 

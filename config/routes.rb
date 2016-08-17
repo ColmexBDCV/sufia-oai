@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   end
 
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
-  mount Hydra::RoleManagement::Engine => '/'
 
   mount CurationConcerns::Engine, at: '/'
   resources :welcome, only: 'index'
@@ -36,7 +35,7 @@ Rails.application.routes.draw do
   Hydra::BatchEdit.add_routes(self)
 
   resources :units do
-    resources :memberships, only: [:create, :update, :delete]
+    resources :memberships, only: [:create, :update, :destroy]
   end
 
   authenticate :user, -> (u) { u.admin? } do

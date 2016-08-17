@@ -1,5 +1,5 @@
 class UnitsController < ApplicationController
-  before_action :set_unit, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /units
   # GET /units.json
@@ -25,7 +25,7 @@ class UnitsController < ApplicationController
   # POST /units
   # POST /units.json
   def create
-    @unit = Unit.new(unit_params)
+    @unit = Unit.new(create_params)
 
     respond_to do |format|
       if @unit.save
@@ -42,7 +42,7 @@ class UnitsController < ApplicationController
   # PATCH/PUT /units/1.json
   def update
     respond_to do |format|
-      if @unit.update(unit_params)
+      if @unit.update(update_params)
         format.html { redirect_to @unit, notice: 'Unit was successfully updated.' }
         format.json { render :show, status: :ok, location: @unit }
       else
@@ -69,7 +69,11 @@ class UnitsController < ApplicationController
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
-  def unit_params
+  def create_params
     params.require(:unit).permit(:name, :description, :contact_info, :key)
+  end
+
+  def update_params
+    create_params.except(:key)
   end
 end

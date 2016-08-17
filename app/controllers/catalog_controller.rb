@@ -116,7 +116,7 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("measurement", :stored_searchable), label: "Measurement"
     config.add_show_field solr_name("measurement_unit", :stored_searchable), label: "Measurement Unit"
     config.add_show_field solr_name("measurement_type", :stored_searchable), label: "Measurement Type"
-    config.add_show_field solr_name("unit", :stored_searchable), label: "Unit" 
+    config.add_show_field solr_name("unit", :stored_searchable), label: "Unit"
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
     #
