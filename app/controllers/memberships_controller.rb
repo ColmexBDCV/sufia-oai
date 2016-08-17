@@ -1,5 +1,5 @@
 class MembershipsController < ApplicationController
-  before_action :set_membership, only: [:update, :destroy]
+  load_and_authorize_resource
   before_action :set_unit
 
   # POST /units/:unit_id/memberships
