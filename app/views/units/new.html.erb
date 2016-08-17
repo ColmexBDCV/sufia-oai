@@ -2,11 +2,11 @@
 
 <h1 class="page-header">Create new unit</h1>
 
-<%= bootstrap_form_for @unit do |f| %>
-  <%= f.text_field :name, label: "Unit name" %>
-  <%= f.text_field :key, label: "Unit key", help: "Short identifier ofr this unit. Only A-Z, a-z, and 0-9 are allowed" %>
-  <%= f.text_area :description %>
-  <%= f.text_area :contact_info %>
+<%= simple_form_for @unit do |f| %>
+  <%= f.input :name, label: "Unit name" %>
+  <%= f.input :key, label: "Unit key", help: "Short identifier ofr this unit. Only A-Z, a-z, and 0-9 are allowed" %>
+  <%= f.input :description %>
+  <%= f.input :contact_info %>
   <%= f.submit "Create" %>
   <%= link_to "Cancel", units_path, :class => 'btn btn-link' %>
 <% end %>

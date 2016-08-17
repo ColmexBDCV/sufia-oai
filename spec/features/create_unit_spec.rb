@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature 'Create a Unit' do
   context 'as a logged in user' do
-    let(:user) { create(:user) }
+    let(:user) { create(:admin_user) }
 
     before do
       login_as user

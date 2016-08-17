@@ -34,9 +34,8 @@ Rails.application.routes.draw do
 
   Hydra::BatchEdit.add_routes(self)
 
-  resources :units do
-    resources :memberships, only: [:create, :update, :destroy]
-  end
+  resources :units
+  resources :memberships, only: :destroy
 
   authenticate :user, -> (u) { u.admin? } do
     mount Sidekiq::Web => '/jobs'

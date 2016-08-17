@@ -15,7 +15,5 @@
  *= require_self
  */
 
-label.required:after {content: " *"; color: red;}
-
 .form-control .select2-choice {height:34px; line-height:34px;}
 .form-control .select2-choice .select2-arrow b {background-position:0 5px;}

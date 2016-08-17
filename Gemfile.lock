@@ -757,6 +757,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   shoulda-matchers (~> 3.1)
   sidekiq
+  simple_form
   simplecov
   sinatra
   solr_wrapper (~> 0.15)

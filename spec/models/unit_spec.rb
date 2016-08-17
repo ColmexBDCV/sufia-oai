@@ -9,5 +9,6 @@ RSpec.describe Unit, type: :model do
   describe "associations" do
     it { is_expected.to have_many(:memberships).dependent(:destroy) }
     it { is_expected.to have_many(:members) }
+    it { is_expected.to accept_nested_attributes_for(:memberships) }
   end
 end

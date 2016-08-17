@@ -2,44 +2,4 @@
 
 <h1 class="page-header">Edit <%= @unit.name %></h1>
 
-<div class="row">
-  <div class="col-md-6">
-    <div class="panel panel-default">
-      <div class="panel-heading"><strong>Unit information</strong></div>
-      <div class="panel-body">
-        <%= bootstrap_form_for @unit do |f| %>
-          <%= f.text_field :name, label: "Unit name" %>
-          <%= f.text_area :description %>
-          <%= f.text_area :contact_info %>
-          <%= f.submit "Update" %>
-          <%= link_to "Cancel", unit_path(@unit), :class => 'btn btn-link' %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-6">
-    <div class="panel panel-default">
-      <div class="panel-heading"><strong>Members</strong></div>
-      <div class="panel-body">
-        <%= bootstrap_form_for [@unit, @membership] do |f| %>
-          <%= f.collection_select :user_id, User.all, :id, :name, {prompt: true}, {control_class: 'form-control select2-field'} %>
-          <%= f.text_field :level %>
-          <%= f.submit "Add" %>
-        <% end %>
-        <ul class="list-unstyled">
-          <% if @unit.memberships.each do |membership| %>
-            <li>
-              <%= mail_to membership.user.email, membership.user.name %>
-              <span class="pull-right">
-                <%= membership.level %>
-              </span>
-            </li>
-          <% end.empty? %>
-            <li>This unit has no members.</li>
-          <% end %>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+<%= render 'form' %>
