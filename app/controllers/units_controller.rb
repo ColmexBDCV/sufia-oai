@@ -19,6 +19,7 @@ class UnitsController < ApplicationController
 
   # GET /units/1/edit
   def edit
+    @membership = Membership.new(unit: @unit)
   end
 
   # POST /units

@@ -9,9 +9,13 @@
  * compiled file so the styles you add here take precedence over styles defined in any styles
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
- *= osu_navbar-resp 
+ *= osu_navbar-resp
  *= require_tree .
+ *= require select2-bootstrap
  *= require_self
  */
 
- label.required:after {content: " *"; color: red;}
+label.required:after {content: " *"; color: red;}
+
+.form-control .select2-choice {height:34px; line-height:34px;}
+.form-control .select2-choice .select2-arrow b {background-position:0 5px;}

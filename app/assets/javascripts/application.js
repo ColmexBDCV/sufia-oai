@@ -23,6 +23,8 @@
 var ready = function() {
   $('#material-fields').nestedFields();
   $('#measurement-fields').nestedFields();
+
+  $('.select2-field').select2();
 };
 
 $(document).on('turbolinks:load', ready);
