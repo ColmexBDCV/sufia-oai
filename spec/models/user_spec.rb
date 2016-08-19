@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   describe "modules" do
     it { is_expected.to include_module(Hydra::User) }
-    it { is_expected.to include_module(Hydra::RoleManagement::UserRoles) }
     it { is_expected.to include_module(CurationConcerns::User) }
     it { is_expected.to include_module(Sufia::User) }
     it { is_expected.to include_module(Sufia::UserUsageStats) }

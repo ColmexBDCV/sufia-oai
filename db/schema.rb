@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160729184229) do
+ActiveRecord::Schema.define(version: 20160817163804) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "user_id",       null: false
@@ -218,6 +218,18 @@ ActiveRecord::Schema.define(version: 20160729184229) do
   add_index "mailboxer_receipts", ["notification_id"], name: "index_mailboxer_receipts_on_notification_id"
   add_index "mailboxer_receipts", ["receiver_id", "receiver_type"], name: "index_mailboxer_receipts_on_receiver_id_and_receiver_type"
 
+  create_table "memberships", force: :cascade do |t|
+    t.integer  "unit_id"
+    t.integer  "user_id"
+    t.string   "level",      null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "memberships", ["level"], name: "index_memberships_on_level"
+  add_index "memberships", ["unit_id"], name: "index_memberships_on_unit_id"
+  add_index "memberships", ["user_id"], name: "index_memberships_on_user_id"
+
   create_table "proxy_deposit_requests", force: :cascade do |t|
     t.string   "work_id",                               null: false
     t.integer  "sending_user_id",                       null: false
@@ -242,18 +254,6 @@ ActiveRecord::Schema.define(version: 20160729184229) do
 
   add_index "proxy_deposit_rights", ["grantee_id"], name: "index_proxy_deposit_rights_on_grantee_id"
   add_index "proxy_deposit_rights", ["grantor_id"], name: "index_proxy_deposit_rights_on_grantor_id"
-
-  create_table "roles", force: :cascade do |t|
-    t.string "name"
-  end
-
-  create_table "roles_users", id: false, force: :cascade do |t|
-    t.integer "role_id"
-    t.integer "user_id"
-  end
-
-  add_index "roles_users", ["role_id", "user_id"], name: "index_roles_users_on_role_id_and_user_id"
-  add_index "roles_users", ["user_id", "role_id"], name: "index_roles_users_on_user_id_and_role_id"
 
   create_table "searches", force: :cascade do |t|
     t.text     "query_params"
@@ -294,6 +294,17 @@ ActiveRecord::Schema.define(version: 20160729184229) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "units", force: :cascade do |t|
+    t.string   "name",         null: false
+    t.text     "description"
+    t.text     "contact_info"
+    t.string   "key",          null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "units", ["key"], name: "index_units_on_key"
 
   create_table "uploaded_files", force: :cascade do |t|
     t.string   "file"
@@ -355,8 +366,10 @@ ActiveRecord::Schema.define(version: 20160729184229) do
     t.string   "arkivo_subscription"
     t.binary   "zotero_token"
     t.string   "zotero_userid"
+    t.boolean  "admin",                  default: false
   end
 
+  add_index "users", ["admin"], name: "index_users_on_admin"
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 

@@ -1,6 +1,5 @@
 class User < ActiveRecord::Base
   include Hydra::User
-  include Hydra::RoleManagement::UserRoles
   include CurationConcerns::User
   include Sufia::User
   include Sufia::UserUsageStats

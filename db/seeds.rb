@@ -8,7 +8,6 @@
 
 #Create role and admin user for site
 puts "Creating admin role and user: test@example.com with passsword: password"
-u = User.create(email: "test@example.com", password: "password", password_confirmation: "password")
-r = Role.create name: "admin"
+u = User.create(email: "test@example.com", password: "password", password_confirmation: "password", admin: true)
 r.users << u
 r.save
