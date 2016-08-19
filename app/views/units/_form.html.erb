@@ -21,7 +21,9 @@
             <%= render "membership_fields", :f => membership %>
           <% end %>
           <div class="links">
-            <%= link_to_add_association 'add member', f, :memberships %>
+            <%= link_to_add_association f, :memberships, class: "btn btn-success" do %>
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <% end %>
           </div>
         </div>
       </div>
