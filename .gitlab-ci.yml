@@ -7,10 +7,6 @@ variables:
   FEDORA_URL: "http://osul__fcrepo:8080/fcrepo/rest"
   REDIS_HOST: "redis"
   REDIS_PORT: "6379"
-  HDL_HOME: "vendor/hsj/8.1.1"
-  HDL_KEY: "vendor/hsj/8.1.1/admpriv.bin"
-  HDL_PREFIX: "1811.1"
-  HDL_MINT: "true"
 
 cache:
   paths:
@@ -18,18 +14,12 @@ cache:
   - vendor/bundle/
 
 before_script:
-  # Configure SSH deployment key inside docker image
-  - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
-  - eval $(ssh-agent -s)
-  - ssh-add <(echo "$SSH_PRIVATE_KEY")
-  - mkdir -p ~/.ssh
-  - '[[ -f /.dockerinit ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-
   # Setup the environment
-  - bundle install --deployment --jobs $(nproc)
-  - if [ ! -d vendor/hsj/8.1.1/ ]; then git clone git@code.osu.edu:osul-ads/hsj-8.1.1.git vendor/hsj/8.1.1; fi
+  - if [ ! -d vendor/hsj/8.1.1/ ]; then mkdir -p vendor/hsj/8.1.1 && curl -fSL https://www.handle.net/hnr-source/hsj-8.1.1.tar.gz && tar xzf hsj-8.1.1.tar.gz -C vendor/hsj/8.1.1 --strip-components=1; fi
   - mkdir ~/.handle
-  - echo "140.254.87.133 10.0.0.168" > ~/.handle/local_addresses
+  - cp spec/support/hdl/resolver_site ~/.handle
+  - echo "*" > ~/.handle/local_nas
+  - bundle install --deployment --jobs $(nproc)
   - bundle exec rake db:schema:load
   - bundle exec rake db:test:prepare
 
@@ -38,6 +28,7 @@ rspec:
     - redis
     - osul/fcrepo:4.5.1
     - osul/solr:6.1
+    - osul/handle:8.1.1
   script:
     - xvfb-run -a bundle exec rake spec
 

@@ -7,13 +7,14 @@ Prerequisites
 -------------
 
 The following dependencies must be installed to develop this application.
-  
-  * [Ruby](2) 2.3 with [Bundler](3)
-  * [Redis](4), a key-value store
-  * [ImageMagick](5) with JPEG-2000 support
-  * [FITS](6) 0.8.x (0.8.5 is known to be good)
-  * [LibreOffice](7)
-  * [Ghostscript](8) (may be required if not bundled with LibreOffice)
+
+  * [Ruby][2] 2.3 with [Bundler][3]
+  * [Redis][4], a key-value store
+  * [ImageMagick][5] with JPEG-2000 support
+  * [FITS][6] 0.8.x (0.8.5 is known to be good)
+  * [LibreOffice][7]
+  * [Ghostscript][8] (may be required if not bundled with LibreOffice)
+  * [Handle.Net Software][9] 8.1.1
 
 While not required, OS X users may find the [Homebrew](9) package manager
 helpful to manage dependency installation.
@@ -49,6 +50,12 @@ You may also require [ghostscript](8) if it does not come with your compiled
 version LibreOffice. `brew install ghostscript` should resolve the dependency on
 a Mac.
 
+### Handle System
+
+  1. [Download a copy of the Handle.Net Software](https://www.handle.net/download_hnr.html)
+     (see above to pick a known working version) and unpack it somewhere on your
+     machine.
+
 ### Production
 
 When deploying to production, be sure to install Monit. You will need to create
@@ -74,10 +81,15 @@ Create the development SQLite database and load the schema:
 
 Create a `.env` file to hold environment variables for this application. This
 file will be loaded each time the server is started. See `.env.example` for
-details. Specifically, you should set `FITS_PATH` to the full file system path
-to fits.sh (see above) and `LIBREOFFICE_PATH` if needed.
+details.
 
     $ cp .env.example .env
+
+Specifically, you should set:
+
+  * `FITS_PATH` - the full file system path to fits.sh
+  * `LIBREOFFICE_PATH` - the full path to `soffice` (if needed)
+  * `HDL_HOME` - path to directory containing the Handle.Net software
 
 Next, you will need to start Solr and Fedora manually to download and configure
 their dependencies. Run each of the commands below, wait for the service to
@@ -126,7 +138,8 @@ open a Rails console to set up admin access:
 [5]: http://www.imagemagick.org/script/index.php
 [6]: http://projects.iq.harvard.edu/fits/
 [7]: https://www.libreoffice.org
-[8]: http://www.ghostscript.com/
-[9]: http://brew.sh
-[10]: https://github.com/postmodern/chruby
-[11]: https://rvm.io
+[8]: https://www.handle.net/
+[9]: http://www.ghostscript.com/
+[10]: http://brew.sh
+[11]: https://github.com/postmodern/chruby
+[12]: https://rvm.io
