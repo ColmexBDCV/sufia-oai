@@ -22,10 +22,10 @@ gem 'devise'
 gem 'devise-guests', '~> 0.3'
 gem 'omniauth'
 gem 'omniauth-shibboleth'
-gem 'hydra-role-management'
 gem 'pg'
 gem 'js-routes'
-
+gem 'simple_form'
+gem 'cocoon'
 gem 'handle-system'
 
 gem 'solr_wrapper', '~> 0.15'

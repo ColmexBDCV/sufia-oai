@@ -86,6 +86,7 @@ class CatalogController < ApplicationController
     # config.add_index_field solr_name("rights", :stored_searchable), label: "Rights", helper_method: :rights_statement_links
     # config.add_index_field solr_name("resource_type", :stored_searchable), label: "Resource Type", link_to_search: solr_name("resource_type", :facetable)
     # config.add_index_field solr_name("file_format", :stored_searchable), label: "File Format", link_to_search: solr_name("file_format", :facetable)
+    config.add_index_field solr_name("unit", :stored_searchable), label: "Unit"
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
@@ -116,6 +117,7 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("measurement", :stored_searchable), label: "Measurement"
     config.add_show_field solr_name("measurement_unit", :stored_searchable), label: "Measurement Unit"
     config.add_show_field solr_name("measurement_type", :stored_searchable), label: "Measurement Type"
+    config.add_show_field solr_name("unit", :stored_searchable), label: "Unit"
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
     #

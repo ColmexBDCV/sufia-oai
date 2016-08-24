@@ -10,6 +10,8 @@ RSpec.describe User, type: :model do
 
   describe "associations" do
     it { is_expected.to have_many(:identities).dependent(:destroy) }
+    it { is_expected.to have_many(:memberships).dependent(:destroy) }
+    it { is_expected.to have_many(:units) }
   end
 
   describe '#to_s' do
@@ -17,6 +19,18 @@ RSpec.describe User, type: :model do
 
     it 'returns the user email' do
       expect(user.to_s).to eq user.email
+    end
+  end
+
+  describe '#admin?' do
+    it 'returns true when the user is an admin' do
+      user = build(:admin_user)
+      expect(user.admin?).to be true
+    end
+
+    it 'returns false when the user is not an admin' do
+      user = build(:user)
+      expect(user.admin?).to be false
     end
   end
 

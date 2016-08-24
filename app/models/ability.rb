@@ -20,8 +20,9 @@ class Ability
     # end
 
     if current_user.admin?
-      can [:create, :show, :add_user, :remove_user, :index, :edit, :update, :destroy], Role
       can [:create, :destroy], FeaturedCollection
+      can :manage, Unit
+      can :manage, Membership
     end
   end
 end

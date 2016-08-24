@@ -115,7 +115,6 @@ GEM
     bootstrap-sass (3.3.6)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
-    bootstrap_form (2.4.0)
     breadcrumbs_on_rails (2.3.1)
     browse-everything (0.10.3)
       bootstrap-sass
@@ -161,6 +160,7 @@ GEM
       mime-types (>= 1.16)
       mimemagic (>= 0.3.0)
     clipboard-rails (1.5.10)
+    cocoon (1.2.9)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.1.x)
@@ -311,10 +311,6 @@ GEM
     hydra-pcdm (0.8.1)
       active-fedora (~> 10.0)
       mime-types (>= 1)
-    hydra-role-management (0.2.2)
-      blacklight
-      bootstrap_form
-      cancancan
     hydra-works (0.12.0)
       hydra-derivatives (~> 3.0)
       hydra-file_characterization (~> 0.3, >= 0.3.3)
@@ -736,6 +732,7 @@ DEPENDENCIES
   capistrano-rails
   capistrano-rvm
   capybara
+  cocoon
   coffee-rails (~> 4.1.0)
   database_cleaner
   devise
@@ -746,7 +743,6 @@ DEPENDENCIES
   foreman
   handle-system
   highline
-  hydra-role-management
   jbuilder (~> 2.0)
   jquery-rails
   js-routes
@@ -763,6 +759,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   shoulda-matchers (~> 3.1)
   sidekiq
+  simple_form
   simplecov
   sinatra
   solr_wrapper (~> 0.15)
