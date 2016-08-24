@@ -32,6 +32,23 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :import_field_mappings
+    resources :imports do
+      member do
+        post 'start'
+        post 'undo'
+        post 'resume'
+        post 'finalize'
+        get 'report'
+        get 'image_preview/:row', controller: 'imports', action: :image_preview, as: 'image_preview'
+        get 'row-preview/:row_num', controller: 'imports', action: :row_preview, as: 'row_preview'
+      end
+
+      collection do
+        post 'browse'
+      end
+    end
+
   Hydra::BatchEdit.add_routes(self)
 
   resources :units
