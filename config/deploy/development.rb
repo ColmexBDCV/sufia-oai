@@ -9,3 +9,4 @@ role :db,     %w(rails@lib-wit3rub-v02.lib.ohio-state.edu)
 # ======================
 
 set :rails_env, 'production'
+set :assets_prefix, 'dcs/assets'
