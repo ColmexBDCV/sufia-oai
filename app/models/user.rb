@@ -8,6 +8,11 @@ class User < ActiveRecord::Base
   has_many :memberships, dependent: :destroy
   has_many :units, through: :memberships
 
+  # TODO: This needs a real implementation
+  def groups
+    []
+  end
+
   if Blacklight::Utils.needs_attr_accessible?
     attr_accessible :email, :password, :password_confirmation
   end
