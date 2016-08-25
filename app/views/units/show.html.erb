@@ -11,6 +11,9 @@
       <dt>Contact Info</dt>
       <dd><%= @unit.contact_info %></dd>
 
+      <dt>Unit Image</dt>
+      <dd><%= image_tag @unit.image.url(:medium) %></dd>
+
       <%= link_to "Edit", edit_unit_path(@unit), class: "btn btn-primary" %>
     </dl>
   </div>

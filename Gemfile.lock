@@ -159,7 +159,11 @@ GEM
       json (>= 1.7)
       mime-types (>= 1.16)
       mimemagic (>= 0.3.0)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
     clipboard-rails (1.5.10)
+    cocaine (0.5.8)
+      climate_control (>= 0.0.3, < 1.0)
     cocoon (1.2.9)
     coffee-rails (4.1.1)
       coffee-script (>= 2.2.0)
@@ -433,6 +437,12 @@ GEM
       rails (> 3.2.0)
     orm_adapter (0.5.0)
     os (0.9.6)
+    paperclip (5.0.0)
+      activemodel (>= 4.2.0)
+      activesupport (>= 4.2.0)
+      cocaine (~> 0.5.5)
+      mime-types
+      mimemagic (~> 0.3.0)
     parser (2.3.1.2)
       ast (~> 2.2)
     parslet (1.7.1)
@@ -748,6 +758,7 @@ DEPENDENCIES
   js-routes
   omniauth
   omniauth-shibboleth
+  paperclip (~> 5.0.0)
   pg
   rails (= 4.2.6)
   rsolr (~> 1.0)

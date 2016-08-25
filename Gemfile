@@ -27,6 +27,7 @@ gem 'js-routes'
 gem 'simple_form'
 gem 'cocoon'
 gem 'handle-system'
+gem 'paperclip', '~> 5.0.0'
 
 gem 'solr_wrapper', '~> 0.15'
 gem 'fcrepo_wrapper'
