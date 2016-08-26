@@ -24,9 +24,9 @@ class ImportsController < ApplicationController
     path = @import.image_path_from_csv_row(params[:row].to_i)
 
     if File.file? path
-      send_file path, :disposition => 'inline'
+      send_file path, disposition: 'inline'
     else
-      send_file File.join(Rails.root,'app','assets','images','no-file.png'), :type => 'image/png', :disposition => 'inline'
+      send_file File.join(Rails.root, 'app', 'assets', 'images', 'no-file.png'), type: 'image/png', disposition: 'inline'
     end
   end
 
@@ -60,10 +60,10 @@ class ImportsController < ApplicationController
     path = root + "/" + @dir
 
     # Change to requested directory
-    Dir.chdir(File.expand_path(path).untaint);
+    Dir.chdir(File.expand_path(path).untaint)
 
     # Make sure we are still under the root path
-    if Dir.pwd[0,root.length] == root then
+    if Dir.pwd[ 0, root.length ] == root
       @directories = Dir.glob('*').select { |fn| File.directory?(fn) }
       render layout: false
     else
@@ -93,7 +93,7 @@ class ImportsController < ApplicationController
         ImportFieldMapping::KEYS.each do |key|
           ImportFieldMapping.create key: key, import: @import
         end
-        #create mapping for image filename separately
+        # create mapping for image filename separately
         ImportFieldMapping.create key: 'image_filename', import: @import
 
         format.html { redirect_to edit_import_path(@import), notice: 'Import was successfully created. Use the form below to create metadata field mappings.' }
@@ -109,9 +109,6 @@ class ImportsController < ApplicationController
   # PATCH/PUT /imports/1.json
   def update
     respond_to do |format|
-
-     # params[:import][:import_field_mappings_attributes].map[]
-      #byebug
       if @import.update(import_params)
 
         @import.validate_import_mappings if @import.is_editable?
@@ -137,27 +134,28 @@ class ImportsController < ApplicationController
 
   private
 
-    def admin_collection_list
-      @admin_collection_list = current_user.admin_sets.map{ |i| [i.title + ' - '+  i.unit, i.id ]}
-    end
+  def admin_collection_list
+    @admin_collection_list = current_user.admin_sets.map { |i| [i.title + ' - ' + i.unit, i.id ] }
+  end
 
-    def visibility_levels
-      @visibility_levels = {
-        'Private' => Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE,
-        "#{t('sufia.institution_name')}" => Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED,
-        "#{t('sufia.visibility.open')}" => Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
-      }
-    end
+  def visibility_levels
+    @visibility_levels = {
+      'Private' => Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE,
+      t('sufia.institution_name').to_s => Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_AUTHENTICATED,
+      t('sufia.visibility.open').to_s => Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
+    }
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def import_params
-      permitted_params = params.require(:import).permit(:user_id, :csv, :images, :name, :admin_collection_id, :includes_headers,
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def import_params
+    permitted_params = params.require(:import)
+                             .permit(:user_id, :csv, :images, :name, :admin_collection_id, :includes_headers,
                                      :server_import_location_name, :import_type, :rights, :preservation_level,
-                                     import_field_mappings_attributes: [:id, :key, {value: []}])
-      if can? :publish, GenericFile
-        permitted_params.merge! params.require(:import).permit(:visibility)
-      end
-
-      permitted_params
+                                     import_field_mappings_attributes: [:id, :key, { value: [] }])
+    if can? :publish, GenericFile
+      permitted_params.merge! params.require(:import).permit(:visibility)
     end
+
+    permitted_params
+  end
 end

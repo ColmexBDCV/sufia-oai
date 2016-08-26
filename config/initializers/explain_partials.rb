@@ -1,5 +1,5 @@
 # Start the app with EXPLAIN_PARTIALS=true to show locations of view partials
-if Rails.env.development? and ENV['EXPLAIN_PARTIALS']
+if Rails.env.development? && ENV['EXPLAIN_PARTIALS']
   module ActionView
     class PartialRenderer
       def render_with_explanation(*args)
@@ -7,11 +7,12 @@ if Rails.env.development? and ENV['EXPLAIN_PARTIALS']
         # Note: We haven't figured out how to get a path when @template is nil.
         start_explanation = "\n<!-- START PARTIAL #{@template.inspect} -->\n"
         end_explanation = "\n<!-- END PARTIAL #{@template.inspect} -->\n"
+        # rubocop:disable Rails/OutputSafety
         start_explanation.html_safe + rendered + end_explanation.html_safe
+        # rubocop:enable Rails/OutputSafety
       end
 
       alias_method_chain :render, :explanation
     end
   end
 end
-
