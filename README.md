@@ -63,7 +63,7 @@ installed. For OS X users, install via Homebrew:
 
     $ brew tap homebrew/versions
     $ brew install qt55
-    $ brew link --force qt5
+    $ brew link --force qt55
 
 ### Production
 
