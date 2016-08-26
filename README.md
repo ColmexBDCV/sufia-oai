@@ -56,6 +56,15 @@ a Mac.
      (see above to pick a known working version) and unpack it somewhere on your
      machine.
 
+### Tests
+
+To run RSpec feature tests, you will need a Qt version greater than 4.8
+installed. For OS X users, install via Homebrew:
+
+    $ brew tap homebrew/versions
+    $ brew install qt55
+    $ brew link --force qt5
+
 ### Production
 
 When deploying to production, be sure to install Monit. You will need to create
