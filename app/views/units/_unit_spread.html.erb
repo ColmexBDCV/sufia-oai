@@ -1,0 +1,15 @@
+<div class="row">
+  <% units.each do |unit| %>
+    <div class="col-sm-2 col-xs-6">
+      <%= link_to unit do %>
+        <div class="thumbnail">
+          <%= image_tag unit.image.url(:thumb), class: "media-object" %>
+          <div class="caption">
+            <h3 class="thumb-header"><%= unit.name %></h3>
+            <%= unit.description %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
