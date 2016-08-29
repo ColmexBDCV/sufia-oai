@@ -48,7 +48,7 @@ Sufia.config do |config|
   config.minter_statefile = ENV['MINTER_STATEFILE'] || '/tmp/minter-state'
 
   # Specify the prefix for Redis keys:
-  # config.redis_namespace = "sufia"
+  config.redis_namespace = "dcs"
 
   # Specify the path to the file characterization tool:
   config.fits_path = ENV['FITS_PATH'] || "fits.sh"
