@@ -16,7 +16,7 @@ cache:
 
 before_script:
   # Setup the environment
-  - if [ ! -f vendor/hsj/8.1.1/bin/hdl-genericbatch ]; then mkdir -p vendor/hsj/8.1.1 && curl -fSL https://www.handle.net/hnr-source/hsj-8.1.1.tar.gz && tar xzf hsj-8.1.1.tar.gz -C vendor/hsj/8.1.1 --strip-components=1; fi
+  - if [ ! -f vendor/hsj/8.1.1/bin/hdl-genericbatch ]; then mkdir -p vendor/hsj/8.1.1 && curl -fsL https://www.handle.net/hnr-source/hsj-8.1.1.tar.gz | tar xz -C vendor/hsj/8.1.1 --strip-components=1; fi
   - mkdir ~/.handle
   - cp spec/support/hdl/resolver_site ~/.handle
   - echo "*" > ~/.handle/local_nas
