@@ -3,6 +3,7 @@ class CatalogController < ApplicationController
   include Hydra::Controller::ControllerBehavior
   include Sufia::Catalog
   include BlacklightAdvancedSearch::Controller
+  include Hydra::PolicyAwareAccessControlsEnforcement
 
   # These before_filters apply the hydra access controls
   before_action :enforce_show_permissions, only: :show

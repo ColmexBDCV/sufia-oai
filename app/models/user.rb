@@ -6,11 +6,10 @@ class User < ActiveRecord::Base
 
   has_many :identities, dependent: :destroy
   has_many :memberships, dependent: :destroy
-  has_many :units, through: :memberships
+  has_many :units, -> { distinct }, through: :memberships
 
-  # TODO: This needs a real implementation
   def groups
-    []
+    units.each.collect { |u| u.key }
   end
 
   if Blacklight::Utils.needs_attr_accessible?

@@ -1,9 +1,7 @@
 class Ability
-  include Hydra::Ability
+  include Hydra::PolicyAwareAbility
   include CurationConcerns::Ability
   include Sufia::Ability
-
-  self.ability_logic += [:everyone_can_create_curation_concerns]
 
   # Define any customized permissions here.
   def custom_permissions
@@ -19,10 +17,15 @@ class Ability
     #   can [:create], ActiveFedora::Base
     # end
 
+    can :create, GenericWork if current_user.units.present?
+
+    can :read, Unit
+    can :manage, Unit, memberships: { user_id: current_user.id, level: 'Manager' }
+
     if current_user.admin?
       can [:create, :destroy], FeaturedCollection
       can :manage, Unit
-      can :manage, Membership
+      #can :manage, GenericWork
     end
   end
 end
