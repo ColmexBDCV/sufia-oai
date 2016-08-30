@@ -29,7 +29,7 @@ gem 'cocoon'
 gem 'handle-system'
 gem 'paperclip', '~> 5.0.0'
 
-gem 'solr_wrapper', '~> 0.15'
+gem 'solr_wrapper', '~> 0.16'
 gem 'fcrepo_wrapper'
 
 group :development, :test do
