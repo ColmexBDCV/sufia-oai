@@ -1,5 +1,4 @@
-
-  console.log("working");
+$(document).ready(function(){
 var random_number = Math.floor(Math.random()*(4-1+1)+1);
 var background_image = 'banner' + random_number + '.jpg';
 $('#home_header').css('background-image', 'url(image-path(' + background_image + '))');
@@ -13,9 +12,11 @@ $('.img_overlay').height(div_height);
 $('.img_overlay').css("bottom",div_height);
 
 $('div.overlay').mouseenter(function () {
+console.log("mouseenter");
 $('.img_overlay').show("slide",{ direction : "down" },150);
 });
 $('div.overlay').mouseleave(function () {
+console.log("mouseleave");
 $('.img_overlay').hide("slide",{direction : "down" },150);
 });
 
@@ -53,4 +54,5 @@ $('div.overlay_arch').mouseleave(function () {
 $('.img_overlay_arch').hide("slide",{direction : "down" },150);
 });
 
+});
 });
