@@ -5,17 +5,18 @@ module CurationConcerns
 
     self.curation_concern_type = GenericWork
 
+    before_action :authorize_unit, only: :create
+
     def new
       @units = Unit.where(key: current_user.groups)
       super
     end
 
-    # TODO - This is pretty hacky
-    def create
-      if attributes_for_actor['unit'].present? && current_user && ! current_user.admin?
-        raise ActionController::BadRequest unless current_user.groups.include? attributes_for_actor['unit']
-      end
-      super
+    private
+
+    def authorize_unit
+      unit = Unit.find_by key: attributes_for_actor['unit']
+      authorize! :curate, unit if unit.present?
     end
   end
 end

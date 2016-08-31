@@ -17,6 +17,7 @@ class GenericWork < ActiveFedora::Base
   # self.valid_child_concerns = []
   validates :title, presence: { message: 'Your work must have a title.' }
   validates :unit, presence: { message: 'Your work must belong to a unit.' }
+  validates :unit, inclusion: { in: ->(_obj) { Unit.pluck(:key) } }
 
   property :unit, predicate: ::RDF::URI.new('https://library.osu.edu/ns#unit'), multiple: false do |index|
     index.as :stored_searchable

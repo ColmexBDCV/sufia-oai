@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   has_many :units, -> { distinct }, through: :memberships
 
   def groups
-    units.each.collect { |u| u.key }
+    units.each.collect(&:key)
   end
 
   if Blacklight::Utils.needs_attr_accessible?
@@ -36,5 +36,9 @@ class User < ActiveRecord::Base
   # the account.
   def to_s
     email
+  end
+
+  def in_unit?
+    units.present?
   end
 end

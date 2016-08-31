@@ -5,27 +5,14 @@ class Ability
 
   # Define any customized permissions here.
   def custom_permissions
-    # Limits deleting objects to a the admin user
-    #
-    # if current_user.admin?
-    #   can [:destroy], ActiveFedora::Base
-    # end
+    can :create, GenericWork if current_user.in_unit?
 
-    # Limits creating new objects to a specific group
-    #
-    # if user_groups.include? 'special_group'
-    #   can [:create], ActiveFedora::Base
-    # end
-
-    can :create, GenericWork if current_user.units.present?
+    can :create, Collection if registered_user?
 
     can :read, Unit
-    can :manage, Unit, memberships: { user_id: current_user.id, level: 'Manager' }
+    can [:update, :curate], Unit, memberships: { user_id: current_user.id, level: 'Manager' }
+    can :curate, Unit, memberships: { user_id: current_user.id, level: 'DataEntry' }
 
-    if current_user.admin?
-      can [:create, :destroy], FeaturedCollection
-      can :manage, Unit
-      #can :manage, GenericWork
-    end
+    can :manage, :all if current_user.admin?
   end
 end
