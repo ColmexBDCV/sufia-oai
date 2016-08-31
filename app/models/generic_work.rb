@@ -7,6 +7,7 @@ class GenericWork < ActiveFedora::Base
 
   has_many :materials, class_name: "Osul::VRA::Material", predicate: ActiveFedora::RDF::Fcrepo::RelsExt.isPartOf
   has_many :measurements, class_name: "Osul::VRA::Measurement", predicate: ActiveFedora::RDF::Fcrepo::RelsExt.isPartOf
+  belongs_to :admin_policy, predicate: ActiveFedora::RDF::ProjectHydra.isGovernedBy
 
   accepts_nested_attributes_for :materials, allow_destroy: true
   accepts_nested_attributes_for :measurements, allow_destroy: true
@@ -16,6 +17,7 @@ class GenericWork < ActiveFedora::Base
   # self.valid_child_concerns = []
   validates :title, presence: { message: 'Your work must have a title.' }
   validates :unit, presence: { message: 'Your work must belong to a unit.' }
+  validates :unit, inclusion: { in: ->(_obj) { Unit.pluck(:key) } }
 
   property :unit, predicate: ::RDF::URI.new('https://library.osu.edu/ns#unit'), multiple: false do |index|
     index.as :stored_searchable

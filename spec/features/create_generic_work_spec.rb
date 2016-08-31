@@ -12,6 +12,7 @@ RSpec.feature 'Create a GenericWork' do
 
     scenario do
       unit = create(:unit)
+      create(:membership, unit: unit, user: user)
 
       visit new_curation_concerns_generic_work_path
       fill_in 'Title', with: 'Test GenericWork'
