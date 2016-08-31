@@ -1,4 +1,13 @@
 FactoryGirl.define do
+  factory :imported_record do
+    
+  end
+  factory :import do
+    
+  end
+  factory :import_field_mapping do
+    
+  end
   factory :unit do
     name "My Unit"
     key "myunit"

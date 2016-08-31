@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160825212817) do
+ActiveRecord::Schema.define(version: 20160830165840) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "user_id",       null: false
@@ -151,6 +151,21 @@ ActiveRecord::Schema.define(version: 20160825212817) do
 
   add_index "identities", ["provider", "uid"], name: "index_identities_on_provider_and_uid", unique: true
   add_index "identities", ["user_id"], name: "index_identities_on_user_id"
+
+  create_table "import_field_mappings", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "imported_records", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "imports", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "local_authorities", force: :cascade do |t|
     t.string "name"
