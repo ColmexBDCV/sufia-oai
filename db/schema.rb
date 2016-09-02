@@ -164,9 +164,15 @@ ActiveRecord::Schema.define(version: 20160902141743) do
 
   create_table "imports", force: :cascade do |t|
     t.string   "name"
-    t.boolean  "includes_headers",    default: true
-    t.integer  "status",              default: 0
+    t.boolean  "includes_headers",            default: true
+    t.integer  "status",                      default: 0
     t.integer  "user_id"
+    t.string   "admin_collection_id"
+    t.string   "server_import_location_name"
+    t.string   "import_type"
+    t.string   "rights"
+    t.string   "preservation_level"
+    t.string   "visibility"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "csv_file_name"
