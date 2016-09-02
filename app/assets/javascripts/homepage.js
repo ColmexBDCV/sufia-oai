@@ -1,7 +1,7 @@
 $(document).ready(function(){
-var random_number = Math.floor(Math.random()*(4-1+1)+1);
-var background_image = 'banner' + random_number + '.jpg';
-$('#home_header').css('background-image', 'url(image-path(' + background_image + '))');
+//var random_number = Math.floor(Math.random()*(4-1+1)+1);
+//var background_image = 'banner' + random_number + '.jpg';
+//$('#home_header').css('background-image', 'url(image-path(' + background_image + '))');
 
 $('img.image_overlay').ready(function() {
 var div_width = ($('img.image_overlay').width());

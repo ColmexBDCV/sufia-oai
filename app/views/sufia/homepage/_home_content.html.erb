@@ -1,31 +1,116 @@
 <%= render partial: "units/unit_spread", locals: { units: @units } %>
-<div class="col-md-3"></div>
-<div class="col-md-6 collections-header"><h2>The Collections</h2></div>
-<div class="col-md-3"></div>
+<!--<div class="col-md-3"></div>-->
+<div class="col-md-6 col-md-offset-3 collections-header"><h2>The Collections</h2></div>
+<!--<div class="col-md-3"></div>-->
 </div>
+<!--
+ * Full Screen
+ *
+ *-->
 <div class="collections row">
-<div class="col-md-4 collection-image">
-<h3 class="coll-title"><a class="coll-title-link" href="#">Billy Ireland Cartoon Library & Museum</a></h3>
-<div class="overlay">
-<img class="img-thumbnail image_overlay" src="<%= asset_path('billy-coll.jpg') %>" />
-<div class="img_overlay">
-<p class="collection_description">The Billy Ireland Cartoon Library & Museum houses the world’s largest collection of materials related to cartoons and comics, including original art, books, magazines, journals, comic books, archival materials, and newspaper comic strip pages and clippings. <p><button type="button" class="btn btn-success">Browse Collection</button></p></p></div>
+<div class="col-md-5 col-md-offset-1 hidden-xs hidden-sm hidden-md visible-lg">
+<div class="media">
+  <div class="media-left">
+    <a href="#"><img class="media-object img-thumbnail" src="<%= asset_path('billy-coll.jpg') %>"></a>
+  </div>
+  <div class="media-body">
+  <h3 class="media-heading">Billy Ireland Cartoon Library & Museum</h3>
+   <p>The Billy Ireland Cartoon Library & Museum houses the world’s largest collection of materials related to cartoons and comics, including original art, books, magazines, journals, comic books, archival materials, and newspaper comic strip pages and clippings.</p>
+  </div>
 </div>
 </div>
-<div class="col-md-4 collection-image">
-<h3 class="coll-title"><a class="coll-title-link" href="#">Byrd Polar and Climate Research Center</a></h3>
-<div class="overlay_byrd">
-<img class="img-thumbnail byrd" src="<%= asset_path('byrd-coll.jpg') %>" />
-<div class="img_overlay_byrd">
-<p class="collection_description">Named in honor of one of America's most famous explorers, Admiral Richard E. Byrd, the Byrd Polar and Climate Research Center of The Ohio State University is recognized internationally as a leader in polar and alpine research. The Center's research programs are conducted throughout the world.<p><button type="button" class="btn btn-success">Browse Collection</button></p></p></div>
+<div class="col-md-5 hidden-xs hidden-sm hidden-md visible-lg">
+<div class="media">
+  <div class="media-left">
+    <a href="#"><img class="media-object img-thumbnail" src="<%= asset_path('byrd-coll.jpg') %>"></a>
+  </div>
+  <div class="media-body">
+  <h3 class="media-heading">Byrd Polar and Climate Research Center</h3>
+    <p>Named in honor of one of America's most famous explorers, Admiral Richard E. Byrd, the Byrd Polar and Climate Research Center of The Ohio State University is recognized internationally as a leader in polar and alpine research. The Center's research programs are conducted throughout the world.</p>
+  </div>
 </div>
 </div>
-<div class="col-md-4 collection-image">
-<h3 class="coll-title"><a  class="coll-title-link" href="#">Ohio State University Archives</a></h3>
-<div class="overlay_arch">
-<img class="img-thumbnail arch" src="<%= asset_path('arch-coll.jpg') %>" />
-<div class="img_overlay_arch">
-<p class="collection_description">Established in 1965, The Ohio State University Archives serves as the official memory of the University. Since then, the Archives has collected more than 30,000 linear feet of manuscripts materials and roughly 2 million photos and other images to serve this purpose.<p><button type="button" class="btn btn-success">Browse Collection</button></p></p>
 </div>
+<div class="collections row hidden-xs hidden-sm hidden-md visible-lg">
+<div class="col-md-5 col-md-offset-1 hidden-xs hidden-sm hidden-md visible-lg">
+<div class="media">
+  <div class="media-left">
+    <a href="#"><img class="media-object img-thumbnail" src="<%= asset_path('arch-coll.jpg') %>"></a>
+  </div>
+  <div class="media-body">
+  <h3 class="media-heading">Ohio State University Archives</h3>
+    <p class="collection_description">Established in 1965, The Ohio State University Archives serves as the official memory of the University. Since then, the Archives has collected more than 30,000 linear feet of manuscripts materials and roughly 2 million photos and other images to serve this purpose.<p>
+  </div>
+</div>
+</div>
+</div>
+<!--
+  *
+  * Tablet Display
+  *
+  *-->
+<div class="collections row">
+<div class="col-md-10 col-md-offset-1 hidden-xs hidden-sm hidden-lg visible-md">
+<div class="media">
+  <div class="media-left">
+    <a href="#"><img class="media-object img-thumbnail" src="<%= asset_path('billy-coll.jpg') %>"></a>
+  </div>
+  <div class="media-body">
+  <h3 class="media-heading">Billy Ireland Cartoon Library & Museum</h3>
+   <p>The Billy Ireland Cartoon Library & Museum houses the world’s largest collection of materials related to cartoons and comics, including original art, books, magazines, journals, comic books, archival materials, and newspaper comic strip pages and clippings.</p>
+  </div>
+</div>
+</div>
+</div>
+<div class="collections row hidden-xs hidden-sm hidden-lg visible-md">
+<div class="col-md-10 col-md-offset-1 hidden-xs hidden-sm hidden-lg visible-md">
+<div class="media">
+  <div class="media-left">
+    <a href="#"><img class="media-object img-thumbnail" src="<%= asset_path('byrd-coll.jpg') %>"></a>
+  </div>
+  <div class="media-body">
+  <h3 class="media-heading">Byrd Polar and Climate Research Center</h3>
+    <p>Named in honor of one of America's most famous explorers, Admiral Richard E. Byrd, the Byrd Polar and Climate Research Center of The Ohio State University is recognized internationally as a leader in polar and alpine research. The Center's research programs are conducted throughout the world.</p>
+  </div>
+</div>
+</div>
+</div>
+<div class="collections row hidden-xs hidden-sm hidden-lg visible-md">
+<div class="col-md-10 col-md-offset-1 hidden-xs hidden-sm hidden-lg visible-md">
+<div class="media">
+  <div class="media-left">
+    <a href="#"><img class="media-object img-thumbnail" src="<%= asset_path('arch-coll.jpg') %>"></a>
+  </div>
+  <div class="media-body">
+  <h3 class="media-heading">Ohio State University Archives</h3>
+    <p class="collection_description">Established in 1965, The Ohio State University Archives serves as the official memory of the University. Since then, the Archives has collected more than 30,000 linear feet of manuscripts materials and roughly 2 million photos and other images to serve this purpose.<p>
+  </div>
+</div>
+</div>
+</div>
+<!--
+ * Mobile Display
+ *
+ * -->
+<div class="collections row">
+<div class="col-md-4 collection-image hidden-md hidden-lg">
+  <h3 class="coll-title"><a class="coll-title-link" href="#">Billy Ireland Cartoon Library & Museum</a></h3>
+    <img class="img-thumbnail" src="<%= asset_path('billy-coll.jpg') %>" />
+    <p class="small_paragraph hidden-xs">The Billy Ireland Cartoon Library & Museum houses the world’s largest collection of materials related to cartoons and comics, including original art, books, magazines, journals, comic books, archival materials, and newspaper comic strip pages and clippings.</p>
+    <p class="xs_paragraph hidden-sm hidden-md hidden-lg visible-xs">The Billy Ireland Cartoon Library & Museum houses the world’s largest collection of materials related to cartoons and comics, including original art, books, magazines, journals, comic books, archival materials, and newspaper comic strip pages and clippings.</p> <p><button type="button" class="btn btn-success">Browse Collection</button></p>
+</div>
+<div class="col-md-4 collection-image hidden-md hidden-lg">
+  <h3 class="coll-title"><a class="coll-title-link" href="#">Byrd Polar and Climate Research Center</a></h3>
+    <img class="img-thumbnail" src="<%= asset_path('byrd-coll.jpg') %>" />
+    <p class="small_paragraph hidden-xs">Named in honor of one of America's most famous explorers, Admiral Richard E. Byrd, the Byrd Polar and Climate Research Center of The Ohio State University is recognized internationally as a leader in polar and alpine research. The Center's research programs are conducted throughout the world.</p>
+    <p class="xs_paragraph hidden-sm hidden-md hidden-lg visible-xs">Named in honor of one of America's most famous explorers, Admiral Richard E. Byrd, the Byrd Polar and Climate Research Center of The Ohio State University is recognized internationally as a leader in polar and alpine research. The Center's research programs are conducted throughout the world.</p>
+    <p><button type="button" class="btn btn-success">Browse Collection</button></p>
+</div>
+<div class="col-md-4 collection-image hidden-md hidden-lg">
+   <h3 class="coll-title"><a  class="coll-title-link" href="#">Ohio State University Archives</a></h3>
+    <img class="img-thumbnail arch" src="<%= asset_path('arch-coll.jpg') %>" />
+    <p class="small_paragraph hidden-xs">Established in 1965, The Ohio State University Archives serves as the official memory of the University. Since then, the Archives has collected more than 30,000 linear feet of manuscripts materials and roughly 2 million photos and other images to serve this purpose.</p>
+    <p class="xs_paragraph hidden-sm hidden-md hidden-lg visible-xs">Established in 1965, The Ohio State University Archives serves as the official memory of the University. Since then, the Archives has collected more than 30,000 linear feet of manuscripts materials and roughly 2 million photos and other images to serve this purpose.</p>
+    <p><button type="button" class="btn btn-success">Browse Collection</button></p>
 </div>
 </div>
