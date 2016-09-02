@@ -1,6 +1,9 @@
 class ImportsController < ApplicationController
   load_and_authorize_resource
 
+  before_action :admin_collection_list, only: [:new, :create, :edit, :update]
+  before_action :visibility_levels, only: [:new, :create, :edit, :update]
+
   # GET /imports
   # GET /imports.json
   def index
@@ -137,7 +140,7 @@ class ImportsController < ApplicationController
   private
 
   def admin_collection_list
-    @admin_collection_list = current_user.admin_sets.map { |i| [i.title + ' - ' + i.unit, i.id ] }
+    @admin_collection_list = current_user.units.map { |i| [ i.name ] }
   end
 
   def visibility_levels
@@ -154,7 +157,7 @@ class ImportsController < ApplicationController
                              .permit(:user_id, :csv, :images, :name, :admin_collection_id, :includes_headers,
                                      :server_import_location_name, :import_type, :rights, :preservation_level,
                                      import_field_mappings_attributes: [:id, :key, { value: [] }])
-    if can? :publish, GenericFile
+    if can? :publish, GenericWork
       permitted_params.merge! params.require(:import).permit(:visibility)
     end
 

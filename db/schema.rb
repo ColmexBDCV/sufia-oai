@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160830165840) do
+ActiveRecord::Schema.define(version: 20160902141743) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "user_id",       null: false
@@ -163,9 +163,23 @@ ActiveRecord::Schema.define(version: 20160830165840) do
   end
 
   create_table "imports", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name"
+    t.boolean  "includes_headers",    default: true
+    t.integer  "status",              default: 0
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "csv_file_name"
+    t.string   "csv_content_type"
+    t.integer  "csv_file_size"
+    t.datetime "csv_updated_at"
+    t.string   "images_file_name"
+    t.string   "images_content_type"
+    t.integer  "images_file_size"
+    t.datetime "images_updated_at"
   end
+
+  add_index "imports", ["user_id"], name: "index_imports_on_user_id"
 
   create_table "local_authorities", force: :cascade do |t|
     t.string "name"
