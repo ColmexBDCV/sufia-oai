@@ -14,7 +14,7 @@
       <dt>Unit Image</dt>
       <dd><%= image_tag @unit.image.url(:medium) %></dd>
 
-      <%= link_to "Edit", edit_unit_path(@unit), class: "btn btn-primary" %>
+      <%= link_to "Edit", edit_unit_path(@unit), class: "btn btn-primary" if can? :edit, @unit %>
     </dl>
   </div>
 
@@ -24,7 +24,7 @@
       <div class="panel-body">
         <ul class="list-unstyled">
           <% if @unit.memberships.each do |membership| %>
-            <li><%= mail_to membership.user.email, membership.user.name %> - <%= membership.level %></li>
+            <li><%= mail_to membership.user.email, membership.user.name %> - <%= membership.level.titleize %></li>
           <% end.empty? %>
             <li>This unit has no members.</li>
           <% end %>

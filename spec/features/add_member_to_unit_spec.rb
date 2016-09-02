@@ -13,7 +13,7 @@ RSpec.feature 'Add member to Unit' do
       visit edit_unit_path(unit)
       click_link 'Add member to unit'
       select user.name, from: 'User'
-      fill_in 'Level', with: 'Manager'
+      select 'Manager', from: 'Level'
       click_button 'Update Unit'
 
       expect(page).to have_content user.name

@@ -1,4 +1,7 @@
 <%= render partial: "units/unit_spread", locals: { units: @units } %>
+<% @units.each do |unit| %>
+    <%= render partial: "units/unit_overlay", locals: {unit: unit} %>
+  <% end %>
 <!--<div class="col-md-3"></div>-->
 <div class="col-md-6 col-md-offset-3 collections-header"><h2>The Collections</h2></div>
 <!--<div class="col-md-3"></div>-->
@@ -112,5 +115,4 @@
     <p class="small_paragraph hidden-xs">Established in 1965, The Ohio State University Archives serves as the official memory of the University. Since then, the Archives has collected more than 30,000 linear feet of manuscripts materials and roughly 2 million photos and other images to serve this purpose.</p>
     <p class="xs_paragraph hidden-sm hidden-md hidden-lg visible-xs">Established in 1965, The Ohio State University Archives serves as the official memory of the University. Since then, the Archives has collected more than 30,000 linear feet of manuscripts materials and roughly 2 million photos and other images to serve this purpose.</p>
     <p><button type="button" class="btn btn-success">Browse Collection</button></p>
-</div>
 </div>

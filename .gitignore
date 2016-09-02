@@ -22,7 +22,7 @@
 /public/uploads
 /spec/examples.txt
 /coverage
-
+/public/system/*
 # Ignore history and dump files
 .byebug_history
 dump.rdb

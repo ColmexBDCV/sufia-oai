@@ -7,6 +7,7 @@
   <%= f.input :key, label: "Unit key", help: "Short identifier ofr this unit. Only A-Z, a-z, and 0-9 are allowed" %>
   <%= f.input :description %>
   <%= f.input :contact_info %>
+  <%= f.input :image, as: :file %>
   <%= f.submit "Create" %>
   <%= link_to "Cancel", units_path, :class => 'btn btn-link' %>
 <% end %>
