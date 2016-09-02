@@ -1,14 +1,11 @@
-<div class="col-md-4 collection-image">
-  <h3 class="coll-title">
-    <%= link_to unit.name, unit, class: "coll-title-link" %>
-  </h3>
-  <div class="overlay">
-    <%= image_tag unit.image.url(:landing), class: "img-thumbnail image_overlay" %>
-    <div class="img_overlay">
-      <p class="collection_description">
-         <%= unit.description %>
-      </p>
-      <p><%= link_to "Browse Collection", unit, class: "btn btn-success btn-collection" %></p>
+<div class="col-lg-5 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-4">
+  <div class="media">
+    <div class="media-left">
+      <%= image_tag unit.image.url(:landing), class: "img-thumbnail media-object" %>
+    </div>
+    <div class="media-body">
+      <h3 class="media-heading"><%= link_to unit.name, unit, class: "coll-title-link" %></h3>
+      <p><%= unit.description %></p>
     </div>
   </div>
 </div>
