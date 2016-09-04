@@ -63,18 +63,16 @@ td {font-family:'proximanova',Arial,sans-serif; font-weight: 300;}
 }
 
 #home_header {
-    background-image: url(image-path('banner1.jpg'));
-    position: relative;
-    //background: #fff;
-    overflow: hidden;
-    border-bottom:1px solid #101010;
-    margin-bottom:20px;
-    min-height:300px;
-    max-height:300px;
-}
+  position: relative;
+  //background: #fff;
+  overflow: hidden;
+  border-bottom:1px solid #101010;
+  margin-bottom:20px;
+  min-height:300px;
+  max-height:300px;
 
-#home_header:before {
-  content: ' ';
+  &::before {
+  content: '';
   display: block;
   position: absolute;
   left: 0;
@@ -94,6 +92,8 @@ td {font-family:'proximanova',Arial,sans-serif; font-weight: 300;}
   border-bottom:1px solid #101010;
   margin-bottom:20px;
   border-top:none;
+  }
+
 }
 
 .navbar{
