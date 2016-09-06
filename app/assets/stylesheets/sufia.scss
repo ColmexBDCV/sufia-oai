@@ -70,33 +70,7 @@ td {font-family:'proximanova',Arial,sans-serif; font-weight: 300;}
   margin-bottom:20px;
   min-height:300px;
   max-height:300px;
-  background-image: none;
-  z-index: 100;
-
-  &::after {
-  content: '';
-  display: block;
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0.2;
-  background-image: url(image-path('banner1.jpg'));
-  background-repeat: no-repeat;
-  background-position: 50% 0;
-  -ms-background-size: cover;
-  -o-background-size: cover;
-  -moz-background-size: cover;
-  -webkit-background-size: cover;
-  background-size: cover;
-  min-height:300px;
-  max-height:300px;
-  background-position:inherit;
-  border-bottom:1px solid #101010;
-  margin-bottom:20px;
-  border-top:none;
-  z-index: 1;
-  }
-
+  background-image: url(image-path('banner4t.jpg'))
 }
 
 .navbar{
