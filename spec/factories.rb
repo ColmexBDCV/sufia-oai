@@ -1,4 +1,11 @@
 FactoryGirl.define do
+  factory :generic_work do
+    title ['My Work']
+    creator ['Kebe']
+    keyword ['witch']
+    unit 'myunit'
+  end
+
   factory :unit do
     name "My Unit"
     key "myunit"

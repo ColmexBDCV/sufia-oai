@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160901160921) do
+ActiveRecord::Schema.define(version: 20160902141743) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "user_id",       null: false
@@ -151,6 +151,41 @@ ActiveRecord::Schema.define(version: 20160901160921) do
 
   add_index "identities", ["provider", "uid"], name: "index_identities_on_provider_and_uid", unique: true
   add_index "identities", ["user_id"], name: "index_identities_on_user_id"
+
+  create_table "import_field_mappings", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "imported_records", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "imports", force: :cascade do |t|
+    t.string   "name"
+    t.boolean  "includes_headers",            default: true
+    t.integer  "status",                      default: 0
+    t.integer  "user_id"
+    t.string   "admin_collection_id"
+    t.string   "server_import_location_name"
+    t.string   "import_type"
+    t.string   "rights"
+    t.string   "preservation_level"
+    t.string   "visibility"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "csv_file_name"
+    t.string   "csv_content_type"
+    t.integer  "csv_file_size"
+    t.datetime "csv_updated_at"
+    t.string   "images_file_name"
+    t.string   "images_content_type"
+    t.integer  "images_file_size"
+    t.datetime "images_updated_at"
+  end
+
+  add_index "imports", ["user_id"], name: "index_imports_on_user_id"
 
   create_table "local_authorities", force: :cascade do |t|
     t.string "name"
