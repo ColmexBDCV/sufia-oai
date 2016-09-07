@@ -5,19 +5,21 @@
       <%= render 'work_title', presenter: @presenter %>
     </header>
   </div>
-  <div class="col-sm-6 col-sm-push-6">
+  <div class="col-sm-4">
+  <!--<div class="col-sm-6 col-sm-push-6">-->
     Last modified: <%= @presenter.date_modified %>
     <%= render 'representative_media', presenter: @presenter %>
     <%= render "show_actions", presenter: @presenter %>
     <%= render 'social_media' %>
     <%= render 'citations', presenter: @presenter %>
   </div>
-  <div class="col-sm-6 col-sm-pull-6">
+  <div class="col-sm-8">
+  <!--<div class="col-sm-6 col-sm-pull-6">-->
     <%= render 'work_description', presenter: @presenter %>
     <%= render 'relationships', presenter: @presenter %>
     <%= render 'metadata', presenter: @presenter %>
   </div>
-  <div class="col-sm-6">
+  <div class="col-sm-4">
     <h3>Unit Information</h3>
     <%= render partial: 'units/unit_info', locals: { unit: Unit.find_by_key(@presenter.unit.first.to_s) } %>
   </div>
