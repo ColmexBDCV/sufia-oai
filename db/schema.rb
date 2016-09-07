@@ -153,14 +153,25 @@ ActiveRecord::Schema.define(version: 20160902141743) do
   add_index "identities", ["user_id"], name: "index_identities_on_user_id"
 
   create_table "import_field_mappings", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "import_id"
+    t.string   "key"
+    t.integer  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
+  add_index "import_field_mappings", ["import_id"], name: "index_import_field_mappings_on_import_id"
+
   create_table "imported_records", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "import_id"
+    t.string   "generic_file_pid"
+    t.integer  "csv_row"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  add_index "imported_records", ["generic_file_pid"], name: "index_imported_records_on_generic_file_pid"
+  add_index "imported_records", ["import_id"], name: "index_imported_records_on_import_id"
 
   create_table "imports", force: :cascade do |t|
     t.string   "name"

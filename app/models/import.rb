@@ -13,7 +13,7 @@ class Import < ActiveRecord::Base
   validate :validate_admin_collection
   validate :validate_csv_contents
 
-  before_create :create_batch_object
+  # before_create :create_batch_object
 
   enum status: {not_ready: 0, ready: 1, in_progress: 2, complete: 3, reverting: 4, final: 5}
 
@@ -205,7 +205,7 @@ class Import < ActiveRecord::Base
   end
 
   def admin_collection_name
-    admin_collection.try(:title)
+    admin_collection_id.try(:title)
   end
 
 

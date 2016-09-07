@@ -4,6 +4,7 @@ function initFileBrowser() {
   // Import directory location browser init
   $('#import_file_browser').fileTree({
     script: Routes.browse_imports_path(),
+    root: "uploads/",
     expandSpeed: 500,
     collapseSpeed: 500,
     multiFolder: false,
@@ -42,3 +43,7 @@ function startUndoProgressCheck(import_id) {
     });
   }, 3000);
 }
+
+$(document).ready(function () {
+  $(".select").select2()
+})
