@@ -154,8 +154,8 @@ class ImportsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def import_params
     permitted_params = params.require(:import).permit(:user_id, :csv, :images, :name, :admin_collection_id, :includes_headers,
-                                     :server_import_location_name, :import_type, :rights, :preservation_level,
-                                     import_field_mappings_attributes: [:id, :key, { value: [] }])
+                                      :server_import_location_name, :import_type, :rights, :preservation_level,
+                                      import_field_mappings_attributes: [:id, :key, { value: [] }])
     if can? :publish, GenericWork
       permitted_params.merge! params.require(:import).permit(:visibility)
     end

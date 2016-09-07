@@ -162,6 +162,10 @@ GEM
       json (>= 1.7)
       mime-types (>= 1.16)
       mimemagic (>= 0.3.0)
+    chosen-rails (1.5.2)
+      coffee-rails (>= 3.2)
+      railties (>= 3.0)
+      sass-rails (>= 3.2)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     clipboard-rails (1.5.10)
@@ -748,6 +752,7 @@ DEPENDENCIES
   capistrano-rvm
   capybara
   capybara-webkit
+  chosen-rails
   cocoon
   coffee-rails (~> 4.1.0)
   database_cleaner

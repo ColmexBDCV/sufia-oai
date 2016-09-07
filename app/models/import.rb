@@ -1,5 +1,5 @@
 class Import < ActiveRecord::Base
-  # include FedoraObjectAssociations
+  include FedoraObjectAssociations
 
   belongs_to :user
   has_many :import_field_mappings, dependent: :destroy

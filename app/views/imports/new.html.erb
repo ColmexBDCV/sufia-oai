@@ -29,21 +29,21 @@
       <div class='form-group required'>
         <%= f.label :admin_collection_id, "#{t('admin_set_name')}", class: 'col-md-4 control-label' %>
         <div class='col-md-8'>
-          <%= f.select :admin_collection_id, options_for_select(@admin_collection_list, @import.admin_collection_id), {}, {class: 'select'} %>
+          <%= f.select :admin_collection_id, options_for_select(@admin_collection_list, @import.admin_collection_id), {}, {class: 'chosen-select'} %>
         </div>
       </div>
 
       <div class='form-group required'>
         <%= f.label :rights, "Rights for this collection", class: 'col-md-4 control-label' %>
         <div class='col-md-8'>
-          <%= f.select :rights, options_for_select(RightsService.select_active_options, @import.rights), {include_blank: 'Select rights...'}, { class: 'select' } %>
+          <%= f.select :rights, options_for_select(RightsService.select_active_options, @import.rights), {include_blank: 'Select rights...'}, { class: 'chosen-select' } %>
         </div>
       </div>
 
       <div class='form-group required'>
         <%= f.label :preservation_level, 'Preservation level', class: 'col-md-4 control-label' %>
         <div class='col-md-8'>
-          <%= f.select :preservation_level, options_for_select(PreservationLevelRationalesService.select_all_options,  @import.preservation_level), {include_blank: 'Select preservation level...', disable_search: true}, { class: 'select' } %>
+          <%= f.select :preservation_level, options_for_select(PreservationLevelRationalesService.select_all_options,  @import.preservation_level), {include_blank: 'Select preservation level...', disable_search: true}, { class: 'chosen-select' } %>
         </div>
       </div>
 
@@ -51,7 +51,7 @@
         <div class='form-group'>
           <%= f.label :visibility, 'Visibility', class: 'col-md-4 control-label' %>
           <div class='col-md-8'>
-            <%= f.select :visibility, options_for_select(@visibility_levels, @import.visibility), {}, { class: 'select', style: "width: 100%" } %>
+            <%= f.select :visibility, options_for_select(@visibility_levels, @import.visibility), {}, { class: 'chosen-select', style: "width: 100%" } %>
           </div>
         </div>
       <% end %>

@@ -14,6 +14,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require chosen-jquery
 //= require blacklight/blacklight
 //= require jquery.nested-fields
 //= require cocoon
@@ -25,6 +26,22 @@ var ready = function() {
   $('#measurement-fields').nestedFields();
 
   $('.select2-field').select2();
+
+  // using chosen gem for import field mappings (can select multiple)
+  $('.chosen-select').chosen({
+    allow_single_deselect: true,
+    no_results_text: 'No results matched',
+    disable_search_threshold: 8,
+    width: '100%'
+  });
+
+  // using chosen gem import field mappings for image (can only select one)
+  $('.chosen-select-max-1').chosen({
+    allow_single_deselect: true,
+    no_results_text: 'No results matched',
+    max_selected_options: 1,
+    width: '100%'
+  });
 };
 
 $(document).on('turbolinks:load', ready);
