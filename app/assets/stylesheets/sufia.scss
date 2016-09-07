@@ -29,10 +29,10 @@ td {font-family:'proximanova',Arial,sans-serif; font-weight: 300;}
   padding: 10px 15px;
 }
 
-.logo-brand {
+/*.logo-brand {
   height: 24px;
   width: 24px;
-}
+}*/
 
 #logo {
   margin-left: 5px;
@@ -70,11 +70,13 @@ td {font-family:'proximanova',Arial,sans-serif; font-weight: 300;}
   margin-bottom:20px;
   min-height:300px;
   max-height:300px;
-  background-image: url(image-path('banner4t.jpg'))
+  background-image: url(image-path('banner1t.jpg'));
+  border-top:none;
 }
 
 .navbar{
   margin-bottom:0 !important;
+  padding-bottom:10px;
 }
 
 .search-bar{
@@ -88,10 +90,11 @@ padding-top:100px;
 
 .collections-header{
   text-align:center;
+  border-bottom:20px;
 }
 
 .collection-image{
-  text-align:center;
+//  text-align:center;
 }
 
 .collections{
@@ -184,4 +187,8 @@ a.coll-title-link:visited{
 .main-title-heading {
   font-weight:bold;
   letter-spacing:2px;
+}
+
+.search-bar-option-dropdown{
+border-radius: 0px !important;
 }
