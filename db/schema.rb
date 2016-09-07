@@ -343,12 +343,16 @@ ActiveRecord::Schema.define(version: 20160902141743) do
   end
 
   create_table "units", force: :cascade do |t|
-    t.string   "name",         null: false
+    t.string   "name",               null: false
     t.text     "description"
     t.text     "contact_info"
-    t.string   "key",          null: false
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.string   "key",                null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   add_index "units", ["key"], name: "index_units_on_key"
