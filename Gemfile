@@ -30,6 +30,7 @@ gem 'handle-system'
 
 gem 'solr_wrapper', '~> 0.15'
 gem 'fcrepo_wrapper'
+gem 'openseadragon'
 
 group :development, :test do
   gem 'byebug'
@@ -48,6 +49,8 @@ group :development do
   gem 'capistrano-rvm'
   gem 'highline'
   gem 'foreman'
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 group :test do
