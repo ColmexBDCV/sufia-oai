@@ -166,6 +166,11 @@ ActiveRecord::Schema.define(version: 20160902141743) do
     t.integer  "import_id"
     t.string   "generic_file_pid"
     t.integer  "csv_row"
+    t.boolean  "success"
+    t.text     "message"
+    t.string   "has_image"
+    t.string   "has_watermark"
+    t.string   "folder_name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -190,10 +195,6 @@ ActiveRecord::Schema.define(version: 20160902141743) do
     t.string   "csv_content_type"
     t.integer  "csv_file_size"
     t.datetime "csv_updated_at"
-    t.string   "images_file_name"
-    t.string   "images_content_type"
-    t.integer  "images_file_size"
-    t.datetime "images_updated_at"
   end
 
   add_index "imports", ["user_id"], name: "index_imports_on_user_id"
@@ -342,16 +343,12 @@ ActiveRecord::Schema.define(version: 20160902141743) do
   end
 
   create_table "units", force: :cascade do |t|
-    t.string   "name",               null: false
+    t.string   "name",         null: false
     t.text     "description"
     t.text     "contact_info"
-    t.string   "key",                null: false
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
-    t.string   "image_file_name"
-    t.string   "image_content_type"
-    t.integer  "image_file_size"
-    t.datetime "image_updated_at"
+    t.string   "key",          null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
   add_index "units", ["key"], name: "index_units_on_key"

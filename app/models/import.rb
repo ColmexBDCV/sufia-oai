@@ -1,9 +1,13 @@
 class Import < ActiveRecord::Base
+  # include FedoraObjectAssociations
 
   belongs_to :user
   has_many :import_field_mappings, dependent: :destroy
   has_many :imported_records, dependent: :destroy
   accepts_nested_attributes_for :import_field_mappings
+
+  # belongs_to_fedora :admin_collection, class_name: 'Hydra::Admin::Collection'
+  # belongs_to_fedora :batch
 
   has_attached_file :csv, path: "#{ENV['IMPORT_PATH']}/csv/:id/:basename.:extension"
 

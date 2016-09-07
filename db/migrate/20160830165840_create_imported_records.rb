@@ -5,6 +5,12 @@ class CreateImportedRecords < ActiveRecord::Migration
       t.string :generic_file_pid, index: true
       t.integer :csv_row
 
+      t.boolean  :success
+      t.text     :message
+      t.string   :has_image
+      t.string   :has_watermark
+      t.string   :folder_name
+
       t.timestamps
     end
   end
