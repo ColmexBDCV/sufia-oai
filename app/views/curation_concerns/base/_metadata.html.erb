@@ -1,5 +1,7 @@
 <h2><%= t('.header') %></h2>
-<table class="table table-striped <%= dom_class(presenter) %> attributes" <%= presenter.microdata_type_to_html %>>
+<div class="row">
+<div class="col-md-6">
+<table class="table table-condensed <%= dom_class(presenter) %> attributes" <%= presenter.microdata_type_to_html %>>
   <thead>
   </thead>
   <tbody>
@@ -13,15 +15,26 @@
     <%= presenter.attribute_to_html(:provenance, render_as: :linked, search_field: 'provenance_tesim') %>
     <%= presenter.attribute_to_html(:spatial, render_as: :linked, search_field: 'spatial_tesim') %>
     <%= presenter.attribute_to_html(:staff_notes, render_as: :linked, search_field: 'staff_notes_tesim') %>
-    <%= presenter.attribute_to_html(:temporal, render_as: :linked, search_field: 'temporal_tesim') %>
-    <%= presenter.attribute_to_html(:work_type, render_as: :linked, search_field: 'work_type_tesim') %>
-    <%= presenter.attribute_to_html(:material, render_as: :linked, search_field: 'material_tesim') %>
-    <%= presenter.attribute_to_html(:material_type, render_as: :linked, search_field: 'material_type_tesim') %>
-    <%= presenter.attribute_to_html(:measurement, render_as: :linked, search_field: 'measurement_tesim') %>
-    <%= presenter.attribute_to_html(:measurement_unit, render_as: :linked, search_field: 'measurement_unit_tesim') %>
-    <%= presenter.attribute_to_html(:measurement_type, render_as: :linked, search_field: 'measurement_type_tesim') %>
-    <%= presenter.attribute_to_html(:embargo_release_date) %>
-    <%= presenter.attribute_to_html(:lease_expiration_date) %>
-    <%= presenter.attribute_to_html(:rights, render_as: :rights) %>
   </tbody>
 </table>
+</div>
+<div class="col-md-6">
+  <table class="table table-condensed <%= dom_class(presenter) %> attributes" <%= presenter.microdata_type_to_html %>>
+    <thead>
+    </thead>
+    <tbody>
+      <%= render 'attribute_rows', presenter: presenter %>
+      <%= presenter.attribute_to_html(:temporal, render_as: :linked, search_field: 'temporal_tesim') %>
+      <%= presenter.attribute_to_html(:work_type, render_as: :linked, search_field: 'work_type_tesim') %>
+      <%= presenter.attribute_to_html(:material, render_as: :linked, search_field: 'material_tesim') %>
+      <%= presenter.attribute_to_html(:material_type, render_as: :linked, search_field: 'material_type_tesim') %>
+      <%= presenter.attribute_to_html(:measurement, render_as: :linked, search_field: 'measurement_tesim') %>
+      <%= presenter.attribute_to_html(:measurement_unit, render_as: :linked, search_field: 'measurement_unit_tesim') %>
+      <%= presenter.attribute_to_html(:measurement_type, render_as: :linked, search_field: 'measurement_type_tesim') %>
+      <%= presenter.attribute_to_html(:embargo_release_date) %>
+      <%= presenter.attribute_to_html(:lease_expiration_date) %>
+      <%= presenter.attribute_to_html(:rights, render_as: :rights) %>
+    </tbody>
+  </table>
+</div>
+</div>
