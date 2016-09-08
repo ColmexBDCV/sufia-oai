@@ -25,7 +25,7 @@ module ImportsHelper
   end
 
   def last_run_for(import)
-    import.last_run_at ? import.last_run_at.strftime("%-m/%-d/%Y %l:%M%P") : '<em>Never</em>'.html_safe
+    import.last_run_at ? import.last_run_at.strftime("%-m/%-d/%Y %l:%M%P") : content_tag(:em, "Never")
   end
 
   def import_field_select_class_for(field)

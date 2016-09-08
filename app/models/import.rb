@@ -20,7 +20,7 @@ class Import < ActiveRecord::Base
 
   # before_create :create_batch_object
 
-  enum status: {not_ready: 0, ready: 1, in_progress: 2, complete: 3, reverting: 4, final: 5}
+  enum status: { not_ready: 0, ready: 1, in_progress: 2, complete: 3, reverting: 4, final: 5 }
 
   REQUIRED_FIELDS = %w(title image_filename)
 
@@ -30,16 +30,15 @@ class Import < ActiveRecord::Base
     joins(:imported_records).where(imported_records: { generic_file_pid: generic_file.id })
   }
 
-
-  def is_editable?
+  def editable?
     ready? || not_ready?
   end
 
-  def is_reportable?
+  def reportable?
     complete? || in_progress? || final?
   end
 
-  def is_undoable?
+  def undoable?
     complete?
   end
 
@@ -51,20 +50,20 @@ class Import < ActiveRecord::Base
   def validate_import_mappings
     import_field_mappings.each do |field|
       if REQUIRED_FIELDS.include?(field.key) && field.value.all?(&:blank?)
-        self.not_ready!
+        not_ready!
         return false
       end
     end
-    self.ready!
-    return true
+    ready!
+    true
   end
 
   def invalid_records
-    invalid_records = Array.new
+    invalid_records = []
     successfully_imported_records.each do |imported_record|
-      invalid_fields = Array.new
+      invalid_fields = []
       params = {
-        q: "id:#{imported_record.generic_file_pid.to_s}",
+        q: "id:#{imported_record.generic_file_pid}",
         fq: "has_model_ssim:GenericFile",
         qt: "standard",
         wt: "json",
@@ -74,18 +73,17 @@ class Import < ActiveRecord::Base
       generic_file_response = HTTParty.get(query_url)
 
       REQUIRED_FIELDS.each do |field|
-        unless field == 'image_filename'
-          formated_field = field.to_s + "_tesim"
-          field_value = generic_file_response["response"]["docs"].first[formated_field] if generic_file_response["response"].present? && generic_file_response["response"]["docs"].present?
-          if field_value.blank?
-            invalid_fields << field
-          end
+        next if field == 'image_filename'
+        formated_field = field.to_s + "_tesim"
+        field_value = generic_file_response["response"]["docs"].first[formated_field] if generic_file_response["response"].present? && generic_file_response["response"]["docs"].present?
+        if field_value.blank?
+          invalid_fields << field
         end
       end
 
       unless invalid_fields.blank?
         if generic_file_response["response"].present? && generic_file_response["response"]["docs"].present?
-          name = generic_file_response["response"]["docs"].first["title_tesim"].blank? ? generic_file_response["response"]["docs"].first["id"] : "#{generic_file_response["response"]["docs"].first["id"]} - #{generic_file_response["response"]["docs"].first["title_tesim"]} "
+          name = generic_file_response["response"]["docs"].first["title_tesim"].blank? ? generic_file_response["response"]["docs"].first["id"] : "#{generic_file_response['response']['docs'].first['id']} - #{generic_file_response['response']['docs'].first['title_tesim']} "
         else
           name = "invalid"
         end
@@ -96,7 +94,7 @@ class Import < ActiveRecord::Base
     invalid_records
   end
 
- # Get all the records that were not succesfully ingested during import
+  # Get all the records that were not succesfully ingested during import
   def successfully_imported_records
     imported_records.where(success: true)
   end
@@ -127,11 +125,11 @@ class Import < ActiveRecord::Base
   end
 
   # Preview import process from csv
-  def preview_import_from_csv(num_of_previews, offset= 0)
+  def preview_import_from_csv(num_of_previews, offset = 0)
     preview_objects = {}
     CSV.foreach(csv_file_path, csv_options).each_with_index do |row, i|
-      if i >= offset and  i < (num_of_previews + offset)
-         preview_objects[i] = preview_row(row, i)
+      if i >= offset && i < (num_of_previews + offset)
+        preview_objects[i] = preview_row(row, i)
       end
     end
 
@@ -142,9 +140,7 @@ class Import < ActiveRecord::Base
     preview = {}
 
     CSV.foreach(csv_file_path, csv_options).each_with_index do |row, i|
-      if i == row_num
-         preview = preview_row(row, i)
-      end
+      preview = preview_row(row, i) if i == row_num
     end
 
     image_path_for preview[:image_filename]
@@ -155,7 +151,7 @@ class Import < ActiveRecord::Base
   end
 
   def csv_file_row_count
-    #get import Csv file
+    # get import Csv file
     begin
       CSV.foreach(csv_file_path, csv_options).count
     rescue
@@ -163,16 +159,15 @@ class Import < ActiveRecord::Base
     end
   end
 
-  def is_resumable?
+  def resumable?
     in_progress? && csv_file_row_count > imported_records.size
   end
 
-
   def preview_row(row, row_num)
     preview_object = {}
-    field_mappings = self.import_field_mappings.to_a
+    field_mappings = import_field_mappings.to_a
     field_mappings.each do |field_mapping|
-      key_column_number_arr = self.import_field_mappings.where(key: field_mapping.key).first.value.reject!{|a| a.blank? }
+      key_column_number_arr = import_field_mappings.where(key: field_mapping.key).first.value.reject!(&:blank?)
       key_column_value_arr = []
 
       unless key_column_number_arr.blank?
@@ -186,18 +181,17 @@ class Import < ActiveRecord::Base
     preview_object
   end
 
-
   # Defines path where imported csv files are stored
   def csv_import_path
-    File.join(ENV['IMPORT_PATH'], 'csv', self.id.to_s)
+    File.join(ENV['IMPORT_PATH'], 'csv', id.to_s)
   end
 
   def csv_file_path
-    File.join(self.csv_import_path, csv_file_name)
+    File.join(csv_import_path, csv_file_name)
   end
 
   def image_base
-    File.join(ENV['FEDORA_NFS_UPLOAD_PATH'], self.server_import_location_name)
+    File.join(ENV['FEDORA_NFS_UPLOAD_PATH'], server_import_location_name)
   end
 
   def image_path_for(filename)
@@ -213,34 +207,32 @@ class Import < ActiveRecord::Base
     unit.try(:name)
   end
 
-
   private
 
-    def validate_unit
-      unless is_valid_unit?
-        errors.add :unit_id, "is invalid"
+  def validate_unit
+    unless valid_unit?
+      errors.add :unit_id, "is invalid"
+    end
+  end
+
+  def valid_unit?
+    unit_id.present?
+  end
+
+  def validate_csv_contents
+    begin
+      CSV.foreach(Paperclip.io_adapters.for(csv).path, csv_options).each_with_index do |row, i|
       end
+    rescue
+      errors.add :csv, 'contents appear invalid'
     end
+  end
 
-    def is_valid_unit?
-      unit_id.present?
-    end
+  def csv_options
+    { headers: includes_headers? ? true : false, encoding: "UTF-8" }
+  end
 
-    def validate_csv_contents
-      begin
-        CSV.foreach(Paperclip.io_adapters.for(csv).path, csv_options).each_with_index do |row, i|
-        end
-      rescue
-        errors.add :csv, 'contents appear invalid'
-      end
-    end
-
-    def csv_options
-      { headers: self.includes_headers? ? true : false, encoding: "UTF-8" }
-    end
-
-    def create_batch_object
-      self.batch = Batch.create
-    end
-
+  def create_batch_object
+    self.batch = Batch.create
+  end
 end
