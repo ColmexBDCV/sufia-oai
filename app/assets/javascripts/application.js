@@ -17,6 +17,7 @@
 //= require chosen-jquery
 //= require blacklight/blacklight
 //= require jquery.nested-fields
+//= require owl.carousel
 //= require cocoon
 //= require sufia
 //= require_tree .

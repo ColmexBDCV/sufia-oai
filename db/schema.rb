@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160902141743) do
+ActiveRecord::Schema.define(version: 20160908170233) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "user_id",       null: false
@@ -153,16 +153,18 @@ ActiveRecord::Schema.define(version: 20160902141743) do
   add_index "identities", ["user_id"], name: "index_identities_on_user_id"
 
   create_table "import_field_mappings", force: :cascade do |t|
-    t.integer  "import_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string   "key"
-    t.integer  "value"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer  "import_id"
+    t.string   "value"
   end
 
   add_index "import_field_mappings", ["import_id"], name: "index_import_field_mappings_on_import_id"
 
   create_table "imported_records", force: :cascade do |t|
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.integer  "import_id"
     t.string   "generic_file_pid"
     t.integer  "csv_row"
@@ -171,11 +173,8 @@ ActiveRecord::Schema.define(version: 20160902141743) do
     t.string   "has_image"
     t.string   "has_watermark"
     t.string   "folder_name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
-  add_index "imported_records", ["generic_file_pid"], name: "index_imported_records_on_generic_file_pid"
   add_index "imported_records", ["import_id"], name: "index_imported_records_on_import_id"
 
   create_table "imports", force: :cascade do |t|
@@ -183,7 +182,6 @@ ActiveRecord::Schema.define(version: 20160902141743) do
     t.boolean  "includes_headers",            default: true
     t.integer  "status",                      default: 0
     t.integer  "user_id"
-    t.string   "admin_collection_id"
     t.string   "server_import_location_name"
     t.string   "import_type"
     t.string   "rights"
@@ -195,8 +193,14 @@ ActiveRecord::Schema.define(version: 20160902141743) do
     t.string   "csv_content_type"
     t.integer  "csv_file_size"
     t.datetime "csv_updated_at"
+    t.string   "images_file_name"
+    t.string   "images_content_type"
+    t.integer  "images_file_size"
+    t.datetime "images_updated_at"
+    t.integer  "unit_id"
   end
 
+  add_index "imports", ["unit_id"], name: "index_imports_on_unit_id"
   add_index "imports", ["user_id"], name: "index_imports_on_user_id"
 
   create_table "local_authorities", force: :cascade do |t|
@@ -353,6 +357,7 @@ ActiveRecord::Schema.define(version: 20160902141743) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.string   "admin_policy_id"
   end
 
   add_index "units", ["key"], name: "index_units_on_key"

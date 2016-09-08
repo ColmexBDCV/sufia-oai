@@ -4,17 +4,18 @@ class Import < ActiveRecord::Base
   belongs_to :user
   has_many :import_field_mappings, dependent: :destroy
   has_many :imported_records, dependent: :destroy
+  belongs_to :unit
   accepts_nested_attributes_for :import_field_mappings
 
-  # belongs_to_fedora :admin_collection, class_name: 'Hydra::Admin::Collection'
+  # belongs_to_fedora :unit, class_name: 'Hydra::Admin::Collection'
   # belongs_to_fedora :batch
 
   has_attached_file :csv, path: "#{ENV['IMPORT_PATH']}/csv/:id/:basename.:extension"
 
   validates_attachment :csv, content_type: { content_type: ['text/csv', 'application/vnd.ms-excel', 'application/octet-stream'] }
   validates_attachment_presence :csv
-  validates :name, :admin_collection_id, :rights, :preservation_level, :import_type, :server_import_location_name, presence: true
-  validate :validate_admin_collection
+  validates :name, :unit_id, :rights, :preservation_level, :import_type, :server_import_location_name, presence: true
+  validate :validate_unit
   validate :validate_csv_contents
 
   # before_create :create_batch_object
@@ -208,21 +209,21 @@ class Import < ActiveRecord::Base
     csv.headers.map.with_index { |item, index| ["Column: #{index + 1} - #{item}", index] }
   end
 
-  def admin_collection_name
-    admin_collection_id.try(:title)
+  def unit_name
+    unit.try(:name)
   end
 
 
   private
 
-    def validate_admin_collection
-      unless is_valid_admin_collection?
-        errors.add :admin_collection_id, "is invalid"
+    def validate_unit
+      unless is_valid_unit?
+        errors.add :unit_id, "is invalid"
       end
     end
 
-    def is_valid_admin_collection?
-      admin_collection_id.present?
+    def is_valid_unit?
+      unit_id.present?
     end
 
     def validate_csv_contents

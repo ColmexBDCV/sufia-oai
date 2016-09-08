@@ -4,7 +4,6 @@ function initFileBrowser() {
   // Import directory location browser init
   $('#import_file_browser').fileTree({
     script: Routes.browse_imports_path(),
-    root: "uploads/",
     expandSpeed: 500,
     collapseSpeed: 500,
     multiFolder: false,
@@ -46,4 +45,10 @@ function startUndoProgressCheck(import_id) {
 
 $(document).ready(function () {
   $(".select").select2()
+  $(".owl-carousel").owlCarousel({
+    navigation : true, // Show next and prev buttons
+    itemsDesktop : [1199,3],
+      itemsDesktopSmall : [979,3],
+    singleItem:true
+  })
 })
