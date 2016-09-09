@@ -153,8 +153,8 @@ ActiveRecord::Schema.define(version: 20160908170233) do
   add_index "identities", ["user_id"], name: "index_identities_on_user_id"
 
   create_table "import_field_mappings", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "key"
     t.integer  "import_id"
     t.string   "value"
@@ -163,8 +163,8 @@ ActiveRecord::Schema.define(version: 20160908170233) do
   add_index "import_field_mappings", ["import_id"], name: "index_import_field_mappings_on_import_id"
 
   create_table "imported_records", force: :cascade do |t|
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.integer  "import_id"
     t.string   "generic_file_pid"
     t.integer  "csv_row"
@@ -193,10 +193,6 @@ ActiveRecord::Schema.define(version: 20160908170233) do
     t.string   "csv_content_type"
     t.integer  "csv_file_size"
     t.datetime "csv_updated_at"
-    t.string   "images_file_name"
-    t.string   "images_content_type"
-    t.integer  "images_file_size"
-    t.datetime "images_updated_at"
     t.integer  "unit_id"
   end
 
