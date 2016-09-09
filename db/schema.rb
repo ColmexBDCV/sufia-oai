@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160902141743) do
+ActiveRecord::Schema.define(version: 20160908170233) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "user_id",       null: false
@@ -155,19 +155,33 @@ ActiveRecord::Schema.define(version: 20160902141743) do
   create_table "import_field_mappings", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "key"
+    t.integer  "import_id"
+    t.string   "value"
   end
 
+  add_index "import_field_mappings", ["import_id"], name: "index_import_field_mappings_on_import_id"
+
   create_table "imported_records", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "import_id"
+    t.string   "generic_file_pid"
+    t.integer  "csv_row"
+    t.boolean  "success"
+    t.text     "message"
+    t.string   "has_image"
+    t.string   "has_watermark"
+    t.string   "folder_name"
   end
+
+  add_index "imported_records", ["import_id"], name: "index_imported_records_on_import_id"
 
   create_table "imports", force: :cascade do |t|
     t.string   "name"
     t.boolean  "includes_headers",            default: true
     t.integer  "status",                      default: 0
     t.integer  "user_id"
-    t.string   "admin_collection_id"
     t.string   "server_import_location_name"
     t.string   "import_type"
     t.string   "rights"
@@ -183,8 +197,10 @@ ActiveRecord::Schema.define(version: 20160902141743) do
     t.string   "images_content_type"
     t.integer  "images_file_size"
     t.datetime "images_updated_at"
+    t.integer  "unit_id"
   end
 
+  add_index "imports", ["unit_id"], name: "index_imports_on_unit_id"
   add_index "imports", ["user_id"], name: "index_imports_on_user_id"
 
   create_table "local_authorities", force: :cascade do |t|

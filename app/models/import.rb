@@ -22,13 +22,11 @@ class Import < ActiveRecord::Base
 
   enum status: { not_ready: 0, ready: 1, in_progress: 2, complete: 3, reverting: 4, final: 5 }
 
-  REQUIRED_FIELDS = %w(title image_filename)
+  REQUIRED_FIELDS = %w(title image_filename).freeze
 
   scope :editable, -> { where(status: [ Import.statuses[:ready], Import.statuses[:not_ready] ]) }
   scope :reportable, -> { where(status: [ Import.statuses[:complete], Import.statuses[:in_progress], Import.statuses[:final] ]) }
-  scope :with_imported_file, -> (generic_file) {
-    joins(:imported_records).where(imported_records: { generic_file_pid: generic_file.id })
-  }
+  scope :with_imported_file, -> (generic_file) { joins(:imported_records).where(imported_records: { generic_file_pid: generic_file.id } ) }
 
   def editable?
     ready? || not_ready?
@@ -76,20 +74,17 @@ class Import < ActiveRecord::Base
         next if field == 'image_filename'
         formated_field = field.to_s + "_tesim"
         field_value = generic_file_response["response"]["docs"].first[formated_field] if generic_file_response["response"].present? && generic_file_response["response"]["docs"].present?
-        if field_value.blank?
-          invalid_fields << field
-        end
+        invalid_fields << field if field_value.blank?
       end
 
-      unless invalid_fields.blank?
-        if generic_file_response["response"].present? && generic_file_response["response"]["docs"].present?
-          name = generic_file_response["response"]["docs"].first["title_tesim"].blank? ? generic_file_response["response"]["docs"].first["id"] : "#{generic_file_response['response']['docs'].first['id']} - #{generic_file_response['response']['docs'].first['title_tesim']} "
-        else
-          name = "invalid"
-        end
-        invalid_records << { generic_file: generic_file_response, name: name,
-                             fields: invalid_fields, generic_file_pid: imported_record.generic_file_pid.to_s }
-      end
+      next if invalid_fields.blank?
+      name = if generic_file_response["response"].present? && generic_file_response["response"]["docs"].present?
+               generic_file_response["response"]["docs"].first["title_tesim"].blank? ? generic_file_response["response"]["docs"].first["id"] : "#{generic_file_response['response']['docs'].first['id']} - #{generic_file_response['response']['docs'].first['title_tesim']} "
+             else
+               "invalid"
+             end
+      invalid_records << { generic_file: generic_file_response, name: name,
+                           fields: invalid_fields, generic_file_pid: imported_record.generic_file_pid.to_s }
     end
     invalid_records
   end
@@ -129,7 +124,7 @@ class Import < ActiveRecord::Base
     preview_objects = {}
     CSV.foreach(csv_file_path, csv_options).each_with_index do |row, i|
       if i >= offset && i < (num_of_previews + offset)
-        preview_objects[i] = preview_row(row, i)
+        preview_objects[i] = preview_row(row)
       end
     end
 
@@ -140,7 +135,7 @@ class Import < ActiveRecord::Base
     preview = {}
 
     CSV.foreach(csv_file_path, csv_options).each_with_index do |row, i|
-      preview = preview_row(row, i) if i == row_num
+      preview = preview_row(row) if i == row_num
     end
 
     image_path_for preview[:image_filename]
@@ -152,22 +147,20 @@ class Import < ActiveRecord::Base
 
   def csv_file_row_count
     # get import Csv file
-    begin
-      CSV.foreach(csv_file_path, csv_options).count
-    rescue
-      0
-    end
+    CSV.foreach(csv_file_path, csv_options).count
+  rescue
+    0
   end
 
   def resumable?
     in_progress? && csv_file_row_count > imported_records.size
   end
 
-  def preview_row(row, row_num)
+  def preview_row(row)
     preview_object = {}
     field_mappings = import_field_mappings.to_a
     field_mappings.each do |field_mapping|
-      key_column_number_arr = import_field_mappings.where(key: field_mapping.key).first.value.reject!(&:blank?)
+      key_column_number_arr = import_field_mappings.find_by_key(field_mapping.key).value.reject!(&:blank?)
       key_column_value_arr = []
 
       unless key_column_number_arr.blank?
@@ -210,9 +203,7 @@ class Import < ActiveRecord::Base
   private
 
   def validate_unit
-    unless valid_unit?
-      errors.add :unit_id, "is invalid"
-    end
+    errors.add :unit_id, "is invalid" unless valid_unit?
   end
 
   def valid_unit?
@@ -220,12 +211,10 @@ class Import < ActiveRecord::Base
   end
 
   def validate_csv_contents
-    begin
-      CSV.foreach(Paperclip.io_adapters.for(csv).path, csv_options).each_with_index do |row, i|
-      end
-    rescue
-      errors.add :csv, 'contents appear invalid'
+    CSV.foreach(Paperclip.io_adapters.for(csv).path, csv_options).each_with_index do |row, i|
     end
+  rescue
+    errors.add :csv, 'contents appear invalid'
   end
 
   def csv_options
