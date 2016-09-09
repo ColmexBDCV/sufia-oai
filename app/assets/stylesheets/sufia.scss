@@ -71,6 +71,7 @@ td {font-family:'proximanova',Arial,sans-serif; font-weight: 300;}
   max-height:300px;
   background-image: url(image-path('banner1t.jpg'));
   border-top:none;
+  margin-top:-10px;
 }
 
 .navbar{
@@ -111,7 +112,11 @@ body {
   font-family:'proximanova',Arial,sans-serif;
 }
 
-h1, h2, h3, h4, h5 {font-family:'capita','Times New Roman',serif; font-weight:300;}
+h1, h2 {font-family:'capita','Times New Roman',serif; font-weight:300;}
+
+h3, h4, h5 {font-family:'proximanova', Arial, sans-serif;}
+
+h3.media-heading {font-family:'capita','Times New Roman',serif; font-weight:300;}
 
 .img_overlay{
   display:none;
@@ -212,4 +217,8 @@ div.facets h3 {
   font-family: 'proximanova',Arial,sans-serif;
   font-weight: 500;
   font-size:18px;
+}
+
+#content-wrapper{
+  margin-top:10px;
 }
