@@ -12,6 +12,11 @@ module CurationConcerns
       super
     end
 
+    def edit
+      @units = Unit.where(key: current_user.groups)
+      super
+    end
+
     private
 
     def authorize_unit
