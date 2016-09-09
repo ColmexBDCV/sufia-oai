@@ -88,7 +88,11 @@ Sufia.config do |config|
 
   # Temporary path to hold uploads before they are ingested into FCrepo.
   # This must be a lambda that returns a Pathname
-  #  config.upload_path = ->() { Rails.root + 'tmp' + 'uploads' }
+  config.upload_path = if ENV['UPLOAD_PATH']
+                         ->() { Pathname.new(ENV['UPLOAD_PATH']) }
+                       else
+                         ->() { Rails.root + 'tmp' + 'uploads' }
+                       end
 
   CurationConcerns.config.callback.set(:after_update_metadata) do |curation_concern|
     HandleService.new(curation_concern).mint

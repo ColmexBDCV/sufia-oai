@@ -361,6 +361,7 @@ ActiveRecord::Schema.define(version: 20160908212312) do
     t.string   "image_content_type"
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
+    t.string   "admin_policy_id"
   end
 
   add_index "units", ["key"], name: "index_units_on_key"

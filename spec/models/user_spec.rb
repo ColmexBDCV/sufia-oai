@@ -32,14 +32,26 @@ RSpec.describe User, type: :model do
   end
 
   describe '#groups' do
+    let(:user) { create(:user) }
+    let(:unit1) { create(:unit, name: 'Unit1', key: 'unit1') }
+    let(:unit2) { create(:unit, name: 'Unit2', key: 'unit2') }
+
     it 'returns all unit keys' do
-      user = create(:user)
-      unit1 = create(:unit, key: 'unit1')
-      unit2 = create(:unit, name: 'Unit2', key: 'unit2')
       create(:membership, user: user, unit: unit1)
       create(:membership, user: user, unit: unit2)
 
       expect(user.groups).to eq ['unit1', 'unit2']
+    end
+
+    context 'user is an admin' do
+      let(:admin_user) { create(:admin_user) }
+
+      it 'includes the Administrators group' do
+        create(:membership, user: admin_user, unit: unit1)
+        create(:membership, user: admin_user, unit: unit2)
+
+        expect(admin_user.groups).to eq ['unit1', 'unit2', 'Administrators']
+      end
     end
   end
 

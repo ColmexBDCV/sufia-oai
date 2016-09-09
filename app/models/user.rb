@@ -9,7 +9,8 @@ class User < ActiveRecord::Base
   has_many :units, -> { distinct }, through: :memberships
 
   def groups
-    units.each.collect(&:key)
+    groups = units.each.collect(&:key)
+    admin? ? groups << "Administrators" : groups
   end
 
   if Blacklight::Utils.needs_attr_accessible?
