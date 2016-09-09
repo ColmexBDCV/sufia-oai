@@ -67,12 +67,24 @@ installed. For OS X users, install via Homebrew:
 
 ### Production
 
-When deploying to production, be sure to install Monit. You will need to create
-a monitored service for Sidekiq (see `config/monit.example`) and allow the Rails
-user to execute `monit` via sudo without a password. For example:
+When deploying to production, be sure to install Monit on any server used to run
+Sidekiq workers. You will need to create a monitored service for Sidekiq (see
+`config/monit.example`) and allow the Rails user to execute `monit` via sudo
+without a password. For example:
 
     rails ALL=(ALL) NOPASSWD: /usr/bin/monit
     Defaults:rails !requiretty
+
+Production installations should also set the paths for the minter state file,
+derivatives directory, and uploads directory to appropraite locations with
+environment variables:
+
+    MINTER_STATEFILE="/path/to/minter-state"
+    DERIVATIVES_PATH="/path/to/derivatives"
+    UPLOAD_PATH="/path/to/uploads"
+
+These paths should be shared between all production hosts, for example an NFS
+share available to a front-end server and back-end Sidekiq host.
 
 Installation
 ------------
@@ -124,9 +136,8 @@ Then, in a separate terminal window, start the Rails development server:
 
     $ bundle exec rails server
 
-You can now navigate to the DCS application at `http://localhost:3000`. You
-can also access Solr at `http://localhost:8983/` and Fedora at
-`http://localhost:8984/`.
+You can now navigate to the application at `http://localhost:3000`. You can also
+access Solr at `http://localhost:8983/` and Fedora at `http://localhost:8984/`.
 
 ### Creating initial admin user and role
 
@@ -135,10 +146,9 @@ First, visit `http://localhost:3000/users/sign_in` and create an account. Next,
 open a Rails console to set up admin access:
 
     $ bundle exec rails c
-    > r = Role.create name: "admin"
-    > r.users << User.find_by_user_key("your_user_email@example.com")
-    > r.save
-
+    > u = User.find_by_user_key("your_user_email@example.com")
+    > u.admin = true
+    > u.save
 
 [1]: https://github.com/projecthydra/sufia
 [2]: https://www.ruby-lang.org/en/

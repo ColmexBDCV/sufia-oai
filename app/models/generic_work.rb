@@ -19,6 +19,8 @@ class GenericWork < ActiveFedora::Base
   validates :unit, presence: { message: 'Your work must belong to a unit.' }
   validates :unit, inclusion: { in: ->(_obj) { Unit.pluck(:key) } }
 
+  before_save :set_admin_policy
+
   property :unit, predicate: ::RDF::URI.new('https://library.osu.edu/ns#unit'), multiple: false do |index|
     index.as :stored_searchable
   end
@@ -66,6 +68,10 @@ class GenericWork < ActiveFedora::Base
     index.as :stored_searchable, :facetable
   end
 
+  def responsible_unit
+    Unit.find_by_key(unit)
+  end
+
   def to_solr
     result = super
     measurement_hash = { "measurement_tesim" => [], "measurement_sim" => [] }
@@ -82,5 +88,11 @@ class GenericWork < ActiveFedora::Base
     end
     result.merge!(material_hash)
     result.merge!(measurement_hash)
+  end
+
+  private
+
+  def set_admin_policy
+    self.admin_policy = responsible_unit.admin_policy
   end
 end

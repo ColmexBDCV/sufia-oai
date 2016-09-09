@@ -1,11 +1,9 @@
 FactoryGirl.define do
-  factory :imported_record do
-  end
-
-  factory :import do
-  end
-
-  factory :import_field_mapping do
+  factory :generic_work do
+    title ['My Work']
+    creator ['Kebe']
+    keyword ['witch']
+    unit 'myunit'
   end
 
   factory :unit do

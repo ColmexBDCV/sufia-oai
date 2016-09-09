@@ -4,20 +4,22 @@ require 'handle'
 
 RSpec.describe HandleService do
   # Create Generic File
+  let(:unit) { create(:unit) }
+
   let(:generic_work1) do
-    gw = GenericWork.new(title: ["Test Generic Work"], visibility: "restricted", handle: [])
+    gw = GenericWork.new(title: ["Test Generic Work"], visibility: "restricted", unit: unit.key)
     gw.save(validate: false)
     gw
   end
 
   let(:generic_work2) do
-    gw = GenericWork.new(title: ["Test Generic Work"], visibility: "open", handle: [])
+    gw = GenericWork.new(title: ["Test Generic Work"], visibility: "open", unit: unit.key)
     gw.save(validate: false)
     gw
   end
 
   let(:generic_work3) do
-    gw = GenericWork.new(title: ["Test Generic Work"], visibility: "open", handle: ["1234/fake_handle_test"])
+    gw = GenericWork.new(title: ["Test Generic Work"], visibility: "open", handle: ["1234/fake_handle_test"], unit: unit.key)
     gw.save(validate: false)
     gw
   end

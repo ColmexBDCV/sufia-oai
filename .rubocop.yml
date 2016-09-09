@@ -51,6 +51,9 @@ Style/WordArray:
 Style/RegexpLiteral:
   Enabled: false
 
+Style/Alias:
+  Enabled: false
+
 #################### Metrics ################################
 
 Metrics/AbcSize:
