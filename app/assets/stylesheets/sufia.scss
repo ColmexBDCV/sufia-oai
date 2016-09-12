@@ -177,6 +177,12 @@ h3.coll-title{
 }
 
 @media (max-width: 992px) {
+  h1 {
+    font-size: 30px;
+  }
+  h2 {
+    font-size: 24px;
+  }
   .small_paragraph {
       //margin-left: 200px;
       //margin-right: 200px;
@@ -186,6 +192,12 @@ h3.coll-title{
 }
 
 @media (max-width: 768px) {
+  h1 {
+    font-size: 30px;
+  }
+  h2 {
+    font-size: 24px;
+  }
   .xs_paragraph {
       text-align: justify;
       padding: 15px;
