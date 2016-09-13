@@ -1,4 +1,5 @@
 class CreateOsulImportItems < ActiveRecord::Migration
+  # rubocop:disable Metrics/MethodLength
   def change
     create_table :osul_import_items do |t|
       t.string :fid
@@ -46,4 +47,5 @@ class CreateOsulImportItems < ActiveRecord::Migration
       t.timestamps null: false
     end
   end
+  # rubocop:enable Metrics/MethodLength
 end
