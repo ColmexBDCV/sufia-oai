@@ -3,7 +3,7 @@
 <ul class="property-list">
   <li>
     <span><%= t('admin_set_name') %></span>
-    <span><%= @import.admin_collection_name %></span>
+    <span><%= @import.unit.name %></span>
   </li>
   <li>
     <span>Import run</span>
@@ -70,7 +70,7 @@
       <tr>
         <td><%= unimported_record[:csv_row] %></td>
         <td><%= unimported_record[:message] %>
-        <td><%= link_to 'Preview', row_preview_import_path(unimported_record.import, unimported_record[:csv_row]), class: 'btn btn-primary btn-mini' %></td>
+        <td><%= link_to 'Preview', row_preview_import_path(unimported_record.import_id, unimported_record[:csv_row]), class: 'btn btn-primary btn-mini' %></td>
       </tr>
     <% end.empty? %>
       <tr><td colspan="3">There were no unimported records.</td></tr>

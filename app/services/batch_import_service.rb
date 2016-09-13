@@ -6,7 +6,7 @@ class BatchImportService
 
   def schedule
     return false unless @import.ready?
-    # Resque.enqueue(ImportJob, @import.id, @user.id)
+    ImportJob.perform_later(@import.id, @user.id)
     @import.in_progress!
   end
 
@@ -21,14 +21,14 @@ class BatchImportService
       row.each { |arr| csv_style_array << arr }
       csv_row_array = []
       csv_style_array.each { |arr| csv_row_array << arr.last }
-      Resque.enqueue(ProcessImportItem, @import.id, csv_row_array, @user.id, current_row)
+      ProcessImportItem.perform_later(@import.id, csv_row_array, @user.id, current_row)
     end
   end
 
   def import_item(row, current_row)
     begin
-      generic_file = ingest row
-      record = ImportedRecord.find_or_create_by(import_id: @import.id, csv_row: current_row, generic_file_pid: generic_file.id)
+      generic_work = ingest row
+      record = ImportedRecord.find_or_create_by(import_id: @import.id, csv_row: current_row, generic_work_pid: generic_work.id)
       record.update(success: true)
 
     rescue => e
@@ -44,18 +44,18 @@ class BatchImportService
 
   def resume
     return false unless @import.is_resumable?
-    Resque.enqueue(ImportJob, @import.id, @user.id, @import.imported_records.last.try(:csv_row))
+    ImportJob.perform_later(@import.id, @user.id, @import.imported_records.last.try(:csv_row))
     @import.in_progress!
   end
 
   def undo
     @import.reverting!
-    Resque.enqueue(UndoImportJob, @import.id, @user.id)
+    UndoImportJob.perform_later(@import.id, @user.id)
   end
 
   def revert_records
     @import.imported_records.each do |record|
-      Resque.enqueue(DestroyImportedRecordJob, record.id, @user.id)
+      DestroyImportedRecordJob.perform_later(record.id, @user.id)
     end
   end
 
@@ -68,12 +68,12 @@ class BatchImportService
   def finalize
     return false unless @import.complete?
     @import.final!
-    Resque.enqueue(ScheduleMintingJob, @import.id, @user.id)
+    ScheduleMintingJob.perform_later(@import.id, @user.id)
   end
 
   def mint
     @import.imported_records.each do |record|
-      Resque.enqueue(MintHandleJob, record.file.id) if record.file.present?
+      MintHandleJob.perform_later(ecord.file.id) if record.file.present?
     end
   end
 
@@ -86,20 +86,22 @@ class BatchImportService
     raise "File #{filename} was not found." unless File.file? image_path
 
     # Ingest files already on disk
-    ::GenericFile.new(label: basename).tap do |gf|
-      gf.relative_path = filename if filename != basename
-      actor = Sufia::GenericFile::Actor.new(gf, @user)
-      actor.create_metadata @import.batch_id
-      gf.collection_id = @import.admin_collection_id
+    GenericWork.new(label: basename).tap do |gw|
+      # gw.relative_path = filename if filename != basename
+      # actor = Sufia::GenericWork::Actor.new(gw, @user)
+      # actor.create_metadata @import.batch_id
+      # gw.collection_id = @import.admin_collection_id
 
-      assign_csv_values_to_genericfile(row, gf)
-      gf.rights = [@import.rights]
-      gf.preservation_level_rationale = @import.preservation_level
-      gf.preservation_level = "Full"
-      gf.visibility = @import.visibility
-      gf.save!
+      assign_csv_values_to_genericwork(row, gw)
+      gw.rights = [@import.rights]
+      gw.preservation_level_rationale = @import.preservation_level
+      gw.preservation_level = "Full"
+      gw.visibility = @import.visibility
+      gw.unit = @import.unit.key
+      gw.depositor = @user.email
+      gw.save!
 
-      Sufia.queue.push(IngestLocalImportFileJob.new(gf.id, image_path, @user.user_key))
+      Sufia.queue.push(IngestLocalImportFileJob.new(gw.id, image_path, @user.user_key))
     end
   end
 
@@ -110,8 +112,8 @@ class BatchImportService
     filename
   end
 
-  # Maps a specific row of csv data to a generic_file object for ingest
-  def assign_csv_values_to_genericfile(row, generic_file)
+  # Maps a specific row of csv data to a generic_work object for ingest
+  def assign_csv_values_to_genericwork(row, generic_work)
     field_mappings = @import.import_field_mappings.where('import_field_mappings.key != ?', 'image_filename')
     field_mappings.each do |field_mapping|
       key_column_number_arr = @import.import_field_mappings.where(key: field_mapping.key).first.value.reject!( &:blank? )
@@ -125,7 +127,7 @@ class BatchImportService
       elsif field_mapping.key == 'collection_identifier'
         # it's not a multivalue field so let's just get the first mapping
         key_column_number_arr.each do |num|
-          generic_file.collection_identifier = row[num.to_i]
+          generic_work.collection_identifier = row[num.to_i]
           break
         end
 
@@ -136,9 +138,9 @@ class BatchImportService
           # insert field as a measurement object
           measurement = Osul::VRA::Measurement.create(measurement: measurement_hash[:width], measurement_unit: measurement_hash[:unit], measurement_type: "width")
 
-          generic_file.measurements << measurement
+          generic_work.measurements << measurement
           measurement = Osul::VRA::Measurement.create(measurement: measurement_hash[:height], measurement_unit: measurement_hash[:unit], measurement_type: "height")
-          generic_file.measurements << measurement
+          generic_work.measurements << measurement
         end
 
       elsif field_mapping.key == 'materials'
@@ -146,7 +148,7 @@ class BatchImportService
           material_hash = material_format_for(row[num.to_i].try(:strip))
           unless material_hash.nil?
             material = Osul::VRA::Material.create(material_hash)
-            generic_file.materials << material
+            generic_work.materials << material
           end
         end
 
@@ -159,7 +161,7 @@ class BatchImportService
       # materials and measurements are associations so they are updated differently
       unless field_mapping.key == 'materials' || field_mapping.key == 'measurements' || field_mapping.key == 'collection_identifier'
         key_column_value_arr = key_column_value_arr.map.reject( &:blank? )
-        generic_file.send("#{field_mapping.key}=".to_sym, key_column_value_arr)
+        generic_work.send("#{field_mapping.key}=".to_sym, key_column_value_arr)
       end
     end
   end
