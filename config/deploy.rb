@@ -39,7 +39,7 @@ set :monit_services, [:sidekiq]
 namespace :deploy do
   desc 'Restart application'
   task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
+    on roles(:web), in: :sequence, wait: 5 do
       execute "mkdir -p #{release_path.join('tmp')}"
       execute :touch, release_path.join('tmp/restart.txt')
     end

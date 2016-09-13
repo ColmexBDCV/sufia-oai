@@ -5,7 +5,7 @@ class Unit < ActiveRecord::Base
   has_many :members, through: :memberships, source: :user
   belongs_to :admin_policy
 
-  has_attached_file :image, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+  has_attached_file :image, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.jpg"
 
   before_create :add_admin_policy
 
