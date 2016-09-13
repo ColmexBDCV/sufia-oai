@@ -19,7 +19,9 @@
   </div>
   <div class="col-sm-6">
     <h3>Unit Information</h3>
-    <%= render partial: 'units/unit_info', locals: { unit: Unit.find_by_key(@presenter.unit.first.to_s) } %>
+    <%- if @presenter.unit.present? %>
+      <%= render partial: 'units/unit_info', locals: { unit: Unit.find_by_key(@presenter.unit.first.to_s) } %>
+    <%- end %>
   </div>
 </div>
 

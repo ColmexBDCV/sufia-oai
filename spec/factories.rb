@@ -3,7 +3,12 @@ FactoryGirl.define do
     title ['My Work']
     creator ['Kebe']
     keyword ['witch']
+    depositor 'test@example.com'
     unit 'myunit'
+
+    trait :without_validations do
+      to_create {|instance| instance.save(validate: false) }
+    end
   end
 
   factory :unit do
