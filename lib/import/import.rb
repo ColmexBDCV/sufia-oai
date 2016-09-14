@@ -1,4 +1,4 @@
-module Import
+module MyImport
   class ImportSettings
     attr_reader :sufia6_user, :sufia6_password, :sufia6_fedora_root_uri, :sufia6_root_uri
 
@@ -178,9 +178,9 @@ module Import
       require 'json'
 
       Osul::Import::Item.delete_all
-      Osul::Import::ImortedItem.delete_all
+      Osul::Import::ImportedItem.delete_all
 
-      url = "#{@settings.sufia6_fedora_root_uri}/osul/export/export_generic_file_items.json"
+      url = "#{@settings.sufia6_root_uri}/osul/export/export_generic_file_items.json"
       uri = URI(url)
       response = Net::HTTP.get(uri)
       items = JSON.parse(response, object_class: OpenStruct)
