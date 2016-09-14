@@ -759,6 +759,7 @@ DEPENDENCIES
   highline
   jbuilder (~> 2.0)
   jquery-rails
+  jquery-ui-rails
   js-routes
   omniauth
   omniauth-shibboleth

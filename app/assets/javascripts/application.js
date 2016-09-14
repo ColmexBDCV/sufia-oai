@@ -12,12 +12,14 @@
 //
 //= require js-routes
 //= require jquery
+//= require jquery-ui
 //= require jquery_ujs
 //= require turbolinks
 //= require blacklight/blacklight
 //= require jquery.nested-fields
 //= require cocoon
 //= require sufia
+//= require homepage
 //= require_tree .
 
 var ready = function() {
@@ -28,3 +30,4 @@ var ready = function() {
 };
 
 $(document).on('turbolinks:load', ready);
+
