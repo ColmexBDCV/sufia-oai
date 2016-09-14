@@ -3,12 +3,6 @@ class DownloadsController < ApplicationController
 
   before_action :authorize_original_download, only: :show
 
-  # module ClassMethods
-  #   def default_content_path
-  #     :original_file
-  #   end
-  # end
-
   private
 
   def authorize_original_download
