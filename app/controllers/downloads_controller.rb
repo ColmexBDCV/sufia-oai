@@ -1,24 +1,17 @@
 class DownloadsController < ApplicationController
   include CurationConcerns::DownloadBehavior
 
-  module ClassMethods
-    def default_content_path
-      :original_file
-    end
-  end
+  before_action :authorize_original_download, only: :show
 
-  def show
-    case file
-    when ActiveFedora::File
-      authorize! :download_original, params[asset_param_key]
-      super
-    when String
-      # For derivatives stored on the local file system
-      response.headers['Accept-Ranges'] = 'bytes'
-      response.headers['Content-Length'] = File.size(file).to_s
-      send_file file, derivative_download_options
-    else
-      render_404
-    end
+  # module ClassMethods
+  #   def default_content_path
+  #     :original_file
+  #   end
+  # end
+
+  private
+
+  def authorize_original_download
+    authorize! :update, params[asset_param_key] if file.is_a? ActiveFedora::File
   end
 end

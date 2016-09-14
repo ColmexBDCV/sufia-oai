@@ -18,6 +18,5 @@ module CurationConcerns
     def set_units
       @units = current_user.admin? ? Unit.all : Unit.where(key: current_user.groups)
     end
-    
   end
 end
