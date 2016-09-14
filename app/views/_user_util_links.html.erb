@@ -15,8 +15,32 @@
         <span class="caret" ></span>
       <% end %>
       <ul class="dropdown-menu dropdown-menu-right" role="menu">
+        <% if can? :read, :admin_dashboard %>
+        <li><%= link_to t("sufia.toolbar.dashboard.my"), sufia.dashboard_index_path %></li>
+        <% end %>
         <li><%= link_to 'View Profile', sufia.profile_path(current_user) %></li>
         <li><%= link_to 'Edit Profile', sufia.edit_profile_path(current_user) %></li>
+        <% if can_ever_create_works? %>
+        <li class="divider"></li>
+          <li><%= link_to t("sufia.toolbar.works.my"), sufia.dashboard_works_path %></li>
+
+          <% classification = CurationConcerns::QuickClassificationQuery.new(current_user) %>
+          <% classification.each do |concern| %>
+            <li><%= link_to(
+              "#{t("sufia.toolbar.works.new")} #{concern.human_readable_type}",
+              new_polymorphic_path([main_app, concern]),
+              class: "item-option contextual-quick-classify #{dom_class(concern, 'new').gsub('_', '-')}",
+                role: 'menuitem'
+              ) %>
+            </li>
+        <% end %>
+        <li><%= link_to t("sufia.toolbar.works.batch"), sufia.new_batch_upload_path %></li>
+        <% end %>
+        <% if can?(:create, Collection) %>
+        <li class="divider"></li>
+        <li><%= link_to t("sufia.toolbar.collections.my"), sufia.dashboard_collections_path %></li>
+        <li><%= link_to t("sufia.toolbar.collections.new"), main_app.new_collection_path %></li>
+        <% end %>
         <li class="divider"></li>
         <li><%= link_to 'Logout', main_app.destroy_user_session_path %></li>
       </ul>
