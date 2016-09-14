@@ -57,6 +57,21 @@
   margin-top:-20px;
 }
 
+#home_header_1{
+  @extend #home_header;
+  background-image: image-url('banner1.png');
+}
+
+#home_header_2{
+  @extend #home_header;
+  background-image: image-url('banner2.png');
+}
+
+#home_header_3{
+  @extend #home_header;
+  background-image: image-url('banner3.png');
+}
+
 .navbar{
   margin-bottom:0 !important;
   padding-bottom:10px;
