@@ -166,7 +166,7 @@ ActiveRecord::Schema.define(version: 20160908170233) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "import_id"
-    t.string   "generic_file_pid"
+    t.string   "generic_work_pid"
     t.integer  "csv_row"
     t.boolean  "success"
     t.text     "message"

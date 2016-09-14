@@ -1,26 +1,16 @@
-class IngestLocalImportFileJob
-  attr_accessor :path, :user_key, :generic_file_id
+class IngestLocalImportFileJob < ActiveJob::Base
+  queue_as :ingest
 
-  def queue_name
-    :ingest
-  end
-
-  def initialize(generic_file_id, path, user_key)
-    self.generic_file_id = generic_file_id
-    self.path = path
-    self.user_key = user_key
-  end
-
-  def run
+  def perform(generic_work_id, path, user_key)
     user = User.find_by_user_key(user_key)
     raise "Unable to find user for #{user_key}" unless user
 
     filename = File.basename(path)
-    generic_file = GenericFile.find(generic_file_id)
-    actor = Sufia::GenericFile::Actor.new(generic_file, user)
+    generic_work = GenericWork.find(generic_work_id)
+    actor = CurationConcerns::CurationConcern.actor(generic_work, user)
 
     if actor.create_content(File.open(path), filename, 'content', mime_type(filename))
-      Sufia.queue.push(ContentDepositEventJob.new(generic_file.id, user_key))
+      ContentDepositEventJob.perform_later(generic_work.id, user_key)
       Rails.logger.info "Local file ingest: The file (#{filename}) was successfully deposited"
     else
       Rails.logger.error "Local file ingest error: There was a problem depositing (#{filename})"

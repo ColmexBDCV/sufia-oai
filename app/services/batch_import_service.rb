@@ -6,7 +6,7 @@ class BatchImportService
 
   def schedule
     return false unless @import.ready?
-    ImportJob.perform_later(@import.id, @user.id)
+    ImportJob.perform_now(@import.id, @user.id)
     @import.in_progress!
   end
 
@@ -21,19 +21,19 @@ class BatchImportService
       row.each { |arr| csv_style_array << arr }
       csv_row_array = []
       csv_style_array.each { |arr| csv_row_array << arr.last }
-      ProcessImportItem.perform_later(@import.id, csv_row_array, @user.id, current_row)
+      ProcessImportItem.perform_now(@import.id, csv_row_array, @user.id, current_row)
     end
   end
 
   def import_item(row, current_row)
     begin
-      generic_work = ingest row
+      generic_work = ingest(row)
       record = ImportedRecord.find_or_create_by(import_id: @import.id, csv_row: current_row, generic_work_pid: generic_work.id)
       record.update(success: true)
 
     rescue => e
       Rails.logger.error "------import ingest saving error------"
-      Rails.logger.error e
+      Rails.logger.error
       record = ImportedRecord.find_or_create_by(import_id: @import.id, csv_row: current_row)
       record.update(success: false, message: e.message)
     end
@@ -44,18 +44,18 @@ class BatchImportService
 
   def resume
     return false unless @import.is_resumable?
-    ImportJob.perform_later(@import.id, @user.id, @import.imported_records.last.try(:csv_row))
+    ImportJob.perform_now(@import.id, @user.id, @import.imported_records.last.try(:csv_row))
     @import.in_progress!
   end
 
   def undo
     @import.reverting!
-    UndoImportJob.perform_later(@import.id, @user.id)
+    UndoImportJob.perform_now(@import.id, @user.id)
   end
 
   def revert_records
     @import.imported_records.each do |record|
-      DestroyImportedRecordJob.perform_later(record.id, @user.id)
+      DestroyImportedRecordJob.perform_now(record.id, @user.id)
     end
   end
 
@@ -68,41 +68,52 @@ class BatchImportService
   def finalize
     return false unless @import.complete?
     @import.final!
-    ScheduleMintingJob.perform_later(@import.id, @user.id)
+    ScheduleMintingJob.perform_now(@import.id, @user.id)
   end
 
   def mint
     @import.imported_records.each do |record|
-      MintHandleJob.perform_later(ecord.file.id) if record.file.present?
+      MintHandleJob.perform_now(record.file.id) if record.file.present?
     end
   end
 
   private
 
   def ingest(row)
-    filename = get_filename_from row
+    filename = get_filename_from(row)
     basename = File.basename(filename)
     image_path = @import.image_path_for filename
     raise "File #{filename} was not found." unless File.file? image_path
 
     # Ingest files already on disk
-    GenericWork.new(label: basename).tap do |gw|
-      # gw.relative_path = filename if filename != basename
-      # actor = Sufia::GenericWork::Actor.new(gw, @user)
-      # actor.create_metadata @import.batch_id
-      # gw.collection_id = @import.admin_collection_id
+    gw = GenericWork.new(label: basename)
+    # gw.relative_path = filename if filename != basename
+    # actor = CurationConcerns::CurationConcern.actor(gw, @user)
+    # actor.create_metadata @import.batch_id
+    # gw.collection_id = @import.admin_collection_id
+    depositor = @user.email
 
-      assign_csv_values_to_genericwork(row, gw)
-      gw.rights = [@import.rights]
-      gw.preservation_level_rationale = @import.preservation_level
-      gw.preservation_level = "Full"
-      gw.visibility = @import.visibility
-      gw.unit = @import.unit.key
-      gw.depositor = @user.email
-      gw.save!
+    assign_csv_values_to_genericwork(row, gw)
+    gw.rights = [@import.rights]
+    gw.preservation_level_rationale = @import.preservation_level
+    gw.preservation_level = "Full"
+    gw.visibility = @import.visibility
+    gw.unit = @import.unit.key
+    gw.depositor = depositor
+    gw.apply_depositor_metadata(depositor)
+    gw.save!
 
-      Sufia.queue.push(IngestLocalImportFileJob.new(gw.id, image_path, @user.user_key))
-    end
+    fs = FileSet.new
+      fs.title << gw.title
+    fs.depositor = depositor
+    fs.apply_depositor_metadata(depositor)
+      fs.save!
+
+    gw.ordered_members << fs
+    gw.save!
+
+    # IngestLocalImportFileJob.perform_now(gw.id, image_path, @user.user_key)
+    IngestFileJob.perform_now(fs, image_path, "application/octet-stream", User.find_by(email: depositor))
   end
 
   def get_filename_from(row)

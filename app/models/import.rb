@@ -26,7 +26,7 @@ class Import < ActiveRecord::Base
 
   scope :editable, -> { where(status: [ Import.statuses[:ready], Import.statuses[:not_ready] ]) }
   scope :reportable, -> { where(status: [ Import.statuses[:complete], Import.statuses[:in_progress], Import.statuses[:final] ]) }
-  scope :with_imported_file, -> (generic_file) { joins(:imported_records).where(imported_records: { generic_file_pid: generic_file.id } ) }
+  scope :with_imported_file, -> (generic_work) { joins(:imported_records).where(imported_records: { generic_work_pid: generic_work.id } ) }
 
   def editable?
     ready? || not_ready?
@@ -61,30 +61,30 @@ class Import < ActiveRecord::Base
     successfully_imported_records.each do |imported_record|
       invalid_fields = []
       params = {
-        q: "id:#{imported_record.generic_file_pid}",
+        q: "id:#{imported_record.generic_work_pid}",
         fq: "has_model_ssim:GenericFile",
         qt: "standard",
         wt: "json",
         indent: "true"
       }
       query_url = "#{ActiveFedora::SolrService.instance.conn.options[:url]}/select?#{params.to_query}"
-      generic_file_response = HTTParty.get(query_url)
+      generic_work_response = HTTParty.get(query_url)
 
       REQUIRED_FIELDS.each do |field|
         next if field == 'image_filename'
         formated_field = field.to_s + "_tesim"
-        field_value = generic_file_response["response"]["docs"].first[formated_field] if generic_file_response["response"].present? && generic_file_response["response"]["docs"].present?
+        field_value = generic_work_response["response"]["docs"].first[formated_field] if generic_work_response["response"].present? && generic_work_response["response"]["docs"].present?
         invalid_fields << field if field_value.blank?
       end
 
       next if invalid_fields.blank?
-      name = if generic_file_response["response"].present? && generic_file_response["response"]["docs"].present?
-               generic_file_response["response"]["docs"].first["title_tesim"].blank? ? generic_file_response["response"]["docs"].first["id"] : "#{generic_file_response['response']['docs'].first['id']} - #{generic_file_response['response']['docs'].first['title_tesim']} "
+      name = if generic_work_response["response"].present? && generic_work_response["response"]["docs"].present?
+               generic_work_response["response"]["docs"].first["title_tesim"].blank? ? generic_work_response["response"]["docs"].first["id"] : "#{generic_work_response['response']['docs'].first['id']} - #{generic_work_response['response']['docs'].first['title_tesim']} "
              else
                "invalid"
              end
-      invalid_records << { generic_file: generic_file_response, name: name,
-                           fields: invalid_fields, generic_file_pid: imported_record.generic_file_pid.to_s }
+      invalid_records << { generic_work: generic_work_response, name: name,
+                           fields: invalid_fields, generic_work_pid: imported_record.generic_work_pid.to_s }
     end
     invalid_records
   end
