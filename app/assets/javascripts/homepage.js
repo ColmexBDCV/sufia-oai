@@ -1,7 +1,8 @@
   var random_banner = function() {
     var random_number = Math.floor(Math.random()*(3-1+1)+1);
-    var background_image = 'banner' + random_number + '.png';
-    $('#home_header').css('background-image', "url(/assets/" + background_image + ")");
+    var home_header_id = 'home_header_' + random_number;
+    $('#home_header').attr("id",home_header_id)
+    console.log(home_header_id)
   };
 
   $(document).on('turbolinks:load', random_banner);
