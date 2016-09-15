@@ -38,7 +38,7 @@
 }
 
 .btn, .facets-toggle {
-  border-radius: 0px;
+  border-radius: 0px !important;
 }
 
 #search-submit-header {
@@ -48,7 +48,6 @@
 
 #home_header {
   position: relative;
-  overflow: hidden;
   border-bottom:1px solid #101010;
   min-height:300px;
   max-height:300px;
