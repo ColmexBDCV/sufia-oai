@@ -45,15 +45,27 @@
                 role: 'menuitem'
               ) %></li>
         <% end %>
-        <li><%= link_to t("sufia.toolbar.works.batch"), sufia.new_batch_upload_path %></li>
+        <li><%= link_to sufia.new_batch_upload_path do %>
+        <%= content_tag(:i, "", :class => "fa fa-upload") %>
+        <%= t("sufia.toolbar.works.batch")  %>
+        <% end %></li>
         <% end %>
         <% if can?(:create, Collection) %>
         <li class="divider"></li>
-        <li><%= link_to t("sufia.toolbar.collections.my"), sufia.dashboard_collections_path %></li>
-        <li><%= link_to t("sufia.toolbar.collections.new"), main_app.new_collection_path %></li>
+        <li><%= link_to sufia.dashboard_collections_path do %>
+        <%= content_tag(:i, "", :class => "fa fa-briefcase") %>
+        <%= t("sufia.toolbar.collections.my")  %>
+        <% end %></li>
+        <li><%= link_to main_app.new_collection_path do %>
+        <%= content_tag(:i, "", :class => "fa fa-folder-open") %>
+        <%= t("sufia.toolbar.collections.new")  %>
+        <% end %></li>
         <% end %>
         <li class="divider"></li>
-        <li><%= link_to 'Logout', main_app.destroy_user_session_path %></li>
+        <li><%= link_to main_app.destroy_user_session_path do %>
+        <%= content_tag(:span, "", :class => "glyphicon glyphicon-log-out") %>
+        <%= 'Logout'  %>
+        <% end %></li>
       </ul>
     </li><!-- /.btn-group -->
   <% else %>
