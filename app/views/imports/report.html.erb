@@ -44,9 +44,9 @@
   <tbody>
     <% if @import.invalid_records.each do |invalid_record| %>
       <tr>
-        <td><%= link_to invalid_record[:name], sufia::edit_generic_work_path(id: invalid_record[:generic_work_pid]) %></td>
+        <td><%= link_to invalid_record[:name], edit_curation_concerns_generic_work_path(id: invalid_record[:generic_work_pid]) %></td>
         <td><%= invalid_record[:fields].join(', ') %>
-        <td><%= link_to 'Edit', sufia::edit_generic_work_path(id: invalid_record[:generic_work_pid]), class: 'btn btn-primary btn-mini' %></td>
+        <td><%= link_to 'Edit', edit_curation_concerns_generic_work_path(id: invalid_record[:generic_work_pid]), class: 'btn btn-primary btn-mini' %></td>
       </tr>
     <% end.empty? %>
       <tr><td colspan="3">There were no invalid records.</td></tr>

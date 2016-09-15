@@ -6,7 +6,7 @@ class BatchImportService
 
   def schedule
     return false unless @import.ready?
-    ImportJob.perform_now(@import.id, @user.id)
+    ImportJob.perform_later(@import.id, @user.id)
     @import.in_progress!
   end
 
@@ -33,6 +33,7 @@ class BatchImportService
 
     rescue => e
       Rails.logger.error "------import ingest saving error------"
+      Rails.logger.error e.message
       Rails.logger.error
       record = ImportedRecord.find_or_create_by(import_id: @import.id, csv_row: current_row)
       record.update(success: false, message: e.message)
@@ -40,10 +41,11 @@ class BatchImportService
 
     # import has finished - set import status to complete
     @import.complete! if @import.all_records_imported?
+
   end
 
   def resume
-    return false unless @import.is_resumable?
+    return false unless @import.resumable?
     ImportJob.perform_now(@import.id, @user.id, @import.imported_records.last.try(:csv_row))
     @import.in_progress!
   end
@@ -87,12 +89,7 @@ class BatchImportService
 
     # Ingest files already on disk
     gw = GenericWork.new(label: basename)
-    # gw.relative_path = filename if filename != basename
-    # actor = CurationConcerns::CurationConcern.actor(gw, @user)
-    # actor.create_metadata @import.batch_id
-    # gw.collection_id = @import.admin_collection_id
     depositor = @user.email
-
     assign_csv_values_to_genericwork(row, gw)
     gw.rights = [@import.rights]
     gw.preservation_level_rationale = @import.preservation_level
@@ -101,19 +98,22 @@ class BatchImportService
     gw.unit = @import.unit.key
     gw.depositor = depositor
     gw.apply_depositor_metadata(depositor)
+    gw.save
+
+    gw.ordered_members << create_fileset(gw, image_path, depositor)
     gw.save!
 
+    gw
+  end
+
+  def create_fileset(gw, image_path, depositor)
     fs = FileSet.new
-      fs.title << gw.title
+    fs.title << gw.title
     fs.depositor = depositor
     fs.apply_depositor_metadata(depositor)
-      fs.save!
-
-    gw.ordered_members << fs
-    gw.save!
-
-    # IngestLocalImportFileJob.perform_now(gw.id, image_path, @user.user_key)
+    fs.save!
     IngestFileJob.perform_now(fs, image_path, "application/octet-stream", User.find_by(email: depositor))
+    fs
   end
 
   def get_filename_from(row)

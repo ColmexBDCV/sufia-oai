@@ -7,7 +7,7 @@ class Import < ActiveRecord::Base
   belongs_to :unit
   accepts_nested_attributes_for :import_field_mappings
 
-  # belongs_to_fedora :unit, class_name: 'Hydra::Admin::Collection'
+  belongs_to :unit, class_name: 'Unit'
   # belongs_to_fedora :batch
 
   has_attached_file :csv, path: "#{ENV['IMPORT_PATH']}/csv/:id/:basename.:extension"
