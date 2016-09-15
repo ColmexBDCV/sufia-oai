@@ -16,13 +16,19 @@
       <% end %>
       <ul class="dropdown-menu dropdown-menu-right" role="menu">
         <% if can? :read, :admin_dashboard %>
-        <li><%= link_to t("sufia.toolbar.dashboard.my"), sufia.dashboard_index_path %></li>
+        <li><%= link_to sufia.dashboard_index_path do %>
+        <%= content_tag(:span, "", :class => "glyphicon glyphicon-dashboard") %>
+        <%= t("sufia.toolbar.dashboard.my")  %>
+        <% end %></li>
         <% end %>
         <li><%= link_to 'View Profile', sufia.profile_path(current_user) %></li>
         <li><%= link_to 'Edit Profile', sufia.edit_profile_path(current_user) %></li>
         <% if can_ever_create_works? %>
         <li class="divider"></li>
-          <li><%= link_to t("sufia.toolbar.works.my"), sufia.dashboard_works_path %></li>
+          <li><%= link_to sufia.dashboard_works_path do %>
+          <%= content_tag(:i, "", :class => "fa fa-cubes") %>
+          <%= t("sufia.toolbar.works.my")  %>
+          <% end %></li>
 
           <% classification = CurationConcerns::QuickClassificationQuery.new(current_user) %>
           <% classification.each do |concern| %>
