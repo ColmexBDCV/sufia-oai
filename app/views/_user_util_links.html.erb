@@ -21,8 +21,14 @@
         <%= t("sufia.toolbar.dashboard.my")  %>
         <% end %></li>
         <% end %>
-        <li><%= link_to 'View Profile', sufia.profile_path(current_user) %></li>
-        <li><%= link_to 'Edit Profile', sufia.edit_profile_path(current_user) %></li>
+        <li><%= link_to sufia.profile_path(current_user) do %>
+        <%= content_tag(:i, "", :class => "fa fa-user") %>
+        <%= 'View Profile'  %>
+        <% end %></li>
+        <li><%= link_to sufia.edit_profile_path(current_user) do %>
+        <%= content_tag(:i, "", :class => "fa fa-edit") %>
+        <%= 'Edit Profile'  %>
+        <% end %></li>
         <% if can_ever_create_works? %>
         <li class="divider"></li>
           <li><%= link_to sufia.dashboard_works_path do %>
@@ -32,13 +38,12 @@
 
           <% classification = CurationConcerns::QuickClassificationQuery.new(current_user) %>
           <% classification.each do |concern| %>
-            <li><%= link_to(
+          <li><%= link_to(
               "#{t("sufia.toolbar.works.new")} #{concern.human_readable_type}",
               new_polymorphic_path([main_app, concern]),
               class: "item-option contextual-quick-classify #{dom_class(concern, 'new').gsub('_', '-')}",
                 role: 'menuitem'
-              ) %>
-            </li>
+              ) %></li>
         <% end %>
         <li><%= link_to t("sufia.toolbar.works.batch"), sufia.new_batch_upload_path %></li>
         <% end %>
