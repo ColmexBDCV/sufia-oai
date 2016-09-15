@@ -62,7 +62,7 @@ class Import < ActiveRecord::Base
       invalid_fields = []
       params = {
         q: "id:#{imported_record.generic_work_pid}",
-        fq: "has_model_ssim:GenericFile",
+        fq: "has_model_ssim:GenericWork",
         qt: "standard",
         wt: "json",
         indent: "true"
