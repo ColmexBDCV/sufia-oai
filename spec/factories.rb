@@ -1,4 +1,11 @@
 FactoryGirl.define do
+  factory :osul_import_imported_item, class: 'Osul::Import::ImportedItem' do
+    fid "MyString"
+  end
+  factory :osul_import_item, class: 'Osul::Import::Item' do
+    fid "MyString"
+  end
+
   factory :generic_work do
     title ['My Work']
     creator ['Kebe']

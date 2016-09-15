@@ -12,6 +12,7 @@
 //
 //= require js-routes
 //= require jquery
+//= require jquery-ui
 //= require jquery_ujs
 //= require turbolinks
 //= require chosen-jquery
@@ -20,6 +21,7 @@
 //= require owl.carousel
 //= require cocoon
 //= require sufia
+//= require homepage
 //= require_tree .
 
 var ready = function() {
@@ -46,3 +48,4 @@ var ready = function() {
 };
 
 $(document).on('turbolinks:load', ready);
+
