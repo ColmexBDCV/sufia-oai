@@ -80,7 +80,7 @@ FactoryGirl.define do
   factory :membership do
     unit
     user
-    level "Manager"
+    level Membership::MANAGER_LEVEL
   end
 
   factory :auth_hash, class: OmniAuth::AuthHash do

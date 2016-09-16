@@ -48,4 +48,39 @@ RSpec.describe CurationConcerns::GenericWorksController, type: :controller do
       end
     end
   end
+
+  describe "DELETE #destroy" do
+    let(:unit) { create(:unit) }
+    let!(:generic_work) { create(:generic_work, user: user, unit: unit.key) }
+
+    context 'user is a manager in generic work unit' do
+      let!(:membership) { create(:membership, user: user, unit: unit, level: Membership::MANAGER_LEVEL) }
+
+      it "destroys the requested generic work" do
+        expect { delete :destroy, id: generic_work }
+          .to change(GenericWork, :count).by(-1)
+      end
+
+      it "redirects to the catalog index" do
+        delete :destroy, id: generic_work
+        expect(response).to redirect_to '/catalog'
+      end
+    end
+
+    context 'user is a data entry member of generic work unit' do
+      let!(:membership) { create(:membership, user: user, unit: unit, level: Membership::DATA_ENTRY_LEVEL) }
+
+      it "does not destroy the requested generic work" do
+        expect { delete :destroy, id: generic_work }
+          .to change(GenericWork, :count).by(0)
+      end
+    end
+
+    context 'user is not a member of generic work unit' do
+      it "does not destroy the requested generic work" do
+        expect { delete :destroy, id: generic_work }
+          .to change(GenericWork, :count).by(0)
+      end
+    end
+  end
 end

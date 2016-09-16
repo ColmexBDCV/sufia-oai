@@ -42,4 +42,10 @@ class User < ActiveRecord::Base
   def in_unit?
     units.present?
   end
+
+  def member_of?(unit, opts={})
+    opts = { level: Membership::MANAGER_LEVEL }.merge(opts)
+    unit = unit.is_a?(Unit) ? unit : Unit.find_by_key(unit)
+    memberships.where(unit: unit, level: opts[:level]).present?
+  end
 end

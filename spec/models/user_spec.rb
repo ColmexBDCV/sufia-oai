@@ -17,7 +17,7 @@ RSpec.describe User, type: :model do
       user = create(:user)
       unit = create(:unit)
       create(:membership, user: user, unit: unit)
-      create(:membership, user: user, unit: unit, level: 'DataEntry')
+      create(:membership, user: user, unit: unit, level: Membership::DATA_ENTRY_LEVEL)
 
       expect(user.units.count).to eq 1
     end
@@ -77,6 +77,30 @@ RSpec.describe User, type: :model do
 
     it 'returns false when the user is not a member of a unit' do
       expect(user.in_unit?).to be false
+    end
+  end
+
+  describe '#member_of?' do
+    let(:user) { create(:user) }
+    let(:unit) { create(:unit) }
+
+    it 'returns true when the user is a member of the provided unit' do
+      create(:membership, user: user, unit: unit, level: Membership::MANAGER_LEVEL)
+      expect(user.member_of?(unit)).to be true
+    end
+
+    it 'returns false when the user is not a member of the provided unit' do
+      expect(user.member_of?(unit)).to be false
+    end
+
+    it 'returns false when the user is a member of the provided unit but a different membership level' do
+      create(:membership, user: user, unit: unit, level: Membership::MANAGER_LEVEL)
+      expect(user.member_of?(unit, level: Membership::DATA_ENTRY_LEVEL)).to be false
+    end
+
+    it 'returns true when the user is a member of the provided unit and the unit key is provided' do
+      create(:membership, user: user, unit: unit, level: Membership::MANAGER_LEVEL)
+      expect(user.member_of?(unit.key)).to be true
     end
   end
 
