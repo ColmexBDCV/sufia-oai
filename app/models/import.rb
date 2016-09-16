@@ -14,7 +14,7 @@ class Import < ActiveRecord::Base
 
   validates_attachment :csv, content_type: { content_type: ['text/csv', 'application/vnd.ms-excel', 'application/octet-stream'] }
   validates_attachment_presence :csv
-  validates :name, :unit_id, :rights, :preservation_level, :import_type, :server_import_location_name, presence: true
+  validates :name, :rights, :preservation_level, :unit_id, :import_type, :server_import_location_name, presence: true
   validate :validate_unit
   validate :validate_csv_contents
 

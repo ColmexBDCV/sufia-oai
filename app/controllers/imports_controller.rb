@@ -2,6 +2,7 @@ class ImportsController < ApplicationController
   load_and_authorize_resource
 
   before_action :unit_list, only: [:new, :create, :edit, :update]
+  before_action :collection_list, only: [:new, :create, :edit, :update]
   before_action :visibility_levels, only: [:new, :create, :edit, :update]
 
   # GET /imports
@@ -143,6 +144,10 @@ class ImportsController < ApplicationController
     @units = current_user.admin? ? Unit.all : Unit.where(key: current_user.groups)
   end
 
+  def collection_list
+    @collections = Collection.all
+  end
+
   def visibility_levels
     @visibility_levels = {
       'Private' => Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE,
@@ -153,7 +158,7 @@ class ImportsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def import_params
-    permitted_params = params.require(:import).permit(:user_id, :csv, :images, :name, :unit_id, :includes_headers,
+    permitted_params = params.require(:import).permit(:user_id, :csv, :images, :name, :unit_id, :collection_id, :includes_headers,
                                                       :server_import_location_name, :import_type, :rights, :preservation_level,
                                                       import_field_mappings_attributes: [:id, :key, { value: [] }])
     if can? :publish, GenericWork

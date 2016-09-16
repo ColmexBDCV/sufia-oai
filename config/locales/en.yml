@@ -20,4 +20,5 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  admin_set_name: "Unit"
+  unit_label: "Unit"
+  collection_label: "Collection"

@@ -194,6 +194,7 @@ ActiveRecord::Schema.define(version: 20160908212312) do
     t.integer  "csv_file_size"
     t.datetime "csv_updated_at"
     t.integer  "unit_id"
+    t.string   "collection_id"
   end
 
   add_index "imports", ["unit_id"], name: "index_imports_on_unit_id"

@@ -95,7 +95,7 @@ class BatchImportService
     gw.preservation_level_rationale = @import.preservation_level
     gw.preservation_level = "Full"
     gw.visibility = @import.visibility
-    gw.unit = @import.unit.key
+    gw.unit = @import.unit.key unless ! @import.unit
     gw.depositor = depositor
     gw.apply_depositor_metadata(depositor)
     gw.save
@@ -103,7 +103,15 @@ class BatchImportService
     gw.ordered_members << create_fileset(gw, image_path, depositor)
     gw.save!
 
+    add_generic_work_to_collection(gw, @import.collection_id) if @import.collection_id.present?
+
     gw
+  end
+
+  def add_generic_work_to_collection(gw, collection_id)
+    collection = Collection.find(collection_id)
+    collection.members << gw
+    collection.save!
   end
 
   def create_fileset(gw, image_path, depositor)
