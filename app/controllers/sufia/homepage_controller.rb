@@ -5,6 +5,7 @@ module Sufia
     def index
       super
       @units = Unit.all
+      @homepage = true
     end
   end
 end
