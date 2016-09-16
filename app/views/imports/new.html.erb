@@ -36,7 +36,7 @@
       <div class='form-group required'>
         <%= f.label :collection_id, "#{t('collection_label')}", class: 'col-md-4 control-label' %>
         <div class='col-md-8'>
-          <%= f.select :collection_id, options_for_select(@collections.map{|u| [u.title.first, u.id]}.insert(0, "Select a Collection"), @import.collection_id), {}, {class: 'chosen-select'} %>
+          <%= f.select :collection_id, options_for_select(@collections.map{|u| [u.title.first, u.id]}, @import.collection_id), {include_blank: "Select Collection..."}, {class: 'chosen-select'} %>
         </div>
       </div>
 
