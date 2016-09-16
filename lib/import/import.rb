@@ -101,7 +101,7 @@ module MyImport
       gw = GenericWork.new
       gw.apply_depositor_metadata(depositor)
       gw.id = gf.fid
-      gw.unit = "billy_ireland_cartoons"
+      gw.unit = gf.unit #"BillyIrelandCartoonLibraryMuseum"
       # loop through each term and call the corresponding method to get the data
       terms.each do |t|
         gw.send((t.to_s + "=").to_sym, gf.send(t))
@@ -182,8 +182,17 @@ module MyImport
 
       url = "#{@settings.sufia6_root_uri}/osul/export/export_generic_file_items.json"
       uri = URI(url)
-      response = Net::HTTP.get(uri)
-      items = JSON.parse(response, object_class: OpenStruct)
+
+      req = Net::HTTP::Get.new(uri)
+
+      response = Net::HTTP.start(
+        uri.host, uri.port, 
+        :use_ssl => uri.scheme == 'https', 
+        :verify_mode => OpenSSL::SSL::VERIFY_NONE) do |https|
+          https.request(req)
+        end
+
+      items = JSON.parse(response.body, object_class: OpenStruct)
       items.each do |gf|
         attributes = gf.to_h
         attributes.delete(:id)
