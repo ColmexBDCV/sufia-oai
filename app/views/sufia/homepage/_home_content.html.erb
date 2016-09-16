@@ -1,1 +1,5 @@
-<%= render partial: "units/unit_spread", locals: { units: @units } %>
+<div class="col-xs-10 col-xs-offset-1">
+<% @units.each do |unit| %>
+  <%= render partial: "units/unit_overlay", locals: {unit: unit} %>
+<% end %>
+</div>
