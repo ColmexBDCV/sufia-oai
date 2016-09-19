@@ -243,3 +243,8 @@ float:none;
 .my_table{
   overflow: visible;
 }
+
+.table-condensed>tbody>tr>td {
+  max-width:100px;
+  overflow-x:scroll;
+}
