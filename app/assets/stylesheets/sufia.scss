@@ -14,6 +14,11 @@
 @import "blacklight_gallery/osd_viewer";
 @import 'sufia/sufia';
 
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 .navbar-brand {
   padding: 10px 15px;
 }
@@ -110,6 +115,7 @@ padding-top:100px;
 
 body {
   font-family:'proximanova',Arial,sans-serif;
+  margin-bottom: 226px;
 }
 
 h1, h2 {font-family:'capita','Times New Roman',serif; font-weight:300;}
@@ -117,47 +123,6 @@ h1, h2 {font-family:'capita','Times New Roman',serif; font-weight:300;}
 h3, h4, h5 {font-family:'proximanova', Arial, sans-serif;}
 
 h3.media-heading {font-family:'capita','Times New Roman',serif; font-weight:300;}
-
-.img_overlay{
-  display:none;
-  position: relative;
-  left: 0;
-  background:rgba(13,64,141,0.90);
-  color:#fff;
-  border:1px solid #ddd;
-  border-radius: 4px;
-}
-
-.overlay{
-  margin:auto;
-}
-
-.img_overlay_byrd{
-  display:none;
-  position: relative;
-  left: 0;
-  background:rgba(13,64,141,0.90);
-  color:#fff;
-  border:1px solid #ddd;
-  border-radius: 4px;
-}
-
-.overlay_byrd{
-  margin:auto;
-}
-.img_overlay_arch{
-  display:none;
-  position: relative;
-  left: 0;
-  background:rgba(13,64,141,0.90);
-  color:#fff;
-  border:1px solid #ddd;
-  border-radius: 4px;
-}
-
-.overlay_arch{
-  margin:auto;
-}
 
 .collection_description{
   text-align:center;
@@ -250,4 +215,16 @@ float:none;
 
 .table-responsive {
   overflow-x:auto;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height:226px;
+}
+
+.my_table{
+  overflow: visible;
 }
