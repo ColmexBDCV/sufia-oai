@@ -228,6 +228,14 @@ float:none;
   height:226px;
 }
 
+.footer a:link, .footer a:visited {
+  color:#d8d8d8;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
 .footer_bg{
   background-color:#222;
 }
