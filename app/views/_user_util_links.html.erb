@@ -9,6 +9,47 @@
     <li class="dropdown user-options">
       <%= link_to sufia.profile_path(current_user), role: 'button', data: { toggle: 'dropdown' }, aria: { haspopup: true, expanded: false} do %>
         <span class="sr-only">View</span>
+        <span class="hidden-xs">Tools</span>
+        <span class="sr-only"> Tools</span>
+        <span class="fa fa-wrench"></span>
+        <span class="caret" ></span>
+      <% end %>
+      <ul class="dropdown-menu dropdown-menu-right" role="menu">
+        <% if can_ever_create_works? %>
+          <li><%= link_to sufia.dashboard_works_path do %>
+            <%= content_tag(:i, "", :class => "fa fa-cubes") %>
+            <%= t("sufia.toolbar.works.my")  %>
+            <% end %></li>
+          <% classification = CurationConcerns::QuickClassificationQuery.new(current_user) %>
+          <% classification.each do |concern| %>
+          <li><%= link_to(
+              "#{t("sufia.toolbar.works.new")} #{concern.human_readable_type}",
+              new_polymorphic_path([main_app, concern]),
+              class: "item-option contextual-quick-classify #{dom_class(concern, 'new').gsub('_', '-')}",
+                role: 'menuitem'
+              ) %></li>
+          <% end %>
+        <li><%= link_to sufia.new_batch_upload_path do %>
+        <%= content_tag(:i, "", :class => "fa fa-upload") %>
+        <%= t("sufia.toolbar.works.batch")  %>
+        <% end %></li>
+        <% end %>
+        <% if can?(:create, Collection) %>
+        <li class="divider"></li>
+        <li><%= link_to sufia.dashboard_collections_path do %>
+        <%= content_tag(:i, "", :class => "fa fa-briefcase") %>
+        <%= t("sufia.toolbar.collections.my")  %>
+        <% end %></li>
+        <li><%= link_to main_app.new_collection_path do %>
+        <%= content_tag(:i, "", :class => "fa fa-folder-open") %>
+        <%= t("sufia.toolbar.collections.new")  %>
+        <% end %></li>
+        <% end %>
+      </ul>
+    </li>
+    <li class="dropdown user-options">
+      <%= link_to sufia.profile_path(current_user), role: 'button', data: { toggle: 'dropdown' }, aria: { haspopup: true, expanded: false} do %>
+        <span class="sr-only">View</span>
         <span class="hidden-xs">&nbsp;<%= current_user.name %></span>
         <span class="sr-only"> profile</span>
         <span class="fa fa-user"></span>
@@ -29,38 +70,6 @@
         <%= content_tag(:i, "", :class => "fa fa-edit") %>
         <%= 'Edit Profile'  %>
         <% end %></li>
-        <% if can_ever_create_works? %>
-        <li class="divider"></li>
-          <li><%= link_to sufia.dashboard_works_path do %>
-          <%= content_tag(:i, "", :class => "fa fa-cubes") %>
-          <%= t("sufia.toolbar.works.my")  %>
-          <% end %></li>
-
-          <% classification = CurationConcerns::QuickClassificationQuery.new(current_user) %>
-          <% classification.each do |concern| %>
-          <li><%= link_to(
-              "#{t("sufia.toolbar.works.new")} #{concern.human_readable_type}",
-              new_polymorphic_path([main_app, concern]),
-              class: "item-option contextual-quick-classify #{dom_class(concern, 'new').gsub('_', '-')}",
-                role: 'menuitem'
-              ) %></li>
-        <% end %>
-        <li><%= link_to sufia.new_batch_upload_path do %>
-        <%= content_tag(:i, "", :class => "fa fa-upload") %>
-        <%= t("sufia.toolbar.works.batch")  %>
-        <% end %></li>
-        <% end %>
-        <% if can?(:create, Collection) %>
-        <li class="divider"></li>
-        <li><%= link_to sufia.dashboard_collections_path do %>
-        <%= content_tag(:i, "", :class => "fa fa-briefcase") %>
-        <%= t("sufia.toolbar.collections.my")  %>
-        <% end %></li>
-        <li><%= link_to main_app.new_collection_path do %>
-        <%= content_tag(:i, "", :class => "fa fa-folder-open") %>
-        <%= t("sufia.toolbar.collections.new")  %>
-        <% end %></li>
-        <% end %>
         <li class="divider"></li>
         <li><%= link_to main_app.destroy_user_session_path do %>
         <%= content_tag(:span, "", :class => "glyphicon glyphicon-log-out") %>
@@ -69,8 +78,6 @@
       </ul>
     </li><!-- /.btn-group -->
   <% else %>
-    <li><a href="#">Collections</a></li>
-    <li><a href="#">About</a></li>
     <li class="login-link">
       <%= link_to omniauth_authorize_path(:user, login_strategy) do %>
         <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Login

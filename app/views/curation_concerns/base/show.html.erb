@@ -13,7 +13,7 @@
     <%#= render 'social_media' %>
     <%= render 'citations', presenter: @presenter %>
     <%= render 'relationships', presenter: @presenter %>
-    <h2>Unit Information</h2>
+    <hr />
     <%= render partial: 'units/unit_info', locals: { unit: Unit.find_by_key(@presenter.unit.first.to_s) } %>
   </div>
   <div class="col-sm-7">
