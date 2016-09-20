@@ -29,6 +29,11 @@ class GenericWork < ActiveFedora::Base
     index.type :text
   end
 
+  # Is also the part_of field, just adds stored searchable and facetable
+  property :sub_collection, predicate: ::RDF::DC.isPartOf do |index|
+    index.as :stored_searchable, :facetable
+  end
+
   property :spatial, predicate: ::RDF::DC.spatial do |index|
     index.as :stored_searchable, :facetable
   end

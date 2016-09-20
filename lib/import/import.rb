@@ -38,7 +38,7 @@ module MyImport
       fs.save!
       # File
       got_image = "false"
-      got_image = "true" if image_exists?(gf.fid)
+      got_image = "true" if File.exist?("#{ENV['MIGRATION_OBJECTS_PATH']}#{gf.id}")
 
       # Log imported item
       Osul::Import::ImportedItem.create(fid: fs.id, got_image: got_image, object_type: "FileSet", gw_relation: gf.fid)
@@ -56,12 +56,14 @@ module MyImport
     def import_current_version(gf, fs)
       # Download the current version to disk...
       filename_on_disk = "#{ENV['MIGRATION_OBJECTS_PATH']}#{fs.id}"
-      Rails.logger.debug "[IMPORT] Downloading #{filename_on_disk}"
-      File.open(filename_on_disk, 'wb') do |file_to_upload|
-        source_uri = sufia6_content_open_uri(gf.fid)
-        file_to_upload.write source_uri.read
-      end
+      # Rails.logger.debug "[IMPORT] Downloading #{filename_on_disk}"
+      # File.open(filename_on_disk, 'wb') do |file_to_upload|
+      #   source_uri = sufia6_content_open_uri(gf.fid)
+      #   file_to_upload.write source_uri.read
+      # end
 
+      CharacterizeJob.perform_now(fs, filename_on_disk)
+      CreateDerivativesJob.perform_now(fs, filename_on_disk)
       IngestFileJob.perform_now(fs, filename_on_disk, "application/octet-stream", User.find_by(email: gf.depositor))
       # ...upload it...
       # File.open(filename_on_disk, 'rb') do |file_to_upload|
@@ -180,29 +182,37 @@ module MyImport
       Osul::Import::Item.delete_all
       Osul::Import::ImportedItem.delete_all
 
-      url = "#{@settings.sufia6_root_uri}/osul/export/export_generic_file_items.json"
-      uri = URI(url)
+      num_of_items = 36000 # need to change this and get the number dynamically
+      limit = 100
+      offset = 0
+      loop do
+        url = "#{@settings.sufia6_root_uri}/osul/export/export_generic_file_items.json?limit=#{limit}&offset=#{offset}"
+        uri = URI(url)
 
-      req = Net::HTTP::Get.new(uri)
+        req = Net::HTTP::Get.new(uri)
 
-      response = Net::HTTP.start(
-        uri.host, uri.port,
-        use_ssl: uri.scheme == 'https',
-        verify_mode: OpenSSL::SSL::VERIFY_NONE
-      ) do |https|
-        https.request(req)
-      end
+        response = Net::HTTP.start(
+          uri.host, uri.port,
+          use_ssl: uri.scheme == 'https',
+          verify_mode: OpenSSL::SSL::VERIFY_NONE
+        ) do |https|
+          https.request(req)
+        end
 
-      items = JSON.parse(response.body, object_class: OpenStruct)
-      items.each do |gf|
-        attributes = gf.to_h
-        attributes.delete(:id)
-        Osul::Import::Item.create(attributes)
+        items = JSON.parse(response.body, object_class: OpenStruct)
+        items.each do |gf|
+          attributes = gf.to_h
+          attributes.delete(:id)
+          Osul::Import::Item.create(attributes)
+        end
+
+        break if (offset + limit) > num_of_items
+        offset += limit
       end
     end
 
     def import
-      Osul::Import::Item.unimported_items.each do |generic_file|
+      Osul::Import::Item.unimported_items.where("unit = 'ByrdPolarResearchCenterArchivalProgram'").each do |generic_file|
         Rails.logger.debug "next up -- #{generic_file.fid} "
         import_generic_file(generic_file)
       end
