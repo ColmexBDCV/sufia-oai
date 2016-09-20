@@ -34,11 +34,12 @@ module MyImport
       # fs.label = gf.label
       # fs.date_uploaded = gf.date_uploaded
       # fs.date_modified = gf.date_modified
+
       fs.apply_depositor_metadata(depositor)
       fs.save!
       # File
       got_image = "false"
-      got_image = "true" if File.exist?("#{ENV['MIGRATION_OBJECTS_PATH']}#{gf.id}")
+      got_image = "true" if File.exist?("#{ENV['MIGRATION_OBJECTS_PATH']}#{gf.fid}")
 
       # Log imported item
       Osul::Import::ImportedItem.create(fid: fs.id, got_image: got_image, object_type: "FileSet", gw_relation: gf.fid)
@@ -63,7 +64,7 @@ module MyImport
       # end
 
       IngestFileJob.perform_now(fs, filename_on_disk, "application/octet-stream", User.find_by(email: gf.depositor))
-      CreateDerivativesJob.perform_now(fs, filename_on_disk)
+      CreateDerivativesJob.perform_now(fs, fs.original_file.id)
 
       # ...upload it...
       # File.open(filename_on_disk, 'rb') do |file_to_upload|
@@ -137,12 +138,15 @@ module MyImport
           gw[ct] << create_materials(complex_term.to_h) if ct == :materials
         end
       end
-      unless gw.collection_id.blank?
-        cid = collection_lookup(gw.collection_id)
-        collection = Collection.find(cid)
-        collection.members << gw
-        collection.save
+      unless gf.collection_id.blank?
+        cid = collection_lookup(gf.collection_id)
+        unless cid.blank?
+          collection = Collection.find(cid)
+          collection.members << gw
+          collection.save
+        end
       end
+      gw.save
       gw
     end
 
@@ -183,8 +187,10 @@ module MyImport
 
       # Generic Work
       gw = ImportGenericWork.new(settings).from_gf(gf, depositor)
-      gw.ordered_members << fs
-      gw.save!
+
+      fs_actor = CurationConcerns::Actors::FileSetActor.new(fs, User.find_by(email: depositor))
+      fs_actor.create_metadata(gw, {})
+
       Rails.logger.debug "[IMPORT] Created generic work #{gw.id}"
 
       # TODO: set generic work thumbnail (shouldn't this happen automatically in create derivatives)
@@ -256,7 +262,7 @@ module MyImport
           Rails.logger.debug "Couldn't find item"
           next
         end
-        obj.destroy # This will destroy the associated file_sets but will not eradicate them (but then again we don't need to)
+        obj.delete # This will destroy the associated file_sets but will not eradicate them (but then again we don't need to)
         obj.eradicate
       end
       Osul::Import::ImportedItem.delete_all
