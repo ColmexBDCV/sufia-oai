@@ -5,12 +5,10 @@
 
     var footer_height = $('footer.footer').height();
     $('body').css('margin-bottom', footer_height);
-    console.log(footer_height);
 
     $(window).resize(function(){
       var footer_height = $('footer.footer').height();
       $('body').css('margin-bottom', footer_height);
-      console.log(footer_height);
     });
   };
 
