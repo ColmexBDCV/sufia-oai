@@ -27,6 +27,7 @@ class GenericWork < ActiveFedora::Base
 
   property :staff_notes, predicate: ::RDF::URI.new("https://library.osu.edu/ns#StaffNotes"), multiple: true do |index|
     index.type :text
+    index.as :stored_searchable
   end
 
   # Is also the part_of field, just adds stored searchable and facetable
