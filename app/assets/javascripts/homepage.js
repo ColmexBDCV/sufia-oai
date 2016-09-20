@@ -5,13 +5,16 @@
 
     var footer_height = $('footer.footer').height();
     $('body').css('margin-bottom', footer_height);
-    console.log(footer_height);
 
     $(window).resize(function(){
       var footer_height = $('footer.footer').height();
       $('body').css('margin-bottom', footer_height);
-      console.log(footer_height);
     });
+
+    $('#material-fields').nestedFields();
+    $('#measurement-fields').nestedFields();
+
+    $('.select2-field').select2();
   };
 
   $(document).on('turbolinks:load', random_banner);
