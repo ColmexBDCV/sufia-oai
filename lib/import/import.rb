@@ -55,16 +55,16 @@ module MyImport
 
     def import_current_version(gf, fs)
       # Download the current version to disk...
-      filename_on_disk = "#{ENV['MIGRATION_OBJECTS_PATH']}#{fs.id}"
+      filename_on_disk = "#{ENV['MIGRATION_OBJECTS_PATH']}#{gf.fid}"
       # Rails.logger.debug "[IMPORT] Downloading #{filename_on_disk}"
       # File.open(filename_on_disk, 'wb') do |file_to_upload|
       #   source_uri = sufia6_content_open_uri(gf.fid)
       #   file_to_upload.write source_uri.read
       # end
 
-      CharacterizeJob.perform_now(fs, filename_on_disk)
-      CreateDerivativesJob.perform_now(fs, filename_on_disk)
       IngestFileJob.perform_now(fs, filename_on_disk, "application/octet-stream", User.find_by(email: gf.depositor))
+      CreateDerivativesJob.perform_now(fs, filename_on_disk)
+
       # ...upload it...
       # File.open(filename_on_disk, 'rb') do |file_to_upload|
       #   Hydra::Works::UploadFileToFileSet.call(fs, file_to_upload)
@@ -98,6 +98,23 @@ module MyImport
       [:materials, :measurements]
     end
 
+    # lookup collections that item should belong to by using the mapping hash of collections exported from ims
+    def collection_lookup(old_collection_id)
+      h = { "0003ea82-c22a-4faf-b3e1-764d0f3c332f" => "5h73pw06t",
+            "ae89efa7-24d2-49dc-b8d5-219fb6003a27" => "1g05fb61q",
+            "93739557-325a-464c-b88d-42d818b2a83b" => "q524jn78d",
+            "b4f4d3d1-652d-4ddf-aad2-04831b46b455" => "m900nt40f",
+            "3db58b0e-a963-4f67-878d-95a18b1f5216" => "47429912h",
+            "d8858659-c4bd-4936-a7f8-3d956c4f33c5" => "f1881k89j",
+            "1f4046b7-4c2e-416d-b5f7-40960ee6ab83" => "xp68kg24f",
+            "2df457d8-f0d6-45ab-a857-3e3769ee8aa3" => "hx11xf263",
+            "5994a903-98d0-41ab-9575-f8e34b4023cf" => "bz60cw251",
+            "bf42d323-2580-4710-990f-b70bbbca72b8" => "rn301137d",
+            "e75d9647-0bfc-41e0-b5e1-8040b1cba83d" => "3r074t92z",
+            "95c77baf-0979-4f62-ae86-8d98212fcdc1" => "p5547r37h" }
+      h[old_collection_id]
+    end
+
     def from_gf(gf, depositor)
       Rails.logger.debug "Creating GenericWork for  generic_file_id #{gf.fid}.."
       gw = GenericWork.new
@@ -119,6 +136,12 @@ module MyImport
           gw[ct] << create_measurements(complex_term.to_h) if ct == :measurements
           gw[ct] << create_materials(complex_term.to_h) if ct == :materials
         end
+      end
+      unless gw.collection_id.blank?
+        cid = collection_lookup(gw.collection_id)
+        collection = Collection.find(cid)
+        collection.members << gw
+        collection.save
       end
       gw
     end
@@ -212,7 +235,7 @@ module MyImport
     end
 
     def import
-      Osul::Import::Item.unimported_items.where("unit = 'ByrdPolarResearchCenterArchivalProgram'").each do |generic_file|
+      Osul::Import::Item.unimported_items.where("unit = 'ByrdPolarResearchCenterArchivalProgram'").limit(20).each do |generic_file|
         Rails.logger.debug "next up -- #{generic_file.fid} "
         import_generic_file(generic_file)
       end
