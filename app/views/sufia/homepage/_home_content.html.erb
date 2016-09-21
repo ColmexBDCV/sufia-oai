@@ -1,5 +1,9 @@
-<div class="col-xs-10 col-xs-offset-1">
-<% @units.each do |unit| %>
+<!--<div class="col-xs-11 col-xs-offset-1">-->
+<% @units.each_with_index do |unit, index| %>
   <%= render partial: "units/unit_overlay", locals: {unit: unit} %>
+  <%# if (index % 3 == 2) %>
+  <!--</div>
+  <div id="home_content" class="row">-->
+  <%# end %>
 <% end %>
-</div>
+<!--</div>-->

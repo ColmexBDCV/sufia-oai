@@ -33,9 +33,9 @@
         <%= content_tag(:i, "", :class => "fa fa-upload") %>
         <%= t("sufia.toolbar.works.batch")  %>
         <% end %></li>
+        <li class="divider"></li>
         <% end %>
         <% if can?(:create, Collection) %>
-        <li class="divider"></li>
         <li><%= link_to sufia.dashboard_collections_path do %>
         <%= content_tag(:i, "", :class => "fa fa-briefcase") %>
         <%= t("sufia.toolbar.collections.my")  %>
