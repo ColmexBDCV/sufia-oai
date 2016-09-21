@@ -126,8 +126,11 @@ module MyImport
       terms.each do |t|
         gw.send((t.to_s + "=").to_sym, gf.send(t))
       end
-
-      gw.save # create gw and persist id so that measurements and materials can be saved
+      begin
+        gw.save # create gw and persist id so that measurements and materials can be saved
+      rescue
+        Osul::Import::ImportedItem.create(fid: gf.fid, object_type: "GenericWork", message: "error")
+      end
       # Log imported item
       Osul::Import::ImportedItem.create(fid: gf.fid, object_type: "GenericWork")
 
@@ -151,7 +154,6 @@ module MyImport
     end
 
     def create_measurements(measurement)
-
       Rails.logger.debug "Creating measurement with id #{measurement[:id]} for  generic_file_id #{measurement[:generic_file_id]}.."
       # First we have to change the key in the hash from generic_file_id to :generic_work_id
       d = measurement.delete(:generic_file_id)
@@ -242,7 +244,7 @@ module MyImport
     end
 
     def import
-      Osul::Import::Item.unimported_items.where("unit = 'ByrdPolarResearchCenterArchivalProgram'").limit(20).each do |generic_file|
+      Osul::Import::Item.unimported_items.where("unit = 'ByrdPolarResearchCenterArchivalProgram'").limit(500).each do |generic_file|
         Rails.logger.debug "next up -- #{generic_file.fid} "
         import_generic_file(generic_file)
       end
