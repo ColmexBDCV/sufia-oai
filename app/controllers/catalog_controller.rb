@@ -8,10 +8,7 @@ class CatalogController < ApplicationController
   # These before_filters apply the hydra access controls
   before_action :enforce_show_permissions, only: :show
   skip_before_action :default_html_head
-  def index
-    @unit = Unit.find_by_key(params[:unit_sim]) if params[:unit_sim].present?
-    super
-   end
+
   def self.uploaded_field
     solr_name('system_create', :stored_sortable, type: :date)
   end
@@ -302,6 +299,10 @@ class CatalogController < ApplicationController
     config.spell_max = 5
   end
 
+ def index
+   @unit = Unit.find_by_key(params.dig(:f, :unit_sim))
+   super
+ end
   # disable the bookmark control from displaying in gallery view
   # Sufia doesn't show any of the default controls on the list view, so
   # this method is not called in that context.
