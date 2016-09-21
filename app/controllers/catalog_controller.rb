@@ -10,8 +10,8 @@ class CatalogController < ApplicationController
   skip_before_action :default_html_head
   def index
     @unit = Unit.find_by_key(params[:unit_sim]) if params[:unit_sim].present?
-   super
-  end
+    super
+   end
   def self.uploaded_field
     solr_name('system_create', :stored_sortable, type: :date)
   end

@@ -14,9 +14,9 @@
 <% end %>
 
 <% if facet_params("unit_sim") %>
-<%# @unit = Unit.find_by_key(facet_params("unit_sim"))  %>
-<%= render partial: "units/unit_info", locals: {unit: @unit} %>
-<%# end %>
+<% @unit = Unit.find_by_key(facet_params("unit_sim"))  %>
+<%= render partial: "units/unit_info_search", locals: {unit: @unit} %>
+<% end %>
 
 <%= render 'search_header' %>
 
