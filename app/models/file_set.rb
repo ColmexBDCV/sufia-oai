@@ -5,11 +5,6 @@ class FileSet < ActiveFedora::Base
 
   # Eventually will have to be moved to presenter / and solrdocument for speedier results
   def loris_id
-    full_path_id + '/' + self.original_file.id + '-' + original_file.versions.last.label
-  end
-
-  # Transforms id from 'abcdefg' => 'ab/cd/ef/abcdefg'
-  def full_path_id 
-    self.id[0..1] + '/' + self.id[2..3] + '/' + self.id[4..5] + '/' + self.id[6..7] 
+    ActiveFedora::Noid.treeify(original_file.id) + '-' + original_file.versions.last.label
   end
 end

@@ -5,7 +5,3 @@ Redis.current = Redis.new(redis_config.merge(thread_safe: true))
 Sidekiq.configure_client do |config|
   config.redis = { url: "redis://#{Redis.current.client.location}/#{Redis.current.client.db}" }
 end
-
-Sidekiq.configure_server do |config|
-  config.redis = { url: "redis://#{Redis.current.client.location}/#{Redis.current.client.db}" }
-end
