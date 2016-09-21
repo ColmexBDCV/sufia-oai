@@ -8,7 +8,10 @@ class CatalogController < ApplicationController
   # These before_filters apply the hydra access controls
   before_action :enforce_show_permissions, only: :show
   skip_before_action :default_html_head
-
+  def index
+    @unit = Unit.find_by_key(params[:unit_sim]) if params[:unit_sim].present?
+   super
+  end
   def self.uploaded_field
     solr_name('system_create', :stored_sortable, type: :date)
   end
