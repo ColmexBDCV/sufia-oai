@@ -1,10 +1,12 @@
 <div class="panel panel-info">
   <div class="panel-heading">
-    <h3 class="panel-title"><%= unit.name %></h3>
+    <h1 class="panel-title"><%= unit.name %></h1>
   </div>
   <div class="panel-body">
-    <div class="col-xs-12">
-      <%= image_tag unit.image.url(:landing), class: "img-thumbnail pull-left" %>
+    <div class="col-xs-3">
+      <%= image_tag unit.image.url(:landing), class: "img-thumbnail media-object-homepage pull-left" %>
+    </div>
+    <div class="col-xs-9">
       <div class="unit_description_search">
       <p class="lead"><%= unit.description %></p>
       <hr>
