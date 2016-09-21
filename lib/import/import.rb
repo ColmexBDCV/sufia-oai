@@ -151,6 +151,7 @@ module MyImport
     end
 
     def create_measurements(measurement)
+
       Rails.logger.debug "Creating measurement with id #{measurement[:id]} for  generic_file_id #{measurement[:generic_file_id]}.."
       # First we have to change the key in the hash from generic_file_id to :generic_work_id
       d = measurement.delete(:generic_file_id)

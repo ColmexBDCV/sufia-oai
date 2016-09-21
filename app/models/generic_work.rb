@@ -92,13 +92,13 @@ class GenericWork < ActiveFedora::Base
     result = super
     measurement_hash = { "measurement_tesim" => [], "measurement_sim" => [] }
     measurements.each do |m|
-      measurement = m.measurement.to_s + " " + m.measurement_type + " " + m.measurement_unit
+      measurement = (m.measurement.try(:to_s) || "") + " " + (m.measurement_type || "") + " " + (m.measurement_unit || "")
       measurement_hash["measurement_tesim"] << measurement
       measurement_hash["measurement_sim"] << measurement
     end
     material_hash = { "material_tesim" => [], "material_sim" => [] }
     materials.each do |m|
-      material = m.material.to_s + ", " + m.material_type.to_s
+      material = (m.material.try(:to_s) || "") + ", " + (m.material_type.try(:to_s) || "")
       material_hash["material_tesim"] << material
       material_hash["material_sim"] << material
     end
