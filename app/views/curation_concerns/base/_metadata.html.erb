@@ -16,6 +16,7 @@
     <%= presenter.attribute_to_html(:keyword, render_as: :faceted ) %>
     <%= presenter.attribute_to_html(:date_created, render_as: :linked, search_field: 'date_created_tesim' ) %>
     <%= presenter.attribute_to_html(:identifier, render_as: :linked, search_field: 'identifier_tesim') %>
+    <%= presenter.attribute_to_html(:sub_collection, render_as: :linked, search_field: 'sub_collection_tesim') %>
   </tbody>
 </table>
 </div>

@@ -9,6 +9,8 @@
   <div class="col-sm-5">
     Last modified: <%= @presenter.date_modified %>
     <%= render 'representative_media', presenter: @presenter %>
+    <%= "Credit line - #{@presenter.sub_collection}" + "#{", " if @presenter.sub_collection.present? }"
+        + Unit.find_by_key(@presenter.unit.first.to_s).name %>
     <%= render 'show_actions', presenter: @presenter %>
     <%#= render 'social_media' %>
     <%= render 'citations', presenter: @presenter %>
