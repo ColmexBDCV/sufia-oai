@@ -91,8 +91,8 @@ module MyImport
       [ :date_uploaded, :identifier, :resource_type, :title, :creator, :contributor, :description, :bibliographic_citation,
         :rights, :provenance, :publisher, :date_created, :subject, :language, :based_near, :related_url,
         :work_type, :spatial, :alternative, :temporal, :format, :staff_notes, :source, :part_of, :preservation_level_rationale,
-        :preservation_level, :depositor, :handle]
-      # :id, :tag,:batch_id, :collection_identifier, :collection_id, :admin_policy_id, :filename
+        :preservation_level, :depositor, :handle, :collection_identifier]
+      # :id, :tag,:batch_id, :collection_id, :admin_policy_id, :filename
     end
 
     def complex_terms
