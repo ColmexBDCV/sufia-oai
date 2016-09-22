@@ -1,6 +1,9 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  ENV["IMPORT_PATH"] = "#{Rails.root.to_s}/spec/fixtures"
+  ENV["FEDORA_NFS_UPLOAD_PATH"] = "#{Rails.root.to_s}/spec/fixtures"
+
   # The test environment is used exclusively to run your application's
   # test suite. You never need to work with it otherwise. Remember that
   # your test database is "scratch space" for the test suite and is wiped

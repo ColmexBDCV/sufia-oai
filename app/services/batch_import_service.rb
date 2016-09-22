@@ -100,7 +100,11 @@ class BatchImportService
     gw.apply_depositor_metadata(depositor)
     gw.save
 
-    gw.ordered_members << create_fileset(gw, image_path, depositor)
+    fs = create_fileset(gw, image_path, depositor)
+    fs_actor = CurationConcerns::Actors::FileSetActor.new(fs, User.find_by(email: depositor))
+    fs_actor.create_metadata(gw, {})
+    gw.date_uploaded = CurationConcerns::TimeService.time_in_utc
+
     gw.save!
 
     add_generic_work_to_collection(gw, @import.collection_id) if @import.collection_id.present?
@@ -121,6 +125,7 @@ class BatchImportService
     fs.apply_depositor_metadata(depositor)
     fs.save!
     IngestFileJob.perform_now(fs, image_path, "application/octet-stream", User.find_by(email: depositor))
+    CreateDerivativesJob.perform_now(fs, fs.original_file.id)
     fs
   end
 
