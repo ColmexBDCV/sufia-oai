@@ -3,7 +3,7 @@
     var home_header_id = 'home_header_' + random_number;
     $('#home_header').attr("id",home_header_id);
 
-    var footer_height = $('footer.footer').height();
+    var footer_height = ($('footer.footer').height() + 30);
     $('body').css('margin-bottom', footer_height);
 
     $(window).resize(function(){
