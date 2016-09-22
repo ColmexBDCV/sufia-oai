@@ -3,8 +3,6 @@ class Ability
   include CurationConcerns::Ability
   include Sufia::Ability
 
-  UNIT_MANAGED_MODELS = [GenericWork].freeze
-
   self.ability_logic +=[:delete_permissions]
 
   def self.model_class_field
@@ -58,11 +56,11 @@ class Ability
 
   def test_delete(id)
     Rails.logger.debug("[CANCAN] Checking delete permissions for user: #{current_user.user_key} with groups: #{user_groups.inspect}")
-    doc = permissions_doc(id)
-byebug
-    if doc&.unit.present? && UNIT_MANAGED_MODELS.include?( doc[Ability.model_class_field]&.first&.constantize )
-      Rails.logger.debug("[CANCAN] Unit ID is: #{doc&.unit}")
-      result = current_user.member_of? doc.unit, level: Membership::MANAGER_LEVEL
+    unit = managing_unit_for permissions_doc(id)
+
+    if unit
+      Rails.logger.debug("[CANCAN] Unit ID is: #{unit}")
+      result = current_user.member_of? unit, level: Membership::MANAGER_LEVEL
     else
       group_intersection = user_groups & edit_groups(id)
       result = !group_intersection.empty? || edit_users(id).include?(current_user.user_key)
@@ -70,5 +68,10 @@ byebug
 
     Rails.logger.debug("[CANCAN] decision: #{result}")
     result
+  end
+
+  def managing_unit_for(doc)
+    unit = doc.try(:[], 'unit_ssim')
+    unit&.first || unit
   end
 end

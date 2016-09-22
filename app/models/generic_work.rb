@@ -22,8 +22,7 @@ class GenericWork < ActiveFedora::Base
   before_save :set_admin_policy
 
   property :unit, predicate: ::RDF::URI.new('https://library.osu.edu/ns#unit'), multiple: false do |index|
-    index.as :stored_searchable
-    index.type :string
+    index.as :stored_searchable, :symbol
   end
 
   property :staff_notes, predicate: ::RDF::URI.new("https://library.osu.edu/ns#StaffNotes"), multiple: true do |index|
