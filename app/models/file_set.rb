@@ -3,6 +3,11 @@ class FileSet < ActiveFedora::Base
   include ::CurationConcerns::FileSetBehavior
   include Sufia::FileSetBehavior
 
+  # Eventually will have to be moved to presenter / and solrdocument for speedier results
+  def loris_id
+    ActiveFedora::Noid.treeify(original_file.id) + '-' + original_file.versions.last.label
+  end
+
   # Override image mime types to include 'application/octet-stream'
   def self.image_mime_types
     ['image/png', 'image/jpeg', 'image/jpg', 'image/jp2', 'image/bmp', 'image/gif', 'image/tiff', "application/octet-stream"]

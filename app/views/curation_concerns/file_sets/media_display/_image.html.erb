@@ -1,0 +1,10 @@
+<% if CurationConcerns.config.display_media_download_link %>
+    <figure>
+        <%= openseadragon_picture_tag( ENV['LORIS_SERVER_URI'] + FileSet.find(file_set.id).loris_id )  %>
+        <figcaption>Download the full-sized image</figcaption>
+    </figure>
+<% else %>
+    <figure>
+        <%= openseadragon_picture_tag( ENV['LORIS_SERVER_URI'] + FileSet.find(file_set.id).loris_id ) %>
+    </figure>
+<% end %>

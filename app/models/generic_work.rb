@@ -102,7 +102,7 @@ class GenericWork < ActiveFedora::Base
       material_hash["material_tesim"] << material
       material_hash["material_sim"] << material
     end
-    result.merge!(material_hash)
+    result = result.merge!(material_hash)
     result.merge!(measurement_hash)
   end
 

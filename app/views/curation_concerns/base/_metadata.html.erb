@@ -31,7 +31,20 @@
       <%= presenter.attribute_to_html(:alternative, render_as: :linked, search_field: 'alternative_tesim') %>
       <%= presenter.attribute_to_html(:format, render_as: :linked, search_field: 'format_tesim') %>
       <%= presenter.attribute_to_html(:handle) %>
-      <%= presenter.attribute_to_html(:unit) %>
+      <%- if presenter.unit.present? %>
+      <tbody>
+        <tr>
+          <th>Unit</th>
+          <td>
+            <ul class="tabular">
+              <li class="attribute unit">
+                <a href="/catalog?f%5Bunit_sim%5D%5B%5D=<%= presenter.unit.first %>"><%= Unit.find_by_key(presenter.unit).name %></a>
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+      <%- end %>
       <%= presenter.attribute_to_html(:preservation_level_rationale, render_as: :linked, search_field: 'preservation_level_rationale_tesim') %>
       <%= presenter.attribute_to_html(:preservation_level, render_as: :linked, search_field: 'preservation_level_tesim') %>
       <%= presenter.attribute_to_html(:provenance, render_as: :linked, search_field: 'provenance_tesim') %>

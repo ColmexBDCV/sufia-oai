@@ -6,5 +6,10 @@
         <h1><%= title %></h1>
     <% end %>
 <% end %>
-<!-- Disable until Unit show page finished -->
-<!--<span class="unit-title">- from the <a href="#"><%= Unit.find_by_key(presenter.unit).name %></a></span>-->
+<%- if presenter.unit.present? %>
+  <span class="unit-title">- from the
+    <a href="/catalog?f%5Bunit_sim%5D%5B%5D=<%= presenter.unit.first %>">
+      <%= Unit.find_by_key(presenter.unit).name %>
+    </a>
+  </span>
+<%- end %>
