@@ -32,7 +32,7 @@ gem 'jquery-ui-rails'
 
 gem 'solr_wrapper', '~> 0.16'
 gem 'fcrepo_wrapper'
-gem 'openseadragon'
+gem 'openseadragon', '0.2.1'
 gem 'sidekiq-failures'
 
 group :development, :test do
