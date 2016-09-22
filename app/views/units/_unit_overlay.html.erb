@@ -4,7 +4,8 @@
       <%= image_tag unit.image.url(:landing), class: "img-thumbnail media-object media-object-homepage" %>
     </div>
     <div class="media-body">
-      <h3 class="media-heading"><%= link_to unit.name, unit, class: "coll-title-link" %></h3>
+      <!-- <h3 class="media-heading"><%= link_to unit.name, unit, class: "coll-title-link" %></h3> -->
+      <h3 class="media-heading"><%= link_to unit.name, search_catalog_path(f: { 'unit_sim' => [unit.key] }), class: "coll-title-link" %></h3>
       <p><%= unit.description %></p>
     </div>
   </div>
