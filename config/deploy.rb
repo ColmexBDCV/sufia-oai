@@ -1,7 +1,7 @@
 # config valid only for current version of Capistrano
 lock '3.5.0'
 
-set :application, 'dcs'
+set :application, 'purple'
 set :scm, :git
 set :repo_url, 'git@code.osu.edu:osul-ads/purple.git'
 
@@ -12,7 +12,7 @@ set :rvm_ruby_version, 'ruby-2.3.1'
 
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, "/var/www/purple"
-set :tmp_dir, "/var/www/tmp/purple"
+set :tmp_dir, "/var/www/tmp"
 
 set :linked_files, %w(.env config/analytics.yml config/blacklight.yml config/database.yml config/fedora.yml config/redis.yml config/solr.yml config/handle_server.yml)
 set :linked_dirs, %w(log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/assets)
@@ -39,7 +39,7 @@ set :monit_services, [:sidekiq]
 namespace :deploy do
   desc 'Restart application'
   task :restart do
-    on roles(:app), in: :sequence, wait: 5 do
+    on roles(:web), in: :sequence, wait: 5 do
       execute "mkdir -p #{release_path.join('tmp')}"
       execute :touch, release_path.join('tmp/restart.txt')
     end

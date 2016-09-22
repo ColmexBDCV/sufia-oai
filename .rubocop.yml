@@ -48,6 +48,12 @@ Style/NumericLiterals:
 Style/WordArray:
   Enabled: false
 
+Style/RegexpLiteral:
+  Enabled: false
+
+Style/Alias:
+  Enabled: false
+
 #################### Metrics ################################
 
 Metrics/AbcSize:
@@ -67,3 +73,9 @@ Metrics/ClassLength:
 # Enables Rails cops.
 Rails:
   Enabled: true
+
+##################### RSpec ##################################
+
+RSpec/ExampleLength:
+  Enabled: true
+  Max: 10

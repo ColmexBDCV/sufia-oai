@@ -5,8 +5,10 @@ module CurationConcerns
     include MaterialsEditForm
     include MeasurementsEditForm
     self.model_class = ::GenericWork
-    self.terms += [:resource_type, :staff_notes, :spatial, :alternative, :temporal, :format, :provenance, :work_type, :preservation_level, :preservation_level_rationale, :handle]
-
+    self.terms += [:unit, :resource_type, :staff_notes, :sub_collection,
+                   :spatial, :alternative, :temporal, :format, :provenance,
+                   :work_type, :preservation_level, :preservation_level_rationale, :handle]
+    self.required_fields += [:unit]
     def self.reflect_on_association(association)
       ::GenericWork.reflect_on_association(association)
     end

@@ -20,9 +20,11 @@
 /tmp/*
 !/tmp/.keep
 /public/uploads
+/public/assets
 /spec/examples.txt
 /coverage
-
+/public/system/*
+/public/assets/
 # Ignore history and dump files
 .byebug_history
 dump.rdb

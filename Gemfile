@@ -22,15 +22,18 @@ gem 'devise'
 gem 'devise-guests', '~> 0.3'
 gem 'omniauth'
 gem 'omniauth-shibboleth'
-gem 'hydra-role-management'
 gem 'pg'
 gem 'js-routes'
-
+gem 'simple_form'
+gem 'cocoon'
 gem 'handle-system'
+gem 'paperclip', '~> 5.0.0'
+gem 'jquery-ui-rails'
 
-gem 'solr_wrapper', '~> 0.15'
+gem 'solr_wrapper', '~> 0.16'
 gem 'fcrepo_wrapper'
 gem 'openseadragon'
+gem 'sidekiq-failures'
 
 group :development, :test do
   gem 'byebug'
@@ -55,6 +58,7 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'capybara-webkit'
   gem 'database_cleaner'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'simplecov', require: false

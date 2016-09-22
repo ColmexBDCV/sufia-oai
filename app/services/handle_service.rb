@@ -6,8 +6,10 @@ class HandleService
 
     @mint_handles = true unless Rails.configuration.x.handle["mint"] == false
     @prefix       = Rails.configuration.x.handle["prefix"]
-    @index        = Rails.configuration.x.handle["index"]
+    @index        = Rails.configuration.x.handle["index"].to_i
+    @adminhdl     = Rails.configuration.x.handle["admin_handle"]
     @admpriv      = Rails.configuration.x.handle["admin_priv_key"]
+    @admpass      = Rails.configuration.x.handle["admin_passphrase"]
     @url          = Rails.configuration.x.handle["url"]
   end
 
@@ -40,7 +42,7 @@ class HandleService
 
     begin
       # Set up an authenticated connection
-      conn = Handle::Connection.new("0.NA/#{@prefix}", @index, @admpriv, '')
+      conn = Handle::Connection.new(@adminhdl, @index, @admpriv, @admpass)
 
       # Create an empty record
       record = conn.create_record(handle)
@@ -48,7 +50,7 @@ class HandleService
       # add field
       url =  "#{@url}#{@generic_file.id}"
       record.add(:URL, url).index = 2
-      record << Handle::Field::HSAdmin.new("0.NA/#{@prefix}")
+      record << Handle::Field::HSAdmin.new(@adminhdl)
 
       # Manipulate permissions
       record.last.perms.public_read = false

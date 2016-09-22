@@ -1,0 +1,35 @@
+<h1 class="page-header"><%= @unit.name %></h1>
+<div class="row">
+  <div class="col-md-6">
+    <dl class="dl-horizontal">
+      <dt>Key</dt>
+      <dd><%= @unit.key %></dd>
+
+      <dt>Description</dt>
+      <dd><%= @unit.description %></dd>
+
+      <dt>Contact Info</dt>
+      <dd><%= @unit.contact_info %></dd>
+
+      <dt>Unit Image</dt>
+      <dd><%= image_tag @unit.image.url(:medium) %></dd>
+
+      <%= link_to "Edit", edit_unit_path(@unit), class: "btn btn-primary" if can? :edit, @unit %>
+    </dl>
+  </div>
+
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading"><strong>Members</strong></div>
+      <div class="panel-body">
+        <ul class="list-unstyled">
+          <% if @unit.memberships.each do |membership| %>
+            <li><%= mail_to membership.user.email, membership.user.name %> - <%= membership.level.titleize %></li>
+          <% end.empty? %>
+            <li>This unit has no members.</li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

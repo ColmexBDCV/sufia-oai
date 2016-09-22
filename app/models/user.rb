@@ -1,11 +1,17 @@
 class User < ActiveRecord::Base
   include Hydra::User
-  include Hydra::RoleManagement::UserRoles
   include CurationConcerns::User
   include Sufia::User
   include Sufia::UserUsageStats
 
   has_many :identities, dependent: :destroy
+  has_many :memberships, dependent: :destroy
+  has_many :units, -> { distinct }, through: :memberships
+
+  def groups
+    groups = units.each.collect(&:key)
+    admin? ? groups << "Administrators" : groups
+  end
 
   if Blacklight::Utils.needs_attr_accessible?
     attr_accessible :email, :password, :password_confirmation
@@ -31,5 +37,9 @@ class User < ActiveRecord::Base
   # the account.
   def to_s
     email
+  end
+
+  def in_unit?
+    units.present?
   end
 end

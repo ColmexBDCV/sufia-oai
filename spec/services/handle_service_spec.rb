@@ -4,27 +4,33 @@ require 'handle'
 
 RSpec.describe HandleService do
   # Create Generic File
-  let!(:generic_work1) do
-    gw = GenericWork.new(title: ["Test Generic Work"], visibility: "restricted", handle: [])
+  let(:unit) { create(:unit) }
+
+  let(:generic_work1) do
+    gw = GenericWork.new(title: ["Test Generic Work"], visibility: "restricted", unit: unit.key)
     gw.save(validate: false)
     gw
   end
 
-  let!(:generic_work2) do
-    gw = GenericWork.new(title: ["Test Generic Work"], visibility: "open", handle: [])
+  let(:generic_work2) do
+    gw = GenericWork.new(title: ["Test Generic Work"], visibility: "open", unit: unit.key)
     gw.save(validate: false)
     gw
   end
 
-  let!(:generic_work3) do
-    gw = GenericWork.new(title: ["Test Generic Work"], visibility: "open", handle: ["1811.1/fake_handle_test"])
+  let(:generic_work3) do
+    gw = GenericWork.new(title: ["Test Generic Work"], visibility: "open", handle: ["1234/fake_handle_test"], unit: unit.key)
     gw.save(validate: false)
     gw
   end
 
-  let!(:conn) do
-    conn = Handle::Connection.new('0.NA/1811.1', 300, Rails.configuration.x.handle['admin_priv_key'], '')
-    conn
+  let(:handle_conn) do
+    Handle::Connection.new(
+      Rails.configuration.x.handle["admin_handle"],
+      Rails.configuration.x.handle["index"],
+      Rails.configuration.x.handle['admin_priv_key'],
+      Rails.configuration.x.handle["admin_passphrase"]
+    )
   end
 
   it "will not run the minting process with visibility = restricted" do
@@ -67,10 +73,10 @@ RSpec.describe HandleService do
     # Run the handle service
     described_class.new(generic_work2).mint
 
-    # Generic File shouldn't have a handle minted.
+    # Generic File should have a handle minted.
     expect(generic_work2.handle).not_to eq([])
 
     # Delete handle
-    conn.delete_handle(generic_work2.handle[0])
+    handle_conn.delete_handle(generic_work2.handle[0])
   end
 end

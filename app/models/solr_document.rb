@@ -10,6 +10,15 @@ class SolrDocument
 
   # self.unique_key = 'id'
 
+  # Override image mime types to include 'application/octet-stream'
+  def self.image_mime_types
+    ['image/png', 'image/jpeg', 'image/jpg', 'image/jp2', 'image/bmp', 'image/gif', 'image/tiff', "application/octet-stream"]
+  end
+
+  def unit
+    self[Solrizer.solr_name('unit')]
+  end
+
   def alternative
     self[Solrizer.solr_name('alternative')]
   end
@@ -68,6 +77,10 @@ class SolrDocument
 
   def measurement_type
     self[Solrizer.solr_name('measurement_type')]
+  end
+
+  def sub_collection
+    self[Solrizer.solr_name('sub_collection')]
   end
 
   # Email uses the semantic field mappings below to generate the body of an email.

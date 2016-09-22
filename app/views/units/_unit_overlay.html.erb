@@ -1,0 +1,17 @@
+<div class="col-lg-6 col-md-12 col-sm-12 collection-image">
+  <div class="media hidden-sm hidden-xs text-left">
+    <div class="media-left">
+      <%= image_tag unit.image.url(:landing), class: "img-thumbnail media-object media-object-homepage" %>
+    </div>
+    <div class="media-body">
+      <h3 class="media-heading"><%= link_to unit.name, unit, class: "coll-title-link" %></h3>
+      <p><%= unit.description %></p>
+    </div>
+  </div>
+  <div class="hidden-lg hidden-md">
+    <h3 class="coll-title"><%= link_to unit.name, unit, class: "coll-title-link" %></h3>
+    <%= image_tag unit.image.url(:landing), class: "img-thumbnail img-responsive" %>
+    <p class="small_paragraph xs_paragraph"><%= unit.description %></p>
+    <p><button type="button" class="btn btn-success">Browse Collections</button></p>
+  </div>
+</div>

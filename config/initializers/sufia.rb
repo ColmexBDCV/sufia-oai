@@ -45,10 +45,10 @@ Sufia.config do |config|
   # config.noid_template = ".reeddeeddk"
 
   # Store identifier minter's state in a file for later replayability
-  # config.minter_statefile = '/tmp/minter-state'
+  config.minter_statefile = ENV['MINTER_STATEFILE'] || '/tmp/minter-state'
 
   # Specify the prefix for Redis keys:
-  # config.redis_namespace = "sufia"
+  config.redis_namespace = "dcs"
 
   # Specify the path to the file characterization tool:
   config.fits_path = ENV['FITS_PATH'] || "fits.sh"
@@ -88,7 +88,11 @@ Sufia.config do |config|
 
   # Temporary path to hold uploads before they are ingested into FCrepo.
   # This must be a lambda that returns a Pathname
-  #  config.upload_path = ->() { Rails.root + 'tmp' + 'uploads' }
+  config.upload_path = if ENV['UPLOAD_PATH']
+                         ->() { Pathname.new(ENV['UPLOAD_PATH']) }
+                       else
+                         ->() { Rails.root + 'tmp' + 'uploads' }
+                       end
 
   CurationConcerns.config.callback.set(:after_update_metadata) do |curation_concern|
     HandleService.new(curation_concern).mint
