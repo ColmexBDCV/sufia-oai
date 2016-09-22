@@ -7,7 +7,12 @@
       <div class="panel-body">
         <%= f.input :name, label: "Unit name" %>
         <%= f.input :description %>
-        <%= f.input :contact_info %>
+        <%= f.input :contact_person, label: "Contact Person" %>
+        <%= f.input :address, label: "Address" %>
+        <%= f.input :phone, label: "Telephone"  %>
+        <%= f.input :fax, label: "Fax"  %>
+        <%= f.input :email, label: "Email" %>
+        <%= f.input :url, label: "Primary URL" %>
         <%= f.input :image, as: :file %>   
       </div>
     </div>
@@ -29,7 +34,7 @@
         </div>
       </div>
     </div>
-  </div>  
+  </div>
 </div>
 <%= f.button :submit %>
-<% end %> 
+<% end %>
