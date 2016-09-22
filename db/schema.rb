@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160908212312) do
+ActiveRecord::Schema.define(version: 20160922144612) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "user_id",       null: false
@@ -353,7 +353,6 @@ ActiveRecord::Schema.define(version: 20160908212312) do
   create_table "units", force: :cascade do |t|
     t.string   "name",               null: false
     t.text     "description"
-    t.text     "contact_info"
     t.string   "key",                null: false
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
@@ -362,6 +361,12 @@ ActiveRecord::Schema.define(version: 20160908212312) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.string   "admin_policy_id"
+    t.string   "contact_person"
+    t.string   "address"
+    t.string   "phone"
+    t.string   "fax"
+    t.string   "email"
+    t.string   "url"
   end
 
   add_index "units", ["key"], name: "index_units_on_key"
