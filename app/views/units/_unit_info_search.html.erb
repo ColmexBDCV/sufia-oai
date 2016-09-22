@@ -1,10 +1,11 @@
 <div class="panel panel-info">
   <div class="panel-heading">
-    <h1 class="panel-title"><%= unit.name %></h1>
+    <span>Searching in: </span><h1 class="panel-title"><a href="#collapse" data-toggle="collapse"><%= unit.name %></a></h1>
   </div>
+  <div class="panel-collapse collapse <%= "in" unless @page_number > 1 %>" id="collapse">
   <div class="panel-body">
     <div class="col-md-2">
-        <%= image_tag unit.image.url(:thumb), class: "img-thumbnail img-responsive" %>
+        <%= image_tag unit.image.url(:landing), class: "img-thumbnail img-responsive" %>
       </div>
     <div class="col-md-10">
       <div class="unit_description_search">
@@ -12,4 +13,5 @@
     </div>
     </div>
   </div>
+</div>
 </div>
