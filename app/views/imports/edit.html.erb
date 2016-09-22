@@ -26,27 +26,27 @@
       </div>
 
       <div class='form-group required'>
-        <%= f.label :admin_collection_id, "#{t('admin_set_name')}", class: 'col-md-3 control-label' %>
+        <%= f.label :unit_id, "#{t('unit_label')}", class: 'col-md-3 control-label' %>
         <div class='col-md-9'>
-          <%= f.select :admin_collection_id, options_for_select(@admin_collection_list, @import.admin_collection_id), {}, {class: 'chosen-select'} %>
+          <%= f.select :unit_id, options_for_select(@units.map{|u| [u.name, u.id]}, @import.unit_id), {}, {class: 'chosen-select'} %>
         </div>
       </div>
 
       <div class='form-group required'>
         <%= f.label :rights, "Rights for this collection", class: 'col-md-3 control-label' %>
         <div class='col-md-9'>
-          <%= f.select :rights, options_for_select(Sufia.config.cc_licenses, @import.rights), {include_blank: 'Select rights...'}, { class: 'chosen-select' } %>
-        </div>
-      </div>
-      
-      <div class='form-group required'>
-        <%= f.label :preservation_level, 'Preservation level', class: 'col-md-3 control-label' %>
-        <div class='col-md-9'>
-          <%= f.select :preservation_level, options_for_select(Sufia.config.preservation_values, @import.preservation_level), {include_blank: 'Select preservation level...'}, { class: 'chosen-select' } %>
+          <%= f.select :rights, options_for_select(RightsService.select_active_options, @import.rights), {include_blank: 'Select rights...'}, { class: 'chosen-select' } %>
         </div>
       </div>
 
-      <% if can? :publish, GenericFile %>
+      <div class='form-group required'>
+        <%= f.label :preservation_level, 'Preservation level', class: 'col-md-3 control-label' %>
+        <div class='col-md-9'>
+          <%= f.select :preservation_level, options_for_select(PreservationLevelRationalesService.select_all_options, @import.preservation_level), {include_blank: 'Select preservation level...'}, { class: 'chosen-select' } %>
+        </div>
+      </div>
+
+      <% if can? :publish, GenericWork %>
         <div class='form-group'>
           <%= f.label :visibility, 'Visibility', class: 'col-md-3 control-label' %>
           <div class='col-md-9'>

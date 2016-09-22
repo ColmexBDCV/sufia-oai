@@ -2,8 +2,8 @@
 
 <ul class="property-list">
   <li>
-    <span><%= t('admin_set_name') %></span>
-    <span><%= @import.admin_collection_name %></span>
+    <span><%= t('unit_label') %></span>
+    <span><%= @import.unit.name %></span>
   </li>
   <li>
     <span>Import run</span>
@@ -44,9 +44,9 @@
   <tbody>
     <% if @import.invalid_records.each do |invalid_record| %>
       <tr>
-        <td><%= link_to invalid_record[:name], sufia::edit_generic_file_path(id: invalid_record[:generic_file_pid]) %></td>
+        <td><%= link_to invalid_record[:name], edit_curation_concerns_generic_work_path(id: invalid_record[:generic_work_pid]) %></td>
         <td><%= invalid_record[:fields].join(', ') %>
-        <td><%= link_to 'Edit', sufia::edit_generic_file_path(id: invalid_record[:generic_file_pid]), class: 'btn btn-primary btn-mini' %></td>
+        <td><%= link_to 'Edit', edit_curation_concerns_generic_work_path(id: invalid_record[:generic_work_pid]), class: 'btn btn-primary btn-mini' %></td>
       </tr>
     <% end.empty? %>
       <tr><td colspan="3">There were no invalid records.</td></tr>
@@ -70,7 +70,7 @@
       <tr>
         <td><%= unimported_record[:csv_row] %></td>
         <td><%= unimported_record[:message] %>
-        <td><%= link_to 'Preview', row_preview_import_path(unimported_record.import, unimported_record[:csv_row]), class: 'btn btn-primary btn-mini' %></td>
+        <td><%= link_to 'Preview', row_preview_import_path(unimported_record.import_id, unimported_record[:csv_row]), class: 'btn btn-primary btn-mini' %></td>
       </tr>
     <% end.empty? %>
       <tr><td colspan="3">There were no unimported records.</td></tr>

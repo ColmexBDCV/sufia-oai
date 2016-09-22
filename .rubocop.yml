@@ -68,6 +68,9 @@ Metrics/ClassLength:
   Enabled: true
   Max: 300
 
+Metrics/CyclomaticComplexity:
+  Max: 10
+
 ##################### Rails ##################################
 
 # Enables Rails cops.
