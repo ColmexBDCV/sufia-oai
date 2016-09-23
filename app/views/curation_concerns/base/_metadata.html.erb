@@ -32,8 +32,6 @@
       <%= presenter.attribute_to_html(:format, render_as: :linked, search_field: 'format_tesim') %>
       <%= presenter.attribute_to_html(:handle) %>
       <%- if presenter.unit.present? %>
-      <tbody>
-        <tr>
           <th>Unit</th>
           <td>
             <ul class="tabular">
@@ -42,8 +40,6 @@
               </li>
             </ul>
           </td>
-        </tr>
-      </tbody>
       <%- end %>
       <%= presenter.attribute_to_html(:preservation_level_rationale, render_as: :linked, search_field: 'preservation_level_rationale_tesim') %>
       <%= presenter.attribute_to_html(:preservation_level, render_as: :linked, search_field: 'preservation_level_tesim') %>
