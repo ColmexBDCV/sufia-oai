@@ -51,7 +51,7 @@ class CatalogController < ApplicationController
 
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
-    config.add_facet_field solr_name("unit", :facetable), label: "Unit", limit: 5
+    config.add_facet_field solr_name("unit", :facetable), partial: "catalog/_show_partials/unit_facet", label: "Unit", limit: 5
     config.add_facet_field solr_name("human_readable_type", :facetable), label: "Type", limit: 5
     config.add_facet_field solr_name("resource_type", :facetable), label: "Resource Type", limit: 5
     config.add_facet_field solr_name("creator", :facetable), label: "Creator", limit: 5
@@ -89,7 +89,7 @@ class CatalogController < ApplicationController
     # config.add_index_field solr_name("rights", :stored_searchable), label: "Rights", helper_method: :rights_statement_links
     # config.add_index_field solr_name("resource_type", :stored_searchable), label: "Resource Type", link_to_search: solr_name("resource_type", :facetable)
     # config.add_index_field solr_name("file_format", :stored_searchable), label: "File Format", link_to_search: solr_name("file_format", :facetable)
-    config.add_index_field solr_name("unit", :stored_searchable), label: "Unit"
+    # config.add_index_field solr_name("unit", :stored_searchable), label: "Unit"
 
     # solr fields to be displayed in the show (single result) view
     #   The ordering of the field names is the order of the display
