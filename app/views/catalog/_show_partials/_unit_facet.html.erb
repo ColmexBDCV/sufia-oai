@@ -9,8 +9,8 @@
             <li>
               <span class="facet-label selected">
                 <%= h(Unit.find_by_key(item.value)&.name) %>
-                <%- link_options = remove_facet_params(solr_field, item.value, params).merge!({ controller: "catalog", action: "index" }) %>
-                <%= link_to url_for(link_options), class: 'remove' do %><span class="glyphicon glyphicon-remove"></span><% end %>
+                <%- link_options = remove_facet_params(solr_field, item.value, params).merge!({ controller: controller_name, action: action_name }) %>
+                <%= link_to sufia.url_for(link_options), class: 'remove' do %><span class="glyphicon glyphicon-remove"></span><% end %>
               </span>
               <span class="selected facet-count" style="width: 8px;"><%= item.hits %></span>
             </li>
@@ -20,8 +20,8 @@
 		        <%- else -%>
 		          <li>
 		        <%- end -%>
-              <% link_options = add_facet_params(solr_field, item.value).merge!({ controller: "catalog", action: "index" }) %>
-              <span class="facet-label"><%= link_to h(Unit.find_by_key(item.value)&.name), url_for(link_options) %></span>
+              <% link_options = add_facet_params(solr_field, item.value).merge!({ controller: controller_name, action: action_name }) %>
+              <span class="facet-label"><%=link_to h(Unit.find_by_key(item.value)&.name), sufia.url_for(link_options) %></span>
               <span class="facet-count" style="width: 8px;"><%= item.hits %></span>
             </li>
           <% end -%>
