@@ -247,11 +247,11 @@ module MyImport
     def import(unit = nil, limit = nil)
       unimported_items = Osul::Import::Item.unimported_items
       unimported_items = unimported_items.where("unit = '#{unit}'") unless unit.blank?
-      unimported_items = limit(limit) unless limit.blank?
+      unimported_items = unimported_items.limit(limit) unless limit.blank?
 
       unimported_items.each do |generic_file|
         Rails.logger.debug "next up -- #{generic_file.fid} "
-        service.import_generic_file(generic_file)
+        import_generic_file(generic_file)
       end
     end
 
