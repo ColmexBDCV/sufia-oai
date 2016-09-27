@@ -44,3 +44,4 @@ ehthumbs.db
 
 #.env file
 .env
+spec/fixtures/csv/*

@@ -135,58 +135,79 @@ class BatchImportService
     filename
   end
 
-  # Maps a specific row of csv data to a generic_work object for ingest
-  def assign_csv_values_to_genericwork(row, generic_work)
-    field_mappings = @import.import_field_mappings.where('import_field_mappings.key != ?', 'image_filename')
+  def subjects(row, key_column_number_arr, key_column_value_arr)
+    key_column_number_arr.each do |num|
+      key_column_value_arr += (row[num.to_i].try(:split, ',') || [])
+    end
+    key_column_value_arr
+  end
+
+  def collection_identifiers(row, key_column_number_arr, generic_work)
+    key_column_number_arr.each do |num|
+      generic_work.collection_identifier = row[num.to_i]
+      break
+    end
+  end
+
+  def measurements(row, key_column_number_arr, generic_work)
+    key_column_number_arr.each do |num|
+      measurement_hash = measurement_format_for(row[num.to_i].try(:strip))
+      next if measurement_hash.nil?
+      # insert field as a measurement object
+      measurement = Osul::VRA::Measurement.create(measurement: measurement_hash[:width], measurement_unit: measurement_hash[:unit], measurement_type: "width")
+      generic_work.measurements << measurement
+      measurement = Osul::VRA::Measurement.create(measurement: measurement_hash[:height], measurement_unit: measurement_hash[:unit], measurement_type: "height")
+      generic_work.measurements << measurement
+    end
+  end
+
+  def materials(row, key_column_number_arr, generic_work)
+    key_column_number_arr.each do |num|
+      material_hash = material_format_for(row[num.to_i].try(:strip))
+      unless material_hash.nil?
+        material = Osul::VRA::Material.create(material_hash)
+        generic_work.materials << material
+      end
+    end
+  end
+
+  def other_metadata(row, key_column_number_arr, key_column_value_arr)
+    key_column_number_arr.each do |num|
+      key_column_value_arr << row[num.to_i]
+    end
+    key_column_value_arr
+  end
+
+  def process_field_mappings(row, field_mappings, generic_work)
     field_mappings.each do |field_mapping|
       key_column_number_arr = @import.import_field_mappings.where(key: field_mapping.key).first.value.reject!( &:blank? )
       key_column_value_arr = []
 
       # For certain fields the values in the csv are comma delimeted and need to be parsed
       if field_mapping.key == 'subject'
-        key_column_number_arr.each do |num|
-          key_column_value_arr += (row[num.to_i].try(:split, ',') || [])
-        end
+        key_column_value_arr = subjects(row, key_column_number_arr, key_column_value_arr)
       elsif field_mapping.key == 'collection_identifier'
-        # it's not a multivalue field so let's just get the first mapping
-        key_column_number_arr.each do |num|
-          generic_work.collection_identifier = row[num.to_i]
-          break
-        end
-
+        collection_identifiers(row, key_column_number_arr, generic_work)
+        next
       elsif field_mapping.key == 'measurements'
-        key_column_number_arr.each do |num|
-          measurement_hash = measurement_format_for(row[num.to_i].try(:strip))
-          next if measurement_hash.nil?
-          # insert field as a measurement object
-          measurement = Osul::VRA::Measurement.create(measurement: measurement_hash[:width], measurement_unit: measurement_hash[:unit], measurement_type: "width")
-
-          generic_work.measurements << measurement
-          measurement = Osul::VRA::Measurement.create(measurement: measurement_hash[:height], measurement_unit: measurement_hash[:unit], measurement_type: "height")
-          generic_work.measurements << measurement
-        end
-
+        measurements(row, key_column_number_arr, generic_work)
+        next
       elsif field_mapping.key == 'materials'
-        key_column_number_arr.each do |num|
-          material_hash = material_format_for(row[num.to_i].try(:strip))
-          unless material_hash.nil?
-            material = Osul::VRA::Material.create(material_hash)
-            generic_work.materials << material
-          end
-        end
-
+        materials(row, key_column_number_arr, generic_work)
+        next
       else
-        key_column_number_arr.each do |num|
-          key_column_value_arr << row[num.to_i]
-        end
+        key_column_value_arr = other_metadata(row, key_column_number_arr, key_column_value_arr)
       end
 
-      # materials and measurements are associations so they are updated differently
-      unless field_mapping.key == 'materials' || field_mapping.key == 'measurements' || field_mapping.key == 'collection_identifier'
-        key_column_value_arr = key_column_value_arr.map.reject( &:blank? )
-        generic_work.send("#{field_mapping.key}=".to_sym, key_column_value_arr)
-      end
+      key_column_value_arr = key_column_value_arr.map.reject( &:blank? )
+      generic_work.send("#{field_mapping.key}=".to_sym, key_column_value_arr)
     end
+  end
+
+  # Maps a specific row of csv data to a generic_work object for ingest
+  def assign_csv_values_to_genericwork(row, generic_work)
+    field_mappings = @import.import_field_mappings.where('import_field_mappings.key != ?', 'image_filename')
+    process_field_mappings(row, field_mappings, generic_work)
   end
 
   def measurement_format_for(field_value)
