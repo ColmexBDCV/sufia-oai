@@ -14,3 +14,6 @@ en:
       form:
         q:
           placeholder: "Search through the Digital Collections, e.g. cartoons, comics, polar, theatre"
+        option:
+          all:
+            label_long: ""

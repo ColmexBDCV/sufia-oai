@@ -119,7 +119,6 @@ padding-top:100px;
 
 body {
   font-family:'proximanova',Arial,sans-serif;
-  //margin-bottom: 226px;
 }
 
 h1, h2 {font-family:'capita','Times New Roman',serif; font-weight:300;}
@@ -222,10 +221,10 @@ float:none;
 }
 
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  //height:226px;
+  -moz-box-shadow: 0 200px #222;
+	-webkit-box-shadow: 0 200px #222;
+  box-shadow: 0 200px #222;
+  border-bottom:none;
 }
 
 .footer a:link, .footer a:visited {
@@ -251,4 +250,8 @@ float:none;
 
 .unit_description_search{
   padding:5px;
+}
+
+address {
+  margin-bottom: 0;
 }

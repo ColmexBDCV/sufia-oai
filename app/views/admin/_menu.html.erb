@@ -3,14 +3,18 @@
     <span class="fa fa-gear"></span> <%= t("sufia.toolbar.admin.menu") %> <span class="caret"></span>
   <% end %>
   <ul class="dropdown-menu">
-    <li><%= link_to t("sufia.toolbar.admin.statistics"), sufia.admin_stats_path %></li>
+    <li><%= link_to sufia.admin_stats_path do %>
+    <%= content_tag(:i, "", :class => "fa fa-bar-chart") %>
+    <%= t("sufia.toolbar.admin.statistics") %>
+    <% end %></li>
     <!-- <li><%= link_to t("sufia.toolbar.dashboard.my"), sufia.dashboard_index_path %></li>
     <li class="divider"></li>
     <li><%= link_to t("sufia.toolbar.dashboard.transfers"), sufia.transfers_path %></li>
     <li class="divider"></li>
     <li><%= link_to t("sufia.toolbar.dashboard.highlights"), sufia.dashboard_highlights_path %></li>
     <li><%= link_to t("sufia.toolbar.dashboard.shares"), sufia.dashboard_shares_path %></li> -->
-    <li><%= link_to "Units", units_path %></li>
-    <li><%#= link_to "Users", profiles_path %></li>
+    <li><a href="/units"><i class="fa fa-university" aria-hidden="true"></i>
+Units</a></li>
+    <li><a href="/users"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Users</a></li>
   </ul>
 </li>
