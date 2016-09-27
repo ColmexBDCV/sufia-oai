@@ -6,7 +6,7 @@
         <h1><%= title %></h1>
     <% end %>
 <% end %>
-<%- if presenter.unit.present? %>
+<%- if presenter.respond_to?(:unit) && presenter.unit.present? %>
   <span class="unit-title">- from the
     <a href="/dcs/catalog?f%5Bunit_sim%5D%5B%5D=<%= presenter.unit.first %>">
       <%= Unit.find_by_key(presenter.unit).name %>
