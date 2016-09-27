@@ -50,7 +50,7 @@ module FedoraObjectAssociations
       end
     end
 
-    # rubocop:disable Style/PredicateName, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+    # rubocop:disable Style/PredicateName, Metrics/PerceivedComplexity
     def has_one(name, scope = nil, opts = {})
       opts = scope if scope.is_a? Hash
       opts = {
@@ -96,7 +96,7 @@ module FedoraObjectAssociations
         super
       end
     end
-    # rubocop:enable Style/PredicateName, Metrics/PerceivedComplexity, Metrics/CyclomaticComplexity
+    # rubocop:enable Style/PredicateName, Metrics/PerceivedComplexity
   end
 
   private

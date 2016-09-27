@@ -4,7 +4,7 @@ module Sufia
 
     def index
       super
-      @units = Unit.all
+      @units = Unit.order(:name).all
       @homepage = true
     end
   end

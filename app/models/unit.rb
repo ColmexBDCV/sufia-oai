@@ -12,7 +12,7 @@ class Unit < ActiveRecord::Base
 
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
   validates :key, :name, presence: true
-  validates :key, uniqueness: true, format: { with: /\A[-a-z1-9]+\z/, message: "only allows letters, numbers and hyphens" }
+  validates :key, uniqueness: true, format: { with: /\A[-A-Za-z1-9]+\z/, message: "only allows letters, numbers and hyphens" }
 
   accepts_nested_attributes_for :memberships, allow_destroy: true
 

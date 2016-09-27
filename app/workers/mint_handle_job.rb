@@ -1,8 +1,8 @@
-class MintHandleJob
-  @queue = :imports
+class MintHandleJob < ActiveJob::Base
+  queue_as :ingest
 
-  def self.perform(file_id)
-    file = GenericFile.find file_id
+  def perform(file_id)
+    file = GenericWork.find file_id
     HandleService.new(file).mint
   end
 end

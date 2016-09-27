@@ -246,5 +246,9 @@ float:none;
 
 .table-condensed>tbody>tr>td {
   max-width:100px;
-  overflow-x:scroll;
+  overflow-x:auto;
+}
+
+.unit_description_search{
+  padding:5px;
 }

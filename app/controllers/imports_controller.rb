@@ -1,4 +1,10 @@
 class ImportsController < ApplicationController
+  load_and_authorize_resource
+
+  before_action :unit_list, only: [:new, :create, :edit, :update]
+  before_action :collection_list, only: [:new, :create, :edit, :update]
+  before_action :visibility_levels, only: [:new, :create, :edit, :update]
+
   # GET /imports
   # GET /imports.json
   def index
@@ -111,7 +117,7 @@ class ImportsController < ApplicationController
     respond_to do |format|
       if @import.update(import_params)
 
-        @import.validate_import_mappings if @import.is_editable?
+        @import.validate_import_mappings if @import.editable?
 
         format.html { redirect_to @import, notice: 'Import was successfully updated.' }
         format.json { render :show, status: :ok, location: @import }
@@ -134,8 +140,12 @@ class ImportsController < ApplicationController
 
   private
 
-  def admin_collection_list
-    @admin_collection_list = current_user.admin_sets.map { |i| [i.title + ' - ' + i.unit, i.id ] }
+  def unit_list
+    @units = current_user.admin? ? Unit.all : Unit.where(key: current_user.groups)
+  end
+
+  def collection_list
+    @collections = Collection.all
   end
 
   def visibility_levels
@@ -148,11 +158,10 @@ class ImportsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def import_params
-    permitted_params = params.require(:import)
-                             .permit(:user_id, :csv, :images, :name, :admin_collection_id, :includes_headers,
-                                     :server_import_location_name, :import_type, :rights, :preservation_level,
-                                     import_field_mappings_attributes: [:id, :key, { value: [] }])
-    if can? :publish, GenericFile
+    permitted_params = params.require(:import).permit(:user_id, :csv, :images, :name, :unit_id, :collection_id, :includes_headers,
+                                                      :server_import_location_name, :import_type, :rights, :preservation_level,
+                                                      import_field_mappings_attributes: [:id, :key, { value: [] }])
+    if can? :publish, GenericWork
       permitted_params.merge! params.require(:import).permit(:visibility)
     end
 
