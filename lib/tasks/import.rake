@@ -32,13 +32,18 @@ namespace :import do
 
   desc "Import all items"
   task import_all: :environment do
-    STDOUT.puts "Please enter the old fedora root url (without trailing slash):"
+    STDOUT.puts "Please enter the old fedora root url (without trailing slash): ex:"
     old_fedora_root_url = STDIN.gets.strip
+    STDOUT.puts "Please enter a unit key you want to import"
+    unit = STDIN.gets.strip
+    STDOUT.puts "Please enter the number of items you want to import"
+    limit = STDIN.gets.strip
+
     puts "starting importing all items..."
     start_time = Time.zone.now
     importer = MyImport::ImportSettings.new(nil, nil, old_fedora_root_url, nil)
     service = MyImport::ImportService.new(importer)
-    service.import
+    service.import(unit, limit)
     puts "import_all task duration: " + Time.at(Time.now - start_time).utc.strftime("%H:%M:%S")
     puts "done importing all items"
   end

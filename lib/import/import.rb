@@ -121,6 +121,7 @@ module MyImport
       gw = GenericWork.new
       gw.apply_depositor_metadata(depositor)
       gw.id = gf.fid
+      gw.visibility = "open"
       gw.unit = gf.unit # "BillyIrelandCartoonLibraryMuseum"
       # loop through each term and call the corresponding method to get the data
       terms.each do |t|
@@ -243,10 +244,14 @@ module MyImport
       end
     end
 
-    def import
-      Osul::Import::Item.unimported_items.where("unit = 'ByrdPolarResearchCenterArchivalProgram'").limit(500).each do |generic_file|
+    def import(unit = nil, limit = nil)
+      unimported_items = Osul::Import::Item.unimported_items
+      unimported_items = unimported_items.where("unit = '#{unit}'") unless unit.blank?
+      unimported_items = limit(limit) unless limit.blank?
+
+      unimported_items.each do |generic_file|
         Rails.logger.debug "next up -- #{generic_file.fid} "
-        import_generic_file(generic_file)
+        service.import_generic_file(generic_file)
       end
     end
 
