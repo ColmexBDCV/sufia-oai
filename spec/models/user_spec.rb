@@ -80,6 +80,34 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '#manager?' do
+    let(:user) { create(:user) }
+
+    it 'returns true when the user is a manager of at least one unit' do
+      create(:membership, user: user, level: Membership::MANAGER_LEVEL)
+      expect(user.manager?).to be true
+    end
+
+    it 'returns false when the user is not a manager of any unit' do
+      create(:membership, user: user, level: Membership::DATA_ENTRY_LEVEL)
+      expect(user.manager?).to be false
+    end
+  end
+
+  describe '#curator?' do
+    let(:user) { create(:user) }
+
+    it 'returns true when the user is a curator of at least one unit' do
+      create(:membership, user: user, level: Membership::CURATOR_LEVEL)
+      expect(user.curator?).to be true
+    end
+
+    it 'returns false when the user is not a curator of any unit' do
+      create(:membership, user: user, level: Membership::DATA_ENTRY_LEVEL)
+      expect(user.curator?).to be false
+    end
+  end
+
   describe '#member_of?' do
     let(:user) { create(:user) }
     let(:unit) { create(:unit) }
