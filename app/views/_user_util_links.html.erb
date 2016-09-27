@@ -46,7 +46,7 @@
         <% end %></li>
         <li class="divider"></li>
         <% if can? :start, @import %>
-        <li><%= link_to imports_path do %>
+        <li><%= link_to main_app.imports_path do %>
         <%= content_tag(:i, "", :class => "fa fa-truck") %>
         <%= t("osul.imports") %>
         <% end %></li>
