@@ -16,4 +16,4 @@ en:
           placeholder: "Search through the Digital Collections, e.g. cartoons, comics, polar, theatre"
         option:
           all:
-            label_long: ""
+            label_long: "All of DC"
