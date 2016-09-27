@@ -17,4 +17,4 @@
     $('.select2-field').select2();
   };
 
-  $(document).on('turbolinks:load', random_banner);
+  // $(document).on('turbolinks:load', random_banner);

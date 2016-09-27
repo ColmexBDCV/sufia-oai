@@ -1,4 +1,4 @@
-$(document).on('turbolinks:load', initFileBrowser);
+// $(document).on('turbolinks:load', initFileBrowser);
 
 function initFileBrowser() {
   // Import directory location browser init
