@@ -10,9 +10,7 @@ class UpdateMembers
   end
 
   def run
-    collection = Collection.find(self.collection_id)
-    collection.members.each do |member|
-      member.save
-    end
+    collection = Collection.find(collection_id)
+    collection.members.each(&:save)
   end
 end

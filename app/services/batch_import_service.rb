@@ -41,7 +41,6 @@ class BatchImportService
 
     # import has finished - set import status to complete
     @import.complete! if @import.all_records_imported?
-
   end
 
   def resume
@@ -95,7 +94,7 @@ class BatchImportService
     gw.preservation_level_rationale = @import.preservation_level
     gw.preservation_level = "Full"
     gw.visibility = @import.visibility
-    gw.unit = @import.unit.key unless ! @import.unit
+    gw.unit = @import.unit.key if @import.unit
     gw.depositor = depositor
     gw.apply_depositor_metadata(depositor)
     gw.save

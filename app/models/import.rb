@@ -59,7 +59,6 @@ class Import < ActiveRecord::Base
   def invalid_records
     invalid_records = []
     successfully_imported_records.each do |imported_record|
-      invalid_fields = []
       params = {
         q: "id:#{imported_record.generic_work_pid}",
         fq: "has_model_ssim:GenericWork",
@@ -70,12 +69,7 @@ class Import < ActiveRecord::Base
       query_url = "#{ActiveFedora::SolrService.instance.conn.options[:url]}/select?#{params.to_query}"
       generic_work_response = HTTParty.get(query_url)
 
-      REQUIRED_FIELDS.each do |field|
-        next if field == 'image_filename'
-        formated_field = field.to_s + "_tesim"
-        field_value = generic_work_response["response"]["docs"].first[formated_field] if generic_work_response["response"].present? && generic_work_response["response"]["docs"].present?
-        invalid_fields << field if field_value.blank?
-      end
+      invalid_fields = invalid_fields(generic_work_response)
 
       next if invalid_fields.blank?
       name = if generic_work_response["response"].present? && generic_work_response["response"]["docs"].present?
@@ -201,6 +195,17 @@ class Import < ActiveRecord::Base
   end
 
   private
+
+  def invalid_fields(generic_work_response)
+    invalid_fields = []
+    REQUIRED_FIELDS.each do |field|
+      next if field == 'image_filename'
+      formated_field = field.to_s + "_tesim"
+      field_value = generic_work_response["response"]["docs"].first[formated_field] if generic_work_response["response"].present? && generic_work_response["response"]["docs"].present?
+      invalid_fields << field if field_value.blank?
+    end
+    invalid_fields
+  end
 
   def validate_unit
     errors.add :unit_id, "is invalid" unless valid_unit?
