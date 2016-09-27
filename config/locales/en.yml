@@ -20,5 +20,7 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  unit_label: "Unit"
-  collection_label: "Collection"
+  osul:
+    unit_label: "Unit"
+    collection_label: "Collection"
+    imports: "Imports"

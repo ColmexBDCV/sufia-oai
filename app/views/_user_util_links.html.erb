@@ -44,6 +44,13 @@
         <%= content_tag(:i, "", :class => "fa fa-folder-open") %>
         <%= t("sufia.toolbar.collections.new")  %>
         <% end %></li>
+        <li class="divider"></li>
+        <% if can? :start, @import %>
+        <li><%= link_to imports_path do %>
+        <%= content_tag(:i, "", :class => "fa fa-truck") %>
+        <%= t("osul.imports") %>
+        <% end %></li>
+        <% end %>
         <% end %>
       </ul>
     </li>

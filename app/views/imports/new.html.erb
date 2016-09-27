@@ -27,14 +27,14 @@
       </div>
 
       <div class='form-group required'>
-        <%= f.label :unit_id, "#{t('unit_label')}", class: 'col-md-4 control-label' %>
+        <%= f.label :unit_id, "#{t('osul.unit_label')}", class: 'col-md-4 control-label' %>
         <div class='col-md-8'>
           <%= f.select :unit_id, options_for_select(@units.map{|u| [u.name, u.id]}, @import.unit_id), {}, {class: 'chosen-select'} %>
         </div>
       </div>
 
       <div class='form-group required'>
-        <%= f.label :collection_id, "#{t('collection_label')}", class: 'col-md-4 control-label' %>
+        <%= f.label :collection_id, "#{t('osul.collection_label')}", class: 'col-md-4 control-label' %>
         <div class='col-md-8'>
           <%= f.select :collection_id, options_for_select(@collections.map{|c| [c.title.first, c.id]}, @import.collection_id), {include_blank: "Select Collection..."}, {class: 'chosen-select'} %>
         </div>
