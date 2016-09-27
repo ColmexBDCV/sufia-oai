@@ -720,9 +720,6 @@ GEM
     tinymce-rails-imageupload (4.0.17.beta)
       railties (>= 3.2, < 6)
       tinymce-rails (~> 4.0)
-    turbolinks (5.0.0)
-      turbolinks-source (~> 5)
-    turbolinks-source (5.0.0)
     twitter-typeahead-rails (0.11.1)
       actionpack (>= 3.1)
       jquery-rails
@@ -801,7 +798,6 @@ DEPENDENCIES
   spring
   sqlite3
   sufia (= 7.0.0)
-  turbolinks
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
 
