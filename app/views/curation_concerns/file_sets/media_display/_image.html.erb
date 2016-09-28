@@ -1,6 +1,9 @@
 <% if CurationConcerns.config.display_media_download_link %>
     <figure>
-        <%= openseadragon_picture_tag( ENV['LORIS_SERVER_URI'] + FileSet.find(file_set.id).loris_id )  %>
+      <%= image_tag thumbnail_url(file_set),
+                          class: "img-responsive",
+                          alt: "Download the full-sized image of #{file_set.to_s}" %>
+        <%= openseadragon_picture_tag( ENV['LORIS_SERVER_URI'] + FileSet.find(file_set.id).loris_id , {"data-no-turbolink" => "true"})  %>
         <figcaption>Download the full-sized image</figcaption>
     </figure>
 <% else %>
