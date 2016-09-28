@@ -80,6 +80,10 @@ class GenericWork < ActiveFedora::Base
     index.as :stored_searchable, :facetable
   end
 
+  property :bibliographic_citation, predicate: ::RDF::DC.bibliographicCitation, multiple: true do |index|
+    index.as :stored_searchable, :facetable
+  end
+
   property :handle, predicate: ::RDF::Vocab::Identifiers.hdl do |index|
     index.as :stored_searchable, :facetable
   end
