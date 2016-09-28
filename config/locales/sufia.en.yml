@@ -14,3 +14,25 @@ en:
       form:
         q:
           placeholder: "Search through the Digital Collections, e.g. cartoons, comics, polar, theatre"
+        option:
+          all:
+            label_long: "All of DC"
+  simple_form:
+    labels:
+      generic_work:
+        resource_type: "Type"
+        abstract: "Abstract or Summary"
+        description: "Notes"
+        bibliographic_citation: "Published in"
+        date_created: "Date"
+        work_type: "Genre"
+        temporal: "Time period"
+        source: "Call number"
+        part_of: "Sub-Collection"
+        spatial: "Place"
+        source: "Call Number"
+  curation_concerns:
+    base:
+      metadata:
+        work_type: "Genre"
+        source: "Call number"

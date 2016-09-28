@@ -6,6 +6,7 @@
         <%= render partial: 'users/notify_number' %>
       <% end %>
     </li>
+    <%= render 'admin/menu' if can? :manage, :all %>
     <li class="dropdown user-options">
       <%= link_to sufia.profile_path(current_user), role: 'button', data: { toggle: 'dropdown' }, aria: { haspopup: true, expanded: false} do %>
         <span class="sr-only">View</span>
@@ -46,7 +47,7 @@
         <% end %></li>
         <li class="divider"></li>
         <% if can? :start, @import %>
-        <li><%= link_to imports_path do %>
+        <li><%= link_to main_app.imports_path do %>
         <%= content_tag(:i, "", :class => "fa fa-truck") %>
         <%= t("osul.imports") %>
         <% end %></li>
