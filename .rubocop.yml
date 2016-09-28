@@ -82,3 +82,6 @@ Rails:
 RSpec/ExampleLength:
   Enabled: true
   Max: 10
+
+RSpec/AnyInstance:
+  Enabled: false

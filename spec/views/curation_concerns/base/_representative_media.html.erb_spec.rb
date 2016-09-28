@@ -4,6 +4,8 @@ RSpec.describe 'curation_concerns/base/_representative_media.html.erb', type: :v
   let(:ability) { double }
 
   before do
+    view.extend Openseadragon::OpenseadragonHelper
+    allow_any_instance_of(FileSet).to receive(:loris_id).and_return('wd/37/5w/29/wd375w296/files/ed0115bd-cff7-465d-8e62-659d08cb4ccc-version1')
     allow(view).to receive(:thumbnail_url).and_return('image.jpg')
   end
 

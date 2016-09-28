@@ -3,7 +3,7 @@ class Ability
   include CurationConcerns::Ability
   include Sufia::Ability
 
-  self.ability_logic +=[:delete_permissions, :import_permissions]
+  self.ability_logic += [:delete_permissions, :import_permissions]
 
   def self.model_class_field
     ActiveFedora.index_field_mapper.solr_name("has_model", :symbol)
@@ -50,15 +50,9 @@ class Ability
     can [:create, :read, :row_preview, :image_preview, :view_all], Import
     can :start, Import, status: 'ready'
     can [:undo, :finalize], Import, status: 'complete'
-    can :resume, Import do |import|
-      import.resumable?
-    end
-    can [:update, :destroy, :browse], Import do |import|
-      import.editable?
-    end
-    can :report, Import do |import|
-      import.reportable?
-    end
+    can :resume, Import, &:resumable?
+    can [:update, :destroy, :browse], Import, &:editable?
+    can :report, Import, &:reportable?
   end
 
   def edit_permissions

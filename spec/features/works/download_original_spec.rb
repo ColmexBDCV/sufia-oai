@@ -8,6 +8,7 @@ RSpec.feature 'Download an original image' do
     let!(:membership) { create(:membership, unit: unit, user: user) }
 
     before do
+      allow_any_instance_of(FileSet).to receive(:loris_id).and_return('wd/37/5w/29/wd375w296/files/ed0115bd-cff7-465d-8e62-659d08cb4ccc-version1')
       login_as user
     end
 
