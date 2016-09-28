@@ -13,6 +13,10 @@ module Sufia
       current_ability.can?(:edit, solr_document)
     end
 
+    def destroyer?
+      current_ability.can?(:destroy, solr_document)
+    end
+
     def tweeter
       user = ::User.find_by_user_key(depositor)
       if user.try(:twitter_handle).present?

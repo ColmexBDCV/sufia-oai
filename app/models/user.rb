@@ -40,6 +40,26 @@ class User < ActiveRecord::Base
   end
 
   def in_unit?
-    units.present?
+    units.any?
+  end
+
+  def manager?
+    has_membership_of_level? Membership::MANAGER_LEVEL
+  end
+
+  def curator?
+    has_membership_of_level? Membership::CURATOR_LEVEL
+  end
+
+  def member_of?(unit, opts={})
+    opts = { level: Membership::MANAGER_LEVEL }.merge(opts)
+    unit = unit.is_a?(Unit) ? unit : Unit.find_by_key(unit)
+    memberships.where(unit: unit, level: opts[:level]).any?
+  end
+
+  private
+
+  def has_membership_of_level?(level)
+    memberships.where(level: level).any?
   end
 end

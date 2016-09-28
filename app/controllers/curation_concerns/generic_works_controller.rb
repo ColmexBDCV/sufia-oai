@@ -5,7 +5,7 @@ module CurationConcerns
 
     self.curation_concern_type = GenericWork
 
-    before_action :authorize_unit, only: :create
+    before_action :authorize_unit, only: [:create, :update]
     before_action :set_units, only: [:new, :edit]
 
     def edit

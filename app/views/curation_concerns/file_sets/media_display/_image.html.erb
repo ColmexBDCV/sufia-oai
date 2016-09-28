@@ -1,7 +1,11 @@
 <% if CurationConcerns.config.display_media_download_link %>
     <figure>
         <%= openseadragon_picture_tag( ENV['LORIS_SERVER_URI'] + FileSet.find(file_set.id).loris_id )  %>
-        <figcaption>Download the full-sized image</figcaption>
+        <% if can?(:update, file_set.solr_document) %>
+          <%= link_to main_app.download_path(file_set), target: "_new" do %>
+            <figcaption>Download the full-sized image</figcaption>
+          <% end %>
+        <% end %>
     </figure>
 <% else %>
     <figure>

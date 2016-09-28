@@ -7,11 +7,59 @@ FactoryGirl.define do
     fid "MyString"
   end
 
-  factory :generic_work do
-    title ['My Work']
-    creator ['Kebe']
-    keyword ['witch']
-    unit 'myunit'
+  factory :generic_work, aliases: [:work, :private_generic_work] do
+    transient do
+      user { create(:user) }
+      unit_model { create(:unit) }
+    end
+
+    title ['Test title']
+    unit { unit_model.key }
+    visibility Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
+
+    after(:build) do |work, evaluator|
+      work.apply_depositor_metadata(evaluator.user.user_key)
+    end
+
+    factory :public_generic_work, traits: [:public]
+
+    trait :public do
+      visibility Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
+    end
+
+    trait :without_validations do
+      to_create {|instance| instance.save(validate: false) }
+    end
+
+    trait :with_image do
+      before(:create) do |work, evaluator|
+        work.ordered_members << create(:file_set, :image, user: evaluator.user, title: ['An image'])
+        work.representative_id = work.members[0].id
+      end
+    end
+  end
+
+  factory :file_set do
+    transient do
+      user { create(:user) }
+      content nil
+    end
+
+    after(:create) do |file, evaluator|
+      if evaluator.content
+        Hydra::Works::UploadFileToFileSet.call(file, evaluator.content)
+      end
+    end
+
+    after(:build) do |file, evaluator|
+      file.apply_depositor_metadata(evaluator.user.user_key)
+    end
+
+    trait :image do
+      after(:build) do |file|
+        allow(file).to receive(:mime_type).and_return 'image/tiff'
+      end
+    end
   end
 
   factory :unit do
@@ -40,7 +88,7 @@ FactoryGirl.define do
   factory :membership do
     unit
     user
-    level "Manager"
+    level Membership::MANAGER_LEVEL
   end
 
   factory :import do
