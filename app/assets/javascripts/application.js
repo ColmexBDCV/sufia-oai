@@ -14,6 +14,7 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
+//= require turbolinks
 //= require chosen-jquery
 //= require blacklight/blacklight
 //= require jquery.nested-fields
@@ -46,4 +47,4 @@ var ready = function() {
   });
 };
 
-//$(document).on('turbolinks:load', ready);
+$(document).on('turbolinks:load', ready);
