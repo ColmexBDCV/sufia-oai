@@ -23,8 +23,8 @@
 //= require sufia
 //= require homepage
 //= require_tree .
+$(document).ready(function(){
 
-var ready = function() {
   $('#material-fields').nestedFields();
   $('#measurement-fields').nestedFields();
 
@@ -45,6 +45,5 @@ var ready = function() {
     max_selected_options: 1,
     width: '100%'
   });
-};
 
-$(document).on('turbolinks:load', ready);
+});
