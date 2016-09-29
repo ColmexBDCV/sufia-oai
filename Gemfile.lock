@@ -341,7 +341,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
-    js-routes (1.2.7)
+    js-routes (1.2.9)
       railties (>= 3.2)
       sprockets-rails
     json (1.8.3)
@@ -602,7 +602,7 @@ GEM
     ruby-progressbar (1.8.1)
     rubyzip (1.2.0)
     sass (3.4.22)
-    sass-rails (5.0.5)
+    sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
       sass (~> 3.1)
       sprockets (>= 2.8, < 4.0)

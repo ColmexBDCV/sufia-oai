@@ -30,7 +30,7 @@ class SolrDocument
   def bibliographic_citation
     self[Solrizer.solr_name('bibliographic_citation')]
   end
-  
+
   def handle
     self[Solrizer.solr_name('handle')]
   end
