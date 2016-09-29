@@ -1,5 +1,3 @@
-$( document ).ready(initFileBrowser)
-
 function initFileBrowser() {
   // Import directory location browser init
   $('#import_file_browser').fileTree({
@@ -43,7 +41,7 @@ function startUndoProgressCheck(import_id) {
   }, 3000);
 }
 
-$(document).ready(function () {
+$(document).on('turbolinks:load', function () {
   $(".select").select2()
   $(".owl-carousel").owlCarousel({
     navigation : true, // Show next and prev buttons
@@ -51,4 +49,6 @@ $(document).ready(function () {
       itemsDesktopSmall : [979,3],
     singleItem:true
   })
-})
+});
+
+$(document).on('turbolinks:load', initFileBrowser);
