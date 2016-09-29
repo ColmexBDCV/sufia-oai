@@ -33,8 +33,8 @@ class Ability
   def import_user_abilities
     can :create, Import
     can [:read, :row_preview, :image_preview], Import, user_id: current_user.id
-    can :start, Import, status: 'ready', user_id: current_user.id
-    can [:undo, :finalize], Import, status: 'complete', user_id: current_user.id
+    can :start, Import, status: Import.statuses[:ready], user_id: current_user.id
+    can [:undo, :finalize], Import, status: Import.statuses[:complete], user_id: current_user.id
     can :resume, Import do |import|
       import.user_id == current_user.id && import.resumable?
     end
@@ -48,8 +48,8 @@ class Ability
 
   def import_admin_abilities
     can [:create, :read, :row_preview, :image_preview, :view_all], Import
-    can :start, Import, status: 'ready'
-    can [:undo, :finalize], Import, status: 'complete'
+    can :start, Import, status: Import.statuses[:ready]
+    can [:undo, :finalize], Import, Import.statuses[:complete]
     can :resume, Import, &:resumable?
     can [:update, :destroy, :browse], Import, &:editable?
     can :report, Import, &:reportable?
