@@ -14,7 +14,7 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-// require turbolinks
+//= require turbolinks
 //= require chosen-jquery
 //= require blacklight/blacklight
 //= require jquery.nested-fields
@@ -24,12 +24,11 @@
 //= require homepage
 //= require_tree .
 
-$(document).ready(function(){
-
+ var appReady = function() {
   $('#material-fields').nestedFields();
   $('#measurement-fields').nestedFields();
 
-  $('.select2-field').select2();
+  //$('.select2-field').select2();
 
   // using chosen gem for import field mappings (can select multiple)
   $('.chosen-select').chosen({
@@ -46,5 +45,6 @@ $(document).ready(function(){
     max_selected_options: 1,
     width: '100%'
   });
+};
 
-});
+$(document).on('turbolinks:load', appReady);
