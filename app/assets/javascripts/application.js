@@ -23,6 +23,7 @@
 //= require sufia
 //= require homepage
 //= require_tree .
+
 $(document).ready(function(){
 
   $('#material-fields').nestedFields();
