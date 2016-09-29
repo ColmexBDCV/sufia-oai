@@ -8,6 +8,7 @@ variables:
   REDIS_HOST: "redis"
   REDIS_PORT: "6379"
   HDL_HOME: "vendor/hsj/8.1.1"
+  LORIS_SERVER_URI: "http://example.test/"
 
 cache:
   paths:
