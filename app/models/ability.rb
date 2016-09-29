@@ -49,7 +49,7 @@ class Ability
   def import_admin_abilities
     can [:create, :read, :row_preview, :image_preview, :view_all], Import
     can :start, Import, status: Import.statuses[:ready]
-    can [:undo, :finalize], Import, Import.statuses[:complete]
+    can [:undo, :finalize], Import, status: Import.statuses[:complete]
     can :resume, Import, &:resumable?
     can [:update, :destroy, :browse], Import, &:editable?
     can :report, Import, &:reportable?
