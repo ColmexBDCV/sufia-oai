@@ -14,7 +14,7 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-//= require turbolinks
+// require turbolinks
 //= require chosen-jquery
 //= require blacklight/blacklight
 //= require jquery.nested-fields
