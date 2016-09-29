@@ -13,8 +13,13 @@
     <li class="divider"></li>
     <li><%= link_to t("sufia.toolbar.dashboard.highlights"), sufia.dashboard_highlights_path %></li>
     <li><%= link_to t("sufia.toolbar.dashboard.shares"), sufia.dashboard_shares_path %></li> -->
-    <li><a href="/units"><i class="fa fa-university" aria-hidden="true"></i>
-Units</a></li>
-    <li><a href="/users"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Users</a></li>
+    <li><%= link_to main_app.units_path do %>
+    <%= content_tag(:i, "", :class => "fa fa-university") %>
+    <%= "Units" %>
+    <% end %></li>
+    <li><%= link_to sufia.profiles_path do %>
+    <%= content_tag(:i, "", :class => "fa fa-users") %>
+    <%= "Users" %>
+    <% end %></li>
   </ul>
 </li>
