@@ -1,8 +1,5 @@
 <% if CurationConcerns.config.display_media_download_link %>
     <figure>
-      <%= image_tag thumbnail_url(file_set),
-                          class: "img-responsive",
-                          alt: "Download the full-sized image of #{file_set.to_s}" %>
         <%= openseadragon_picture_tag( ENV['LORIS_SERVER_URI'] + FileSet.find(file_set.id).loris_id , {"data-no-turbolink" => "true"})  %>
         <% if can?(:update, file_set.solr_document) %>
           <%= link_to main_app.download_path(file_set), target: "_new" do %>
