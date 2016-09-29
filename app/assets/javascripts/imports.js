@@ -42,7 +42,6 @@ function startUndoProgressCheck(import_id) {
 }
 
 $(document).on('turbolinks:load', function () {
-  $(".select").select2()
   $(".owl-carousel").owlCarousel({
     navigation : true, // Show next and prev buttons
     itemsDesktop : [1199,3],

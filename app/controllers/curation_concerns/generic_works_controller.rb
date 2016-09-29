@@ -8,11 +8,6 @@ module CurationConcerns
     before_action :authorize_unit, only: [:create, :update]
     before_action :set_units, only: [:new, :edit]
 
-    def edit
-      @units = Unit.where(key: current_user.groups)
-      super
-    end
-
     private
 
     def authorize_unit

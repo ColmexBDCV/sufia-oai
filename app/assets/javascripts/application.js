@@ -28,7 +28,7 @@
   $('#material-fields').nestedFields();
   $('#measurement-fields').nestedFields();
 
-  //$('.select2-field').select2();
+  $('.select2-field').select2();
 
   // using chosen gem for import field mappings (can select multiple)
   $('.chosen-select').chosen({
