@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160922144612) do
+ActiveRecord::Schema.define(version: 20160930191850) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "user_id",       null: false
@@ -166,7 +166,7 @@ ActiveRecord::Schema.define(version: 20160922144612) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "import_id"
-    t.string   "generic_work_pid"
+    t.string   "generic_file_pid"
     t.integer  "csv_row"
     t.boolean  "success"
     t.text     "message"
@@ -194,7 +194,6 @@ ActiveRecord::Schema.define(version: 20160922144612) do
     t.integer  "csv_file_size"
     t.datetime "csv_updated_at"
     t.integer  "unit_id"
-    t.string   "collection_id"
   end
 
   add_index "imports", ["unit_id"], name: "index_imports_on_unit_id"
@@ -399,11 +398,11 @@ ActiveRecord::Schema.define(version: 20160922144612) do
   end
 
   create_table "units", force: :cascade do |t|
-    t.string   "name",               null: false
+    t.string   "name",                              null: false
     t.text     "description"
-    t.string   "key",                null: false
-    t.datetime "created_at",         null: false
-    t.datetime "updated_at",         null: false
+    t.string   "key",                               null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.string   "image_file_name"
     t.string   "image_content_type"
     t.integer  "image_file_size"
@@ -415,6 +414,7 @@ ActiveRecord::Schema.define(version: 20160922144612) do
     t.string   "fax"
     t.string   "email"
     t.string   "url"
+    t.boolean  "visible",            default: true
   end
 
   add_index "units", ["key"], name: "index_units_on_key"

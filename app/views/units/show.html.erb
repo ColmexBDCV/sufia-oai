@@ -11,6 +11,9 @@
       <dt>Unit Image</dt>
       <dd><%= image_tag @unit.image.url(:medium) %></dd>
 
+      <dt>Visible</dt>
+      <dd><%= @unit.visible %></dd>
+      
       <%= link_to "Edit", edit_unit_path(@unit), class: "btn btn-primary" if can? :edit, @unit %>
     </dl>
   </div>
