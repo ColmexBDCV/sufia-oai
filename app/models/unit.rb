@@ -8,7 +8,7 @@ class Unit < ActiveRecord::Base
 
   before_create :add_admin_policy
 
-  has_attached_file :image, styles: { landing: "300x200#", medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+  has_attached_file :image, styles: { landing: "300x200#", medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.jpg"
 
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\z/
   validates :key, :name, presence: true
