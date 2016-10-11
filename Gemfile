@@ -50,6 +50,7 @@ group :development do
   gem 'capistrano', '~> 3.5.0'
   gem 'capistrano-rails'
   gem 'capistrano-rvm'
+  gem 'capistrano-rails-console', require: false
   gem 'highline'
   gem 'foreman'
   gem 'better_errors'
