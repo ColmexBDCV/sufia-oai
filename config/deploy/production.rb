@@ -9,9 +9,3 @@ role :db,     %w(rails@lib-wit1rub-v03.lib.ohio-state.edu)
 # ======================
 
 set :rails_env, 'production'
-set :assets_prefix, 'dc/assets'
-set :paperclip_relative_root, 'dc'
-
-namespace :deploy do
-  before :publishing, 'paperclip:symlink_attachments'
-end
