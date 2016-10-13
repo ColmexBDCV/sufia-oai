@@ -87,6 +87,10 @@ class SolrDocument
     self[Solrizer.solr_name('sub_collection')]
   end
 
+  def collection_identifier
+    self[Solrizer.solr_name('collection_identifier')]
+  end
+
   # Email uses the semantic field mappings below to generate the body of an email.
   SolrDocument.use_extension(Blacklight::Document::Email)
 

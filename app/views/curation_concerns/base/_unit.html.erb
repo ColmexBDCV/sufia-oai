@@ -1,0 +1,10 @@
+<%- if presenter.unit.present? %>
+    <th>Unit</th>
+    <td>
+      <ul class="tabular">
+        <li class="attribute unit">
+          <a href="/catalog?f%5Bunit_sim%5D%5B%5D=<%= presenter.unit.first %>"><%= Unit.find_by_key(presenter.unit).name %></a>
+        </li>
+      </ul>
+    </td>
+<%- end %>

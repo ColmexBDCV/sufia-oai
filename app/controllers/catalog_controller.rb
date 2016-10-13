@@ -124,6 +124,7 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("measurement_type", :stored_searchable), label: "Measurement Type"
     config.add_show_field solr_name("unit", :stored_searchable), label: "Unit"
     config.add_show_field solr_name("sub_collection", :stored_searchable), label: "Sub-Collection"
+    config.add_show_field solr_name("collection_identifier", :stored_searchable), label: "Collection Identifier"
     config.add_show_field solr_name("bibliographic_citation", :stored_searchable), label: "Published In"
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
@@ -280,6 +281,14 @@ class CatalogController < ApplicationController
 
     config.add_search_field('rights') do |field|
       solr_name = solr_name("rights", :stored_searchable)
+      field.solr_local_parameters = {
+        qf: solr_name,
+        pf: solr_name
+      }
+    end
+
+    config.add_search_field('collection_identifier') do |field|
+      solr_name = solr_name("collection_identifier", :stored_searchable)
       field.solr_local_parameters = {
         qf: solr_name,
         pf: solr_name
