@@ -16,31 +16,31 @@ RSpec.describe CurationConcerns::Renderers::UnitAttributeRenderer do
 
     context 'the unit exists' do
       let(:key) { unit.key }
-      let(:tr_content) {
+      let(:tr_content) do
         "<tr><th>Unit</th>\n" \
          "<td><ul class='tabular'>" \
          "<li class=\"attribute unit\">"\
          "<a href=\"/catalog?q=thekey&amp;search_field=unit_tesim\">"\
          "The Unit</a></li>\n" \
          "</ul></td></tr>"
-      }
+      end
 
-      it 'should use the unit name' do
+      it 'uses the unit name' do
         expect(rendered).to be_equivalent_to(expected)
       end
     end
 
     context 'the unit does not exist' do
-      let(:tr_content) {
+      let(:tr_content) do
         "<tr><th>Unit</th>\n" \
          "<td><ul class='tabular'>" \
          "<li class=\"attribute unit\">"\
          "<a href=\"/catalog?q=nounit&amp;search_field=unit_tesim\">"\
          "nounit</a></li>\n" \
          "</ul></td></tr>"
-      }
+      end
 
-      it 'should use the raw value' do
+      it 'uses the raw value' do
         expect(rendered).to be_equivalent_to(expected)
       end
     end

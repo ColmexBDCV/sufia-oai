@@ -11,8 +11,8 @@ RSpec.describe CurationConcerns::Renderers::LinkedResourceAttributeRenderer do
 
     context 'when a template is provided' do
       let(:value) { 'somepath' }
-      let(:options) { {template: 'http://example.com/%{value}'} }
-      let(:tr_content) {
+      let(:options) { { template: 'http://example.com/%{value}' } }
+      let(:tr_content) do
         "<tr><th>Name</th>\n" \
          "<td><ul class='tabular'>" \
          "<li class=\"attribute name\">"\
@@ -20,15 +20,15 @@ RSpec.describe CurationConcerns::Renderers::LinkedResourceAttributeRenderer do
          "<span class='glyphicon glyphicon-new-window'></span>&nbsp;"\
          "somepath</a></li>\n" \
          "</ul></td></tr>"
-      }
+      end
 
-      it 'should link to the rendered template URL' do
+      it 'links to the rendered template URL' do
         expect(subject).to be_equivalent_to(expected)
       end
     end
 
     context 'when no template is provided' do
-      let(:tr_content) {
+      let(:tr_content) do
         "<tr><th>Name</th>\n" \
          "<td><ul class='tabular'>" \
          "<li class=\"attribute name\">"\
@@ -36,9 +36,9 @@ RSpec.describe CurationConcerns::Renderers::LinkedResourceAttributeRenderer do
          "<span class='glyphicon glyphicon-new-window'></span>&nbsp;"\
          "http://example.com/</a></li>\n" \
          "</ul></td></tr>"
-      }
+      end
 
-      it 'should use the raw value' do
+      it 'uses the raw value' do
         expect(subject).to be_equivalent_to(expected)
       end
     end
