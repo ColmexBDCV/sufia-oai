@@ -67,6 +67,22 @@ FactoryGirl.define do
     key "myunit"
   end
 
+  factory :collection do
+    title ['My Collection']
+
+    trait :public do
+      visibility Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
+    end
+
+    trait :private do
+      visibility Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
+    end
+
+    trait :without_validations do
+      to_create {|instance| instance.save(validate: false) }
+    end
+  end
+
   factory :featured_collection do
   end
 

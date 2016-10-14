@@ -3,7 +3,6 @@ class Unit < ActiveRecord::Base
 
   has_many :memberships, dependent: :destroy
   has_many :members, through: :memberships, source: :user
-
   belongs_to :admin_policy
 
   before_create :add_admin_policy
@@ -15,6 +14,8 @@ class Unit < ActiveRecord::Base
   validates :key, uniqueness: true, format: { with: /\A[-A-Za-z1-9]+\z/, message: "only allows letters, numbers and hyphens" }
 
   accepts_nested_attributes_for :memberships, allow_destroy: true
+
+  scope :visible, -> { where(visible: true) }
 
   private
 
