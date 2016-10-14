@@ -5,5 +5,6 @@ class ImportFieldMapping < ActiveRecord::Base
           :keyword, :publisher, :date_created, :subject, :language,
           :identifier, :based_near, :related_url, :staff_notes, :spatial,
           :alternative, :temporal, :format, :work_type, :source, :materials,
-          :measurements, :part_of, :bibliographic_citation, :provenance, :collection_identifier].freeze
+          :measurements, :part_of, :bibliographic_citation, :provenance,
+          :collection_identifier, :handle].freeze
 end

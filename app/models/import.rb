@@ -22,7 +22,7 @@ class Import < ActiveRecord::Base
 
   enum status: { not_ready: 0, ready: 1, in_progress: 2, complete: 3, reverting: 4, final: 5 }
 
-  REQUIRED_FIELDS = %w(title image_filename).freeze
+  REQUIRED_FIELDS = %w(title image_filename resource_type).freeze
 
   scope :editable, -> { where(status: [ Import.statuses[:ready], Import.statuses[:not_ready] ]) }
   scope :reportable, -> { where(status: [ Import.statuses[:complete], Import.statuses[:in_progress], Import.statuses[:final] ]) }

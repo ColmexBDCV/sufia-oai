@@ -29,10 +29,10 @@ module ImportsHelper
   end
 
   def import_field_select_class_for(field)
-    field.object.key == 'image_filename' ? 'chosen-select-max-1' : 'chosen-select'
+    ['image_filename', 'handle'].include?(field.object.key) ? 'chosen-select-max-1' : 'chosen-select'
   end
 
   def import_field_form_class_for(field)
-    field.object.key == 'image_filename' ? 'required' : ''
+    Import::REQUIRED_FIELDS.include?(field.object.key) ? 'required' : ''
   end
 end
