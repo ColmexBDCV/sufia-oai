@@ -160,9 +160,6 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-webkit (1.11.1)
-      capybara (>= 2.3.0, < 2.8.0)
-      json
     carrierwave (0.11.2)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
@@ -176,6 +173,7 @@ GEM
     climate_control (0.0.3)
       activesupport (>= 3.0)
     clipboard-rails (1.5.10)
+    cliver (0.3.2)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
     cocoon (1.2.9)
@@ -466,6 +464,10 @@ GEM
       blankslate (>= 2.0, <= 4.0)
     pg (0.18.4)
     pkg-config (1.1.7)
+    poltergeist (1.11.0)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      websocket-driver (>= 0.2.0)
     posix-spawn (0.3.11)
     powerpack (0.1.1)
     qa (0.8.0)
@@ -744,6 +746,9 @@ GEM
       binding_of_caller (>= 0.7.2)
       railties (>= 4.0)
       sprockets-rails (>= 2.0, < 4.0)
+    websocket-driver (0.6.4)
+      websocket-extensions (>= 0.1.0)
+    websocket-extensions (0.1.2)
     xml-simple (1.1.5)
     xpath (2.0.0)
       nokogiri (~> 1.3)
@@ -766,7 +771,6 @@ DEPENDENCIES
   capistrano-rails-console
   capistrano-rvm
   capybara
-  capybara-webkit
   chosen-rails
   cocoon
   coffee-rails (~> 4.1.0)
@@ -789,6 +793,7 @@ DEPENDENCIES
   owlcarousel-rails
   paperclip (~> 5.0.0)
   pg
+  poltergeist
   rails (= 4.2.6)
   rsolr (~> 1.0)
   rspec-mocks (~> 3.5)

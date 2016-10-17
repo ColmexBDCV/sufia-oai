@@ -1,32 +1,33 @@
 Digital Collections System
 ==========================
 
-[Fedora/Hydra/Sufia](1) digital object repository.
+[Fedora/Hydra/Sufia][1] digital object repository.
 
 Prerequisites
 -------------
 
-The following dependencies must be installed to develop this application.
+The following dependencies must be installed to run this application.
 
-  * [Ruby][2] 2.3 with [Bundler][3]
+  * [Ruby][2] 2.3.1 with [Bundler][3]
   * [Redis][4], a key-value store
   * [ImageMagick][5] with JPEG-2000 support
   * [FITS][6] 0.8.x (0.8.5 is known to be good)
   * [LibreOffice][7]
   * [Ghostscript][8] (may be required if not bundled with LibreOffice)
   * [Handle.Net Software][9] 8.1.1
+  * [PhantomJS][10] >= 1.8.1 (only needed for feature tests)
 
-While not required, OS X users may find the [Homebrew](9) package manager
+While not required, macOS users may find the [Homebrew][11] package manager
 helpful to manage dependency installation.
 
-Note that this project should run on OS X, Unix, or Unix-like operating systems.
+Note that this project should run on macOS, Unix, or Unix-like operating systems.
 It has not been tested on Microsoft Windows.
 
 ### Ruby
 
 First, you'll need a working Ruby installation. You can install this via your
 operating system's package manager, but we recommend using a dedicated Ruby
-version manager such as [chruby](10), [RVM](11), or rbenv.
+version manager such as [chruby][12], [RVM][13], or rbenv.
 
 We recommend Ruby 2.3.1.
 
@@ -42,11 +43,11 @@ We recommend Ruby 2.3.1.
 ### Derivatives
 
 Install LibreOffice. If `which soffice` returns a path, you're done. Otherwise,
-add the full path to `soffice` to the `.env` file (see below). On OSX, soffice
+add the full path to `soffice` to the `.env` file (see below). On macOS, soffice
 is inside LibreOffice.app. Your path may look like
 `//LibreOffice.app/Contents/MacOS/`
 
-You may also require [ghostscript](8) if it does not come with your compiled
+You may also require [ghostscript][8] if it does not come with your compiled
 version LibreOffice. `brew install ghostscript` should resolve the dependency on
 a Mac.
 
@@ -58,12 +59,12 @@ a Mac.
 
 ### Tests
 
-To run RSpec feature tests, you will need a Qt version greater than 4.8
-installed. For OS X users, install via Homebrew:
+To run RSpec feature tests, you will need [PhantomJS][10] >= 1.8.1. On macOS,
+install via Homebrew:
 
-    $ brew tap homebrew/versions
-    $ brew install qt55
-    $ brew link --force qt55
+    $ brew install phantomjs
+
+For other platforms, see the [PhantomJS download page](http://phantomjs.org/download.html)
 
 ### Production
 
@@ -157,8 +158,9 @@ open a Rails console to set up admin access:
 [5]: http://www.imagemagick.org/script/index.php
 [6]: http://projects.iq.harvard.edu/fits/
 [7]: https://www.libreoffice.org
-[8]: https://www.handle.net/
-[9]: http://www.ghostscript.com/
-[10]: http://brew.sh
-[11]: https://github.com/postmodern/chruby
-[12]: https://rvm.io
+[8]: http://www.ghostscript.com/
+[9]: https://www.handle.net/
+[10]: http://phantomjs.org
+[11]: http://brew.sh
+[12]: https://github.com/postmodern/chruby
+[13]: https://rvm.io

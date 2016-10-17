@@ -11,13 +11,14 @@ RSpec.configure do |config|
     end
   end
 
-  config.before :each do |example|
-    if example.metadata[:type] == :feature && Capybara.current_driver != :rack_test
-      DatabaseCleaner.strategy = :truncation
-    else
-      DatabaseCleaner.strategy = :transaction
-      DatabaseCleaner.start
-    end
+  config.before :each do
+    DatabaseCleaner.strategy = if Capybara.current_driver == :rack_test
+                                 :transaction
+                               else
+                                 :truncation
+                               end
+
+    DatabaseCleaner.start
   end
 
   config.after do

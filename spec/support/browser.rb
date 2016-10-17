@@ -1,7 +1,11 @@
-Capybara.javascript_driver = :webkit
+Capybara.javascript_driver = :poltergeist
+Capybara.default_max_wait_time = 30
 
-Capybara::Webkit.configure do |config|
-  config.block_unknown_urls
-  config.ignore_ssl_errors
-  config.skip_image_loading
+Capybara.register_driver :poltergeist do |app|
+  config = {
+    phantomjs_options: ['--load-images=no', '--ignore-ssl-errors=yes'],
+    url_blacklist: ['https://ssl.google-analytics.com', 'https://www.osu.edu']
+  }
+
+  Capybara::Poltergeist::Driver.new(app, config)
 end
