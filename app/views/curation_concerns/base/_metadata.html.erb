@@ -1,7 +1,18 @@
 <h2><%= t('.header') %></h2>
 <div class="row">
   <%- generic_work_descriptions(presenter).in_groups(2).each do |rows| %>
-    <div class="col-md-6">
+    <div class="hidden-print col-md-6">
+      <table class="table table-condensed <%= dom_class(presenter) %> attributes" <%= presenter.microdata_type_to_html %>>
+        <thead>
+        </thead>
+        <tbody>
+          <%- rows.each do |row| %>
+            <%= row %>
+          <%- end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="visible-print-block col-xs-6">
       <table class="table table-condensed <%= dom_class(presenter) %> attributes" <%= presenter.microdata_type_to_html %>>
         <thead>
         </thead>
