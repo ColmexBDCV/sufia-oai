@@ -1,4 +1,4 @@
-image: osul/centos7-ruby:2.3
+image: code.osu.edu:5000/osul-ads/ruby:7-2.3
 
 variables:
   SOLR_CORE_NAME: "dcs-test"
