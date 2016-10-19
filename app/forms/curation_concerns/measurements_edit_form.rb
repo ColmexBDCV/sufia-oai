@@ -11,7 +11,7 @@ module CurationConcerns
 
     included do
       delegate :measurements, :measurements_attributes=, to: :model
-      self.terms += [ :measurements_attributes ]
+      self.terms << :measurements_attributes
     end
   end
 end
