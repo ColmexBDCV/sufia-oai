@@ -1,4 +1,6 @@
 require 'rails_helper'
+require 'models/concerns/work_metadata'
+require 'models/concerns/physical_media_metadata'
 
 RSpec.describe GenericWork, type: :model do
   let(:unit) { create(:unit, key: 'myunit') }
@@ -11,6 +13,9 @@ RSpec.describe GenericWork, type: :model do
     it { is_expected.to include_module(WorkMetadata) }
     it { is_expected.to include_module(PhysicalMediaMetadata) }
   end
+
+  it_behaves_like "work_metadata"
+  it_behaves_like "physical_media_metadata"
 
   describe ".human_readable_type" do
     it "returns Work" do
