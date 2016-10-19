@@ -86,6 +86,17 @@ FactoryGirl.define do
   factory :featured_collection do
   end
 
+  factory :measurement, class: 'Osul::VRA::Measurement' do
+    measurement '22'
+    measurement_unit 'cm'
+    measurement_type 'height'
+  end
+
+  factory :material, class: 'Osul::VRA::Material' do
+    material 'paper'
+    material_type 'backing'
+  end
+
   factory :identity do
     uid "test@example.com"
     provider "myprovider"
