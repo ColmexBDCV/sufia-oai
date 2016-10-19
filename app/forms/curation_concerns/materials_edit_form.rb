@@ -11,7 +11,7 @@ module CurationConcerns
 
     included do
       delegate :materials, :materials_attributes=, to: :model
-      self.terms << :materials_attributes
+      terms << :materials_attributes
     end
   end
 end
