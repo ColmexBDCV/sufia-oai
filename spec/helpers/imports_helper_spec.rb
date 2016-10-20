@@ -33,11 +33,12 @@ RSpec.describe ImportsHelper, type: :helper do
 
   describe "last_run_for" do
     context "an import that has been run" do
+      let(:time) { Time.new(2016).utc }
       let(:import) { create(:import) }
-      let!(:record) { create(:imported_record, import: import, created_at: Time.new(2016).utc) }
+      let!(:record) { create(:imported_record, import: import, created_at: time) }
 
       it "shows the formatted last run time" do
-        expect(helper.last_run_for(import)).to eq "1/1/2016  5:00am"
+        expect(helper.last_run_for(import)).to eq time.strftime('%-m/%-d/%Y %l:%M%P')
       end
     end
 
