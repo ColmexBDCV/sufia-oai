@@ -1,15 +1,50 @@
 require 'rails_helper'
 
-# Specs in this file have access to a helper object that includes
-# the ImportsHelper. For example:
-#
-# describe ImportsHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
 RSpec.describe ImportsHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:import) { build(:import) }
+
+  describe "import_type_list" do
+    let(:import_types) { [["Generic", "generic"]] }
+    it { expect(helper.import_type_list).to eq import_types }
+  end
+
+  describe "status_icon_class_for" do
+    classes = {
+      'not_ready': 'glyphicon-question-sign',
+      'ready': 'glyphicon-thumbs-up',
+      'in_progress': 'glyphicon-time',
+      'complete': 'glyphicon-ok',
+      'reverting': 'glyphicon-backward',
+      'final': 'glyphicon-lock'
+    }
+
+    classes.each do |status, klass|
+      it "returns '#{klass}' for status '#{status}'" do
+        import = build(:import, status: status)
+        expect(helper.status_icon_class_for(import)).to eq klass
+      end
+    end
+
+    it "returns 'glyphicon-warning-sign' as a default status" do
+      allow(import).to receive(:status).and_return('another')
+      expect(helper.status_icon_class_for(import)).to eq 'glyphicon-warning-sign'
+    end
+  end
+
+  describe "last_run_for" do
+    context "an import that has been run" do
+      let(:import) { create(:import) }
+      let!(:record) { create(:imported_record, import: import, created_at: Time.new(2016).utc) }
+
+      it "shows the formatted last run time" do
+        expect(helper.last_run_for(import)).to eq "1/1/2016  5:00am"
+      end
+    end
+
+    context "an import that has never been run" do
+      it "shows 'Never'" do
+        expect(helper.last_run_for(import)).to eq "<em>Never</em>"
+      end
+    end
+  end
 end

@@ -137,6 +137,10 @@ FactoryGirl.define do
     csv_content_type "text/csv"
     csv_file_size 440
     csv_updated_at "2016-09-22 14:54:13"
+
+    before(:create) do |import|
+      import.unit = create(:unit) unless import.unit.present?
+    end
   end
 
   factory :imported_record do
