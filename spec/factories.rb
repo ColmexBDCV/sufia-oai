@@ -9,15 +9,14 @@ FactoryGirl.define do
 
   factory :generic_work, aliases: [:work, :private_generic_work] do
     transient do
-      user { create(:user) }
-      unit_model { create(:unit) }
+      user { create(:user, email: 'depositor@example.com') }
     end
 
     title ['Test title']
-    unit { unit_model.key }
     visibility Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
 
-    after(:build) do |work, evaluator|
+    before(:create) do |work, evaluator|
+      work.unit = create(:unit).key unless work.unit.present?
       work.apply_depositor_metadata(evaluator.user.user_key)
     end
 
@@ -104,11 +103,19 @@ FactoryGirl.define do
   end
 
   factory :user do
+    transient do
+      unit nil
+    end
+
     email 'test@example.com'
     password 'password'
 
     factory :admin_user do
       admin true
+    end
+
+    after(:create) do |user, evaluator|
+      create(:membership, unit: evaluator.unit, user: user) if evaluator.unit
     end
   end
 

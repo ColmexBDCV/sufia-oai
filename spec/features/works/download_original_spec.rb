@@ -4,7 +4,7 @@ RSpec.feature 'Download an original image' do
   context 'as a member of the unit' do
     let(:unit) { create(:unit) }
     let(:user) { create(:user) }
-    let(:generic_work) { create(:generic_work, :with_image, :without_validations, unit: unit.key, unit_model: unit, user: user) }
+    let(:generic_work) { create(:generic_work, :with_image, :without_validations, unit: unit.key, user: user) }
     let!(:membership) { create(:membership, unit: unit, user: user) }
 
     before do

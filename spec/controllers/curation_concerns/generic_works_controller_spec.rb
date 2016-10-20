@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'controllers/concerns/set_units_behavior'
 
 RSpec.describe CurationConcerns::GenericWorksController, type: :controller do
   let(:user) { create(:user) }
@@ -11,6 +12,10 @@ RSpec.describe CurationConcerns::GenericWorksController, type: :controller do
   describe "modules" do
     it { is_expected.to include_module(CurationConcerns::CurationConcernController) }
     it { is_expected.to include_module(Sufia::WorksControllerBehavior) }
+  end
+
+  it_behaves_like "set_units_behavior" do
+    let(:model) { create(:generic_work, unit: unit1.key) }
   end
 
   describe "GET #new" do
