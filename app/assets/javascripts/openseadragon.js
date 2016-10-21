@@ -7,6 +7,9 @@
     var $spinner = $('<div class="osd-loading"></div>'),
         $picture = $('picture[data-openseadragon]');
 
+    // Bail if the viewer is already loaded
+    if ($picture.data('osdViewer')) { return; }
+
     // Add spinner markup to viewer
     $picture.append($spinner).openseadragon();
     var viewer = $picture.data('osdViewer');

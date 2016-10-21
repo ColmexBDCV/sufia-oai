@@ -19,16 +19,24 @@ RSpec.describe CurationConcerns::GenericWorksController, type: :controller do
   end
 
   describe "GET #new" do
-    it "assigns all the user's units to @units" do
-      create(:unit)
-      unit2 = create(:unit, key: 'unit2')
-      unit3 = create(:unit, key: 'unit3')
-      create(:membership, user: user, unit: unit2)
-      create(:membership, user: user, unit: unit3)
+    let(:unit) { create(:unit) }
+    let(:user) { create(:user, unit: unit) }
+    let(:work) { create(:generic_work, unit: unit.key) }
 
+    it "disables turbolink caching" do
       get :new
+      expect(assigns(:disable_turbolinks)).to be true
+    end
+  end
 
-      expect(assigns(:units)).to eq [unit2, unit3]
+  describe "GET #edit" do
+    let(:unit) { create(:unit) }
+    let(:user) { create(:user, unit: unit) }
+    let(:work) { create(:generic_work, unit: unit.key) }
+
+    it "disables turbolink caching" do
+      get :edit, id: work
+      expect(assigns(:disable_turbolinks)).to be true
     end
   end
 
