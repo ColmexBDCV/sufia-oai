@@ -20,14 +20,12 @@ class HandleService
       Rails.logger.debug "Handle not created. File #{@generic_file.id} does not have a handle property."
     elsif handle_needed?
       create_handle!
+      @generic_file.handle
     else
       Rails.logger.debug "Handle not created. File #{@generic_file.id} does not need a handle."
     end
-
-    @generic_file.handle
   end
 
-  # Begin private methods
   private
 
   def minting_disabled?
@@ -39,7 +37,7 @@ class HandleService
   end
 
   def handle_needed?
-    @generic_file.handle.blank? && file_is_visible? # && file_has_no_active_imports?
+    @generic_file.handle.blank? && file_is_visible? && file_has_no_active_imports?
   end
 
   def create_handle!
@@ -77,6 +75,10 @@ class HandleService
   end
 
   def file_has_no_active_imports?
-    Import.with_imported_file(@generic_file).where.not(status: Import.statuses[:final]).empty?
+    if @generic_file.is_a? GenericWork
+      Import.with_imported_file(@generic_file).where.not(status: Import.statuses[:final]).empty?
+    else
+      true
+    end
   end
 end
