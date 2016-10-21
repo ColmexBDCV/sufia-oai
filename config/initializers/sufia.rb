@@ -94,6 +94,10 @@ Sufia.config do |config|
                          ->() { Rails.root + 'tmp' + 'uploads' }
                        end
 
+  CurationConcerns.config.callback.set(:after_create_concern) do |curation_concern|
+    HandleService.new(curation_concern).mint
+  end
+
   CurationConcerns.config.callback.set(:after_update_metadata) do |curation_concern|
     HandleService.new(curation_concern).mint
   end

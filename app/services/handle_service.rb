@@ -16,6 +16,8 @@ class HandleService
   def mint
     if minting_disabled?
       Rails.logger.debug "Handle was not created for file #{@generic_file.id} because minting is disabled."
+    elsif no_handle?
+      Rails.logger.debug "Handle not created. File #{@generic_file.id} does not have a handle property."
     elsif handle_needed?
       create_handle!
     else
@@ -30,6 +32,10 @@ class HandleService
 
   def minting_disabled?
     !@mint_handles
+  end
+
+  def no_handle?
+    !@generic_file.respond_to? :handle
   end
 
   def handle_needed?
