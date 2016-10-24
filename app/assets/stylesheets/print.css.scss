@@ -1,0 +1,31 @@
+/*
+ *= require print
+ */
+
+@import 'bootstrap';
+
+#osu_navbar, #masthead, .citations, .items, .breadcrumb {
+   display:none;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a[href]:after {
+   content: none !important;
+}
+
+h1, h2 {
+  font-size:16px;
+  font-weight: bold;
+}
+
+table{
+  font-size: smaller;
+}
+
+.print-col-md-6 {
+  float:left;
+  width:50%;
+}
