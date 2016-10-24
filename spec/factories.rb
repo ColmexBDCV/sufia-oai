@@ -1,4 +1,6 @@
 FactoryGirl.define do
+  fixture_path = File.expand_path('../fixtures', __FILE__)
+
   factory :osul_import_imported_item, class: 'Osul::Import::ImportedItem' do
     fid "MyString"
   end
@@ -32,7 +34,14 @@ FactoryGirl.define do
 
     trait :with_image do
       before(:create) do |work, evaluator|
-        work.ordered_members << create(:file_set, :image, user: evaluator.user, title: ['An image'])
+        work.ordered_members << create(:file_set, :image, user: evaluator.user, title: ['An image'], visibility: work.visibility)
+        work.representative_id = work.members[0].id
+      end
+    end
+
+    trait :with_pdf do
+      before(:create) do |work, evaluator|
+        work.ordered_members << create(:file_set, :pdf, user: evaluator.user, title: ['A PDF'], visibility: work.visibility)
         work.representative_id = work.members[0].id
       end
     end
@@ -55,8 +64,18 @@ FactoryGirl.define do
     end
 
     trait :image do
-      after(:build) do |file|
-        allow(file).to receive(:mime_type).and_return 'image/tiff'
+      content File.open(File.join(fixture_path, "dice.png"))
+
+      after(:stub) do |file|
+        allow(file).to receive(:mime_type).and_return 'image/png'
+      end
+    end
+
+    trait :pdf do
+      content File.open(File.join(fixture_path, "document.pdf"))
+
+      after(:stub) do |file|
+        allow(file).to receive(:mime_type).and_return 'application/pdf'
       end
     end
   end

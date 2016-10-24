@@ -6,6 +6,14 @@ class DownloadsController < ApplicationController
   private
 
   def authorize_original_download
-    authorize! :update, params[asset_param_key] if file.is_a? ActiveFedora::File
+    if file.respond_to? :mime_type
+      # Add MIME type detection to file if necessary
+      unless file.respond_to? :image?
+        file.extend(Hydra::Works::MimeTypes)
+        file.class.extend(Hydra::Works::MimeTypes::ClassMethods)
+      end
+
+      authorize! :update, params[asset_param_key] if file.image?
+    end
   end
 end
