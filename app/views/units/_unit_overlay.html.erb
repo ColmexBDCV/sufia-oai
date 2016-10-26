@@ -10,9 +10,9 @@
     </div>
   </div>
   <div class="hidden-lg hidden-md">
-    <h3 class="coll-title"><%= link_to unit.name, unit, class: "coll-title-link" %></h3>
+    <h3 class="coll-title"><%= link_to unit.name, search_catalog_path(f: { 'unit_sim' => [unit.key] }), class: "coll-title-link" %></h3>
     <%= link_to (image_tag unit.image.url(:landing), class: "img-thumbnail img-responsive"), search_catalog_path(f: { 'unit_sim' => [unit.key] }) %>
     <p class="small_paragraph xs_paragraph"><%= unit.description %></p>
-    <p><button type="button" class="btn btn-success">Browse Collections</button></p>
+    <p><%= link_to "Browse Collections", search_catalog_path(f: { 'unit_sim' => [unit.key] }), class: "btn btn-success" %></p>
   </div>
 </div>
