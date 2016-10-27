@@ -22,7 +22,7 @@ RSpec.describe DownloadsController, type: :controller do
       context "as an anonymous user" do
         it "does not allow the original file to be downloaded" do
           get :show, id: work.file_sets.first
-          expect(response).to redirect_to new_user_session_path
+          expect(response).to redirect_to user_developer_omniauth_authorize_path
         end
       end
     end

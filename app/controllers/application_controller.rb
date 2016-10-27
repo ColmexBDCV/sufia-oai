@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   include CurationConcerns::ApplicationControllerBehavior
   # Adds Sufia behaviors into the application controller
   include Sufia::Controller
-  
+
   include ApplicationHelper
 
   include CurationConcerns::ThemedLayoutController
@@ -18,8 +18,12 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  rescue_from CanCan::AccessDenied do |exception|
-    redirect_to omniauth_authorize_path(:user, login_strategy)
+  rescue_from CanCan::AccessDenied do
+    if user_signed_in?
+      redirect_to main_app.root_path, alert: 'You are not authorized to view this resource.'
+    else
+      redirect_to omniauth_authorize_path(:user, login_strategy)
+    end
   end
 
   protected
