@@ -8,6 +8,8 @@ class ApplicationController < ActionController::Base
   include CurationConcerns::ApplicationControllerBehavior
   # Adds Sufia behaviors into the application controller
   include Sufia::Controller
+  
+  include ApplicationHelper
 
   include CurationConcerns::ThemedLayoutController
   layout 'sufia-one-column'
@@ -15,6 +17,10 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+
+  rescue_from CanCan::AccessDenied do |exception|
+    redirect_to omniauth_authorize_path(:user, login_strategy)
+  end
 
   protected
 
