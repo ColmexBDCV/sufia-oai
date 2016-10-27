@@ -18,7 +18,7 @@ class Import < ActiveRecord::Base
   validate :validate_unit
   validate :validate_csv_contents
 
-  # before_create :create_batch_object
+  # before_create :simple_or_complex
 
   enum status: { not_ready: 0, ready: 1, in_progress: 2, complete: 3, reverting: 4, final: 5 }
 
@@ -141,7 +141,8 @@ class Import < ActiveRecord::Base
 
   def csv_file_row_count
     # get import Csv file
-    CSV.foreach(csv_file_path, csv_options).count
+    count = simple_or_complex
+    count == 0 ? CSV.foreach(csv_file_path, csv_options).count : count
   rescue
     0
   end
@@ -194,6 +195,13 @@ class Import < ActiveRecord::Base
     unit.try(:name)
   end
 
+  def get_column_from(row, column)
+    column_number = import_field_mappings.where(key: column).first.value
+    row[column_number.last.to_i]
+  rescue
+    nil
+  end
+
   private
 
   def invalid_fields(generic_work_response)
@@ -226,7 +234,15 @@ class Import < ActiveRecord::Base
     { headers: includes_headers? ? true : false, encoding: "UTF-8" }
   end
 
-  def create_batch_object
-    self.batch = Batch.create
+  def simple_or_complex
+    count = 0
+    CSV.foreach(csv_file_path, csv_options).each_with_index do |row, i|
+      cid = get_column_from(row, 'cid')
+      count += 1
+      if cid
+        count -= 1
+      end
+    end
+    count
   end
 end
