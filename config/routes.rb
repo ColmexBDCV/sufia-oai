@@ -59,6 +59,10 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => '/jobs'
   end
 
+  # Handle routes that existed in Sufia < 7
+  #   e.g. https://library.osu.edu/ims/files/gm80hv36p
+  get '/files/:id', to: redirect('concern/generic_works/%{id}')
+
   # This must be the very last route in the file because it has a catch-all route for 404 errors.
   # This behavior seems to show up only in production mode.
   mount Sufia::Engine => '/'
