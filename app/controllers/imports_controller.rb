@@ -98,15 +98,11 @@ class ImportsController < ApplicationController
       if @import.save
         ImportFieldMapping.initiate_mappings(@import)
 
-        format.html { redirect_to edit_import_path(@import),
-                      notice: 'Import was successfully created. Use the form below to create metadata field mappings.' }
-        format.json { render :show,
-                      status: :created,
-                      location: @import }
+        format.html { redirect_to edit_import_path(@import), notice: 'Import was successfully created. Use the form below to create metadata field mappings.' }
+        format.json { render :show, status: :created, location: @import }
       else
         format.html { render :new }
-        format.json { render json: @import.errors,
-                      status: :unprocessable_entity }
+        format.json { render json: @import.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -115,7 +111,6 @@ class ImportsController < ApplicationController
   # PATCH/PUT /imports/1.json
   def update
     respond_to do |format|
-      byebug
       if @import.update(import_params)
 
         @import.validate_import_mappings if @import.editable?

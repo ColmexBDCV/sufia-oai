@@ -142,7 +142,7 @@ class Import < ActiveRecord::Base
   def csv_file_row_count
     # get import Csv file
     count = simple_or_complex
-    count == 0 ? CSV.foreach(csv_file_path, csv_options).count : count
+    count.zero? ? CSV.foreach(csv_file_path, csv_options).count : count
   rescue
     0
   end
@@ -196,7 +196,7 @@ class Import < ActiveRecord::Base
   end
 
   def get_column_from(row, column)
-    column_number = import_field_mappings.where(key: column).first.value
+    column_number = import_field_mappings.find_by(key: column).value
     return row[column_number.last.to_i] unless column_number.last == ""
     nil
   rescue
@@ -206,7 +206,7 @@ class Import < ActiveRecord::Base
   def validate_complex_objects
     parents = []
     children = []
-    CSV.foreach(csv_file_path, csv_options).each_with_index do |row, i|
+    CSV.foreach(csv_file_path, csv_options).each do |row|
       cid = get_column_from(row, 'cid')
       pid = get_column_from(row, 'pid')
       if cid
@@ -241,7 +241,7 @@ class Import < ActiveRecord::Base
   end
 
   def validate_csv_contents
-    CSV.foreach(Paperclip.io_adapters.for(csv).path, csv_options).each_with_index do |row, i|
+    CSV.foreach(Paperclip.io_adapters.for(csv).path, csv_options).each do |row|
     end
   rescue
     errors.add :csv, 'contents appear invalid'
@@ -253,12 +253,10 @@ class Import < ActiveRecord::Base
 
   def simple_or_complex
     count = 0
-    CSV.foreach(csv_file_path, csv_options).each_with_index do |row, i|
+    CSV.foreach(csv_file_path, csv_options).each do |row|
       cid = get_column_from(row, 'cid')
       count += 1
-      if cid
-        count -= 1
-      end
+      count -= 1 if cid
     end
     count
   end

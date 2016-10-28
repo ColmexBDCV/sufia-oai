@@ -10,7 +10,7 @@ RSpec.describe BatchImportService do
   let!(:import2) { FactoryGirl.create(:complex_import,  unit: unit) }
   let!(:import3) { FactoryGirl.create(:complex_orphans, unit: unit) }
 
-  it "Should validate CSV by finding orphaned children" do
+  it "wil validate CSV by finding orphaned children" do
     expect(import1.validate_complex_objects).to eq(0)
     expect(import2.validate_complex_objects).to eq(0)
     expect(import3.validate_complex_objects).to eq(1)
@@ -46,10 +46,10 @@ RSpec.describe BatchImportService do
     batch_import = described_class.new(import1, user)
 
     row = ["image", "Dreese", "Dreese Hall photo", "building", "osu", nil, "university", "archive", "50 x 25 cm", "paper", nil, "179.jpg", "Bartos, Chris"]
-    files = [{:filename=>"181.jpg", :title=>"Hayes"}]
+    files = [{ filename: "181.jpg", title: "Hayes" }]
 
     allow(CreateDerivativesJob).to receive(:perform_now) {}
-    gw = batch_import.instance_eval{ ingest(row, files) }
+    gw = batch_import.instance_eval { ingest(row, files) }
 
     expect(gw.file_sets.count).to eq(1)
   end
@@ -58,7 +58,7 @@ RSpec.describe BatchImportService do
     batch_import = described_class.new(import2, user)
 
     row = ["images", "Halls", "Collection of Halls", "building", "osu", nil, "university", "archive", "50 x 25 cm", "paper", nil, nil, "Bartos, Chris", "1", nil]
-    files = [{:filename=>"179.jpg", :title=>"Dreese"}, {:filename=>"181.jpg", :title=>"Hayes"}, {:filename=>"209.jpg", :title=>"Orton"}]
+    files = [{ filename: "179.jpg", title: "Dreese" }, { filename: "181.jpg", title: "Hayes" }, { filename: "209.jpg", title: "Orton" }]
 
     allow(CreateDerivativesJob).to receive(:perform_now) {}
     gw = batch_import.instance_eval { ingest(row, files) }

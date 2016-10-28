@@ -30,9 +30,7 @@ class BatchImportService
           start_at = j + 1
           # If this inner loop hits the end, we need to add 1 to start_at so
           # that the outer loop actually ends.
-          if start_at == row_count - 1
-            start_at += 1
-          end
+          start_at += 1 if start_at == row_count - 1
 
           # Retrieve this records' cid (child id) which points to the parent that
           # this record will be associated with.
@@ -43,12 +41,9 @@ class BatchImportService
           # be times when a child is added at the bottom of the CSV and we'll end up missing it if
           # we keep the logic as it.
           csv_processor.build_csv_array(row) # Build CSV once.
-          if csv_processor.child?(get_cid_from(child))
-            csv_processor.add_file(get_filename_from(child), get_title_from(child))
-          else
-            # Simply break out so we know how far we've gone in the CSV file.
-            break
-          end
+
+          break unless csv_processor.child?(get_cid_from(child))
+          csv_processor.add_file(get_filename_from(child), get_title_from(child))
         end
       else
         # Once we're done collection the files, create the csv_row_array for the GenericWork record
@@ -59,7 +54,7 @@ class BatchImportService
     end
   end
 
-  def import_item(row, current_row, files=[])
+  def import_item(row, current_row, files = [])
     begin
       generic_work = ingest(row, files)
       record = ImportedRecord.find_or_create_by(import_id: @import.id, csv_row: current_row, generic_work_pid: generic_work.id)
@@ -130,7 +125,6 @@ class BatchImportService
 
     files.each do |file|
       filename = file[:filename]
-      basename = File.basename(filename)
       image_path = @import.image_path_for(filename)
       raise "File #{filename} was not found." unless File.file? image_path
 

@@ -1,4 +1,6 @@
 class CSVProcessor
+  attr_accessor :files, :csv_row_array
+
   def initialize(pid, filename)
     @files = []
     @csv_row_array = []
@@ -12,7 +14,7 @@ class CSVProcessor
   end
 
   def add_file(file, title)
-    @files << { :filename => file, :title => title }
+    @files << { filename: file, title: title }
   end
 
   def build_csv_array(row)
@@ -25,19 +27,5 @@ class CSVProcessor
 
   def child?(cid)
     @pid == cid
-  end
-
-  def csv_row_array
-    @csv_row_array
-  end
-
-  def files
-    @files
-  end
-
-  def debug
-    return if Rails.env.production?
-    puts "File: #{@files}"
-    puts "Row:  #{@csv_row_array}"
   end
 end
