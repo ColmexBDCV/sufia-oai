@@ -55,7 +55,6 @@ class BatchImportService
         csv_processor.add_file(get_filename_from(row), get_title_from(row))
         csv_processor.build_csv_array(row)
       end
-      csv_processor.debug
       process_import_item(current_row, csv_processor)
     end
   end
