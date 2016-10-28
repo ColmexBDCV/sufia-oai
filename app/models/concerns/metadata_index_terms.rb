@@ -1,0 +1,79 @@
+module MetadataIndexTerms
+  extend ActiveSupport::Concern
+
+  def unit
+    self[Solrizer.solr_name('unit')]
+  end
+
+  def alternative
+    self[Solrizer.solr_name('alternative')]
+  end
+
+  def format
+    self[Solrizer.solr_name('format')]
+  end
+
+  def bibliographic_citation
+    self[Solrizer.solr_name('bibliographic_citation')]
+  end
+
+  def handle
+    self[Solrizer.solr_name('handle')]
+  end
+
+  def preservation_level
+    self[Solrizer.solr_name('preservation_level')]
+  end
+
+  def preservation_level_rationale
+    self[Solrizer.solr_name('preservation_level_rationale')]
+  end
+
+  def provenance
+    self[Solrizer.solr_name('provenance')]
+  end
+
+  def spatial
+    self[Solrizer.solr_name('spatial')]
+  end
+
+  def staff_notes
+    self[Solrizer.solr_name('staff_notes')]
+  end
+
+  def temporal
+    self[Solrizer.solr_name('temporal')]
+  end
+
+  def work_type
+    self[Solrizer.solr_name('work_type')]
+  end
+
+  def material
+    self[Solrizer.solr_name('material')]
+  end
+
+  def material_type
+    self[Solrizer.solr_name('material_type')]
+  end
+
+  def measurement
+    self[Solrizer.solr_name('measurement')]
+  end
+
+  def measurement_unit
+    self[Solrizer.solr_name('measurement_unit')]
+  end
+
+  def measurement_type
+    self[Solrizer.solr_name('measurement_type')]
+  end
+
+  def sub_collection
+    self[Solrizer.solr_name('sub_collection')]
+  end
+
+  def collection_identifier
+    self[Solrizer.solr_name('collection_identifier')]
+  end
+end

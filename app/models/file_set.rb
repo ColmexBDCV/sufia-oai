@@ -3,6 +3,8 @@ class FileSet < ActiveFedora::Base
   include ::CurationConcerns::FileSetBehavior
   include Sufia::FileSetBehavior
 
+  self.indexer = FileSetIndexer
+
   # Eventually will have to be moved to presenter / and solrdocument for speedier results
   def loris_id
     ActiveFedora::Noid.treeify(original_file.id) + '-' + original_file.versions.last.label

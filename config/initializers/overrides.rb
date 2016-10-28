@@ -19,4 +19,20 @@ Rails.application.config.to_prepare do
     include WorkMetadata
     include PhysicalMediaMetadata
   end
+
+  # Expand list of characterization terms to display
+  Sufia::FileSetPresenter.class_eval do
+    def self.characterization_terms
+      [
+        :byte_order, :compression, :height, :width, :height, :color_space,
+        :profile_name, :profile_version, :orientation, :color_map,
+        :image_producer, :capture_device, :scanning_software, :gps_timestamp,
+        :latitude, :longitude, :file_format, :file_title, :page_count,
+        :duration, :sample_rate, :file_size, :filename, :well_formed,
+        :last_modified, :original_checksum, :mime_type
+      ]
+    end
+
+    delegate(*characterization_terms, to: :solr_document)
+  end
 end
