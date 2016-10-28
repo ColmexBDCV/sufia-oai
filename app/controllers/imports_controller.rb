@@ -115,6 +115,7 @@ class ImportsController < ApplicationController
   # PATCH/PUT /imports/1.json
   def update
     respond_to do |format|
+      byebug
       if @import.update(import_params)
 
         @import.validate_import_mappings if @import.editable?

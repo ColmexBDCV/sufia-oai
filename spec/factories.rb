@@ -132,14 +132,147 @@ FactoryGirl.define do
     import_type "Generic"
     rights "http://creativecommons.org/licenses/by/3.0/us/"
     preservation_level "Preservation Master"
-    visibility "authenticated"
-    csv_file_name "images.csv"
-    csv_content_type "text/csv"
-    csv_file_size 440
-    csv_updated_at "2016-09-22 14:54:13"
+    visibility "restricted"
 
-    before(:create) do |import|
-      import.unit = create(:unit) unless import.unit.present?
+    factory :complex_import do
+      before(:create) do |import|
+        import.unit = create(:unit) unless import.unit.present?
+        uploaded_file = ActionDispatch::Http::UploadedFile.new({:filename => "images_complex.csv", :content_type => "text/csv", :tempfile => File.new("#{Rails.root.to_s}/spec/fixtures/images_complex.csv")})
+        uploaded_file.content_type = "text/csv"
+        import.csv = uploaded_file
+      end
+
+      after(:create) do |import|
+        ImportFieldMapping.initiate_mappings(import)
+        params = {"import_field_mappings_attributes"=>{
+                    "0" =>{"id"=>"#{ImportFieldMapping.last.id-29}", "value"=>["", "13"]},
+                    "1" =>{"id"=>"#{ImportFieldMapping.last.id-28}", "value"=>["", "14"]},
+                    "2" =>{"id"=>"#{ImportFieldMapping.last.id-27}", "value"=>["", "0"]},
+                    "3" =>{"id"=>"#{ImportFieldMapping.last.id-26}", "value"=>["", "1"]},
+                    "4" =>{"id"=>"#{ImportFieldMapping.last.id-25}", "value"=>["", "12"]},
+                    "5" =>{"id"=>"#{ImportFieldMapping.last.id-24}", "value"=>[""]},
+                    "6" =>{"id"=>"#{ImportFieldMapping.last.id-23}", "value"=>["", "2"]},
+                    "7" =>{"id"=>"#{ImportFieldMapping.last.id-22}", "value"=>["", "3", "4", "5"]},
+                    "8" =>{"id"=>"#{ImportFieldMapping.last.id-21}", "value"=>[""]},
+                    "9" =>{"id"=>"#{ImportFieldMapping.last.id-20}", "value"=>[""]},
+                    "10"=>{"id"=>"#{ImportFieldMapping.last.id-19}", "value"=>["", "6", "7"]},
+                    "11"=>{"id"=>"#{ImportFieldMapping.last.id-18}", "value"=>[""]},
+                    "12"=>{"id"=>"#{ImportFieldMapping.last.id-17}", "value"=>[""]},
+                    "13"=>{"id"=>"#{ImportFieldMapping.last.id-16}", "value"=>[""]},
+                    "14"=>{"id"=>"#{ImportFieldMapping.last.id-15}", "value"=>[""]},
+                    "15"=>{"id"=>"#{ImportFieldMapping.last.id-14}", "value"=>[""]},
+                    "16"=>{"id"=>"#{ImportFieldMapping.last.id-13}", "value"=>[""]},
+                    "17"=>{"id"=>"#{ImportFieldMapping.last.id-12}", "value"=>[""]},
+                    "18"=>{"id"=>"#{ImportFieldMapping.last.id-11}", "value"=>[""]},
+                    "19"=>{"id"=>"#{ImportFieldMapping.last.id-10}", "value"=>[""]},
+                    "20"=>{"id"=>"#{ImportFieldMapping.last.id-9}", "value"=>[""]},
+                    "21"=>{"id"=>"#{ImportFieldMapping.last.id-8}", "value"=>[""]},
+                    "22"=>{"id"=>"#{ImportFieldMapping.last.id-7}", "value"=>["", "9", "10"]},
+                    "23"=>{"id"=>"#{ImportFieldMapping.last.id-6}", "value"=>["", "8"]},
+                    "24"=>{"id"=>"#{ImportFieldMapping.last.id-5}", "value"=>[""]},
+                    "25"=>{"id"=>"#{ImportFieldMapping.last.id-4}", "value"=>[""]},
+                    "26"=>{"id"=>"#{ImportFieldMapping.last.id-3}", "value"=>[""]},
+                    "27"=>{"id"=>"#{ImportFieldMapping.last.id-2}", "value"=>[""]},
+                    "28"=>{"id"=>"#{ImportFieldMapping.last.id-1}", "value"=>[""]},
+                    "29"=>{"id"=>"#{ImportFieldMapping.last.id}", "value"=>["", "11"]}
+                 }
+               }
+        import.update(params)
+      end
+    end
+
+    factory :complex_orphans do
+      before(:create) do |import|
+        import.unit = create(:unit) unless import.unit.present?
+        uploaded_file = ActionDispatch::Http::UploadedFile.new({:filename => "images_complex_orphans.csv", :content_type => "text/csv", :tempfile => File.new("#{Rails.root.to_s}/spec/fixtures/images_complex_orphans.csv")})
+        uploaded_file.content_type = "text/csv"
+        import.csv = uploaded_file
+      end
+
+      after(:create) do |import|
+        ImportFieldMapping.initiate_mappings(import)
+        params = {"import_field_mappings_attributes"=>{
+                    "0" =>{"id"=>"#{ImportFieldMapping.last.id-29}", "value"=>["", "13"]},
+                    "1" =>{"id"=>"#{ImportFieldMapping.last.id-28}", "value"=>["", "14"]},
+                    "2" =>{"id"=>"#{ImportFieldMapping.last.id-27}", "value"=>["", "0"]},
+                    "3" =>{"id"=>"#{ImportFieldMapping.last.id-26}", "value"=>["", "1"]},
+                    "4" =>{"id"=>"#{ImportFieldMapping.last.id-25}", "value"=>["", "12"]},
+                    "5" =>{"id"=>"#{ImportFieldMapping.last.id-24}", "value"=>[""]},
+                    "6" =>{"id"=>"#{ImportFieldMapping.last.id-23}", "value"=>["", "2"]},
+                    "7" =>{"id"=>"#{ImportFieldMapping.last.id-22}", "value"=>["", "3", "4", "5"]},
+                    "8" =>{"id"=>"#{ImportFieldMapping.last.id-21}", "value"=>[""]},
+                    "9" =>{"id"=>"#{ImportFieldMapping.last.id-20}", "value"=>[""]},
+                    "10"=>{"id"=>"#{ImportFieldMapping.last.id-19}", "value"=>["", "6", "7"]},
+                    "11"=>{"id"=>"#{ImportFieldMapping.last.id-18}", "value"=>[""]},
+                    "12"=>{"id"=>"#{ImportFieldMapping.last.id-17}", "value"=>[""]},
+                    "13"=>{"id"=>"#{ImportFieldMapping.last.id-16}", "value"=>[""]},
+                    "14"=>{"id"=>"#{ImportFieldMapping.last.id-15}", "value"=>[""]},
+                    "15"=>{"id"=>"#{ImportFieldMapping.last.id-14}", "value"=>[""]},
+                    "16"=>{"id"=>"#{ImportFieldMapping.last.id-13}", "value"=>[""]},
+                    "17"=>{"id"=>"#{ImportFieldMapping.last.id-12}", "value"=>[""]},
+                    "18"=>{"id"=>"#{ImportFieldMapping.last.id-11}", "value"=>[""]},
+                    "19"=>{"id"=>"#{ImportFieldMapping.last.id-10}", "value"=>[""]},
+                    "20"=>{"id"=>"#{ImportFieldMapping.last.id-9}", "value"=>[""]},
+                    "21"=>{"id"=>"#{ImportFieldMapping.last.id-8}", "value"=>[""]},
+                    "22"=>{"id"=>"#{ImportFieldMapping.last.id-7}", "value"=>["", "9", "10"]},
+                    "23"=>{"id"=>"#{ImportFieldMapping.last.id-6}", "value"=>["", "8"]},
+                    "24"=>{"id"=>"#{ImportFieldMapping.last.id-5}", "value"=>[""]},
+                    "25"=>{"id"=>"#{ImportFieldMapping.last.id-4}", "value"=>[""]},
+                    "26"=>{"id"=>"#{ImportFieldMapping.last.id-3}", "value"=>[""]},
+                    "27"=>{"id"=>"#{ImportFieldMapping.last.id-2}", "value"=>[""]},
+                    "28"=>{"id"=>"#{ImportFieldMapping.last.id-1}", "value"=>[""]},
+                    "29"=>{"id"=>"#{ImportFieldMapping.last.id}", "value"=>["", "11"]}
+                 }
+               }
+        import.update(params)
+      end
+    end
+
+    factory :simple_import do
+      before(:create) do |import|
+        import.unit = create(:unit) unless import.unit.present?
+        uploaded_file = ActionDispatch::Http::UploadedFile.new({:filename => "images.csv", :content_type => "text/csv", :tempfile => File.new("#{Rails.root.to_s}/spec/fixtures/images.csv")})
+        uploaded_file.content_type = "text/csv"
+        import.csv = uploaded_file
+      end
+
+      after(:create) do |import|
+        ImportFieldMapping.initiate_mappings(import)
+        params = {"import_field_mappings_attributes"=> {
+                    "0" =>{"id"=>"#{ImportFieldMapping.last.id-29}", "value"=>[""]},
+                    "1" =>{"id"=>"#{ImportFieldMapping.last.id-28}", "value"=>[""]},
+                    "2" =>{"id"=>"#{ImportFieldMapping.last.id-27}", "value"=>["", "0"]},
+                    "3" =>{"id"=>"#{ImportFieldMapping.last.id-26}", "value"=>["", "1"]},
+                    "4" =>{"id"=>"#{ImportFieldMapping.last.id-25}", "value"=>["", "12"]},
+                    "5" =>{"id"=>"#{ImportFieldMapping.last.id-24}", "value"=>[""]},
+                    "6" =>{"id"=>"#{ImportFieldMapping.last.id-23}", "value"=>["", "2"]},
+                    "7" =>{"id"=>"#{ImportFieldMapping.last.id-22}", "value"=>["", "3", "4", "5"]},
+                    "8" =>{"id"=>"#{ImportFieldMapping.last.id-21}", "value"=>[""]},
+                    "9" =>{"id"=>"#{ImportFieldMapping.last.id-20}", "value"=>[""]},
+                    "10"=>{"id"=>"#{ImportFieldMapping.last.id-19}", "value"=>["", "6", "7"]},
+                    "11"=>{"id"=>"#{ImportFieldMapping.last.id-18}", "value"=>[""]},
+                    "12"=>{"id"=>"#{ImportFieldMapping.last.id-17}", "value"=>[""]},
+                    "13"=>{"id"=>"#{ImportFieldMapping.last.id-16}", "value"=>[""]},
+                    "14"=>{"id"=>"#{ImportFieldMapping.last.id-15}", "value"=>[""]},
+                    "15"=>{"id"=>"#{ImportFieldMapping.last.id-14}", "value"=>[""]},
+                    "16"=>{"id"=>"#{ImportFieldMapping.last.id-13}", "value"=>[""]},
+                    "17"=>{"id"=>"#{ImportFieldMapping.last.id-12}", "value"=>[""]},
+                    "18"=>{"id"=>"#{ImportFieldMapping.last.id-11}", "value"=>[""]},
+                    "19"=>{"id"=>"#{ImportFieldMapping.last.id-10}", "value"=>[""]},
+                    "20"=>{"id"=>"#{ImportFieldMapping.last.id-9}", "value"=>[""]},
+                    "21"=>{"id"=>"#{ImportFieldMapping.last.id-8}", "value"=>[""]},
+                    "22"=>{"id"=>"#{ImportFieldMapping.last.id-7}", "value"=>["", "9", "10"]},
+                    "23"=>{"id"=>"#{ImportFieldMapping.last.id-6}", "value"=>["", "8"]},
+                    "24"=>{"id"=>"#{ImportFieldMapping.last.id-5}", "value"=>[""]},
+                    "25"=>{"id"=>"#{ImportFieldMapping.last.id-4}", "value"=>[""]},
+                    "26"=>{"id"=>"#{ImportFieldMapping.last.id-3}", "value"=>[""]},
+                    "27"=>{"id"=>"#{ImportFieldMapping.last.id-2}", "value"=>[""]},
+                    "28"=>{"id"=>"#{ImportFieldMapping.last.id-1}", "value"=>[""]},
+                    "29"=>{"id"=>"#{ImportFieldMapping.last.id}", "value"=>["", "11"]}
+                  }
+                }
+        import.update(params)
+      end
     end
   end
 

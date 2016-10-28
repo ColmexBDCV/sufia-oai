@@ -197,9 +197,26 @@ class Import < ActiveRecord::Base
 
   def get_column_from(row, column)
     column_number = import_field_mappings.where(key: column).first.value
-    row[column_number.last.to_i]
+    return row[column_number.last.to_i] unless column_number.last == ""
+    nil
   rescue
     nil
+  end
+
+  def validate_complex_objects
+    parents = []
+    children = []
+    CSV.foreach(csv_file_path, csv_options).each_with_index do |row, i|
+      cid = get_column_from(row, 'cid')
+      pid = get_column_from(row, 'pid')
+      if cid
+        children << cid
+      elsif pid
+        parents << pid
+      end
+    end
+    orphans = children - parents
+    orphans.count # Number of orphaned children
   end
 
   private
@@ -208,8 +225,8 @@ class Import < ActiveRecord::Base
     invalid_fields = []
     REQUIRED_FIELDS.each do |field|
       next if field == 'image_filename'
-      formated_field = field.to_s + "_tesim"
-      field_value = generic_work_response["response"]["docs"].first[formated_field] if generic_work_response["response"].present? && generic_work_response["response"]["docs"].present?
+      formatted_field = field.to_s + "_tesim"
+      field_value = generic_work_response["response"]["docs"].first[formatted_field] if generic_work_response["response"].present? && generic_work_response["response"]["docs"].present?
       invalid_fields << field if field_value.blank?
     end
     invalid_fields
