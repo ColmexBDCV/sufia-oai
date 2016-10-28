@@ -17,40 +17,51 @@
       <% end %>
       <ul class="dropdown-menu dropdown-menu-right" role="menu">
         <% if can_ever_create_works? %>
-          <li><%= link_to sufia.dashboard_works_path do %>
-            <%= content_tag(:i, "", :class => "fa fa-cubes") %>
-            <%= t("sufia.toolbar.works.my")  %>
-            <% end %></li>
-          <% classification = CurationConcerns::QuickClassificationQuery.new(current_user) %>
-          <% classification.each do |concern| %>
-          <li><%= link_to new_polymorphic_path([main_app, concern]), class: "item-option contextual-quick-classify #{dom_class(concern, 'new').gsub('_', '-')}",
-            role: 'menuitem' do %>
-              <%= content_tag(:i, "", :class => "fa fa-cube") %>
-              <%= "#{t("sufia.toolbar.works.new")} #{concern.human_readable_type}" %>
-            <% end %></li>
+          <li>
+            <%= link_to sufia.dashboard_works_path do %>
+              <%= content_tag(:i, "", :class => "fa fa-cubes") %>
+              <%= t("sufia.toolbar.works.my")  %>
+            <% end %>
+          </li>
+          <% CurationConcerns::QuickClassificationQuery.new(current_user).each do |concern| %>
+            <li>
+              <%= link_to new_polymorphic_path([main_app, concern]), class: "item-option contextual-quick-classify #{dom_class(concern, 'new').gsub('_', '-')}",
+              role: 'menuitem' do %>
+                <%= content_tag(:i, "", :class => "fa fa-cube") %>
+                <%= "#{t("sufia.toolbar.works.new")} #{concern.human_readable_type}" %>
+              <% end %>
+            </li>
           <% end %>
-        <li><%= link_to sufia.new_batch_upload_path do %>
-        <%= content_tag(:i, "", :class => "fa fa-upload") %>
-        <%= t("sufia.toolbar.works.batch")  %>
-        <% end %></li>
+        <li>
+          <%= link_to sufia.new_batch_upload_path do %>
+            <%= content_tag(:i, "", :class => "fa fa-upload") %>
+            <%= t("sufia.toolbar.works.batch")  %>
+          <% end %>
+        </li>
         <li class="divider"></li>
         <% end %>
         <% if can?(:create, Collection) %>
-        <li><%= link_to sufia.dashboard_collections_path do %>
-        <%= content_tag(:i, "", :class => "fa fa-briefcase") %>
-        <%= t("sufia.toolbar.collections.my")  %>
-        <% end %></li>
-        <li><%= link_to main_app.new_collection_path do %>
-        <%= content_tag(:i, "", :class => "fa fa-folder-open") %>
-        <%= t("sufia.toolbar.collections.new")  %>
-        <% end %></li>
-        <li class="divider"></li>
-        <% if can? :create, Import %>
-        <li><%= link_to main_app.imports_path do %>
-        <%= content_tag(:i, "", :class => "fa fa-truck") %>
-        <%= t("osul.imports") %>
-        <% end %></li>
-        <% end %>
+          <li>
+            <%= link_to sufia.dashboard_collections_path do %>
+              <%= content_tag(:i, "", :class => "fa fa-briefcase") %>
+              <%= t("sufia.toolbar.collections.my")  %>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to main_app.new_collection_path do %>
+              <%= content_tag(:i, "", :class => "fa fa-folder-open") %>
+              <%= t("sufia.toolbar.collections.new")  %>
+            <% end %>
+          </li>
+          <li class="divider"></li>
+          <% if can? :create, Import %>
+            <li>
+              <%= link_to main_app.imports_path do %>
+                <%= content_tag(:i, "", :class => "fa fa-truck") %>
+                <%= t("osul.imports") %>
+              <% end %>
+            </li>
+          <% end %>
         <% end %>
       </ul>
     </li>
@@ -64,24 +75,32 @@
       <% end %>
       <ul class="dropdown-menu dropdown-menu-right" role="menu">
         <% if can? :read, :admin_dashboard %>
-        <li><%= link_to sufia.dashboard_index_path do %>
-        <%= content_tag(:span, "", :class => "glyphicon glyphicon-dashboard") %>
-        <%= t("sufia.toolbar.dashboard.my")  %>
-        <% end %></li>
+          <li>
+            <%= link_to sufia.dashboard_index_path do %>
+              <%= content_tag(:span, "", :class => "glyphicon glyphicon-dashboard") %>
+              <%= t("sufia.toolbar.dashboard.my")  %>
+            <% end %>
+          </li>
         <% end %>
-        <li><%= link_to sufia.profile_path(current_user) do %>
-        <%= content_tag(:i, "", :class => "fa fa-user") %>
-        <%= 'View Profile'  %>
-        <% end %></li>
-        <li><%= link_to sufia.edit_profile_path(current_user) do %>
-        <%= content_tag(:i, "", :class => "fa fa-edit") %>
-        <%= 'Edit Profile'  %>
-        <% end %></li>
+        <li>
+          <%= link_to sufia.profile_path(current_user) do %>
+            <%= content_tag(:i, "", :class => "fa fa-user") %>
+            <%= 'View Profile'  %>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to sufia.edit_profile_path(current_user) do %>
+            <%= content_tag(:i, "", :class => "fa fa-edit") %>
+            <%= 'Edit Profile'  %>
+          <% end %>
+        </li>
         <li class="divider"></li>
-        <li><%= link_to main_app.destroy_user_session_path do %>
-        <%= content_tag(:span, "", :class => "glyphicon glyphicon-log-out") %>
-        <%= 'Logout'  %>
-        <% end %></li>
+        <li>
+          <%= link_to main_app.destroy_user_session_path do %>
+            <%= content_tag(:span, "", :class => "glyphicon glyphicon-log-out") %>
+            <%= 'Logout'  %>
+          <% end %>
+        </li>
       </ul>
     </li><!-- /.btn-group -->
   <% else %>
