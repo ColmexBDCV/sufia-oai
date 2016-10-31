@@ -1,0 +1,12 @@
+<figure>
+  <video controls="controls" class="video-js vjs-default-skin" data-setup="{}" preload="auto">
+    <source src="<%= main_app.download_path(file_set, file: 'webm') %>" type="video/webm" />
+    <source src="<%= main_app.download_path(file_set, file: 'mp4') %>" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+  <%- if CurationConcerns.config.display_media_download_link %>
+    <%= link_to main_app.download_path(file_set), target: "_new" do %>
+      <figcaption>Download the original video</figcaption>
+    <% end %>
+  <%- end %>
+</figure>
