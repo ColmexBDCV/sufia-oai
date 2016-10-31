@@ -1,5 +1,8 @@
 en:
   sufia:
+    file_set:
+      show:
+        download: "Download original file"
     product_name:       "DC"
     product_twitter_handle: "@HydraSphere"
     institution_name:   "The Ohio State University Libraries"
