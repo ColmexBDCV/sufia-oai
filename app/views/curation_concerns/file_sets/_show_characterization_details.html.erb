@@ -4,16 +4,10 @@
     additional_values = @presenter.secondary_characterization_values(term)
   %>
   <%- if primary_values.present? %>
-    <%-
-      if term == :file_size
-        primary_values.map!{ |v| number_to_human_size(v) }
-        additional_values.map!{ |v| number_to_human_size(v) }
-      end
-    %>
     <div>
-      <%= @presenter.label_for_term(term) %>: <%= primary_values.join("<br />").html_safe %>
+      <%= @presenter.label_for_term(term) %>: <%= format_characterization_values(term, primary_values).join("<br />").html_safe %>
       <% unless additional_values.empty? %>
-        <%= render partial: "extra_fields_modal", locals: { name: term, values: additional_values } %>
+        <%= render partial: "extra_fields_modal", locals: { name: term, values: format_characterization_values(term, additional_values) } %>
       <% end %>
     </div>
   <% end %>
