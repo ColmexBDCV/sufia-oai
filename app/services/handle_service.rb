@@ -47,14 +47,12 @@ class HandleService
     record.save
 
     if conn.resolve_handle(handle).last.value == url
-      puts "The handle #{handle} was successfully created for file #{generic_work_pid} with URL: #{url}"
       Rails.logger.info "The handle #{handle} was successfully created for file #{generic_work_pid} with URL: #{url}"
     else
-      puts "ERROR! A new handle could not be minted for file #{generic_work_pid}. Perhaps, try again?"
+      Rails.logger.error "ERROR! A new handle could not be minted for file #{generic_work_pid}. Perhaps, try again?"
     end
 
   rescue Handle::HandleError => e
-    puts "ERROR! A new handle could not be minted for file #{generic_work_pid}. The exception was:"
     Rails.logger.error "ERROR! A new handle could not be minted for file #{generic_work_pid}. The exception was:"
     Rails.logger.error "#{e.class}: #{e.message}"
   end
