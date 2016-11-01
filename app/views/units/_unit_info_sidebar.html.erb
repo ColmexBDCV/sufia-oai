@@ -1,16 +1,21 @@
 <div class="panel panel-info hidden-xs">
   <div class="panel-heading">
-    <h1 class="panel-title"><%= unit.name %></h1>
+    <h1 class="panel-title">
+      <%= unit.name %>
+      <%- if can? :update, unit %>
+        <small class="pull-right"><%= link_to 'Edit', edit_unit_path(unit) %></small>
+      <%- end %>
+    </h1>
   </div>
   <div class="panel-body">
-  <div class="row">
-    <div class="col-md-12">
-      <% if unit.address? %><p><%= unit.address %></p><% end %>
-      <% if unit.phone.present? %><p><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;<%= unit.phone %></p><% end %>
-      <% if unit.fax.present? %><p><i class="fa fa-fax" aria-hidden="true"></i>&nbsp;<%= unit.fax %></p><% end %>
-      <% if unit.email.present? %><p><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;<%= unit.email %></p><% end %>
-      <% if unit.url.present? %><p><i class="fa fa-external-link" aria-hidden="true"></i>&nbsp;<%= link_to unit.url, unit.url %></p><% end %>
+    <div class="row">
+      <div class="col-md-12">
+        <% if unit.address? %><p><%= unit.address %></p><% end %>
+        <% if unit.phone.present? %><p><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;<%= unit.phone %></p><% end %>
+        <% if unit.fax.present? %><p><i class="fa fa-fax" aria-hidden="true"></i>&nbsp;<%= unit.fax %></p><% end %>
+        <% if unit.email.present? %><p><i class="fa fa-envelope" aria-hidden="true"></i>&nbsp;<%= unit.email %></p><% end %>
+        <% if unit.url.present? %><p><i class="fa fa-external-link" aria-hidden="true"></i>&nbsp;<%= link_to unit.url, unit.url %></p><% end %>
+      </div>
     </div>
-  </div>
   </div>
 </div>

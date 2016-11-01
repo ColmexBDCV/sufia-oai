@@ -19,6 +19,8 @@ class Ability
     can [:update, :curate, :destroy], Unit, memberships: { user_id: current_user.id, level: Membership::MANAGER_LEVEL }
     can :curate, Unit, memberships: { user_id: current_user.id, level: [Membership::DATA_ENTRY_LEVEL, Membership::CURATOR_LEVEL] }
 
+    can :view, :admin_menu if current_user.admin? || current_user.manager?
+
     can :manage, :all if current_user.admin?
   end
 
