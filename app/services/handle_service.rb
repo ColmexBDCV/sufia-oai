@@ -20,7 +20,7 @@ class HandleService
       Rails.logger.debug "Handle not created. File #{@generic_work.id} does not have a handle property."
     elsif handle_needed?
       create_handle!
-      @generic_file.handle
+      @generic_work.handle
     else
       Rails.logger.debug "Handle not created. File #{@generic_work.id} does not need a handle."
     end
@@ -34,11 +34,11 @@ class HandleService
   end
 
   def no_handle?
-    !@generic_file.respond_to? :handle
+    !@generic_work.respond_to? :handle
   end
 
   def handle_needed?
-    @generic_file.handle.blank? && file_is_visible? && file_has_no_active_imports?
+    @generic_work.handle.blank? && file_is_visible? # && file_has_no_active_imports?
   end
 
   def modify_handle!
@@ -102,8 +102,8 @@ class HandleService
   end
 
   def file_has_no_active_imports?
-    if @generic_file.is_a? GenericWork
-      Import.with_imported_file(@generic_file).where.not(status: Import.statuses[:final]).empty?
+    if @generic_work.is_a? GenericWork
+      Import.with_imported_file(@generic_work).where.not(status: Import.statuses[:final]).empty?
     else
       true
     end
