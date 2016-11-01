@@ -27,6 +27,38 @@ class HandleService
     @generic_work.handle
   end
 
+  def modify_handle(generic_work_pid, handle)
+    # Set up an authenticated connection
+    conn = Handle::Connection.new(@adminhdl, @index, @admpriv, @admpass)
+
+    # Destroy the current handle
+    conn.delete_handle(handle)
+
+    # Create an empty record
+    record = conn.create_record(handle)
+
+    # add field
+    url =  "#{@url}#{generic_work_pid}"
+    record.add(:URL, url).index = 2
+    record << Handle::Field::HSAdmin.new(@adminhdl)
+
+    # Manipulate permissions
+    record.last.perms.public_read = false
+    record.save
+
+    if conn.resolve_handle(handle).last.value == url
+      puts "The handle #{handle} was successfully created for file #{generic_work_pid} with URL: #{url}"
+      Rails.logger.info "The handle #{handle} was successfully created for file #{generic_work_pid} with URL: #{url}"
+    else
+      puts "ERROR! A new handle could not be minted for file #{generic_work_pid}. Perhaps, try again?"
+    end
+
+  rescue Handle::HandleError => e
+    puts "ERROR! A new handle could not be minted for file #{generic_work_pid}. The exception was:"
+    Rails.logger.error "ERROR! A new handle could not be minted for file #{generic_work_pid}. The exception was:"
+    Rails.logger.error "#{e.class}: #{e.message}"
+  end
+
   private
 
   def minting_disabled?
@@ -39,32 +71,6 @@ class HandleService
 
   def handle_needed?
     @generic_work.handle.blank? && file_is_visible? # && file_has_no_active_imports?
-  end
-
-  def modify_handle!
-    # Set up an authenticated connection
-    conn = Handle::Connection.new(@adminhdl, @index, @admpriv, @admpass)
-
-    # Get the handle but remove the link
-    handle = @generic_work.handle.last
-    conn.delete_handle(handle)
-
-    # Create an empty record
-    record = conn.create_record(handle)
-
-    # add field
-    url =  "#{@url}#{@generic_work.id}"
-    record.add(:URL, url).index = 2
-    record << Handle::Field::HSAdmin.new(@adminhdl)
-
-    # Manipulate permissions
-    record.last.perms.public_read = false
-    record.save
-    Rails.logger.info "The handle #{handle} was successfully created for file #{@generic_work.id}"
-
-  rescue Handle::HandleError => e
-    Rails.logger.error "ERROR! A new handle could not be minted for file #{@generic_work.id}. The exception was:"
-    Rails.logger.error "#{e.class}: #{e.message}"
   end
 
   def create_handle!
