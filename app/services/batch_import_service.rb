@@ -13,6 +13,7 @@ class BatchImportService
   # process -- determines if the CSV is a complex CSV or just a simple one.
   # If the CSV is complex, it grabes the Metadata, along with an array of files (fileset) for that metadata.
   # If the CSV is simple, it will just grab the one image and the metadata per CSV record.
+  # rubocop:disable Metrics/PerceivedComplexity
   def process(start_at = nil)
     options = { headers: @import.includes_headers? ? true : false }
     row_count = File.read(@import.csv_file_path).split(/\r/).count
