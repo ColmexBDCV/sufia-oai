@@ -74,13 +74,13 @@ class BatchImportService
 
   def resume
     return false unless @import.resumable?
-    ImportJob.perform_now(@import.id, @user.id, @import.imported_records.last.try(:csv_row))
+    ImportJob.perform_later(@import.id, @user.id, @import.imported_records.last.try(:csv_row))
     @import.in_progress!
   end
 
   def undo
     @import.reverting!
-    UndoImportJob.perform_now(@import.id, @user.id)
+    UndoImportJob.perform_later(@import.id, @user.id)
   end
 
   def revert_records
@@ -98,12 +98,12 @@ class BatchImportService
   def finalize
     return false unless @import.complete?
     @import.final!
-    ScheduleMintingJob.perform_now(@import.id, @user.id)
+    ScheduleMintingJob.perform_later(@import.id, @user.id)
   end
 
   def mint
     @import.imported_records.each do |record|
-      MintHandleJob.perform_now(record.file.id) if record.file.present?
+      MintHandleJob.perform_later(record.file.id) if record.file.present?
     end
   end
 

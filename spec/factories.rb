@@ -176,6 +176,7 @@ FactoryGirl.define do
                       "28" => { "id" => (ImportFieldMapping.last.id - 1).to_s, "value" => [""] },
                       "29" => { "id" => ImportFieldMapping.last.id.to_s, "value" => ["", "11"] } } }
         import.update(params)
+        import.validate_import_mappings
       end
     end
 
@@ -221,6 +222,7 @@ FactoryGirl.define do
                       "28" => { "id" => (ImportFieldMapping.last.id - 1).to_s, "value" => [""] },
                       "29" => { "id" => ImportFieldMapping.last.id.to_s, "value" => ["", "11"] } } }
         import.update(params)
+        import.validate_import_mappings
       end
     end
 
@@ -266,6 +268,7 @@ FactoryGirl.define do
                       "28" => { "id" => (ImportFieldMapping.last.id - 1).to_s, "value" => [""] },
                       "29" => { "id" => ImportFieldMapping.last.id.to_s, "value" => ["", "11"] } } }
         import.update(params)
+        import.validate_import_mappings
       end
     end
   end
