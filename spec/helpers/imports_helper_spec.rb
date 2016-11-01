@@ -20,7 +20,7 @@ RSpec.describe ImportsHelper, type: :helper do
 
     classes.each do |status, klass|
       it "returns '#{klass}' for status '#{status}'" do
-        import = build(:import, status: status)
+        import = build(:simple_import, status: status)
         expect(helper.status_icon_class_for(import)).to eq klass
       end
     end
@@ -34,7 +34,7 @@ RSpec.describe ImportsHelper, type: :helper do
   describe "last_run_for" do
     context "an import that has been run" do
       let(:time) { Time.new(2016).utc }
-      let(:import) { create(:import) }
+      let(:import) { create(:simple_import) }
       let!(:record) { create(:imported_record, import: import, created_at: time) }
 
       it "shows the formatted last run time" do
