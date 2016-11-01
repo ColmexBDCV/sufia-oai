@@ -1,18 +1,18 @@
 <div class="col-lg-6 col-md-12 col-sm-12 collection-image">
   <div class="media hidden-sm hidden-xs text-left">
     <div class="media-left">
-      <%= link_to (image_tag unit.image.url(:landing), class: "img-thumbnail media-object media-object-homepage"), search_catalog_path(f: { 'unit_sim' => [unit.key] }) %>
+      <%= link_to image_tag(unit.image.url(:landing), class: "img-thumbnail media-object media-object-homepage"), unit_catalog_path(unit) %>
     </div>
     <div class="media-body">
       <!-- <h3 class="media-heading"><%= link_to unit.name, unit, class: "coll-title-link" %></h3> -->
-      <h3 class="media-heading"><%= link_to unit.name, search_catalog_path(f: { 'unit_sim' => [unit.key] }), class: "coll-title-link" %></h3>
+      <h3 class="media-heading"><%= link_to unit.name, unit_catalog_path(unit), class: "coll-title-link" %></h3>
       <p><%= unit.description %></p>
     </div>
   </div>
   <div class="hidden-lg hidden-md">
-    <h3 class="coll-title"><%= link_to unit.name, search_catalog_path(f: { 'unit_sim' => [unit.key] }), class: "coll-title-link" %></h3>
-    <%= link_to (image_tag unit.image.url(:landing), class: "img-thumbnail img-responsive"), search_catalog_path(f: { 'unit_sim' => [unit.key] }) %>
+    <h3 class="coll-title"><%= link_to unit.name, unit_catalog_path(unit), class: "coll-title-link" %></h3>
+    <%= link_to image_tag(unit.image.url(:landing), class: "img-thumbnail img-responsive"), unit_catalog_path(unit) %>
     <p class="small_paragraph xs_paragraph"><%= unit.description %></p>
-    <p><%= link_to "Browse Collections", search_catalog_path(f: { 'unit_sim' => [unit.key] }), class: "btn btn-success" %></p>
+    <p><%= link_to "Browse Collections", unit_catalog_path(unit), class: "btn btn-success" %></p>
   </div>
 </div>

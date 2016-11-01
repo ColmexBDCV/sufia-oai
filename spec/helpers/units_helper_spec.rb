@@ -12,4 +12,12 @@ RSpec.describe UnitsHelper do
       expect(helper.unit_name_from_key('notakey')).to be_nil
     end
   end
+
+  describe 'unit_catalog_path' do
+    let(:unit) { build(:unit) }
+
+    it 'returns the path to the unit catalog page' do
+      expect(helper.unit_catalog_path(unit)).to eq search_catalog_path(f: { 'unit_sim' => [unit.key] })
+    end
+  end
 end

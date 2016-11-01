@@ -10,6 +10,7 @@ class UnitsController < ApplicationController
   # GET /units/1
   # GET /units/1.json
   def show
+    redirect_to view_context.unit_catalog_path @unit
   end
 
   # GET /units/new

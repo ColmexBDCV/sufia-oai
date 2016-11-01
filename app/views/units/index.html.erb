@@ -22,7 +22,7 @@
   <tbody>
     <% if @units.each do |unit| %>
       <tr>
-        <td><%= link_to unit.name, unit %></td>
+        <td><%= link_to unit.name, unit_catalog_path(unit) %></td>
         <td><%= unit.description %></td>
         <td><%= unit.members.count %></td>
         <td>
@@ -34,7 +34,7 @@
             <ul role="menu" class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu_<%= unit.id %>">
               <%- if can? :read, unit %>
                 <li role="menuitem" tabindex="-1">
-                  <%= link_to unit, class: 'itemicon itemshow' do %>
+                  <%= link_to unit_catalog_path(unit), class: 'itemicon itemshow' do %>
                     <i class="glyphicon glyphicon-eye-open" aria-hidden="true"></i> View Unit
                   <% end %>
                 </li>

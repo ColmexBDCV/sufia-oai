@@ -18,9 +18,9 @@ RSpec.describe UnitsController, type: :controller do
   end
 
   describe "GET #show" do
-    it "assigns the requested unit as @unit" do
+    it "redirects to the unit catalog page" do
       get :show, id: unit
-      expect(assigns(:unit)).to eq unit
+      expect(response).to redirect_to search_catalog_path(f: { 'unit_sim' => [unit.key] })
     end
   end
 
