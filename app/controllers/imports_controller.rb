@@ -96,11 +96,7 @@ class ImportsController < ApplicationController
     @import.user_id = current_user.id
     respond_to do |format|
       if @import.save
-        ImportFieldMapping::KEYS.each do |key|
-          ImportFieldMapping.create key: key, import: @import
-        end
-        # create mapping for image filename separately
-        ImportFieldMapping.create key: 'image_filename', import: @import
+        ImportFieldMapping.initiate_mappings(@import)
 
         format.html { redirect_to edit_import_path(@import), notice: 'Import was successfully created. Use the form below to create metadata field mappings.' }
         format.json { render :show, status: :created, location: @import }

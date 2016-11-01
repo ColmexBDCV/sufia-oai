@@ -18,7 +18,7 @@ class Import < ActiveRecord::Base
   validate :validate_unit
   validate :validate_csv_contents
 
-  # before_create :create_batch_object
+  # before_create :simple_or_complex
 
   enum status: { not_ready: 0, ready: 1, in_progress: 2, complete: 3, reverting: 4, final: 5 }
 
@@ -141,7 +141,8 @@ class Import < ActiveRecord::Base
 
   def csv_file_row_count
     # get import Csv file
-    CSV.foreach(csv_file_path, csv_options).count
+    count = simple_or_complex
+    count.zero? ? CSV.foreach(csv_file_path, csv_options).count : count
   rescue
     0
   end
@@ -194,14 +195,38 @@ class Import < ActiveRecord::Base
     unit.try(:name)
   end
 
+  def get_column_from(row, column)
+    column_number = import_field_mappings.find_by(key: column).value
+    return row[column_number.last.to_i] unless column_number.last == ""
+    nil
+  rescue
+    nil
+  end
+
+  def validate_complex_objects
+    parents = []
+    children = []
+    CSV.foreach(csv_file_path, csv_options).each do |row|
+      cid = get_column_from(row, 'cid')
+      pid = get_column_from(row, 'pid')
+      if cid
+        children << cid
+      elsif pid
+        parents << pid
+      end
+    end
+    orphans = children - parents
+    orphans.count # Number of orphaned children
+  end
+
   private
 
   def invalid_fields(generic_work_response)
     invalid_fields = []
     REQUIRED_FIELDS.each do |field|
       next if field == 'image_filename'
-      formated_field = field.to_s + "_tesim"
-      field_value = generic_work_response["response"]["docs"].first[formated_field] if generic_work_response["response"].present? && generic_work_response["response"]["docs"].present?
+      formatted_field = field.to_s + "_tesim"
+      field_value = generic_work_response["response"]["docs"].first[formatted_field] if generic_work_response["response"].present? && generic_work_response["response"]["docs"].present?
       invalid_fields << field if field_value.blank?
     end
     invalid_fields
@@ -216,7 +241,7 @@ class Import < ActiveRecord::Base
   end
 
   def validate_csv_contents
-    CSV.foreach(Paperclip.io_adapters.for(csv).path, csv_options).each_with_index do |row, i|
+    CSV.foreach(Paperclip.io_adapters.for(csv).path, csv_options).each do |row|
     end
   rescue
     errors.add :csv, 'contents appear invalid'
@@ -226,7 +251,13 @@ class Import < ActiveRecord::Base
     { headers: includes_headers? ? true : false, encoding: "UTF-8" }
   end
 
-  def create_batch_object
-    self.batch = Batch.create
+  def simple_or_complex
+    count = 0
+    CSV.foreach(csv_file_path, csv_options).each do |row|
+      cid = get_column_from(row, 'cid')
+      count += 1
+      count -= 1 if cid
+    end
+    count
   end
 end

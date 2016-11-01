@@ -10,24 +10,54 @@ class BatchImportService
     @import.in_progress!
   end
 
+  # process -- determines if the CSV is a complex CSV or just a simple one.
+  # If the CSV is complex, it grabes the Metadata, along with an array of files (fileset) for that metadata.
+  # If the CSV is simple, it will just grab the one image and the metadata per CSV record.
+  # rubocop:disable Metrics/PerceivedComplexity
   def process(start_at = nil)
     options = { headers: @import.includes_headers? ? true : false }
+    row_count = File.read(@import.csv_file_path).split(/\r/).count
 
-    CSV.foreach(@import.csv_file_path, options ).each_with_index do |row, i|
-      current_row = @import.includes_headers? ? i + 2 : i + 1
+    CSV.foreach(@import.csv_file_path, options ).each_with_index do |row, ind|
+      current_row = @import.includes_headers? ? ind + 2 : ind + 1
       next unless start_at.nil? || current_row > start_at
 
-      csv_style_array = []
-      row.each { |arr| csv_style_array << arr }
-      csv_row_array = []
-      csv_style_array.each { |arr| csv_row_array << arr.last }
-      ProcessImportItem.perform_now(@import.id, csv_row_array, @user.id, current_row)
+      csv_processor = CSVProcessor.new(get_pid_from(row), @import.get_column_from(row, 'image_filename'))
+      if csv_processor.complex_object?
+        CSV.foreach(@import.csv_file_path, options).each_with_index do |child, j|
+          next unless j >= (ind + 1)
+
+          # The outer loop needs to know where the inner loop ended up.
+          start_at = j + 1
+          # If this inner loop hits the end, we need to add 1 to start_at so
+          # that the outer loop actually ends.
+          start_at += 1 if start_at == row_count - 1
+
+          # Retrieve this records' cid (child id) which points to the parent that
+          # this record will be associated with.
+          # If this is a child to the current parent, just retrieve the filename and
+          # add it to the fileset array.
+          # If the cid != pid, then we should break out of the loop.
+          # TODO: We'll need to figure out if we shouldn't loop through the entire array. There might
+          # be times when a child is added at the bottom of the CSV and we'll end up missing it if
+          # we keep the logic as it.
+          csv_processor.build_csv_array(row) # Build CSV once.
+
+          break unless csv_processor.child?(get_cid_from(child))
+          csv_processor.add_file(get_filename_from(child), get_title_from(child))
+        end
+      else
+        # Once we're done collection the files, create the csv_row_array for the GenericWork record
+        csv_processor.add_file(get_filename_from(row), get_title_from(row))
+        csv_processor.build_csv_array(row)
+      end
+      process_import_item(current_row, csv_processor)
     end
   end
 
-  def import_item(row, current_row)
+  def import_item(row, current_row, files = [])
     begin
-      generic_work = ingest(row)
+      generic_work = ingest(row, files)
       record = ImportedRecord.find_or_create_by(import_id: @import.id, csv_row: current_row, generic_work_pid: generic_work.id)
       record.update(success: true)
 
@@ -45,13 +75,13 @@ class BatchImportService
 
   def resume
     return false unless @import.resumable?
-    ImportJob.perform_now(@import.id, @user.id, @import.imported_records.last.try(:csv_row))
+    ImportJob.perform_later(@import.id, @user.id, @import.imported_records.last.try(:csv_row))
     @import.in_progress!
   end
 
   def undo
     @import.reverting!
-    UndoImportJob.perform_now(@import.id, @user.id)
+    UndoImportJob.perform_later(@import.id, @user.id)
   end
 
   def revert_records
@@ -69,25 +99,20 @@ class BatchImportService
   def finalize
     return false unless @import.complete?
     @import.final!
-    ScheduleMintingJob.perform_now(@import.id, @user.id)
+    ScheduleMintingJob.perform_later(@import.id, @user.id)
   end
 
   def mint
     @import.imported_records.each do |record|
-      MintHandleJob.perform_now(record.file.id) if record.file.present?
+      MintHandleJob.perform_later(record.file.id) if record.file.present?
     end
   end
 
   private
 
-  def ingest(row)
-    filename = get_filename_from(row)
-    basename = File.basename(filename)
-    image_path = @import.image_path_for filename
-    raise "File #{filename} was not found." unless File.file? image_path
-
+  def ingest(row, files = [])
     # Ingest files already on disk
-    gw = GenericWork.new(label: basename)
+    gw = GenericWork.new
     depositor = @user.email
     assign_csv_values_to_genericwork(row, gw)
     gw.rights = [@import.rights]
@@ -99,12 +124,18 @@ class BatchImportService
     gw.apply_depositor_metadata(depositor)
     gw.save
 
-    fs = create_fileset(gw, image_path, depositor)
-    fs_actor = CurationConcerns::Actors::FileSetActor.new(fs, User.find_by(email: depositor))
-    fs_actor.create_metadata(gw, {})
-    gw.date_uploaded = CurationConcerns::TimeService.time_in_utc
+    files.each do |file|
+      filename = file[:filename]
+      image_path = @import.image_path_for(filename)
+      raise "File #{filename} was not found." unless File.file? image_path
 
-    gw.save!
+      fs = create_fileset(file[:title], image_path, depositor)
+      fs_actor = CurationConcerns::Actors::FileSetActor.new(fs, User.find_by(email: depositor))
+      fs_actor.create_metadata(gw, {})
+      gw.date_uploaded = CurationConcerns::TimeService.time_in_utc
+
+      gw.save!
+    end
 
     add_generic_work_to_collection(gw, @import.collection_id) if @import.collection_id.present?
 
@@ -117,9 +148,9 @@ class BatchImportService
     collection.save!
   end
 
-  def create_fileset(gw, image_path, depositor)
+  def create_fileset(title, image_path, depositor)
     fs = FileSet.new
-    fs.title << gw.title
+    fs.title << title
     fs.depositor = depositor
     fs.apply_depositor_metadata(depositor)
     fs.save!
@@ -128,11 +159,26 @@ class BatchImportService
     fs
   end
 
+  def process_import_item(current_row, csv_processor)
+    ProcessImportItem.perform_now(@import.id, csv_processor.csv_row_array, @user.id, current_row, csv_processor.files)
+  end
+
   def get_filename_from(row)
-    filename_column_number = @import.import_field_mappings.where(key: 'image_filename').first.value
-    filename = row[filename_column_number.last.to_i]
+    filename = @import.get_column_from(row, 'image_filename')
     raise 'filename cannot be blank' if filename.blank?
     filename
+  end
+
+  def get_pid_from(row)
+    @import.get_column_from(row, 'pid')
+  end
+
+  def get_cid_from(row)
+    @import.get_column_from(row, 'cid')
+  end
+
+  def get_title_from(row)
+    @import.get_column_from(row, 'title')
   end
 
   def subjects(row, key_column_number_arr, key_column_value_arr)
@@ -180,6 +226,7 @@ class BatchImportService
 
   def process_field_mappings(row, field_mappings, generic_work)
     field_mappings.each do |field_mapping|
+      next if field_mapping.key.in?(["pid", "cid"])
       key_column_number_arr = @import.import_field_mappings.where(key: field_mapping.key).first.value.reject!( &:blank? )
       key_column_value_arr = []
 
