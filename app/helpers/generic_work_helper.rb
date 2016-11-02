@@ -3,6 +3,7 @@ module GenericWorkHelper
     attributes = [
       presenter.attribute_to_html(:resource_type, render_as: :faceted, label: 'Type' ),
       presenter.attribute_to_html(:creator, render_as: :faceted ),
+      presenter.attribute_to_html(:description ),
       presenter.attribute_to_html(:contributor, label: 'Contributors', render_as: :faceted),
       presenter.attribute_to_html(:subject, render_as: :faceted ),
       presenter.attribute_to_html(:publisher, render_as: :faceted ),
