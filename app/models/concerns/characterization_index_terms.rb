@@ -77,6 +77,18 @@ module CharacterizationIndexTerms
     self[Solrizer.solr_name('profile_version')]
   end
 
+  def resolution_unit
+    self[Solrizer.solr_name('resolution_unit')]
+  end
+
+  def resolution_x
+    self[Solrizer.solr_name('resolution_x')]
+  end
+
+  def resolution_y
+    self[Solrizer.solr_name('resolution_y')]
+  end
+
   def sample_rate
     self[Solrizer.solr_name('sample_rate')]
   end

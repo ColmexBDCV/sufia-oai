@@ -19,6 +19,9 @@ class FileSetIndexer < CurationConcerns::FileSetIndexer
       solr_doc[Solrizer.solr_name('page_count')] = object.page_count
       solr_doc[Solrizer.solr_name('profile_name')] = object&.characterization_proxy&.profile_name
       solr_doc[Solrizer.solr_name('profile_version')] = object&.characterization_proxy&.profile_version
+      solr_doc[Solrizer.solr_name('resolution_unit')] = object&.characterization_proxy&.resolution_unit
+      solr_doc[Solrizer.solr_name('resolution_x')] = object&.characterization_proxy&.resolution_x
+      solr_doc[Solrizer.solr_name('resolution_y')] = object&.characterization_proxy&.resolution_y
       solr_doc[Solrizer.solr_name('sample_rate')] = object&.characterization_proxy&.sample_rate
       solr_doc[Solrizer.solr_name('scanning_software')] = object&.characterization_proxy&.scanning_software
       solr_doc[Solrizer.solr_name('well_formed')] = object.well_formed
