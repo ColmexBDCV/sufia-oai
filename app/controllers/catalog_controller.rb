@@ -57,12 +57,12 @@ class CatalogController < ApplicationController
     config.add_facet_field solr_name("creator", :facetable), label: "Creator", limit: 5
     config.add_facet_field solr_name("keyword", :facetable), label: "Keyword", limit: 5
     config.add_facet_field solr_name("subject", :facetable), label: "Subject", limit: 5
-    config.add_facet_field solr_name("format", :facetable), label: "File Format", limit: 5
+    config.add_facet_field solr_name("format", :facetable), label: "Format", limit: 5
     config.add_facet_field solr_name("work_type", :facetable), label: "Genre", limit: 5
     config.add_facet_field solr_name("language", :facetable), label: "Language", limit: 5
     config.add_facet_field solr_name("based_near", :facetable), label: "Location", limit: 5
     config.add_facet_field solr_name("publisher", :facetable), label: "Publisher", limit: 5
-    config.add_facet_field solr_name("file_format", :facetable), label: "File Format", limit: 5
+    config.add_facet_field solr_name("file_format", :facetable), label: "Format", limit: 5
     config.add_facet_field solr_name("temporal", :facetable), label: "Time Period", limit: 5
     config.add_facet_field solr_name("sub_collection", :facetable), label: "Sub-Collection", limit: 5
 
@@ -90,7 +90,7 @@ class CatalogController < ApplicationController
     config.add_index_field solr_name("date_created", :stored_searchable), label: "Date Created", itemprop: 'dateCreated'
     # config.add_index_field solr_name("rights", :stored_searchable), label: "Rights", helper_method: :rights_statement_links
     # config.add_index_field solr_name("resource_type", :stored_searchable), label: "Resource Type", link_to_search: solr_name("resource_type", :facetable)
-    # config.add_index_field solr_name("file_format", :stored_searchable), label: "File Format", link_to_search: solr_name("file_format", :facetable)
+    # config.add_index_field solr_name("file_format", :stored_searchable), label: "Format", link_to_search: solr_name("file_format", :facetable)
     # config.add_index_field solr_name("unit", :stored_searchable), label: "Unit"
 
     # solr fields to be displayed in the show (single result) view
@@ -109,7 +109,7 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("date_created", :stored_searchable), label: "Date Created"
     config.add_show_field solr_name("rights", :stored_searchable), label: "Rights"
     config.add_show_field solr_name("resource_type", :stored_searchable), label: "Resource Type"
-    config.add_show_field solr_name("format", :stored_searchable), label: "File Format"
+    config.add_show_field solr_name("format", :stored_searchable), label: "Format"
     config.add_show_field solr_name("identifier", :stored_searchable), label: "Identifier"
     config.add_show_field solr_name("staff_notes", :stored_searchable), label: "Notes"
     config.add_show_field solr_name("spatial", :stored_searchable), label: "Spatial"
