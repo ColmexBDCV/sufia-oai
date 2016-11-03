@@ -8,12 +8,14 @@
     </li>
     <%= render 'admin/menu' if can? :view, :admin_menu %>
     <li class="dropdown user-options">
+      <% if can_ever_create_works? %>
       <%= link_to sufia.profile_path(current_user), role: 'button', data: { toggle: 'dropdown' }, aria: { haspopup: true, expanded: false} do %>
         <span class="sr-only">View</span>
         <span class="sr-only"> Tools</span>
         <span class="fa fa-wrench"></span>
         <span>Tools</span>
         <span class="caret" ></span>
+      <% end %>
       <% end %>
       <ul class="dropdown-menu dropdown-menu-right" role="menu">
         <% if can_ever_create_works? %>
