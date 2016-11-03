@@ -126,6 +126,7 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("sub_collection", :stored_searchable), label: "Sub-Collection"
     config.add_show_field solr_name("collection_identifier", :stored_searchable), label: "Collection Identifier"
     config.add_show_field solr_name("bibliographic_citation", :stored_searchable), label: "Published In"
+    config.add_show_field solr_name("abstract", :stored_searchable), label: "Abstract"
     # "fielded" search configuration. Used by pulldown among other places.
     # For supported keys in hash, see rdoc for Blacklight::SearchFields
     #
