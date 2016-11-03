@@ -26,6 +26,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  after_filter :store_location
+
+  def store_location
+    session[:previous_url] = request.fullpath unless request.fullpath =~ /\/users/
+  end
+
+  def after_sign_in_path_for(resource)
+    session[:previous_url] || root_path
+  end
+
   protected
 
   def disable_turbolinks
