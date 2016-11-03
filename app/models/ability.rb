@@ -10,6 +10,7 @@ class Ability
   end
 
   # Define any customized permissions here.
+  # rubocop:disable Metrics/PerceivedComplexity
   def custom_permissions
     can :create, ActiveFedora::Base if current_user.in_unit?
 
@@ -21,9 +22,9 @@ class Ability
 
     can :view, :admin_menu if current_user.admin? || current_user.manager?
     can :view, :dashboard if current_user.admin? || current_user.in_unit?
-    
     can :manage, :all if current_user.admin?
   end
+  # rubocop:enable Metrics/PerceivedComplexity
 
   def import_permissions
     # Reset all permissions on Imports
