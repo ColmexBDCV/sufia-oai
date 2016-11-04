@@ -21,7 +21,7 @@ class Ability
     can :curate, Unit, memberships: { user_id: current_user.id, level: [Membership::DATA_ENTRY_LEVEL, Membership::CURATOR_LEVEL] }
 
     can :view, :admin_menu if current_user.admin? || current_user.manager?
-    can :view, :dashboard if current_user.admin? || current_user.in_unit?
+    #can :view, :dashboard if current_user.admin? || current_user.in_unit?
     can :manage, :all if current_user.admin?
   end
   # rubocop:enable Metrics/PerceivedComplexity

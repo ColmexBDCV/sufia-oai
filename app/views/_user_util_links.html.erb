@@ -76,15 +76,12 @@
         <span class="caret" ></span>
       <% end %>
       <ul class="dropdown-menu dropdown-menu-right" role="menu">
-        <%# if can? :read, :admin_dashboard %>
-        <% if can? :view, :dashboard %>
           <li>
             <%= link_to sufia.dashboard_index_path do %>
               <%= content_tag(:span, "", :class => "glyphicon glyphicon-dashboard") %>
               <%= t("sufia.toolbar.dashboard.my")  %>
             <% end %>
           </li>
-        <% end %>
         <li>
           <%= link_to sufia.profile_path(current_user) do %>
             <%= content_tag(:i, "", :class => "fa fa-user") %>
