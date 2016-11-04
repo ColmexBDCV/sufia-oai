@@ -2,11 +2,11 @@ module Sufia
   class WorkShowPresenter < ::CurationConcerns::WorkShowPresenter
     # delegate fields from Sufia::Works::Metadata to solr_document
     delegate :abstract, :based_near, :related_url, :depositor, :identifier, :resource_type,
-             :keyword, :itemtype, :alternative, :format, :handle, :unit,
-             :preservation_level, :preservation_level_rationale, :provenance,
-             :spatial, :staff_notes, :temporal, :work_type, :material,
+             :keyword, :itemtype, :alternative, :format, :handle, :unit, :collection_name,
+             :sub_collection, :preservation_level, :preservation_level_rationale,
+             :provenance, :spatial, :staff_notes, :temporal, :work_type, :material,
              :material_type, :measurement, :measurement_unit, :measurement_type,
-             :sub_collection, :bibliographic_citation, :collection_identifier,
+             :bibliographic_citation, :collection_identifier,
              to: :solr_document
 
     def editor?

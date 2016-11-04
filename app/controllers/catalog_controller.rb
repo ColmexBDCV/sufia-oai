@@ -52,6 +52,8 @@ class CatalogController < ApplicationController
     # solr fields that will be treated as facets by the blacklight application
     #   The ordering of the field names is the order of the display
     config.add_facet_field solr_name("unit", :facetable), partial: "catalog/_show_partials/unit_facet", label: "Unit", limit: 5
+    config.add_facet_field solr_name("collection_name", :facetable), label: "Collection", limit: 5
+    config.add_facet_field solr_name("sub_collection", :facetable), label: "Sub-Collection", limit: 5
     config.add_facet_field solr_name("human_readable_type", :facetable), label: "Type", limit: 5
     config.add_facet_field solr_name("resource_type", :facetable), label: "Resource Type", limit: 5
     config.add_facet_field solr_name("creator", :facetable), label: "Creator", limit: 5
@@ -64,7 +66,6 @@ class CatalogController < ApplicationController
     config.add_facet_field solr_name("publisher", :facetable), label: "Publisher", limit: 5
     config.add_facet_field solr_name("file_format", :facetable), label: "Format", limit: 5
     config.add_facet_field solr_name("temporal", :facetable), label: "Time Period", limit: 5
-    config.add_facet_field solr_name("sub_collection", :facetable), label: "Sub-Collection", limit: 5
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -123,6 +124,7 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("measurement_unit", :stored_searchable), label: "Measurement Unit"
     config.add_show_field solr_name("measurement_type", :stored_searchable), label: "Measurement Type"
     config.add_show_field solr_name("unit", :stored_searchable), label: "Unit"
+    config.add_show_field solr_name("collection_name", :stored_searchable), label: "Collection"
     config.add_show_field solr_name("sub_collection", :stored_searchable), label: "Sub-Collection"
     config.add_show_field solr_name("collection_identifier", :stored_searchable), label: "Collection Identifier"
     config.add_show_field solr_name("bibliographic_citation", :stored_searchable), label: "Published In"

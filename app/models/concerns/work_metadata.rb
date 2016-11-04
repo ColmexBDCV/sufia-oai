@@ -12,6 +12,10 @@ module WorkMetadata
       index.as :stored_searchable, :facetable
     end
 
+    property :collection_name, predicate: ::RDF::URI.new("https://library.osu.edu/ns#CollectionName"), multiple: true do |index|
+      index.as :stored_searchable, :facetable
+    end
+
     # http://www.loc.gov/standards/vracore/VRA_Core4_Element_Description.pdf#page2
     property :collection_identifier, predicate: ::RDF::URI.new('http://purl.org/vra/Collection'), multiple: false do |index|
       index.as :stored_searchable, :facetable

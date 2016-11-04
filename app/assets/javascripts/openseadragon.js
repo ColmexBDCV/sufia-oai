@@ -5,10 +5,13 @@
 (function($) {
   function initOpenSeadragon() {
     var $spinner = $('<div class="osd-loading"></div>'),
-        $picture = $('picture[data-openseadragon]');
+        $picture = $('picture[data-openseadragon]'),
+        $containers = $('div.openseadragon-container');
+
+        $containers.remove();
 
     // Bail if the viewer is already loaded
-    if ($picture.data('osdViewer')) { return; }
+    // if ($picture.data('osdViewer')) { return; }
 
     // Add spinner markup to viewer
     $picture.append($spinner).openseadragon();
