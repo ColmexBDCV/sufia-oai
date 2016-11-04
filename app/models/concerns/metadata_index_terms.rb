@@ -41,6 +41,10 @@ module MetadataIndexTerms
     self[Solrizer.solr_name('staff_notes')]
   end
 
+  def abstract
+    self[Solrizer.solr_name('abstract')]
+  end
+
   def temporal
     self[Solrizer.solr_name('temporal')]
   end
