@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  after_action :store_location
 
   rescue_from CanCan::AccessDenied do
     if user_signed_in?
@@ -26,7 +27,19 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def store_location
+    session[:previous_url] = request.fullpath unless request.fullpath =~ /\/(users|downloads)/
+  end
+  # def after_sign_in_path_for(_resource)
+  #     #search_catalog_path || root_path
+  #     # main_app.root_path
+  # end
+
   protected
+
+  def after_sign_in_path_for(_resource)
+    session[:previous_url] || root_path
+  end
 
   def disable_turbolinks
     @disable_turbolinks = true
