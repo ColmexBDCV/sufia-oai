@@ -5,7 +5,7 @@ module CurationConcerns
 
     self.model_class = ::GenericWork
 
-    self.terms = [:resource_type, :title, :unit, :creator, :contributor,
+    self.terms = [:resource_type, :title, :unit, :collection_name, :creator, :contributor,
                   :abstract, :description, :bibliographic_citation, :keyword,
                   :rights, :provenance, :publisher, :date_created, :subject,
                   :language, :identifier, :based_near, :related_url, :work_type,

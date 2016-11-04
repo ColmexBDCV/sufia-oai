@@ -73,6 +73,10 @@ module MetadataIndexTerms
     self[Solrizer.solr_name('measurement_type')]
   end
 
+  def collection_name
+    self[Solrizer.solr_name('collection_name')]
+  end
+
   def sub_collection
     self[Solrizer.solr_name('sub_collection')]
   end
