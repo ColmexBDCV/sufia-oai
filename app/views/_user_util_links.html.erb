@@ -42,7 +42,7 @@
         </li>
         <li class="divider"></li>
         <% end %>
-        <% if can?(:create, Collection) %>
+        <!-- <% if can?(:create, Collection) %>
           <li>
             <%= link_to sufia.dashboard_collections_path do %>
               <%= content_tag(:i, "", :class => "fa fa-briefcase") %>
@@ -55,7 +55,8 @@
               <%= t("sufia.toolbar.collections.new")  %>
             <% end %>
           </li>
-          <li class="divider"></li>
+          <% end %>
+          <li class="divider"></li> -->
           <% if can? :create, Import %>
             <li>
               <%= link_to main_app.imports_path do %>
@@ -64,7 +65,6 @@
               <% end %>
             </li>
           <% end %>
-        <% end %>
       </ul>
     </li>
     <li class="dropdown user-options">
