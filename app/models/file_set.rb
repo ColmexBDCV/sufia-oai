@@ -2,6 +2,7 @@
 class FileSet < ActiveFedora::Base
   include ::CurationConcerns::FileSetBehavior
   include Sufia::FileSetBehavior
+  include ManagedByUnit
 
   self.indexer = FileSetIndexer
 
@@ -13,5 +14,12 @@ class FileSet < ActiveFedora::Base
   # Override image mime types to include 'application/octet-stream'
   def self.image_mime_types
     super << 'application/octet-stream'
+  end
+
+  private
+
+  def set_admin_policy
+    self.unit = parent&.unit if parent.present?
+    super
   end
 end

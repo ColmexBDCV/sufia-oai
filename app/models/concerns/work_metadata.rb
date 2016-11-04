@@ -2,10 +2,6 @@ module WorkMetadata
   extend ActiveSupport::Concern
 
   included do
-    property :unit, predicate: ::RDF::URI.new('https://library.osu.edu/ns#unit'), multiple: false do |index|
-      index.as :stored_searchable, :facetable, :symbol
-    end
-
     property :staff_notes, predicate: ::RDF::URI.new("https://library.osu.edu/ns#StaffNotes"), multiple: true do |index|
       index.type :text
       index.as :stored_searchable

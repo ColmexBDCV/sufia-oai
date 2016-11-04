@@ -95,11 +95,11 @@ Sufia.config do |config|
                        end
 
   CurationConcerns.config.callback.set(:after_create_concern) do |curation_concern|
-    HandleService.new(curation_concern).mint
+    HandleService.new(curation_concern).mint if curation_concern.is_a? GenericWork
   end
 
   CurationConcerns.config.callback.set(:after_update_metadata) do |curation_concern|
-    HandleService.new(curation_concern).mint
+    HandleService.new(curation_concern).mint if curation_concern.is_a? GenericWork
   end
 
   # If browse-everything has been configured, load the configs.  Otherwise, set to nil.
