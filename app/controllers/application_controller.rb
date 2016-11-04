@@ -18,8 +18,6 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  after_action :store_location
-
   rescue_from CanCan::AccessDenied do
     if user_signed_in?
       redirect_to main_app.root_path, alert: 'You are not authorized to view this resource.'
@@ -28,15 +26,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def after_sign_in_path_for(_resource)
-    session[:previous_url] || root_path
-  end
-
   protected
-
-  def store_location
-    session[:previous_url] = request.fullpath unless request.fullpath =~ /\/users/
-  end
 
   def disable_turbolinks
     @disable_turbolinks = true
