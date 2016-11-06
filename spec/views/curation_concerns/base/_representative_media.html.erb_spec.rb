@@ -15,7 +15,7 @@ RSpec.describe 'curation_concerns/base/_representative_media.html.erb', type: :v
 
     context 'as a user without update permissions' do
       before do
-        allow(view).to receive(:can?).with(:update, CurationConcerns::FileSetPresenter).and_return(false)
+        allow(view).to receive(:can?).with(:update, SolrDocument).and_return(false)
         render 'curation_concerns/base/representative_media', presenter: presenter
       end
 
@@ -26,7 +26,7 @@ RSpec.describe 'curation_concerns/base/_representative_media.html.erb', type: :v
 
     context 'as a user with update ablities' do
       before do
-        allow(view).to receive(:can?).with(:update, CurationConcerns::FileSetPresenter).and_return(true)
+        allow(view).to receive(:can?).with(:update, SolrDocument).and_return(true)
         render 'curation_concerns/base/representative_media', presenter: presenter
       end
 
