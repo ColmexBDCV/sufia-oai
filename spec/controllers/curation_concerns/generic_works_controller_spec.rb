@@ -3,6 +3,7 @@ require 'controllers/concerns/set_units_behavior'
 
 RSpec.describe CurationConcerns::GenericWorksController, type: :controller do
   let(:user) { create(:user) }
+  let(:unit) { create(:unit) }
   let(:params) { { title: ['My work'], creator: ['Creator'], keyword: ['foo'], rights: ['http://creativecommons.org/licenses/by-sa/3.0/us/'], unit: 'myunit' } }
 
   before do
@@ -19,7 +20,6 @@ RSpec.describe CurationConcerns::GenericWorksController, type: :controller do
   end
 
   describe "GET #new" do
-    let(:unit) { create(:unit) }
     let(:user) { create(:user, unit: unit) }
     let(:work) { create(:generic_work, unit: unit.key) }
 
@@ -30,7 +30,6 @@ RSpec.describe CurationConcerns::GenericWorksController, type: :controller do
   end
 
   describe "GET #edit" do
-    let(:unit) { create(:unit) }
     let(:user) { create(:user, unit: unit) }
     let(:work) { create(:generic_work, unit: unit.key) }
 
@@ -41,7 +40,6 @@ RSpec.describe CurationConcerns::GenericWorksController, type: :controller do
   end
 
   describe "POST #create" do
-    let!(:unit) { create(:unit) }
     let!(:membership) { create(:membership, unit: unit, user: user) }
 
     context "when user is a member of unit" do
@@ -52,18 +50,16 @@ RSpec.describe CurationConcerns::GenericWorksController, type: :controller do
     end
 
     context "when user is not a member of unit" do
-      it "refuses to create work" do
-        key = 'notmyunit'
-        create(:unit, key: key)
+      let(:other_unit) { create(:unit, key: 'notmyunit') }
 
-        expect { post :create, generic_work: params.merge(unit: key) }
+      it "refuses to create work" do
+        expect { post :create, generic_work: params.merge(unit: other_unit.key) }
           .not_to change(GenericWork, :count)
       end
     end
   end
 
   describe "DELETE #destroy" do
-    let(:unit) { create(:unit) }
     let!(:generic_work) { create(:generic_work, user: user, unit: unit.key) }
 
     context 'user is a manager in generic work unit' do
