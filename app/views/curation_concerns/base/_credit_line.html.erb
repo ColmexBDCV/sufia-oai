@@ -5,9 +5,7 @@
 <% end %>
 <% end %>
 <% if presenter.collection_name.present? %>
-<% presenter.collection_name.each do |collection_name| %>
-<%= collection_name + "#{", "}" %>
-<% end %>
+<%= "#{@presenter.collection_name.first}" + "#{", "}" %>
 <% end %>
 <%= "#{"The Ohio State University, "}" + Unit.find_by_key(@presenter.unit.first.to_s).name %>
 </div>
