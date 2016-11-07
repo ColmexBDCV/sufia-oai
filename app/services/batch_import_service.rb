@@ -137,15 +137,7 @@ class BatchImportService
       gw.save!
     end
 
-    add_generic_work_to_collection(gw, @import.collection_id) if @import.collection_id.present?
-
     gw
-  end
-
-  def add_generic_work_to_collection(gw, collection_id)
-    collection = Collection.find(collection_id)
-    collection.members << gw
-    collection.save!
   end
 
   def create_fileset(title, image_path, depositor)
