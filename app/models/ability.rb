@@ -3,7 +3,8 @@ class Ability
   include CurationConcerns::Ability
   include Sufia::Ability
 
-  self.ability_logic += [:delete_permissions, :import_permissions]
+  self.ability_logic += [:delete_permissions, :unit_permissions,
+                         :import_permissions]
 
   def self.model_class_field
     ActiveFedora.index_field_mapper.solr_name("has_model", :symbol)
@@ -12,16 +13,17 @@ class Ability
   # Define any customized permissions here.
   def custom_permissions
     can :create, ActiveFedora::Base if current_user.in_unit?
-
     can :create, Collection if current_user.in_unit?
-
-    can :read, Unit
-    can [:update, :curate, :destroy], Unit, memberships: { user_id: current_user.id, level: Membership::MANAGER_LEVEL }
-    can :curate, Unit, memberships: { user_id: current_user.id, level: [Membership::DATA_ENTRY_LEVEL, Membership::CURATOR_LEVEL] }
 
     can :view, :admin_menu if current_user.admin? || current_user.manager?
     # can :view, :dashboard if current_user.admin? || current_user.in_unit?
     can :manage, :all if current_user.admin?
+  end
+
+  def unit_permissions
+    can :read, Unit
+    can [:update, :curate, :destroy], Unit, memberships: { user_id: current_user.id, level: Membership::MANAGER_LEVEL }
+    can :curate, Unit, memberships: { user_id: current_user.id, level: [Membership::DATA_ENTRY_LEVEL, Membership::CURATOR_LEVEL] }
   end
 
   def import_permissions
