@@ -2,10 +2,10 @@ Sufia.config do |config|
   config.register_curation_concern :generic_work
 
   # Email recipient of messages sent via the contact form
-  # config.contact_email = "repo-admin@example.org"
+  config.contact_email = ENV['CONTACT_EMAIL'] || 'libwit@lists.osu.edu'
 
   # Text prefacing the subject entered in the contact form
-  # config.subject_prefix = "Contact form:"
+  config.subject_prefix = "Digital Collections contact form:"
 
   # How many notifications should be displayed on the dashboard
   # config.max_notifications_for_dashboard = 5
