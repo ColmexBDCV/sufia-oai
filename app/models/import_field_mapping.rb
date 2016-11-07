@@ -1,7 +1,7 @@
 class ImportFieldMapping < ActiveRecord::Base
   belongs_to :import
   serialize :value, Array
-  KEYS = [:pid, :cid, :resource_type, :title, :creator, :contributor, :description,
+  KEYS = [:resource_type, :title, :image_filename, :pid, :cid, :collection_name, :creator, :contributor, :description,
           :keyword, :publisher, :date_created, :subject, :language,
           :identifier, :based_near, :related_url, :staff_notes, :spatial,
           :alternative, :temporal, :format, :work_type, :source, :materials,
@@ -12,7 +12,5 @@ class ImportFieldMapping < ActiveRecord::Base
     KEYS.each do |key|
       ImportFieldMapping.create key: key, import: import
     end
-    # create mapping for image filename separately
-    ImportFieldMapping.create key: 'image_filename', import: import
   end
 end
