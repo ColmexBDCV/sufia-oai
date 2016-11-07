@@ -70,7 +70,7 @@ RSpec.describe BatchImportService do
   it "Complex Import: Creates on GenericWork with 3 Images in Fileset" do
     batch_import = described_class.new(import2, user)
 
-    row = ["images", "Halls", "Collection of Halls", "building", "osu", nil, "university", "archive", "50 x 25 cm", "paper", nil, nil, "Bartos, Chris", "1", nil]
+    row = ["images", "Halls", "Collection of Halls", "building", "osu", nil, "university", "archive", "50 x 25 cm", "paper", nil, nil, "Bartos, Chris", "1"]
     files = [{ filename: "179.jpg", title: "Dreese" }, { filename: "181.jpg", title: "Hayes" }, { filename: "209.jpg", title: "Orton" }]
 
     allow(CreateDerivativesJob).to receive(:perform_now) {}
