@@ -12,7 +12,7 @@ module WorkMetadata
       index.as :stored_searchable, :facetable
     end
 
-    property :collection_name, predicate: ::RDF::URI.new("https://library.osu.edu/ns#CollectionName"), multiple: true do |index|
+    property :collection_name, predicate: ::RDF::URI.new("https://library.osu.edu/ns#CollectionName"), multiple: false do |index|
       index.as :stored_searchable, :facetable
     end
 
