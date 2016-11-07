@@ -1,0 +1,13 @@
+<div class="well well-sm">Credit line:
+<% if presenter.sub_collection.present? %>
+<% presenter.sub_collection.each do |sub_collection| %>
+<%= sub_collection + "#{", "}" %>
+<% end %>
+<% end %>
+<% if presenter.collection_name.present? %>
+<% presenter.collection_name.each do |collection_name| %>
+<%= collection_name + "#{", "}" %>
+<% end %>
+<% end %>
+<%= "#{"The Ohio State University, "}" + Unit.find_by_key(@presenter.unit.first.to_s).name %>
+</div>

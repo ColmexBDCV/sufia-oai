@@ -1,2 +1,3 @@
-<%= f.input :sub_collection, item_helper: method(:include_current_value),
+<%#= f.input :sub_collection, item_helper: method(:include_current_value),
   input_html: { class: 'form-control' } %>
+<%= f.input :sub_collection, label: "Sub-Collection", as: :multi_value, item_helper: method(:include_current_value), input_html: { class: 'form-control'} %>
