@@ -37,4 +37,25 @@ RSpec.describe ApplicationHelper do
       end
     end
   end
+
+  describe 'permissions_object_for' do
+    context 'a presenter' do
+      let(:ability) { double }
+      let(:generic_work) { build(:generic_work) }
+      let(:solr_document) { SolrDocument.new(generic_work.to_solr) }
+      let(:object) { Sufia::WorkShowPresenter.new(solr_document, ability) }
+
+      it 'returns the Solr document' do
+        expect(helper.permissions_object_for(object)).to eq solr_document
+      end
+    end
+
+    context 'an ActiveFedora object' do
+      let(:object) { build(:file_set) }
+
+      it 'returns the passed object' do
+        expect(helper.permissions_object_for(object)).to be object
+      end
+    end
+  end
 end

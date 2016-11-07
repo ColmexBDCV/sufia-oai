@@ -1,19 +1,15 @@
-# Generated via
-#  `rails generate curation_concerns:work GenericWork`
 require 'rails_helper'
 
 RSpec.feature 'Create a GenericWork' do
   context 'as a logged in user' do
-    let(:user) { create(:user) }
+    let(:unit) { create(:unit) }
+    let(:user) { create(:user, unit: unit) }
 
     before do
       login_as user
     end
 
     scenario do
-      unit = create(:unit)
-      create(:membership, unit: unit, user: user)
-
       visit new_curation_concerns_generic_work_path
       fill_in 'Title', with: 'Test GenericWork'
       fill_in 'Creator', with: 'Person, Test'
@@ -24,6 +20,7 @@ RSpec.feature 'Create a GenericWork' do
       attach_file("files[]", Rails.root + 'spec/fixtures/cat.jpg')
       check 'agreement'
       click_button 'Save'
+
       expect(page).to have_content 'Test GenericWork'
     end
   end
