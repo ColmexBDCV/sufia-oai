@@ -11,6 +11,7 @@ module CurationConcerns
       end
 
       def url_from(value)
+        value.gsub!('%', '%%')
         options.fetch(:template, value).to_s % { value: value }
       end
     end

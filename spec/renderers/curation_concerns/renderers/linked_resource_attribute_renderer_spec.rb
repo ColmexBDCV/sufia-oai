@@ -42,5 +42,22 @@ RSpec.describe CurationConcerns::Renderers::LinkedResourceAttributeRenderer do
         expect(subject).to be_equivalent_to(expected)
       end
     end
+
+    context 'when the attribute value contains percent signs' do
+      let(:value) { 'http://example.com/foo%C3%A9bar/' }
+      let(:tr_content) do
+        "<tr><th>Name</th>\n" \
+         "<td><ul class='tabular'>" \
+         "<li class=\"attribute name\">"\
+         "<a href=\"http://example.com/foo%C3%A9bar/\">"\
+         "<span class='glyphicon glyphicon-new-window'></span>&nbsp;"\
+         "http://example.com/foo%C3%A9bar/</a></li>\n" \
+         "</ul></td></tr>"
+      end
+
+      it 'renders the URL with percent signs' do
+        expect(subject).to be_equivalent_to(expected)
+      end
+    end
   end
 end
