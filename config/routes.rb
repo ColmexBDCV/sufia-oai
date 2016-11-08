@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     concerns :exportable
   end
 
+  get '/gatekeeper/:id', to: 'iiif_gatekeeper#show', as: 'gatekeeper'
+
   resources :bookmarks do
     concerns :exportable
 
