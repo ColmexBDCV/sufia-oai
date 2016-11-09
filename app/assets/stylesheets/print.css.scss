@@ -4,8 +4,16 @@
 
 @import 'bootstrap';
 
-#osu_navbar, #masthead, .citations, .items, .breadcrumb, .show-actions {
+#osu_navbar, #masthead, .citations, .breadcrumb, .show-actions, .filename, .date_uploaded, .permission, thead, figure {
    display:none;
+}
+
+tr.file_set td:last-child {
+  display:none;
+}
+
+.thumbnail {
+  max-width:400px;
 }
 
 ul {
