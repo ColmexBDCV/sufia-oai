@@ -6,6 +6,10 @@ class GenericWork < ActiveFedora::Base
   include PhysicalMediaMetadata
   include ManagedByUnit
 
+  OPEN_RIGHTS = ['http://creativecommons.org/publicdomain/mark/1.0/',
+                 'http://creativecommons.org/publicdomain/zero/1.0',
+                 'https://library.osu.edu/statements/rights/pre-1923/'].freeze
+
   self.human_readable_type = 'Work'
 
   validates :unit, presence: { message: 'must belong to a unit.' }
@@ -20,6 +24,10 @@ class GenericWork < ActiveFedora::Base
 
   def to_solr
     super.merge!(materials_and_measurements_to_solr)
+  end
+
+  def under_copyright?
+    (rights & self.class::OPEN_RIGHTS).empty?
   end
 
   private

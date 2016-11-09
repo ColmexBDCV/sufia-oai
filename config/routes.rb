@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     concerns :exportable
   end
 
+  get '/gatekeeper/:ident', to: 'iiif_gatekeeper#show', as: 'gatekeeper', constraints: { ident: /[-A-Za-z0-9_\.\/]+/ }
+
   resources :bookmarks do
     concerns :exportable
 
