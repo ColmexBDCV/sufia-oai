@@ -56,21 +56,24 @@ class BatchImportService
   end
 
   def import_item(row, current_row, files = [])
+    generic_work = nil
     begin
-      generic_work = ingest(row, files)
-      record = ImportedRecord.find_or_create_by(import_id: @import.id, csv_row: current_row, generic_work_pid: generic_work.id)
+      generic_work = ingest(row)
+      record = ImportedRecord.find_or_create_by(import_id: @import.id, csv_row: current_row, generic_work_pid: generic_work&.id)
+      add_file_sets_to_work(generic_work, files)
       record.update(success: true)
 
     rescue => e
       Rails.logger.error "------import ingest saving error------"
       Rails.logger.error e.message
       Rails.logger.error
-      record = ImportedRecord.find_or_create_by(import_id: @import.id, csv_row: current_row)
+      record = ImportedRecord.find_or_create_by(import_id: @import.id, csv_row: current_row, generic_work_pid: generic_work&.id)
       record.update(success: false, message: e.message)
     end
 
     # import has finished - set import status to complete
     @import.complete! if @import.all_records_imported?
+    generic_work
   end
 
   def resume
@@ -86,7 +89,7 @@ class BatchImportService
 
   def revert_records
     @import.imported_records.each do |record|
-      DestroyImportedRecordJob.perform_now(record.id, @user.id)
+      DestroyImportedRecordJob.perform_later(record.id, @user.id)
     end
   end
 
@@ -110,49 +113,51 @@ class BatchImportService
 
   private
 
-  def ingest(row, files = [])
+  def ingest(row)
     # Ingest files already on disk
-    gw = GenericWork.new
-    depositor = @user.email
-    assign_csv_values_to_genericwork(row, gw)
-    gw.rights = [@import.rights]
-    gw.preservation_level_rationale = @import.preservation_level
-    gw.preservation_level = "Full"
-    gw.visibility = @import.visibility
-    gw.unit = @import.unit.key if @import.unit
-    gw.depositor = depositor
-    gw.apply_depositor_metadata(depositor)
-    gw.save
-
-    files.each do |file|
-      filename = file[:filename]
-      image_path = @import.image_path_for(filename)
-      raise "File #{filename} was not found." unless File.file? image_path
-
-      fs = create_fileset(file[:title], image_path, depositor)
-      fs_actor = CurationConcerns::Actors::FileSetActor.new(fs, User.find_by(email: depositor))
-      fs_actor.create_metadata(gw, {})
-      gw.date_uploaded = CurationConcerns::TimeService.time_in_utc
-
+    GenericWork.new.tap do |gw|
+      depositor = @user.user_key
+      assign_csv_values_to_genericwork(row, gw)
+      gw.rights = [@import.rights]
+      gw.preservation_level_rationale = @import.preservation_level
+      gw.preservation_level = "Full"
+      gw.visibility = @import.visibility
+      gw.unit = @import.unit.key if @import.unit
+      gw.depositor = depositor
+      gw.apply_depositor_metadata(depositor)
       gw.save!
     end
-
-    gw
   end
 
-  def create_fileset(title, image_path, depositor)
+  def add_file_sets_to_work(gw, files = [])
+    files.each do |file|
+      filename = file[:filename]
+
+      fs = create_fileset(file[:title], filename, gw.depositor)
+      fs_actor = CurationConcerns::Actors::FileSetActor.new(fs, User.find_by_user_key(gw.depositor))
+      fs_actor.create_metadata(gw, {})
+
+      gw.date_uploaded = CurationConcerns::TimeService.time_in_utc
+      gw.save!
+    end
+  end
+
+  def create_fileset(title, filename, depositor)
+    image_path = @import.image_path_for(filename)
+    raise "File #{filename} was not found." unless File.file? image_path
+
     fs = FileSet.new
     fs.title << title
+    fs.label = title || filename
     fs.depositor = depositor
     fs.apply_depositor_metadata(depositor)
     fs.save!
-    IngestFileJob.perform_now(fs, image_path, "application/octet-stream", User.find_by(email: depositor))
-    CreateDerivativesJob.perform_now(fs, fs.original_file.id)
+    IngestFileJob.perform_later(fs, image_path, nil, User.find_by_user_key(depositor))
     fs
   end
 
   def process_import_item(current_row, csv_processor)
-    ProcessImportItem.perform_now(@import.id, csv_processor.csv_row_array, @user.id, current_row, csv_processor.files)
+    ProcessImportItem.perform_later(@import.id, csv_processor.csv_row_array, @user.id, current_row, csv_processor.files)
   end
 
   def get_filename_from(row)
