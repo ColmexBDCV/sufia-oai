@@ -1,11 +1,13 @@
 class IiifGatekeeperController < ApplicationController
   include ImageDetection
 
-  load_and_authorize_resource :file_set, parent: false
+  before_filter :load_file_set
+  authorize_resource :file_set, parent: false
 
   def show
     if image?(@file_set)
-      render json: { use_identifier: iiif_identifier }
+      authorize! :update, @file_set unless ident_lowres?
+      render json: { status: 'approved' }
     else
       head :not_found
     end
@@ -13,8 +15,15 @@ class IiifGatekeeperController < ApplicationController
 
   private
 
-  def iiif_identifier
-    lowres = can?(:update, @file_set) ? nil : '-lowres'
-    "#{@file_set.loris_id}#{lowres}"
+  def load_file_set
+    @file_set = FileSet.find(identifiers[:file_set_id])
+  end
+
+  def identifiers
+    @identifiers || FileSet.decode_loris_id(params[:ident], 'lowres')
+  end
+
+  def ident_lowres?
+    params[:ident].include? '-lowres'
   end
 end

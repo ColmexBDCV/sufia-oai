@@ -1,6 +1,7 @@
+<%- lowres = can?(:update, permissions_object_for(file_set)) ? nil : 'lowres' %>
 <% if CurationConcerns.config.display_media_download_link %>
     <figure data-turbolinks-permanent>
-        <%= openseadragon_picture_tag(ENV['LORIS_SERVER_URI'] + file_set.id , {"data-turbolinks-permanent" => "true"})  %>
+        <%= openseadragon_picture_tag(ENV['LORIS_SERVER_URI'] + FileSet.find(file_set.id).loris_id(lowres), {"data-turbolinks-permanent" => "true"})  %>
         <% if can?(:update, permissions_object_for(file_set)) %>
           <%= link_to main_app.download_path(file_set), target: "_new" do %>
             <figcaption>Download the full-sized image</figcaption>
@@ -9,6 +10,6 @@
     </figure>
 <% else %>
     <figure>
-        <%= openseadragon_picture_tag( ENV['LORIS_SERVER_URI'] + FileSet.find(file_set.id).loris_id ) %>
+        <%= openseadragon_picture_tag( ENV['LORIS_SERVER_URI'] + FileSet.find(file_set.id).loris_id(lowres), {"data-turbolinks-permanent" => "true"} ) %>
     </figure>
 <% end %>
