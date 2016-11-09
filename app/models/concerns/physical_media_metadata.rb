@@ -14,14 +14,14 @@ module PhysicalMediaMetadata
   def materials_and_measurements_to_solr
     measurement_hash = { "measurement_tesim" => [], "measurement_sim" => [] }
     measurements.each do |m|
-      measurement = (m.measurement.try(:to_s) || "") + " " + (m.measurement_type || "") + " " + (m.measurement_unit || "")
+      measurement = [m.measurement.try(:to_s), m.measurement_type, m.measurement_unit].reject(&:empty?).join(" ")
       measurement_hash["measurement_tesim"] << measurement
       measurement_hash["measurement_sim"] << measurement
     end
 
     material_hash = { "material_tesim" => [], "material_sim" => [] }
     materials.each do |m|
-      material = (m.material.try(:to_s) || "") + ", " + (m.material_type.try(:to_s) || "")
+      material = [m.material.try(:to_s), m.material_type.try(:to_s)].reject(&:empty?).join(", ")
       material_hash["material_tesim"] << material
       material_hash["material_sim"] << material
     end
