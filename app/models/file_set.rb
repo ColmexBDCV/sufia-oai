@@ -12,6 +12,14 @@ class FileSet < ActiveFedora::Base
     id_parts.reject(&:blank?).join('-')
   end
 
+  def under_copyright?
+    if parent.respond_to? :under_copyright?
+      parent.under_copyright?
+    else
+      true
+    end
+  end
+
   def self.decode_loris_id(id, *additional)
     id = id.dup
     id.gsub!(/-version[0-9]+/, '')
