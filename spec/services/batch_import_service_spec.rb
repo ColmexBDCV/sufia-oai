@@ -13,7 +13,7 @@ RSpec.describe BatchImportService do
     FileUtils.rm_rf ENV['IMPORT_PATH'] if Rails.env.test?
   end
 
-  it "wil validate CSV by finding orphaned children" do
+  it "will validate CSV by finding orphaned children" do
     expect(import1.validate_complex_objects).to eq(0)
     expect(import2.validate_complex_objects).to eq(0)
     expect(import3.validate_complex_objects).to eq(1)
@@ -53,9 +53,10 @@ RSpec.describe BatchImportService do
     current_row = 1
     files = [{ filename: "181.jpg", title: "Hayes" }]
 
-    gw = batch_import.instance_eval { import_item(row, current_row, files) }
+    work = batch_import.import_item(row, current_row, files)
 
-    expect(gw.file_sets.count).to eq(1)
+    work.reload
+    expect(work.file_sets.count).to eq(1)
   end
 
   it "Simple Import: Creates on GenericWork with 1 FileSet and Collection_name is set" do
@@ -65,22 +66,23 @@ RSpec.describe BatchImportService do
     current_row = 1
     files = [{ filename: "181.jpg", title: "Hayes" }]
 
-    gw = batch_import.instance_eval { import_item(row, current_row, files) }
+    work = batch_import.import_item(row, current_row, files)
 
-    expect(gw.file_sets.count).to eq(1)
-    expect(gw.collection_name.first).to eq("Collection Name")
+    work.reload
+    expect(work.file_sets.count).to eq(1)
+    expect(work.collection_name.first).to eq("Collection Name")
   end
 
   it "Complex Import: Creates on GenericWork with 3 FileSets" do
     batch_import = described_class.new(import2, user)
-
     row = ["images", "Halls", "Collection of Halls", "building", "osu", nil, "university", "archive", "50 x 25 cm", "paper", nil, nil, "Bartos, Chris", "1"]
     current_row = 1
     files = [{ filename: "179.jpg", title: "Dreese" }, { filename: "181.jpg", title: "Hayes" }, { filename: "209.jpg", title: "Orton" }]
 
-    gw = batch_import.instance_eval { import_item(row, current_row, files) }
+    work = batch_import.import_item(row, current_row, files)
 
-    expect(gw.file_sets.count).to eq(3)
+    work.reload
+    expect(work.file_sets.count).to eq(3)
   end
 
   it "Complex Import: Get pid, cid, and title from row" do
