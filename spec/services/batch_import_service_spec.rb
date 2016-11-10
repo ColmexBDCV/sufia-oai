@@ -1,14 +1,18 @@
 require 'rails_helper'
 
-# Updated ENV vars were added to config/environments/test.rb so this stuff
-# can work successfully.
-
 RSpec.describe BatchImportService do
+  include ActiveJob::TestHelper
+
   let!(:user)    { create(:admin_user) }
   let!(:unit)    { FactoryGirl.create(:unit) }
   let!(:import1) { FactoryGirl.create(:simple_import,   unit: unit) }
   let!(:import2) { FactoryGirl.create(:complex_import,  unit: unit) }
   let!(:import3) { FactoryGirl.create(:complex_orphans, unit: unit) }
+
+  before do
+    ENV["IMPORT_PATH"] = "#{Rails.root}/spec/fixtures"
+    ENV["FEDORA_NFS_UPLOAD_PATH"] = "#{Rails.root}/spec/fixtures"
+  end
 
   it "wil validate CSV by finding orphaned children" do
     expect(import1.validate_complex_objects).to eq(0)
@@ -18,65 +22,63 @@ RSpec.describe BatchImportService do
 
   it "will successfully schedule a an import" do
     import1.ready!
-    described_class.new(import1, user).schedule
+
+    assert_enqueued_with(job: ImportJob) do
+      described_class.new(import1, user).schedule
+    end
     expect(import1.in_progress?).to eq(true)
   end
 
   it "Simple Import: will ingest all row of a CSV" do
     batch_import = described_class.new(import1, user)
 
-    call_count = 0
-    allow(batch_import).to receive(:process_import_item) {call_count += 1}
-    batch_import.process
-
-    expect(call_count).to eq(3)
+    assert_enqueued_with(job: ProcessImportItem) do
+      batch_import.process
+    end
+    assert_enqueued_jobs(3)
   end
 
   it "Complex Import: will ingest all rows of a CSV" do
     batch_import = described_class.new(import2, user)
 
-    call_count = 0
-    allow(batch_import).to receive(:process_import_item) {call_count += 1}
-    batch_import.process
-
-    expect(call_count).to eq(3)
+    assert_enqueued_with(job: ProcessImportItem) do
+      batch_import.process
+    end
+    assert_enqueued_jobs(3)
   end
 
-  it "Simple Import: Creates on GenericWork with 1 Image in Fileset" do
+  it "Simple Import: Creates on GenericWork with 1 FileSet" do
     batch_import = described_class.new(import1, user)
 
     row = ["image", "Dreese", "Dreese Hall photo", "building", "osu", nil, "university", "archive", "50 x 25 cm", "paper", nil, "179.jpg", "Bartos, Chris", nil]
     current_row = 1
     files = [{ filename: "181.jpg", title: "Hayes" }]
 
-    allow(CreateDerivativesJob).to receive(:perform_later) {}
     gw = batch_import.instance_eval { import_item(row, current_row, files) }
 
     expect(gw.file_sets.count).to eq(1)
   end
 
-  it "Simple Import: Creates on GenericWork with 1 Image in Fileset and Collection_name is set" do
+  it "Simple Import: Creates on GenericWork with 1 FileSet and Collection_name is set" do
     batch_import = described_class.new(import1, user)
 
     row = ["image", "Dreese", "Dreese Hall photo", "building", "osu", nil, "university", "archive", "50 x 25 cm", "paper", nil, "179.jpg", "Bartos, Chris", "Collection Name"]
     current_row = 1
     files = [{ filename: "181.jpg", title: "Hayes" }]
 
-    allow(CreateDerivativesJob).to receive(:perform_later) {}
     gw = batch_import.instance_eval { import_item(row, current_row, files) }
 
     expect(gw.file_sets.count).to eq(1)
     expect(gw.collection_name.first).to eq("Collection Name")
   end
 
-  it "Complex Import: Creates on GenericWork with 3 Images in Fileset" do
+  it "Complex Import: Creates on GenericWork with 3 FileSets" do
     batch_import = described_class.new(import2, user)
 
     row = ["images", "Halls", "Collection of Halls", "building", "osu", nil, "university", "archive", "50 x 25 cm", "paper", nil, nil, "Bartos, Chris", "1"]
     current_row = 1
     files = [{ filename: "179.jpg", title: "Dreese" }, { filename: "181.jpg", title: "Hayes" }, { filename: "209.jpg", title: "Orton" }]
 
-    allow(CreateDerivativesJob).to receive(:perform_now) {}
     gw = batch_import.instance_eval { import_item(row, current_row, files) }
 
     expect(gw.file_sets.count).to eq(3)
