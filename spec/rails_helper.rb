@@ -67,8 +67,11 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include FactoryGirl::Syntax::Methods
   config.include Shoulda::Matchers::Independent
+  config.include WaitForAjax, type: :feature
 end
 
 FactoryGirl::SyntaxRunner.class_eval do
   include RSpec::Mocks::ExampleMethods
 end
+
+Deprecation.default_deprecation_behavior = :silence

@@ -37,7 +37,7 @@ class BatchEditsController < ApplicationController
   private
 
   def build_work_params
-    work_params = params[:batch_edit_item] || ActionController::Parameters.new
+    work_params = params[:generic_work] || ActionController::Parameters.new
     form_class.model_attributes(work_params)
   end
 
