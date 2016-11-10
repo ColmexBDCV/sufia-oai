@@ -22,10 +22,4 @@ RSpec.describe Sufia::BatchUploadsController, type: :controller do
   it_behaves_like "set_units_behavior" do
     before { sign_in user }
   end
-
-  describe '.form_class' do
-    it 'returns our custom form class' do
-      expect(described_class.form_class).to be ::Sufia::BatchUploadForm
-    end
-  end
 end
