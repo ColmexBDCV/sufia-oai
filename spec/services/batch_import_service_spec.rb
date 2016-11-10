@@ -4,14 +4,15 @@ RSpec.describe BatchImportService do
   include ActiveJob::TestHelper
 
   let!(:user)    { create(:admin_user) }
-  let!(:unit)    { FactoryGirl.create(:unit) }
-  let!(:import1) { FactoryGirl.create(:simple_import,   unit: unit) }
-  let!(:import2) { FactoryGirl.create(:complex_import,  unit: unit) }
-  let!(:import3) { FactoryGirl.create(:complex_orphans, unit: unit) }
+  let!(:unit)    { create(:unit) }
+  let!(:import1) { create(:simple_import,   unit: unit) }
+  let!(:import2) { create(:complex_import,  unit: unit) }
+  let!(:import3) { create(:complex_orphans, unit: unit) }
 
-  before do
-    ENV["IMPORT_PATH"] = "#{Rails.root}/spec/fixtures"
-    ENV["FEDORA_NFS_UPLOAD_PATH"] = "#{Rails.root}/spec/fixtures"
+  after do
+    if Rails.env.test?
+      FileUtils.rm_rf ENV['IMPORT_PATH']
+    end
   end
 
   it "wil validate CSV by finding orphaned children" do
