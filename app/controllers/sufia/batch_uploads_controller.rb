@@ -6,7 +6,7 @@ module Sufia
     before_action :disable_turbolinks, only: :new
 
     def self.form_class
-      ::Sufia::BatchUploadForm
+      ::BatchUploadForm
     end
   end
 end
