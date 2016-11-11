@@ -24,6 +24,7 @@ before_script:
   - bundle install --deployment --jobs $(nproc)
   - bundle exec rake db:schema:load
   - bundle exec rake db:test:prepare
+  - bundle exec rake assets:precompile
 
 rspec:
   services:
