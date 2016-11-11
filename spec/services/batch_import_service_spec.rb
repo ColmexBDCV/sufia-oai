@@ -54,8 +54,6 @@ RSpec.describe BatchImportService do
     files = [{ filename: "181.jpg", title: "Hayes" }]
 
     work = batch_import.import_item(row, current_row, files)
-
-    work.reload
     expect(work.file_sets.count).to eq(1)
   end
 
@@ -67,8 +65,6 @@ RSpec.describe BatchImportService do
     files = [{ filename: "181.jpg", title: "Hayes" }]
 
     work = batch_import.import_item(row, current_row, files)
-
-    work.reload
     expect(work.file_sets.count).to eq(1)
     expect(work.collection_name.first).to eq("Collection Name")
   end
@@ -80,8 +76,6 @@ RSpec.describe BatchImportService do
     files = [{ filename: "179.jpg", title: "Dreese" }, { filename: "181.jpg", title: "Hayes" }, { filename: "209.jpg", title: "Orton" }]
 
     work = batch_import.import_item(row, current_row, files)
-
-    work.reload
     expect(work.file_sets.count).to eq(3)
   end
 

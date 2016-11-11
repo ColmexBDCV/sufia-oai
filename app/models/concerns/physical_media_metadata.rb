@@ -14,7 +14,7 @@ module PhysicalMediaMetadata
   def materials_and_measurements_to_solr
     measurement_hash = { "measurement_tesim" => [], "measurement_sim" => [] }
     measurements.each do |m|
-      measurement = [m.measurement.try(:to_s), m.measurement_type, m.measurement_unit].reject(&:blank?).join(" ")
+      measurement = [m.measurement.try(:to_s), m.measurement_unit, m.measurement_type].reject(&:blank?).join(" ")
       measurement_hash["measurement_tesim"] << measurement
       measurement_hash["measurement_sim"] << measurement
     end

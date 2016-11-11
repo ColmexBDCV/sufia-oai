@@ -116,44 +116,32 @@ class BatchImportService
   def ingest(row)
     # Ingest files already on disk
     GenericWork.new.tap do |gw|
-      depositor = @user.user_key
       assign_csv_values_to_genericwork(row, gw)
       gw.rights = [@import.rights]
       gw.preservation_level_rationale = @import.preservation_level
       gw.preservation_level = "Full"
       gw.visibility = @import.visibility
       gw.unit = @import.unit.key if @import.unit
-      gw.depositor = depositor
-      gw.apply_depositor_metadata(depositor)
-      gw.save!
+      CurationConcerns::Actors::ActorStack.new(gw, @user, [CurationConcerns::Actors::GenericWorkActor]).create({})
     end
   end
 
   def add_file_sets_to_work(gw, files = [])
-    files.each do |file|
-      filename = file[:filename]
+    depositor = User.find_by_user_key(gw.depositor)
 
-      fs = create_fileset(file[:title], filename, gw.depositor)
-      fs_actor = CurationConcerns::Actors::FileSetActor.new(fs, User.find_by_user_key(gw.depositor))
-      fs_actor.create_metadata(gw, {})
+    files.each do |file_info|
+      filename = file_info[:filename]
+      image_path = @import.image_path_for(filename)
+      raise "File #{filename} was not found." unless File.file? image_path
+      file = File.new(image_path)
 
-      gw.date_uploaded = CurationConcerns::TimeService.time_in_utc
-      gw.save!
+      fs = FileSet.new
+      fs.title << file_info[:title] unless file_info[:title].blank?
+      actor = CurationConcerns::Actors::FileSetActor.new(fs, depositor)
+      actor.create_metadata(gw)
+      fs.creator = gw.creator
+      actor.create_content(file)
     end
-  end
-
-  def create_fileset(title, filename, depositor)
-    image_path = @import.image_path_for(filename)
-    raise "File #{filename} was not found." unless File.file? image_path
-
-    fs = FileSet.new
-    fs.title << title
-    fs.label = title || filename
-    fs.depositor = depositor
-    fs.apply_depositor_metadata(depositor)
-    fs.save!
-    IngestFileJob.perform_later(fs, image_path, nil, User.find_by_user_key(depositor))
-    fs
   end
 
   def process_import_item(current_row, csv_processor)
