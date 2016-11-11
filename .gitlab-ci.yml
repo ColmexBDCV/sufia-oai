@@ -22,9 +22,9 @@ before_script:
   - cp spec/support/hdl/resolver_site ~/.handle
   - echo "*" > ~/.handle/local_nas
   - bundle install --quiet --deployment --jobs $(nproc)
-  - bundle exec rake --silent db:schema:load
-  - bundle exec rake --silent db:test:prepare
-  - bundle exec rake --silent assets:precompile
+  - bundle exec rake db:schema:load > /dev/null
+  - bundle exec rake db:test:prepare > /dev/null
+  - bundle exec rake assets:precompile 2> /dev/null
 
 rspec:
   services:
