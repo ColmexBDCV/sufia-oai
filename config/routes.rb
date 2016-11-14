@@ -65,6 +65,11 @@ Rails.application.routes.draw do
   #   e.g. https://library.osu.edu/ims/files/gm80hv36p
   get '/files/:id', to: redirect('concern/generic_works/%{id}')
 
+  # Disable Sufia contact, help, and about pages
+  get '/about', to: 'application#not_found'
+  get '/contact', to: 'application#not_found'
+  get '/help', to: 'application#not_found'
+
   # This must be the very last route in the file because it has a catch-all route for 404 errors.
   # This behavior seems to show up only in production mode.
   mount Sufia::Engine => '/'

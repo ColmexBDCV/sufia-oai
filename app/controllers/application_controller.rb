@@ -26,6 +26,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def not_found
+    raise ActionController::RoutingError, 'Not Found'
+  end
+
   protected
 
   def disable_turbolinks

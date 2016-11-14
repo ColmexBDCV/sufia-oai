@@ -11,7 +11,7 @@ RSpec::Matchers.define :include_module do |expected|
   end
 
   description do
-    "includes the #{expected} module"
+    "include the #{expected} module"
   end
 
   failure_message do
