@@ -9,3 +9,5 @@ Rails.application.config.x.import = Hashie::Mash.new(
 Rails.application.config.x.iiif = Hashie::Mash.new(
   base_url: ENV['LORIS_SERVER_URI'] || 'http://localhost/iiif/'
 )
+
+Rails.application.config.x.feedback_url = ENV['FEEDBACK_FORM_URL']
