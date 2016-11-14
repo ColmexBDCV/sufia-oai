@@ -4,13 +4,13 @@ class HandleService
   def initialize(generic_work)
     @generic_work = generic_work
 
-    @mint_handles = true unless Rails.configuration.x.handle["mint"] == false
-    @prefix       = Rails.configuration.x.handle["prefix"]
-    @index        = Rails.configuration.x.handle["index"].to_i
-    @adminhdl     = Rails.configuration.x.handle["admin_handle"]
-    @admpriv      = Rails.configuration.x.handle["admin_priv_key"]
-    @admpass      = Rails.configuration.x.handle["admin_passphrase"]
-    @url          = Rails.configuration.x.handle["url"]
+    @mint_handles = true unless Rails.configuration.x.handle.mint == false
+    @prefix       = Rails.configuration.x.handle.prefix
+    @index        = Rails.configuration.x.handle[:index].to_i
+    @adminhdl     = Rails.configuration.x.handle.admin_handle
+    @admpriv      = Rails.configuration.x.handle.admin_priv_key
+    @admpass      = Rails.configuration.x.handle.admin_passphrase
+    @url          = Rails.configuration.x.handle.url
   end
 
   def mint

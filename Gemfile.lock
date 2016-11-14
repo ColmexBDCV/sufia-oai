@@ -782,6 +782,7 @@ DEPENDENCIES
   fcrepo_wrapper
   foreman
   handle-system
+  hashie (~> 3.4)
   highline
   jbuilder (~> 2.0)
   jquery-rails
@@ -817,4 +818,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.13.3
+   1.13.6

@@ -10,7 +10,7 @@ RSpec.describe BatchImportService do
   let!(:import3) { create(:complex_orphans, unit: unit) }
 
   after do
-    FileUtils.rm_rf ENV['IMPORT_PATH'] if Rails.env.test?
+    FileUtils.rm_rf Rails.configuration.x.import.storage_path if Rails.env.test?
   end
 
   it "will validate CSV by finding orphaned children" do

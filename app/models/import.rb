@@ -10,7 +10,7 @@ class Import < ActiveRecord::Base
   belongs_to :unit, class_name: 'Unit'
   # belongs_to_fedora :batch
 
-  has_attached_file :csv, path: "#{ENV['IMPORT_PATH']}/csv/:id/:basename.:extension"
+  has_attached_file :csv, path: "#{Rails.configuration.x.import.storage_path}/csv/:id/:basename.:extension"
 
   validates_attachment :csv, content_type: { content_type: ['text/csv', 'application/vnd.ms-excel', 'application/octet-stream'] }
   validates_attachment_presence :csv
@@ -171,7 +171,7 @@ class Import < ActiveRecord::Base
 
   # Defines path where imported csv files are stored
   def csv_import_path
-    File.join(ENV['IMPORT_PATH'], 'csv', id.to_s)
+    File.join(Rails.configuration.x.import.storage_path, 'csv', id.to_s)
   end
 
   def csv_file_path
@@ -179,7 +179,7 @@ class Import < ActiveRecord::Base
   end
 
   def image_base
-    File.join(ENV['FEDORA_NFS_UPLOAD_PATH'], server_import_location_name)
+    File.join(Rails.configuration.x.import.base_path, server_import_location_name)
   end
 
   def image_path_for(filename)

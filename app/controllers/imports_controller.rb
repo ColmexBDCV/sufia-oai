@@ -61,7 +61,7 @@ class ImportsController < ApplicationController
   end
 
   def browse
-    root = ENV['FEDORA_NFS_UPLOAD_PATH']
+    root = Rails.configuration.x.import.base_path
     @dir = URI.unescape(params[:dir])
     path = root + "/" + @dir
 
