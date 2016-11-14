@@ -18,7 +18,6 @@ RSpec.feature 'Create a GenericWork' do
       find("#generic_work_rights").find(:xpath, 'option[1]').select_option
       click_on "Files"
       attach_file("files[]", Rails.root + 'spec/fixtures/cat.jpg')
-      check 'agreement'
       click_button 'Save'
 
       expect(page).to have_content 'Test GenericWork'
