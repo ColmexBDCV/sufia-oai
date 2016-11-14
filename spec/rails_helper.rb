@@ -14,6 +14,7 @@ require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/poltergeist'
 require 'shoulda/matchers'
+require 'paperclip/matchers'
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -68,6 +69,7 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
   config.include Shoulda::Matchers::Independent
   config.include WaitForAjax, type: :feature
+  config.include Paperclip::Shoulda::Matchers
 end
 
 FactoryGirl::SyntaxRunner.class_eval do

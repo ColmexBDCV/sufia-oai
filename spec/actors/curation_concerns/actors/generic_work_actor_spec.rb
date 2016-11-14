@@ -1,9 +1,7 @@
-# Generated via
-#  `rails generate curation_concerns:work GenericWork`
 require 'rails_helper'
 
 RSpec.describe CurationConcerns::Actors::GenericWorkActor do
-  it "has tests" do
-    skip "Add your tests here"
-  end
+  # Simply tests that the class inherits from CC base actor because we do not
+  # have any custom functionality.
+  it { expect(described_class).to be < CurationConcerns::Actors::BaseActor }
 end

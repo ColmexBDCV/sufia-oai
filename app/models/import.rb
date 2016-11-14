@@ -7,9 +7,6 @@ class Import < ActiveRecord::Base
   belongs_to :unit
   accepts_nested_attributes_for :import_field_mappings
 
-  belongs_to :unit, class_name: 'Unit'
-  # belongs_to_fedora :batch
-
   has_attached_file :csv, path: "#{Rails.configuration.x.import.storage_path}/csv/:id/:basename.:extension"
 
   validates_attachment :csv, content_type: { content_type: ['text/csv', 'application/vnd.ms-excel', 'application/octet-stream'] }

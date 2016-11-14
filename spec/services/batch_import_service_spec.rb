@@ -5,9 +5,9 @@ RSpec.describe BatchImportService do
 
   let!(:user)    { create(:admin_user) }
   let!(:unit)    { create(:unit) }
-  let!(:import1) { create(:simple_import,   unit: unit) }
-  let!(:import2) { create(:complex_import,  unit: unit) }
-  let!(:import3) { create(:complex_orphans, unit: unit) }
+  let!(:import1) { create(:simple_import, :with_field_mappings, unit: unit) }
+  let!(:import2) { create(:complex_import, :with_field_mappings, unit: unit) }
+  let!(:import3) { create(:complex_orphans, :with_field_mappings, unit: unit) }
 
   after do
     FileUtils.rm_rf Rails.configuration.x.import.storage_path if Rails.env.test?
