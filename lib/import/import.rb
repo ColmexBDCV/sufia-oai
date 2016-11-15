@@ -44,7 +44,7 @@ module MyImport
       # Log imported item
       Osul::Import::ImportedItem.create(fid: fs.id, got_image: got_image, object_type: "FileSet", gw_relation: gf.fid)
 
-      import_current_version(gf, fs) if got_image == "true"
+      import_current_version(gf, fs) # if got_image == "true"
       fs
     end
 
@@ -58,13 +58,18 @@ module MyImport
       # Download the current version to disk...
       filename_on_disk = "#{ENV['MIGRATION_OBJECTS_PATH']}#{gf.fid}"
       # Rails.logger.debug "[IMPORT] Downloading #{filename_on_disk}"
-      # File.open(filename_on_disk, 'wb') do |file_to_upload|
-      #   source_uri = sufia6_content_open_uri(gf.fid)
-      #   file_to_upload.write source_uri.read
-      # end
+      begin
+        File.open(filename_on_disk, 'wb') do |file_to_upload|
+          source_uri = sufia6_content_open_uri(gf.fid)
+          file_to_upload.write source_uri.read
+        end
 
-      IngestFileJob.perform_now(fs, filename_on_disk, "application/octet-stream", User.find_by(email: gf.depositor))
-      CreateDerivativesJob.perform_now(fs, fs.original_file.id)
+        IngestFileJob.perform_now(fs, filename_on_disk, "application/octet-stream", User.find_by(email: gf.depositor))
+        CreateDerivativesJob.perform_now(fs, fs.original_file.id)
+
+      rescue
+        Rails.logger.debug "something wrong with image"
+      end
 
       # ...upload it...
       # File.open(filename_on_disk, 'rb') do |file_to_upload|
@@ -101,18 +106,14 @@ module MyImport
 
     # lookup collections that item should belong to by using the mapping hash of collections exported from ims
     def collection_lookup(old_collection_id)
-      h = { "0003ea82-c22a-4faf-b3e1-764d0f3c332f" => "5h73pw06t",
-            "ae89efa7-24d2-49dc-b8d5-219fb6003a27" => "1g05fb61q",
-            "93739557-325a-464c-b88d-42d818b2a83b" => "q524jn78d",
-            "b4f4d3d1-652d-4ddf-aad2-04831b46b455" => "m900nt40f",
-            "3db58b0e-a963-4f67-878d-95a18b1f5216" => "47429912h",
-            "d8858659-c4bd-4936-a7f8-3d956c4f33c5" => "f1881k89j",
-            "1f4046b7-4c2e-416d-b5f7-40960ee6ab83" => "xp68kg24f",
-            "2df457d8-f0d6-45ab-a857-3e3769ee8aa3" => "hx11xf263",
-            "5994a903-98d0-41ab-9575-f8e34b4023cf" => "bz60cw251",
-            "bf42d323-2580-4710-990f-b70bbbca72b8" => "rn301137d",
-            "e75d9647-0bfc-41e0-b5e1-8040b1cba83d" => "3r074t92z",
-            "95c77baf-0979-4f62-ae86-8d98212fcdc1" => "p5547r37h" }
+      h = { "3db58b0e-a963-4f67-878d-95a18b1f5216" => "Sir George Hubert Wilkins Papers",
+            "d8858659-c4bd-4936-a7f8-3d956c4f33c5" => "Frederick A. Cook Society Collection",
+            "2df457d8-f0d6-45ab-a857-3e3769ee8aa3" => "Admiral Richard E. Byrd Papers",
+            "5994a903-98d0-41ab-9575-f8e34b4023cf" => "Collin Bull Papers",
+            "bf42d323-2580-4710-990f-b70bbbca72b8" => "Alfred N. Fowler Papers",
+            "e75d9647-0bfc-41e0-b5e1-8040b1cba83d" => "John H. Mercer Papers",
+            "95c77baf-0979-4f62-ae86-8d98212fcdc1" => "Ian M. Whillans Papers",
+            "70acb5d0-41ff-4481-8c3f-c6c33aed4d18" => "Lois M. Jones Papers" }
       h[old_collection_id]
     end
 
@@ -127,6 +128,8 @@ module MyImport
       terms.each do |t|
         gw.send((t.to_s + "=").to_sym, gf.send(t))
       end
+      # tag is mapped to keyword
+      gw.keyword = gf.tag
       begin
         gw.save # create gw and persist id so that measurements and materials can be saved
       rescue
@@ -143,11 +146,10 @@ module MyImport
         end
       end
       unless gf.collection_id.blank?
-        cid = collection_lookup(gf.collection_id)
-        unless cid.blank?
-          collection = Collection.find(cid)
-          collection.members << gw
-          collection.save
+        ctitle = collection_lookup(gf.collection_id)
+        unless ctitle.blank?
+          gw.collection_name = [ctitle]
+          Rails.logger.debug "saving collection"
         end
       end
       gw.save
@@ -159,6 +161,11 @@ module MyImport
       # First we have to change the key in the hash from generic_file_id to :generic_work_id
       d = measurement.delete(:generic_file_id)
       measurement[:generic_work_id] = d
+      meas = Osul::VRA::Measurement.where(id: measurement["id"]).first
+      unless meas.blank?
+        meas.delete
+        meas.eradicate
+      end
       new_measurement = Osul::VRA::Measurement.create!(measurement)
       # Log imported item
       Osul::Import::ImportedItem.create(fid: new_measurement.id, object_type: "Measurement", gw_relation: new_measurement.generic_work_id )
@@ -170,6 +177,11 @@ module MyImport
       # First we have to change the key in the hash from generic_file_id to :generic_work_id
       d = material.delete(:generic_file_id)
       material[:generic_work_id] = d
+      mat = Osul::VRA::Material.where(id: material["id"]).first
+      unless mat.blank?
+        mat.delete
+        mat.eradicate
+      end
       new_material = Osul::VRA::Material.create!(material)
       # Log imported item
       Osul::Import::ImportedItem.create(fid: new_material.id, object_type: "Material", gw_relation: new_material.generic_work_id)
@@ -187,7 +199,9 @@ module MyImport
     def import(gf)
       depositor = gf.depositor
       # File Set + File
+      start_time = Time.zone.now
       fs = ImportFileSet.new(settings).from_gf(gf, depositor)
+      Rails.logger.debug "fileset creation duration: " + Time.at(Time.now - start_time).utc.strftime("%H:%M:%S")
 
       # Generic Work
       gw = ImportGenericWork.new(settings).from_gf(gf, depositor)
@@ -236,6 +250,7 @@ module MyImport
         items.each do |gf|
           attributes = gf.to_h
           attributes.delete(:id)
+          # attributes.delete(:abstract)
           Osul::Import::Item.create(attributes)
         end
 
@@ -252,6 +267,28 @@ module MyImport
       unimported_items.each do |generic_file|
         Rails.logger.debug "next up -- #{generic_file.fid} "
         import_generic_file(generic_file)
+      end
+    end
+
+    def replay_changes
+      collision_arr = []
+      items_to_replay = Osul::Import::Item.where("created_at > '2016-11-08 01:46:26'")
+      items_to_replay.each_with_index do |generic_file, i|
+        Rails.logger.debug i
+        Rails.logger.debug "next up -- #{generic_file.fid}"
+        fs = FileSet.where(id: generic_file.fid).first
+        if fs.blank?
+          # remove item if it already exists
+          # gw = GenericWork.where(id: generic_file.fid).first
+          # unless gw.blank?
+          #   gw.delete
+          #   gw.eradicate
+          # end
+          # service.import_generic_file(generic_file)
+        else
+          collision_arr << generic_file.fid
+          Rails.logger.debug "fileset name collision"
+        end
       end
     end
 
