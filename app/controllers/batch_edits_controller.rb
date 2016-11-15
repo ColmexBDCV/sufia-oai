@@ -1,6 +1,6 @@
 class BatchEditsController < ApplicationController
   include Hydra::BatchEditBehavior
-  include FileSetHelper
+  include IiifHelper
   include Sufia::BatchEditsControllerBehavior
 
   before_action :disable_turbolinks, only: :edit
