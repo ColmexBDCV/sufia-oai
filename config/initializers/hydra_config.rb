@@ -19,4 +19,6 @@ Hydra.configure do |config|
   #
   # Specify the user model
   # config.user_model = 'User'
+
+  config.permissions.policy_class = AdminPolicy
 end
