@@ -9,7 +9,7 @@ class Import < ActiveRecord::Base
 
   has_attached_file :csv, path: "#{Rails.configuration.x.import.storage_path}/csv/:id/:basename.:extension"
 
-  validates_attachment :csv, content_type: { content_type: ['text/csv', 'application/vnd.ms-excel', 'application/octet-stream'] }
+  validates_attachment_file_name :csv, matches: /\.csv\z/
   validates_attachment_presence :csv
   validates :name, :rights, :preservation_level, :unit_id, :import_type, :server_import_location_name, presence: true
   validate :validate_unit

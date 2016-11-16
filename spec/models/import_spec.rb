@@ -20,7 +20,6 @@ RSpec.describe Import, type: :model do
     it { is_expected.to validate_presence_of(:import_type) }
     it { is_expected.to validate_presence_of(:server_import_location_name) }
     it { is_expected.to validate_attachment_presence(:csv) }
-    it { is_expected.to validate_attachment_content_type(:csv).allowing(allowed_csv_types).rejecting(prohibited_csv_types) }
   end
 
   describe 'attachements' do
