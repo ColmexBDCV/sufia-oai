@@ -1,5 +1,6 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   skip_before_action :verify_authenticity_token, only: :developer
+  skip_before_action :store_current_location
 
   def all
     identity = Identity.from_omniauth request.env['omniauth.auth']

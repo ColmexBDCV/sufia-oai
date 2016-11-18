@@ -3,6 +3,7 @@ class DownloadsController < ApplicationController
   include ImageDetection
 
   before_action :authorize_original_download, only: :show
+  skip_before_action :store_current_location
 
   private
 

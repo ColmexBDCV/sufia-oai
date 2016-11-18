@@ -3,6 +3,7 @@ class IiifGatekeeperController < ApplicationController
 
   before_action :load_file_set
   authorize_resource :file_set, parent: false
+  skip_before_action :store_current_location
 
   def show
     if image?(@file_set)

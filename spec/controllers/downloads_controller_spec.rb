@@ -4,6 +4,10 @@ RSpec.describe DownloadsController, type: :controller do
   let(:unit) { create(:unit) }
   let(:user) { create(:user, unit: unit) }
 
+  describe 'actions' do
+    it { is_expected.not_to use_before_action(:store_current_location) }
+  end
+
   describe "GET #show" do
     context "for an image file" do
       let(:work) { create(:generic_work, :public, :with_image, :without_validations, unit: unit.key, user: user) }

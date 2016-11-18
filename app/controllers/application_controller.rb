@@ -14,6 +14,8 @@ class ApplicationController < ActionController::Base
   include CurationConcerns::ThemedLayoutController
   layout 'sufia-one-column'
 
+  before_action :store_current_location, unless: :devise_controller?
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -34,5 +36,19 @@ class ApplicationController < ActionController::Base
 
   def disable_turbolinks
     @disable_turbolinks = true
+  end
+
+  private
+
+  def store_current_location
+    store_location_for(:user, request.url)
+  end
+
+  def after_sign_in_path_for(resource)
+    stored_location_for(resource) || root_path
+  end
+
+  def after_sign_out_path_for(*)
+    root_path
   end
 end
