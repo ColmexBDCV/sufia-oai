@@ -22,6 +22,7 @@
 /public/uploads
 /public/assets
 /spec/examples.txt
+/spec/fixtures/csv
 /coverage
 /public/system/*
 /public/assets
