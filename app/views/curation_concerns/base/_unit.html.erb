@@ -3,7 +3,7 @@
     <td>
       <ul class="tabular">
         <li class="attribute unit">
-          <a href="/catalog?f%5Bunit_sim%5D%5B%5D=<%= presenter.unit.first %>"><%= Unit.find_by_key(presenter.unit).name %></a>
+          <%= link_to unit_name(presenter.unit.first), unit_catalog_path(presenter.unit.first) %>
         </li>
       </ul>
     </td>
