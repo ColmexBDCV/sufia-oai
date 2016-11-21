@@ -2,10 +2,14 @@ module Overrides
   module Sufia
     module SearchBuilder
       module AdminPolicyControls
-        include Hydra::PolicyAwareAccessControlsEnforcement
+        extend ActiveSupport::Concern
 
-        def logger
-          Rails.logger
+        include ::Hydra::PolicyAwareAccessControlsEnforcement
+
+        included do
+          def logger
+            Rails.logger
+          end
         end
       end
     end
