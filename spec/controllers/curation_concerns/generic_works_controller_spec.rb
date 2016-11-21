@@ -19,6 +19,26 @@ RSpec.describe CurationConcerns::GenericWorksController, type: :controller do
     let(:model) { create(:generic_work, unit: unit1.key) }
   end
 
+  describe "GET #show" do
+    let(:work) { create(:generic_work, unit: unit.key) }
+
+    context "as a user in the work's unit" do
+      let(:user) { create(:user, unit: unit) }
+
+      it "assigns a work show presenter to @presenter" do
+        get :show, id: work
+        expect(assigns(:presenter)).to be_a Sufia::WorkShowPresenter
+      end
+    end
+
+    context "as a user not in the work's unit" do
+      it "redirects to the user" do
+        get :show, id: work.id
+        expect(response.status).to eq(302)
+      end
+    end
+  end
+
   describe "GET #new" do
     let(:user) { create(:user, unit: unit) }
     let(:work) { create(:generic_work, unit: unit.key) }

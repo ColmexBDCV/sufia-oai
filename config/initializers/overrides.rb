@@ -61,4 +61,6 @@ Rails.application.config.to_prepare do
     property :resolution_x, predicate: RDF::Vocab::EXIF.xResolution
     property :resolution_y, predicate: RDF::Vocab::EXIF.yResolution
   end
+
+  Sufia::CatalogSearchBuilder.include Overrides::Sufia::SearchBuilder::AdminPolicyControls
 end
