@@ -78,13 +78,13 @@ Sufia.config do |config|
   config.active_deposit_agreement_acceptance = false
 
   # Should a button with "Share my work" show on the front page to all users (even those not logged in)?
-  # config.always_display_share_button = true
+  config.always_display_share_button = false
 
   # The user who runs batch jobs. Update this if you aren't using emails
-  # config.batch_user_key = 'batchuser@example.com'
+  config.batch_user_key = 'batchuser@library.osu.edu'
 
   # The user who runs audit jobs. Update this if you aren't using emails
-  # config.audit_user_key = 'audituser@example.com'
+  config.audit_user_key = 'audituser@library.osu.edu'
 
   # Temporary path to hold uploads before they are ingested into FCrepo.
   # This must be a lambda that returns a Pathname
