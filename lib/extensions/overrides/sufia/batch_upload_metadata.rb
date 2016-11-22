@@ -1,6 +1,6 @@
 module Overrides
-  module BatchUploadItem
-    module Metadata
+  module Sufia
+    module BatchUploadMetadata
       extend ActiveSupport::Concern
       include ::WorkMetadata
       include ::PhysicalMediaMetadata

@@ -1,13 +1,10 @@
 Rails.application.config.to_prepare do
-  CurationConcerns::PermissionBadge.include Overrides::CurationConcerns::PermissionBadge::BadgeText
+  CurationConcerns::PermissionBadge.include Overrides::CurationConcerns::PermissionBadgeText
 
-  BatchUploadItem.include Overrides::BatchUploadItem::Metadata
+  BatchUploadItem.include Overrides::Sufia::BatchUploadMetadata
+  Sufia::FileSetPresenter.include Overrides::Sufia::CharacterizationTerms
+  Sufia::CatalogSearchBuilder.include Overrides::Sufia::AdminPolicyControls
 
-  Sufia::FileSetPresenter.include Overrides::Sufia::FileSetPresenter::CharacterizationTerms
-
-  Hydra::Works::Characterization::FitsDatastream.include Overrides::Hydra::Works::Characterization::FitsDatastream::ResolutionTerms
-
-  Hydra::Works::Characterization::ImageSchema.include Overrides::Hydra::Works::Characterization::ImageSchema::ResolutionProperties
-
-  Sufia::CatalogSearchBuilder.include Overrides::Sufia::SearchBuilder::AdminPolicyControls
+  Hydra::Works::Characterization::FitsDatastream.include Overrides::Hydra::ResolutionTerms
+  Hydra::Works::Characterization::ImageSchema.include Overrides::Hydra::ResolutionProperties
 end
