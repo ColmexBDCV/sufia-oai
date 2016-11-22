@@ -97,7 +97,7 @@ class Ability
 
     if unit
       Rails.logger.debug("[CANCAN] Unit ID is: #{unit}")
-      result = current_user.member_of? unit, level: Membership::MANAGER_LEVEL
+      result = current_user.member_of? unit, level: [Membership::MANAGER_LEVEL, Membership::CURATOR_LEVEL]
     else
       group_intersection = user_groups & edit_groups(id)
       result = !group_intersection.empty? || edit_users(id).include?(current_user.user_key)

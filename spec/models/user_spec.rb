@@ -126,6 +126,12 @@ RSpec.describe User, type: :model do
       expect(user.member_of?(unit, level: Membership::DATA_ENTRY_LEVEL)).to be false
     end
 
+    it 'returns true when the user is a member of the provided unit at any of the provided membership levels' do
+      create(:membership, user: user, unit: unit, level: Membership::CURATOR_LEVEL)
+      levels = [Membership::MANAGER_LEVEL, Membership::CURATOR_LEVEL]
+      expect(user.member_of?(unit, level: levels)).to be true
+    end
+
     it 'returns true when the user is a member of the provided unit and the unit key is provided' do
       create(:membership, user: user, unit: unit, level: Membership::MANAGER_LEVEL)
       expect(user.member_of?(unit.key)).to be true
