@@ -58,4 +58,13 @@ RSpec.describe ApplicationHelper do
       end
     end
   end
+
+  describe '#url_for' do
+    let(:sufia_controller) { { controller: 'my/works' } }
+    let(:controller_url) { 'http://test.host/dashboard/works' }
+
+    it 'falls back to Sufia routing if a route is not found in main app' do
+      expect(helper.url_for(sufia_controller)).to eq controller_url
+    end
+  end
 end

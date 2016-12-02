@@ -14,4 +14,14 @@ module ApplicationHelper
   def permissions_object_for(obj)
     obj.respond_to?(:solr_document) ? obj.solr_document : obj
   end
+
+  def url_for(options = nil)
+    super
+  rescue ActionController::UrlGenerationError => exception
+    begin
+      sufia.url_for(options)
+    rescue ActionController::UrlGenerationError
+      raise exception
+    end
+  end
 end

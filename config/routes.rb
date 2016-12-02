@@ -73,4 +73,13 @@ Rails.application.routes.draw do
   # This must be the very last route in the file because it has a catch-all route for 404 errors.
   # This behavior seems to show up only in production mode.
   mount Sufia::Engine => '/'
+
+  # Add Units tab to the dashboard
+  Sufia::Engine.routes.draw do
+    scope :dashboard do
+      get '/units',            controller: 'my/units', action: :index, as: 'dashboard_units'
+      get '/units/page/:page', controller: 'my/units', action: :index
+      get '/units/facet/:id',  controller: 'my/units', action: :facet, as: 'dashboard_units_facet'
+    end
+  end
 end

@@ -24,6 +24,9 @@
   <li class="<%= "active" if @selected_tab == 'shared' %>">
     <%= link_to t('sufia.dashboard.my.shares'), sufia.dashboard_shares_path %>
   </li>
+  <li class="<%= "active" if @selected_tab == 'units' %>">
+    <%= link_to 'Unit Works', sufia.dashboard_units_path %>
+  </li>
 </ul>
 
 <%= render 'search_header' %>

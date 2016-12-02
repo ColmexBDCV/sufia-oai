@@ -4,12 +4,7 @@ module Overrides
       extend ActiveSupport::Concern
 
       include ::Hydra::PolicyAwareAccessControlsEnforcement
-
-      included do
-        def logger
-          Rails.logger
-        end
-      end
+      include ::HasLogger
     end
   end
 end
