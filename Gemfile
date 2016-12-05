@@ -54,6 +54,7 @@ group :development do
   gem 'foreman'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'newrelic_rpm'
 end
 
 group :test do
