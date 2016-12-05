@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   include Sufia::UsersControllerBehavior
 
+  skip_before_action :store_current_location
+
   protected
 
   def user_params
