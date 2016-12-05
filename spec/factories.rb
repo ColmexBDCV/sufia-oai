@@ -27,6 +27,7 @@ FactoryGirl.define do
     trait :public do
       visibility Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
     end
+    trait :private
 
     trait :without_validations do
       to_create {|instance| instance.save(validate: false) }
@@ -52,6 +53,13 @@ FactoryGirl.define do
       user { create(:user) }
       content nil
     end
+
+    visibility Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
+
+    trait :public do
+      visibility Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
+    end
+    trait :private
 
     after(:create) do |file, evaluator|
       if evaluator.content
