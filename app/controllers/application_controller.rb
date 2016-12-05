@@ -20,13 +20,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  rescue_from CanCan::AccessDenied do
-    if user_signed_in?
-      redirect_to main_app.root_path, alert: 'You are not authorized to view this resource.'
-    else
-      redirect_to omniauth_authorize_path(:user, login_strategy)
-    end
-  end
+  rescue_from CanCan::AccessDenied, with: :authenticate_or_deny_access
 
   def not_found
     raise ActionController::RoutingError, 'Not Found'
@@ -50,5 +44,13 @@ class ApplicationController < ActionController::Base
 
   def after_sign_out_path_for(*)
     root_path
+  end
+
+  def authenticate_or_deny_access
+    if user_signed_in?
+      redirect_to main_app.root_path, alert: 'You are not authorized to view this resource.'
+    else
+      redirect_to omniauth_authorize_path(:user, login_strategy)
+    end
   end
 end
