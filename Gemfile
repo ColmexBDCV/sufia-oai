@@ -33,6 +33,7 @@ gem 'fcrepo_wrapper'
 gem 'openseadragon', '0.2.1'
 gem 'sidekiq-failures'
 gem 'hashie', '~> 3.4'
+gem 'newrelic_rpm'
 
 group :development, :test do
   gem 'byebug'
@@ -54,7 +55,6 @@ group :development do
   gem 'foreman'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'newrelic_rpm'
 end
 
 group :test do
