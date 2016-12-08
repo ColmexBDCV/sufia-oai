@@ -189,11 +189,13 @@
     <fieldType name="call_number_edge_ngram" class="solr.TextField" positionIncrementGap="100">
       <analyzer type="index">
         <tokenizer class="solr.KeywordTokenizerFactory"/>
-        <filter class="solr.EdgeNGramFilterFactory" minGramSize="2" maxGramSize="15" />
+        <filter class="solr.PatternReplaceFilterFactory" pattern="(\s+)" replacement="" replace="all" />
+        <filter class="solr.EdgeNGramFilterFactory" minGramSize="2" maxGramSize="30" />
         <filter class="solr.LowerCaseFilterFactory"/>
       </analyzer>
       <analyzer type="query">
         <tokenizer class="solr.KeywordTokenizerFactory"/>
+        <filter class="solr.PatternReplaceFilterFactory" pattern="(\s+)" replacement="" replace="all" />
         <filter class="solr.LowerCaseFilterFactory"/>
       </analyzer>
     </fieldType>
