@@ -39,6 +39,9 @@ Icon
 .Spotlight-V100
 .Trashes
 
+## Sitemap
+public/sitemap.xml
+
 # Windows hidden files
 Thumbs.db
 ehthumbs.db
