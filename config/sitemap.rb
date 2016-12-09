@@ -26,15 +26,15 @@ SitemapGenerator::Sitemap.create do
   #   end
   User.all.each do |user|
     add Sufia::Engine.routes.url_helpers.profile_path(user.email),
-            priority: 0.8, changefreq: 'daily'
+        priority: 0.8, changefreq: 'daily'
   end
   read_group = Solrizer.solr_name('read_access_group', :symbol)
   GenericWork.where(read_group => 'public').each do |f|
     add Rails.application.routes.url_helpers.curation_concerns_generic_work_path(f),
-            priority: 1, changefreq: 'weekly'
+        priority: 1, changefreq: 'weekly'
   end
   Collection.where(read_group => 'public').each do |c|
     add Rails.application.routes.url_helpers.collection_path(c),
-            priority: 1, changefreq: 'weekly'
+        priority: 1, changefreq: 'weekly'
   end
 end
