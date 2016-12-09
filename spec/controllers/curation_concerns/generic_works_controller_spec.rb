@@ -1,5 +1,6 @@
 require 'rails_helper'
 require 'controllers/concerns/set_units_behavior'
+require 'controllers/concerns/tombstoneable'
 
 RSpec.describe CurationConcerns::GenericWorksController, type: :controller do
   let(:user) { create(:user) }
@@ -17,6 +18,10 @@ RSpec.describe CurationConcerns::GenericWorksController, type: :controller do
 
   it_behaves_like "set_units_behavior" do
     let(:model) { create(:generic_work, unit: unit1.key) }
+  end
+
+  it_behaves_like "tombstoneable" do
+    let(:factory) { :generic_work }
   end
 
   describe "GET #show" do

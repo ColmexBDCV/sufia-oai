@@ -3,8 +3,5 @@ class SearchBuilder < Blacklight::SearchBuilder
   include Hydra::AccessControlsEnforcement
   include CurationConcerns::SearchFilters
   include Hydra::PolicyAwareAccessControlsEnforcement
-
-  def logger
-    Rails.logger
-  end
+  include HasLogger
 end

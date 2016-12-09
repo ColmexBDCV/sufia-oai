@@ -16,9 +16,9 @@ FactoryGirl.define do
 
     title ['Test title']
     visibility Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
+    unit { create(:unit).key }
 
     before(:create) do |work, evaluator|
-      work.unit = create(:unit).key unless work.unit.present?
       work.apply_depositor_metadata(evaluator.user.user_key)
     end
 
@@ -27,6 +27,7 @@ FactoryGirl.define do
     trait :public do
       visibility Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
     end
+    trait :private
 
     trait :without_validations do
       to_create {|instance| instance.save(validate: false) }
@@ -52,6 +53,13 @@ FactoryGirl.define do
       user { create(:user) }
       content nil
     end
+
+    visibility Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PRIVATE
+
+    trait :public do
+      visibility Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
+    end
+    trait :private
 
     after(:create) do |file, evaluator|
       if evaluator.content
@@ -83,9 +91,22 @@ FactoryGirl.define do
   factory :unit do
     name "My Unit"
     key "myunit"
+    initialize_with { Unit.find_or_create_by(key: key)}
+
+    trait :allow_duplicate do
+      initialize_with { new }
+    end
   end
 
   factory :collection do
+    transient do
+      user { create(:user) }
+    end
+
+    before(:create) do |collection, evaluator|
+      collection.apply_depositor_metadata(evaluator.user.user_key)
+    end
+
     title ['My Collection']
 
     trait :public do
@@ -126,11 +147,17 @@ FactoryGirl.define do
       unit nil
     end
 
+    initialize_with { User.find_or_create_by(email: email)}
+
     email 'test@example.com'
     password 'password'
 
     factory :admin_user do
       admin true
+    end
+
+    trait :allow_duplicate do
+      initialize_with { new }
     end
 
     after(:create) do |user, evaluator|

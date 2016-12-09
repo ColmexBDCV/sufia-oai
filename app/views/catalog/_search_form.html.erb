@@ -23,12 +23,12 @@
                 data: { "search-option" => main_app.search_catalog_path, "search-label" => t("sufia.search.form.option.all.label_short") } %>
           </li>
           <li>
-            <%= link_to t("sufia.search.form.option.my_works.label_long"), "#",
-                data: { "search-option" => sufia.dashboard_works_path, "search-label" => t("sufia.search.form.option.my_works.label_short") } %>
+            <%= link_to 'Works I Manage', "#",
+                data: { "search-option" => sufia.dashboard_units_path, "search-label" => 'Managed Works' } %>
           </li>
           <li>
-            <%= link_to t("sufia.search.form.option.my_collections.label_long"), "#",
-                data: { "search-option" => sufia.dashboard_collections_path, "search-label" => t("sufia.search.form.option.my_collections.label_short") } %>
+            <%= link_to t("sufia.search.form.option.my_works.label_long"), "#",
+                data: { "search-option" => sufia.dashboard_works_path, "search-label" => t("sufia.search.form.option.my_works.label_short") } %>
           </li>
           <li>
             <%= link_to t("sufia.search.form.option.my_shares.label_long"), "#",

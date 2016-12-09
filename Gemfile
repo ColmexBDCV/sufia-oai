@@ -34,6 +34,7 @@ gem 'openseadragon', '0.2.1'
 gem 'sidekiq-failures'
 gem 'hashie', '~> 3.4'
 gem 'sitemap_generator'
+gem 'newrelic_rpm'
 
 group :development, :test do
   gem 'byebug'

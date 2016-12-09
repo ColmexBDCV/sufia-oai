@@ -26,11 +26,7 @@
 		        <%- end -%>
               <% link_options = add_facet_params(solr_field, item.value).merge!({ controller: controller_name, action: action_name }) %>
               <span class="facet-label">
-                <%- if controller_name == "catalog" %>
-                  <%=link_to h(Unit.find_by_key(item.value)&.name), url_for(link_options) %>
-                <%- else %>
-                  <%=link_to h(Unit.find_by_key(item.value)&.name), sufia.url_for(link_options) %>
-                <%- end %>
+                <%=link_to h(Unit.find_by_key(item.value)&.name), url_for(link_options) %>
               </span>
               <span class="facet-count" style="width: 8px;"><%= item.hits %></span>
             </li>

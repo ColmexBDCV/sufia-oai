@@ -3,6 +3,7 @@ module CurationConcerns
     include CurationConcerns::CurationConcernController
     include Sufia::WorksControllerBehavior
     include ::SetUnitsBehavior
+    include ::Tombstoneable
 
     self.curation_concern_type = GenericWork
 

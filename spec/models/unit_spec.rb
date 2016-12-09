@@ -9,7 +9,7 @@ RSpec.describe Unit, type: :model do
 
     it 'validates that :key is case-sensitively unique' do
       create(:unit, key: 'myunit')
-      unit = build(:unit, name: 'Unit2', key: 'myunit')
+      unit = build(:unit, :allow_duplicate, name: 'Unit2', key: 'myunit')
       expect(unit).not_to be_valid
     end
   end
