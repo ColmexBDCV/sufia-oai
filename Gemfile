@@ -35,6 +35,7 @@ gem 'sidekiq-failures'
 gem 'hashie', '~> 3.4'
 gem 'sitemap_generator'
 gem 'newrelic_rpm'
+gem 'whenever'
 
 group :development, :test do
   gem 'byebug'

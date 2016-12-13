@@ -1,6 +1,9 @@
 # config valid only for current version of Capistrano
 lock '3.5.0'
 
+set :whenever_identifier, -> { "#{fetch(:application)}_#{fetch(:stage)}" }
+set :whenever_command, "bundle exec whenever"
+
 set :application, 'purple'
 set :scm, :git
 set :repo_url, 'git@code.osu.edu:osul-ads/purple.git'
@@ -14,7 +17,7 @@ set :rvm_ruby_version, 'ruby-2.3.1'
 set :deploy_to, "/var/www/purple"
 set :tmp_dir, "/var/www/tmp"
 
-set :linked_files, %w(.env config/analytics.yml config/blacklight.yml config/database.yml config/fedora.yml config/redis.yml config/solr.yml config/handle_server.yml)
+set :linked_files, %w(.env public/sitemap.xml.gz config/analytics.yml config/blacklight.yml config/database.yml config/fedora.yml config/redis.yml config/solr.yml config/handle_server.yml)
 set :linked_dirs, %w(log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/assets)
 
 set :pty, false
