@@ -12,7 +12,7 @@ class Ability
 
   # Define any customized permissions here.
   def custom_permissions
-    can :create, ActiveFedora::Base if current_user.in_unit?
+    can [:create, :publish], ActiveFedora::Base if current_user.in_unit?
     can :create, Collection if current_user.in_unit?
 
     can :view, :admin_menu if current_user.admin? || current_user.manager?
