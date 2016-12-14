@@ -18,6 +18,6 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
-every :saturday, at: '5:00 am' do
+every :saturday, at: '5:00 am', role: :web do
   rake "-s sitemap:refresh"
 end

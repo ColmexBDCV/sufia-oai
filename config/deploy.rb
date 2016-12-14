@@ -2,7 +2,7 @@
 lock '3.5.0'
 
 set :whenever_identifier, -> { "#{fetch(:application)}_#{fetch(:stage)}" }
-#set :whenever_command, "bundle exec whenever"
+# set :whenever_command, "bundle exec whenever"
 
 set :application, 'purple'
 set :scm, :git
