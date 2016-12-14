@@ -5,9 +5,11 @@ Rails.application.routes.draw do
   mount Blacklight::Engine => '/'
 
   concern :searchable, Blacklight::Routes::Searchable.new
+  concern :oai_provider, BlacklightOaiProvider::Routes::Provider.new
 
   resource :catalog, only: [:index], as: 'catalog', path: '/catalog', controller: 'catalog' do
     concerns :searchable
+    concerns :oai_provider
   end
 
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }

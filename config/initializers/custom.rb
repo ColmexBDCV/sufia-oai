@@ -11,3 +11,4 @@ Rails.application.config.x.iiif = Hashie::Mash.new(
 )
 
 Rails.application.config.x.feedback_url = ENV['FEEDBACK_FORM_URL']
+Rails.application.config.x.base_url = ENV['BASE_URL'] || 'http://localhost/'

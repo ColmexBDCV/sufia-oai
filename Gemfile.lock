@@ -1,3 +1,13 @@
+GIT
+  remote: https://github.com/osulibraries/blacklight_oai_provider.git
+  revision: 4ad5ae18fde1569d3cccc08d0a94b4064398f172
+  branch: master
+  specs:
+    blacklight_oai_provider (1.0.0)
+      blacklight (~> 6.0)
+      oai
+      rails (~> 4.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -246,6 +256,8 @@ GEM
       railties (>= 3.0.0)
     faraday (0.9.2)
       multipart-post (>= 1.2, < 3)
+    faraday_middleware (0.10.1)
+      faraday (>= 0.7.4, < 1.0)
     fcrepo_wrapper (0.5.2)
       ruby-progressbar
     flot-rails (0.0.6)
@@ -430,6 +442,10 @@ GEM
       activesupport (>= 3.2.18)
       i18n
       nokogiri
+    oai (0.4.0)
+      builder (>= 3.1.0)
+      faraday
+      faraday_middleware
     oauth (0.5.1)
     oauth2 (0.9.4)
       faraday (>= 0.8, < 0.10)
@@ -768,6 +784,7 @@ DEPENDENCIES
   awesome_nested_fields
   better_errors
   binding_of_caller
+  blacklight_oai_provider!
   byebug
   capistrano (~> 3.5.0)
   capistrano-rails
