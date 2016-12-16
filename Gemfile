@@ -36,6 +36,7 @@ gem 'hashie', '~> 3.4'
 gem 'sitemap_generator'
 gem 'newrelic_rpm'
 gem 'whenever'
+gem 'blacklight_oai_provider', git: 'https://github.com/osulibraries/blacklight_oai_provider.git', branch: 'master'
 
 group :development, :test do
   gem 'byebug'

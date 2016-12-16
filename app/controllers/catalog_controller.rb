@@ -4,6 +4,7 @@ class CatalogController < ApplicationController
   include Sufia::Catalog
   include BlacklightAdvancedSearch::Controller
   include Hydra::PolicyAwareAccessControlsEnforcement
+  include BlacklightOaiProvider::CatalogControllerBehavior
 
   # These before_filters apply the hydra access controls
   before_action :enforce_show_permissions, only: :show
@@ -313,6 +314,18 @@ class CatalogController < ApplicationController
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.
     config.spell_max = 5
+
+    # Add OAI-PMH support
+    config.oai = {
+      provider: {
+        repository_name: 'The Ohio State University Libraries Digital Collections',
+        record_prefix: '',
+        admin_email: Sufia.config.contact_email
+      },
+      document: {
+        limit: 25
+      }
+    }
   end
 
   def index
