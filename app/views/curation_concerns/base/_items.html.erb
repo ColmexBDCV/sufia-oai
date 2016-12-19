@@ -12,7 +12,7 @@
       </tr>
     </thead>
     <tbody>
-      <%= render partial: 'member', collection: presenter.member_presenters %>
+      <%= render partial: 'member', layout: 'member_permissions_layout', collection: presenter.member_presenters %>
     </tbody>
   </table>
 </div>
