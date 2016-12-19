@@ -38,6 +38,10 @@ module Sufia
       Sufia::Engine.routes.url_helpers.stats_work_path(self)
     end
 
+    def authorized_member_presenters(action = :read, type = :member)
+      instance_variable_get("@#{action}_authorized_#{type}_presenters") || authorize_member_presenters(action, type)
+    end
+
     private
 
     def featured?
@@ -49,6 +53,14 @@ module Sufia
 
     def user_can_feature_works?
       current_ability.can?(:create, FeaturedWork)
+    end
+
+    def authorize_member_presenters(action, type)
+      presenters = []
+      send("#{type}_presenters").each do |member|
+        presenters << member if @current_ability.can?(action, member.id)
+      end
+      instance_variable_set("@#{action}_authorized_#{type}_presenters", presenters)
     end
   end
 end
