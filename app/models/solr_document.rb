@@ -4,6 +4,7 @@ class SolrDocument
   include Blacklight::Gallery::OpenseadragonSolrDocument
   include MetadataIndexTerms
   include CharacterizationIndexTerms
+  include Iiifable
 
   # Adds CurationConcerns behaviors to the SolrDocument.
   include CurationConcerns::SolrDocumentBehavior
@@ -67,5 +68,15 @@ class SolrDocument
 
   def oai_identifier
     [*identifier] + [*handle].map { |handle| "http://hdl.handle.net/#{handle}" }
+  end
+
+  delegate :under_copyright?, to: :to_model
+
+  def original_file_id
+    self[:original_file_id_ss]
+  end
+
+  def original_file_version
+    self[:original_file_version_ss]
   end
 end

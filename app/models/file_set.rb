@@ -3,14 +3,9 @@ class FileSet < ActiveFedora::Base
   include ::CurationConcerns::FileSetBehavior
   include Sufia::FileSetBehavior
   include ManagedByUnit
+  include Iiifable
 
   self.indexer = FileSetIndexer
-
-  # Eventually will have to be moved to presenter / and solrdocument for speedier results
-  def loris_id(*additional)
-    id_parts = [ActiveFedora::Noid.treeify(original_file.id), original_file.versions.last.label] + additional
-    id_parts.reject(&:blank?).join('-')
-  end
 
   def under_copyright?
     if parent.respond_to? :under_copyright?
@@ -20,17 +15,13 @@ class FileSet < ActiveFedora::Base
     end
   end
 
-  def self.decode_loris_id(id, *additional)
-    id = id.dup
-    id.gsub!(/-version[0-9]+/, '')
-    additional.each { |addl| id.gsub!("-#{addl}", '') }
-    parts = id.split('/')
-    { file_set_id: parts[4], file_id: parts[6] }
-  end
-
   # Override image mime types to include 'application/octet-stream'
   def self.image_mime_types
     super << 'application/octet-stream'
+  end
+
+  def to_solr
+    super.merge!(original_file_id_ss: original_file_id, original_file_version_ss: original_file_version)
   end
 
   private
@@ -38,5 +29,13 @@ class FileSet < ActiveFedora::Base
   def set_admin_policy
     self.unit = parent&.unit if parent.present?
     super
+  end
+
+  def original_file_id
+    original_file&.id
+  end
+
+  def original_file_version
+    original_file.versions.last.label if original_file&.versions&.any?
   end
 end

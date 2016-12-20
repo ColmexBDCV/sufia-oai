@@ -16,9 +16,9 @@ xml.item do
   # TODO: This hits Fedora and needs to be refactored to use Solr
   if document.representative_id.present?
     begin
-      file_set = FileSet.find document.representative_id
-      if file_set.image?
-        xml.media :content, url: iiif_image_url(file_set.id), type: 'image/jpeg', medium: 'image'
+      representative = SolrDocument.new(ActiveFedora::Base.search_by_id(document.representative_id))
+      if representative.image?
+        xml.media :content, url: iiif_derivative_url(representative), type: 'image/jpeg', medium: 'image'
       end
     rescue
       # Do not add a media element if errors occur

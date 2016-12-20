@@ -7,7 +7,7 @@ class GenericWork < ActiveFedora::Base
   include ManagedByUnit
 
   OPEN_RIGHTS = ['http://creativecommons.org/publicdomain/mark/1.0/',
-                 'http://creativecommons.org/publicdomain/zero/1.0',
+                 'http://creativecommons.org/publicdomain/zero/1.0/',
                  'https://library.osu.edu/statements/rights/pre-1923/'].freeze
 
   self.human_readable_type = 'Work'

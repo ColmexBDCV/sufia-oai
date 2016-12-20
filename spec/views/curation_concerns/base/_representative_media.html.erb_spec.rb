@@ -5,7 +5,7 @@ RSpec.describe 'curation_concerns/base/_representative_media.html.erb', type: :v
 
   before do
     view.extend Openseadragon::OpenseadragonHelper
-    allow(view).to receive(:loris_url_for).and_return('http://example.com/wd/37/5w/29/wd375w296/files/ed0115bd-cff7-465d-8e62-659d08cb4ccc-version1')
+    allow(view).to receive(:iiif_url_for).and_return('http://example.com/wd/37/5w/29/wd375w296/files/ed0115bd-cff7-465d-8e62-659d08cb4ccc-version1')
   end
 
   context 'for a work with a representative image file' do
