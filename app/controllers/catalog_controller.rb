@@ -319,7 +319,8 @@ class CatalogController < ApplicationController
     config.oai = {
       provider: {
         repository_name: 'The Ohio State University Libraries Digital Collections',
-        record_prefix: '',
+        record_prefix: 'oai:library.osu.edu',
+        sample_id: 'dc/g733fx36w',
         admin_email: Sufia.config.contact_email
       },
       document: {
