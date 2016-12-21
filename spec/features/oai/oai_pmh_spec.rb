@@ -18,13 +18,23 @@ RSpec.feature 'OAI-PMH catalog endpoint' do
   end
 
   describe 'GetRecord verb' do
-    scenario 'displays a single record' do
-      work = create(:generic_work)
-      identifier = "oai:library.osu.edu:dc/#{work.id}"
+    let(:work) { create(:generic_work) }
+    let(:identifier) { "oai:library.osu.edu:dc/#{work.id}" }
 
+    scenario 'displays a single record' do
       visit oai_provider_catalog_path(verb: 'GetRecord', metadataPrefix: 'oai_dc', identifier: identifier)
       expect(page).to have_selector('record', count: 1)
       expect(page).to have_content(identifier)
+    end
+
+    context 'when record has a handle' do
+      let(:work) { create(:generic_work, handle: ['1234/abcdef'], identifier: ['anid']) }
+
+      scenario 'displays the handle and identifier' do
+        visit oai_provider_catalog_path(verb: 'GetRecord', metadataPrefix: 'oai_dc', identifier: identifier)
+        expect(page).to have_content('http://hdl.handle.net/1234/abcdef')
+        expect(page).to have_content('anid')
+      end
     end
   end
 

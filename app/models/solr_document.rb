@@ -21,7 +21,7 @@ class SolrDocument
                          date:        Solrizer.solr_name('date_created'),
                          description: Solrizer.solr_name('description'),
                          format:      Solrizer.solr_name('format'),
-                         identifier:  Solrizer.solr_name('identifier'),
+                         identifier:  'oai_identifier',
                          language:    Solrizer.solr_name('language'),
                          publisher:   Solrizer.solr_name('publisher'),
                          rights:      Solrizer.solr_name('rights'),
@@ -53,5 +53,15 @@ class SolrDocument
 
   def self.timestamp_field
     'system_modified_dtsi'
+  end
+
+  # Override SolrDocument hash access for certain virtual fields
+  def [](key)
+    return send(key) if ['oai_identifier'].include?(key)
+    super
+  end
+
+  def oai_identifier
+    [*identifier] + [*handle].map { |handle| "http://hdl.handle.net/#{handle}" }
   end
 end
