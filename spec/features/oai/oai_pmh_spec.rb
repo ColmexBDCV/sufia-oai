@@ -17,6 +17,17 @@ RSpec.feature 'OAI-PMH catalog endpoint' do
     end
   end
 
+  describe 'GetRecord verb' do
+    scenario 'displays a single record' do
+      work = create(:generic_work)
+      identifier = "oai:library.osu.edu:dc/#{work.id}"
+
+      visit oai_provider_catalog_path(verb: 'GetRecord', metadataPrefix: 'oai_dc', identifier: identifier)
+      expect(page).to have_selector('record', count: 1)
+      expect(page).to have_content(identifier)
+    end
+  end
+
   describe 'ListSets verb' do
     scenario 'shows that no sets exist' do
       visit oai_provider_catalog_path(verb: 'ListSets')
