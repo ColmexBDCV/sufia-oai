@@ -106,4 +106,15 @@ RSpec.describe BatchImportService do
     expect(pid).to eq(nil)
     expect(title).to eq("Dreese")
   end
+
+  it "allows subject containing commas" do
+    batch_import = described_class.new(import1, user)
+
+    row = ["image", "Dreese", "Dreese Hall photo", "building", "osu", nil, "foo, bar", "another subject", "50 x 25 cm", "paper", nil, "179.jpg", "Bartos, Chris", nil]
+    current_row = 1
+    files = [{ filename: "181.jpg", title: "Hayes" }]
+
+    work = batch_import.import_item(row, current_row, files)
+    expect(work.subject).to include('foo, bar', 'another subject')
+  end
 end
