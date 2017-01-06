@@ -5,7 +5,7 @@ class BatchEditForm < Sufia::Forms::BatchEditForm
                 :rights, :provenance, :publisher, :date_created, :subject,
                 :language, :identifier, :based_near, :related_url, :work_type,
                 :spatial, :alternative, :temporal, :format, :staff_notes,
-                :source, :sub_collection]
+                :source, :collection_name, :sub_collection]
 
   def self.build_permitted_params
     super + [:visibility]
