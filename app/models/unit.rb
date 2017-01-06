@@ -17,6 +17,18 @@ class Unit < ActiveRecord::Base
 
   scope :visible, -> { where(visible: true) }
 
+  def self.spec_from_key(key)
+    "unit:#{key}"
+  end
+
+  def self.key_from_spec(spec)
+    spec.sub('unit:', '')
+  end
+
+  def spec
+    self.class.spec_from_key(key)
+  end
+
   private
 
   def add_admin_policy

@@ -51,8 +51,12 @@ class SolrDocument
   # Do content negotiation for AF models.
   use_extension Hydra::ContentNegotiation
 
-  def self.timestamp_field
-    'system_modified_dtsi'
+  def timestamp
+    Time.parse(fetch('system_modified_dtsi', Time.at(0).utc.to_s)).utc
+  end
+
+  def sets
+    OpenStruct.new(spec: Unit.spec_from_key(unit.first)) if unit
   end
 
   # Override SolrDocument hash access for certain virtual fields

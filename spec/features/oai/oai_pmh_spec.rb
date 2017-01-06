@@ -39,9 +39,12 @@ RSpec.feature 'OAI-PMH catalog endpoint' do
   end
 
   describe 'ListSets verb' do
-    scenario 'shows that no sets exist' do
+    scenario 'shows a set for each unit' do
+      create(:unit)
+      create(:unit, key: 'foo', name: 'Foo')
+
       visit oai_provider_catalog_path(verb: 'ListSets')
-      expect(page).to have_content('This repository does not support sets')
+      expect(page).to have_selector('set', count: 2)
     end
   end
 
