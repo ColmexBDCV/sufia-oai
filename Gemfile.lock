@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/osulibraries/blacklight_oai_provider.git
-  revision: 4ae6bb94d5c50c36d79cb8e422a08dbcff8979a8
+  revision: 61f12aeb14488feaaa79721a8f8520d6953fdb65
   branch: master
   specs:
-    blacklight_oai_provider (1.2.2)
+    blacklight_oai_provider (1.2.3)
       blacklight (>= 6.1)
       oai (~> 0.4.0)
       rails (>= 4.2)
