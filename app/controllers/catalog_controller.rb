@@ -327,7 +327,7 @@ class CatalogController < ApplicationController
         limit: 25,
         timestamp_field: 'system_modified_dtsi',
         sets: -> { Unit.visible },
-        set_query: -> spec { "unit_ssim:#{Unit.key_from_spec(spec)}" }
+        set_query: ->(spec) { "unit_ssim:#{Unit.key_from_spec(spec)}" }
       }
     }
   end
