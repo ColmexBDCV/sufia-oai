@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   resource :catalog, only: [:index], as: 'catalog', path: '/catalog', controller: 'catalog' do
     concerns :searchable
-    concerns :oai_provider
+    concerns :oai_provider, controller: 'oai'
   end
 
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }

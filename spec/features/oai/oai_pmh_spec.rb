@@ -9,8 +9,15 @@ RSpec.feature 'OAI-PMH catalog endpoint' do
   end
 
   describe 'ListRecords verb' do
+    before { create_list(:generic_work, 3, :public) }
+
     scenario 'displays all records' do
-      create_list(:generic_work, 3, :public)
+      visit oai_provider_catalog_path(verb: 'ListRecords', metadataPrefix: 'oai_dc')
+      expect(page).to have_selector('record', count: 3)
+    end
+
+    scenario 'only displays works' do
+      create(:collection, :public)
 
       visit oai_provider_catalog_path(verb: 'ListRecords', metadataPrefix: 'oai_dc')
       expect(page).to have_selector('record', count: 3)
