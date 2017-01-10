@@ -5,6 +5,7 @@ module Iiifable
   # original_file_version methods
 
   def iiif_id(*additional)
+    return unless original_file_id
     id_parts = [ActiveFedora::Noid.treeify(original_file_id), original_file_version] + additional
     id_parts.reject(&:blank?).join('-')
   end

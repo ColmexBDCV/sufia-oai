@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'models/concerns/iiifable'
 
 RSpec.describe FileSet do
   let(:mime_types) { ['image/png', 'image/jpeg', 'image/jpg', 'image/jp2', 'image/bmp', 'image/gif', 'image/tiff', 'application/octet-stream'] }
@@ -8,4 +9,6 @@ RSpec.describe FileSet do
       expect(described_class.image_mime_types).to eq mime_types
     end
   end
+
+  it_behaves_like 'iiifable'
 end
