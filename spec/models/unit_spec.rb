@@ -30,12 +30,6 @@ RSpec.describe Unit, type: :model do
     end
   end
 
-  describe '.key_from_spec' do
-    it 'returns a unit key given an OAI-PMH set spec' do
-      expect(described_class.key_from_spec(spec)).to eq key
-    end
-  end
-
   describe '#spec' do
     it 'returns an OAI-PMH set spec for the unit' do
       expect(unit.spec).to eq 'unit:myunit'

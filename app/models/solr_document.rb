@@ -56,7 +56,7 @@ class SolrDocument
   end
 
   def sets
-    OpenStruct.new(spec: Unit.spec_from_key(unit.first)) if unit
+    OaiSet.new(Unit.spec_from_key(unit.first)) if unit
   end
 
   # Override SolrDocument hash access for certain virtual fields

@@ -21,10 +21,6 @@ class Unit < ActiveRecord::Base
     "unit:#{key}"
   end
 
-  def self.key_from_spec(spec)
-    spec.sub('unit:', '')
-  end
-
   def spec
     self.class.spec_from_key(key)
   end
