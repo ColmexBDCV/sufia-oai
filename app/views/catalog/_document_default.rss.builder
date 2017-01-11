@@ -13,12 +13,12 @@ xml.item do
     end
   end
 
-  # TODO: This hits Fedora and needs to be refactored to use Solr
   if document.representative_id.present?
     begin
       representative = SolrDocument.new(ActiveFedora::Base.search_by_id(document.representative_id))
       if representative.image?
-        xml.media :content, url: iiif_derivative_url(representative), type: 'image/jpeg', medium: 'image'
+        xml.media :content, url: iiif_derivative_url(representative, size: 'full'), type: 'image/jpeg', medium: 'image'
+        xml.iiif :baseUri, iiif_url_for(representative)
       end
     rescue
       # Do not add a media element if errors occur
