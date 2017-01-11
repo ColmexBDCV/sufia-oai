@@ -9,7 +9,7 @@ RSpec.shared_examples_for "characterization_index_terms" do
        :original_checksum, :page_count, :profile_name, :profile_version,
        :resolution_unit, :resolution_x, :resolution_y, :sample_rate,
        :scanning_software, :well_formed]
-     end
+    end
 
     it "has characterization metadata methods" do
       expect(subject).to respond_to(*fields)

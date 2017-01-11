@@ -30,14 +30,14 @@ RSpec.describe SolrDocument do
     subject { described_class.new(system_modified_dtsi: date_modified) }
     let(:date_modified) { '2016-09-28T17:59:28Z' }
 
-    it 'should return the UTC last modified time' do
+    it 'returns the UTC last modified time' do
       expect(subject.timestamp.iso8601).to eq date_modified
       expect(subject.timestamp).to be_a Time
     end
   end
 
   describe '#[]' do
-    it 'should pass certain keys through without Solrizing' do
+    it 'passes certain keys through without Solrizing' do
       expect(subject).to receive(:oai_identifier)
       subject['oai_identifier']
     end
@@ -63,6 +63,20 @@ RSpec.describe SolrDocument do
     context 'with a handle' do
       let(:properties) { { handle: %w(1234/myhandle) } }
       it { is_expected.to eq ['http://hdl.handle.net/1234/myhandle'] }
+    end
+  end
+
+  describe '#iiif_id (without original_file_id)' do
+    let(:work) { create(:file_set, :image) }
+
+    before do
+      allow(subject).to receive(:original_file_id).and_return(nil)
+      allow(subject).to receive(:original_file_version).and_return(nil)
+    end
+
+    it 'falls back to the file set' do
+      expect(subject.iiif_id).to include(work.original_file.id)
+      expect(subject.iiif_id).to include('version1')
     end
   end
 end

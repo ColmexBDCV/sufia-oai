@@ -8,7 +8,7 @@ RSpec.shared_examples_for "metadata_index_terms" do
        :spatial, :staff_notes, :abstract, :temporal, :work_type, :material,
        :material_type, :measurement, :measurement_unit, :measurement_type,
        :collection_name, :sub_collection, :collection_identifier]
-     end
+    end
 
     it "has indexed metadata methods" do
       expect(subject).to respond_to(*fields)

@@ -24,18 +24,16 @@ class FileSet < ActiveFedora::Base
     super.merge!(original_file_id_ss: original_file_id, original_file_version_ss: original_file_version)
   end
 
+  delegate :id, to: :original_file, prefix: true, allow_nil: true
+
+  def original_file_version
+    original_file.versions.last.label if original_file&.versions&.any?
+  end
+
   private
 
   def set_admin_policy
     self.unit = parent&.unit if parent.present?
     super
-  end
-
-  def original_file_id
-    original_file&.id
-  end
-
-  def original_file_version
-    original_file.versions.last.label if original_file&.versions&.any?
   end
 end
