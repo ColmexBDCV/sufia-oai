@@ -12,8 +12,8 @@ module GenericWorkHelper
       presenter.attribute_to_html(:keyword, render_as: :faceted ),
       presenter.attribute_to_html(:date_created, render_as: :linked, search_field: 'date_created_tesim', label: 'Date' ),
       presenter.attribute_to_html(:identifier),
-      presenter.attribute_to_html(:archival_unit, render_as: :faceted),
-      presenter.attribute_to_html(:unit, render_as: :faceted),
+      presenter.attribute_to_html(:archival_unit, render_as: :ead, label: 'Archival Unit'),
+      presenter.attribute_to_html(:unit, render_as: :unit),
       presenter.attribute_to_html(:collection_name, render_as: :faceted, label: 'Collection'),
       presenter.attribute_to_html(:sub_collection, render_as: :faceted, label: 'Sub-Collection'),
       presenter.attribute_to_html(:bibliographic_citation, render_as: :linked, search_field: 'bibliographic_citation_tesim', label: 'Published In'),
@@ -41,11 +41,11 @@ module GenericWorkHelper
   end
 
   def ead_resolver(ead_id)
-    # ead_id format ex: SPEC.RARE.0137#ref11
-    ids = ead_id.split('ref')
-    raise "This ead_id: #{ead_id} does not follow the expected format" if ids.count != 2
+    # ead_id format ex: SPEC.RARE.0137:ref11
+    ids = ead_id.split(':')
+    raise ArgumentError.new("This ead_id: #{ead_id} does not follow the expected format") if ids.count != 2
     unit_id = ids[0]
-    persistent_id = "ref" + ids[1]
+    persistent_id = ids[1]
     unit_path_prefix = get_ead_unit_path_prefix(unit_id)
     unit_path_prefix + unit_id + ".xml#" + persistent_id
   end
