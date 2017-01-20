@@ -4,11 +4,9 @@ RSpec.describe CatalogController, type: :controller do
   let(:unit) { create(:unit) }
   let!(:work) { create(:generic_work, unit: unit.key) }
 
-  before do
-    sign_in user
-  end
-
   describe 'GET #index' do
+    before { sign_in user }
+
     context 'for a unit' do
       let(:params) { { f: { 'unit_sim' => [unit.key] } } }
 
@@ -29,6 +27,12 @@ RSpec.describe CatalogController, type: :controller do
           expect(assigns(:response)).to be_empty
         end
       end
+    end
+  end
+
+  describe '#search_builder' do
+    it 'returns a search builder of the local search builder class' do
+      expect(subject.search_builder).to be_a CatalogSearchBuilder
     end
   end
 end

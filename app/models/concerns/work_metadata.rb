@@ -21,6 +21,10 @@ module WorkMetadata
       index.as :stored_searchable, :facetable
     end
 
+    property :archival_unit, predicate: ::RDF::OSUL.archivalUnit do |index|
+      index.as :stored_searchable, :facetable
+    end
+
     # Is also the part_of field, just adds stored searchable and facetable
     property :sub_collection, predicate: ::RDF::DC.isPartOf do |index|
       index.as :stored_searchable, :facetable

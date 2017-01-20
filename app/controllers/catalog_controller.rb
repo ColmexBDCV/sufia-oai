@@ -18,6 +18,10 @@ class CatalogController < ApplicationController
     solr_name('system_modified', :stored_sortable, type: :date)
   end
 
+  def search_builder_class
+    CatalogSearchBuilder
+  end
+
   configure_blacklight do |config|
     config.view.gallery.partials = [:index_header, :index]
     config.view.masonry.partials = [:index]
@@ -67,6 +71,7 @@ class CatalogController < ApplicationController
     config.add_facet_field solr_name("publisher", :facetable), label: "Publisher", limit: 5
     config.add_facet_field solr_name("file_format", :facetable), label: "Format", limit: 5
     config.add_facet_field solr_name("temporal", :facetable), label: "Time Period", limit: 5
+    config.add_facet_field solr_name("archival_unit", :facetable), label: "Archival Unit", show: false, tag: 'au', ex: 'au'
 
     # Have BL send all facet field names to Solr, which has been the default
     # previously. Simply remove these lines if you'd rather use Solr request
@@ -127,6 +132,7 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("unit", :stored_searchable), label: "Unit"
     config.add_show_field solr_name("collection_name", :stored_searchable), label: "Collection"
     config.add_show_field solr_name("sub_collection", :stored_searchable), label: "Sub-Collection"
+    config.add_show_field solr_name("archival_unit", :stored_searchable), label: "Archival Unit"
     config.add_show_field solr_name("collection_identifier", :stored_searchable), label: "Collection Identifier"
     config.add_show_field solr_name("bibliographic_citation", :stored_searchable), label: "Published In"
     config.add_show_field solr_name("abstract", :stored_searchable), label: "Abstract"
