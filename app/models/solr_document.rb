@@ -4,6 +4,7 @@ class SolrDocument
   include Blacklight::Gallery::OpenseadragonSolrDocument
   include MetadataIndexTerms
   include CharacterizationIndexTerms
+  include Iiifable
 
   # Adds CurationConcerns behaviors to the SolrDocument.
   include CurationConcerns::SolrDocumentBehavior
@@ -21,7 +22,7 @@ class SolrDocument
                          date:        Solrizer.solr_name('date_created'),
                          description: Solrizer.solr_name('description'),
                          format:      Solrizer.solr_name('format'),
-                         identifier:  Solrizer.solr_name('identifier'),
+                         identifier:  'oai_identifier',
                          language:    Solrizer.solr_name('language'),
                          publisher:   Solrizer.solr_name('publisher'),
                          rights:      Solrizer.solr_name('rights'),
@@ -51,7 +52,31 @@ class SolrDocument
   # Do content negotiation for AF models.
   use_extension Hydra::ContentNegotiation
 
-  def self.timestamp_field
-    'system_modified_dtsi'
+  def timestamp
+    Time.parse(fetch('system_modified_dtsi', Time.at(0).utc.to_s)).utc
+  end
+
+  def sets
+    OaiSet.new(Unit.spec_from_key(unit.first)) if unit
+  end
+
+  # Override SolrDocument hash access for certain virtual fields
+  def [](key)
+    return send(key) if ['oai_identifier'].include?(key)
+    super
+  end
+
+  def oai_identifier
+    [*identifier] + [*handle].map { |handle| "http://hdl.handle.net/#{handle}" }
+  end
+
+  delegate :under_copyright?, to: :to_model
+
+  def original_file_id
+    self[:original_file_id_ss]
+  end
+
+  def original_file_version
+    self[:original_file_version_ss]
   end
 end

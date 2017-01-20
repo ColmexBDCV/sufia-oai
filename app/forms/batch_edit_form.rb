@@ -3,9 +3,9 @@ class BatchEditForm < Sufia::Forms::BatchEditForm
   self.terms = [:resource_type, :creator, :contributor,
                 :abstract, :description, :bibliographic_citation, :keyword,
                 :rights, :provenance, :publisher, :date_created, :subject,
-                :language, :identifier, :based_near, :related_url, :work_type,
+                :language, :identifier, :archival_unit, :based_near, :related_url, :work_type,
                 :spatial, :alternative, :temporal, :format, :staff_notes,
-                :source, :sub_collection]
+                :source, :collection_name, :sub_collection]
 
   def self.build_permitted_params
     super + [:visibility]

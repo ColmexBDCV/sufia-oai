@@ -9,18 +9,49 @@ RSpec.feature 'OAI-PMH catalog endpoint' do
   end
 
   describe 'ListRecords verb' do
+    before { create_list(:generic_work, 3, :public) }
+
     scenario 'displays all records' do
-      create_list(:generic_work, 3, :public)
+      visit oai_provider_catalog_path(verb: 'ListRecords', metadataPrefix: 'oai_dc')
+      expect(page).to have_selector('record', count: 3)
+    end
+
+    scenario 'only displays works' do
+      create(:collection, :public)
 
       visit oai_provider_catalog_path(verb: 'ListRecords', metadataPrefix: 'oai_dc')
       expect(page).to have_selector('record', count: 3)
     end
   end
 
+  describe 'GetRecord verb' do
+    let(:work) { create(:generic_work) }
+    let(:identifier) { "oai:library.osu.edu:dc/#{work.id}" }
+
+    scenario 'displays a single record' do
+      visit oai_provider_catalog_path(verb: 'GetRecord', metadataPrefix: 'oai_dc', identifier: identifier)
+      expect(page).to have_selector('record', count: 1)
+      expect(page).to have_content(identifier)
+    end
+
+    context 'when record has a handle' do
+      let(:work) { create(:generic_work, handle: ['1234/abcdef'], identifier: ['anid']) }
+
+      scenario 'displays the handle and identifier' do
+        visit oai_provider_catalog_path(verb: 'GetRecord', metadataPrefix: 'oai_dc', identifier: identifier)
+        expect(page).to have_content('http://hdl.handle.net/1234/abcdef')
+        expect(page).to have_content('anid')
+      end
+    end
+  end
+
   describe 'ListSets verb' do
-    scenario 'shows that no sets exist' do
+    scenario 'shows a set for each unit' do
+      create(:unit)
+      create(:unit, key: 'foo', name: 'Foo')
+
       visit oai_provider_catalog_path(verb: 'ListSets')
-      expect(page).to have_content('This repository does not support sets')
+      expect(page).to have_selector('set', count: 2)
     end
   end
 

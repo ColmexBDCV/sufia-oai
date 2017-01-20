@@ -8,7 +8,7 @@ module CurationConcerns
     self.terms = [:resource_type, :title, :unit, :collection_name, :creator, :contributor,
                   :abstract, :description, :bibliographic_citation, :keyword,
                   :rights, :provenance, :publisher, :date_created, :subject,
-                  :language, :identifier, :based_near, :related_url, :work_type,
+                  :language, :identifier, :archival_unit, :based_near, :related_url, :work_type,
                   :spatial, :alternative, :temporal, :format, :staff_notes,
                   :source, :sub_collection, :preservation_level_rationale,
                   :preservation_level, :collection_identifier,

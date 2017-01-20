@@ -37,6 +37,7 @@ gem 'sitemap_generator'
 gem 'newrelic_rpm'
 gem 'whenever'
 gem 'blacklight_oai_provider', git: 'https://github.com/osulibraries/blacklight_oai_provider.git', branch: 'master'
+gem 'rack-cors', require: 'rack/cors'
 
 group :development, :test do
   gem 'byebug'

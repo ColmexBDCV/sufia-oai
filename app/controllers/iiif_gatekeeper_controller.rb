@@ -21,10 +21,18 @@ class IiifGatekeeperController < ApplicationController
   end
 
   def identifiers
-    @identifiers || FileSet.decode_loris_id(params[:ident], 'lowres')
+    @identifiers || decode_iiif_id(params[:ident], 'lowres')
   end
 
   def original_ident?
     !params[:ident].include? '-lowres'
+  end
+
+  def decode_iiif_id(id, *additional)
+    id = id.dup
+    id.gsub!(/-version[0-9]+/, '')
+    additional.each { |addl| id.gsub!("-#{addl}", '') }
+    parts = id.split('/')
+    { file_set_id: parts[4], file_id: parts[6] }
   end
 end

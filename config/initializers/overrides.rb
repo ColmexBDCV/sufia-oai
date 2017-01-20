@@ -7,4 +7,7 @@ Rails.application.config.to_prepare do
 
   Hydra::Works::Characterization::FitsDatastream.include Overrides::Hydra::ResolutionTerms
   Hydra::Works::Characterization::ImageSchema.include Overrides::Hydra::ResolutionProperties
+
+  OAI::Provider::Response::RecordResponse.include Overrides::Oai::IdentifierFormat
+  OAI::Provider::Response::Base.include Overrides::Oai::IdExtractor
 end

@@ -84,4 +84,8 @@ module MetadataIndexTerms
   def collection_identifier
     self[Solrizer.solr_name('collection_identifier')]
   end
+
+  def archival_unit
+    self[Solrizer.solr_name('archival_unit')]
+  end
 end

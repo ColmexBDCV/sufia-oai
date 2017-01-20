@@ -12,6 +12,7 @@ module GenericWorkHelper
       presenter.attribute_to_html(:keyword, render_as: :faceted ),
       presenter.attribute_to_html(:date_created, render_as: :linked, search_field: 'date_created_tesim', label: 'Date' ),
       presenter.attribute_to_html(:identifier),
+      presenter.attribute_to_html(:archival_unit, render_as: :faceted),
       presenter.attribute_to_html(:unit, render_as: :faceted),
       presenter.attribute_to_html(:collection_name, render_as: :faceted, label: 'Collection'),
       presenter.attribute_to_html(:sub_collection, render_as: :faceted, label: 'Sub-Collection'),

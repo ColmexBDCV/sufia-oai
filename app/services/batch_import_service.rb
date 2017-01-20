@@ -166,13 +166,6 @@ class BatchImportService
     @import.get_column_from(row, 'title')
   end
 
-  def subjects(row, key_column_number_arr, key_column_value_arr)
-    key_column_number_arr.each do |num|
-      key_column_value_arr += (row[num.to_i].try(:split, ',') || [])
-    end
-    key_column_value_arr
-  end
-
   def collection_identifiers(row, key_column_number_arr, generic_work)
     key_column_number_arr.each do |num|
       generic_work.collection_identifier = row[num.to_i]
@@ -215,10 +208,8 @@ class BatchImportService
       key_column_number_arr = @import.import_field_mappings.where(key: field_mapping.key).first.value.reject!( &:blank? )
       key_column_value_arr = []
 
-      # For certain fields the values in the csv are comma delimeted and need to be parsed
-      if field_mapping.key == 'subject'
-        key_column_value_arr = subjects(row, key_column_number_arr, key_column_value_arr)
-      elsif field_mapping.key == 'collection_identifier'
+      # Certain fields require special parsing
+      if field_mapping.key == 'collection_identifier'
         collection_identifiers(row, key_column_number_arr, generic_work)
         next
       elsif field_mapping.key == 'measurements'

@@ -31,8 +31,18 @@ module Dcs
     config.autoload_paths << Rails.root.join('lib', 'extensions')
     config.autoload_paths << Rails.root.join('app', 'search_builders', 'concerns')
 
+    config.watchable_dirs['lib'] = [:rb]
+
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
     config.assets.enabled = false
+
+    config.middleware.insert_before 0, "Rack::Cors" do
+      allow do
+        origins '*'
+        resource '/catalog.rss', headers: :any, methods: :get
+        resource '/catalog.js*', headers: :any, methods: :get
+      end
+    end
   end
 end
