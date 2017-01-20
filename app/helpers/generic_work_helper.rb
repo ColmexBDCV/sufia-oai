@@ -40,35 +40,35 @@ module GenericWorkHelper
     attributes.reject!(&:empty?)
   end
 
-
   def ead_resolver(ead_id)
-    #ead_id format ex: SPEC.RARE.0137#ref11
+    # ead_id format ex: SPEC.RARE.0137#ref11
     ids = ead_id.split('ref')
     raise "This ead_id: #{ead_id} does not follow the expected format" if ids.count != 2
     unit_id = ids[0]
     persistent_id = "ref" + ids[1]
     unit_path_prefix = get_ead_unit_path_prefix(unit_id)
-    url = unit_path_prefix + unit_id + ".xml#" + persistent_id
+    unit_path_prefix + unit_id + ".xml#" + persistent_id
   end
 
+  # rubocop:disable Metrics/PerceivedComplexity
   def get_ead_unit_path_prefix(ead_unit)
     if ead_unit.include?("SPEC.RARE")
-      path_prefix = "RARE/"
+      "RARE/"
     elsif ead_unit.include?("SPEC.TRI")
-      path_prefix = "TRI/"
+      "TRI/"
     elsif ead_unit.include?("SPEC.PA.56")
-      path_prefix = "ByrdPolar/"
+      "ByrdPolar/"
     elsif ead_unit.include?("SPEC.RG.56")
-      path_prefix = "ByrdPolar/"
+      "ByrdPolar/"
     elsif ead_unit.include?("RG 56")
-      path_prefix = "ByrdPolar/"
+      "ByrdPolar/"
     elsif ead_unit.include?("RG")
-      path_prefix = "UA/"
+      "UA/"
     elsif ead_unit.include?("SPEC.CGA")
-      path_prefix = "Cartoons/"
+      "Cartoons/"
     else
-      path_prefix = ""
+      ""
     end
-    path_prefix
   end
+  # rubocop:enable Metrics/PerceivedComplexity
 end
