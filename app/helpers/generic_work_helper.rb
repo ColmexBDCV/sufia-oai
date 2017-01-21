@@ -43,7 +43,7 @@ module GenericWorkHelper
   def ead_resolver(ead_id)
     # ead_id format ex: SPEC.RARE.0137:ref11
     ids = ead_id.split(':')
-    raise ArgumentError.new("This ead_id: #{ead_id} does not follow the expected format") if ids.count != 2
+    raise(ArgumentError, "This ead_id: #{ead_id} does not follow the expected format") if ids.count != 2
     unit_id = ids[0]
     persistent_id = ids[1]
     unit_path_prefix = get_ead_unit_path_prefix(unit_id)
