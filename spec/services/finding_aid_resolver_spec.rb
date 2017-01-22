@@ -10,6 +10,14 @@ RSpec.describe FindingAidResolver do
     end
   end
 
+  describe '#initialize' do
+    let(:ead_id) { 'invalid' }
+
+    it 'throws an exception if an invalid identifier is supplied' do
+      expect { subject }.to raise_error ArgumentError
+    end
+  end
+
   describe '#url' do
     before do
       allow(Rails.configuration).to receive_message_chain('x.finding_aid_base').and_return('http://example.com/')
