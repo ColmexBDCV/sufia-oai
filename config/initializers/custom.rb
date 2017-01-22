@@ -12,3 +12,5 @@ Rails.application.config.x.iiif = Hashie::Mash.new(
 
 Rails.application.config.x.feedback_url = ENV['FEEDBACK_FORM_URL']
 Rails.application.config.x.base_url = ENV['BASE_URL'] || 'http://localhost/'
+
+Rails.application.config.x.finding_aid_base = ENV['FINDING_AID_BASE'] || 'https://library.osu.edu/finding-aids/ead/'

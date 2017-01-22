@@ -39,36 +39,4 @@ module GenericWorkHelper
     attributes.insert(2, presenter.attribute_to_html(:staff_notes, search_field: 'staff_notes_tesim')) if can? :update, presenter.solr_document
     attributes.reject!(&:empty?)
   end
-
-  def ead_resolver(ead_id)
-    # ead_id format ex: SPEC.RARE.0137:ref11
-    ids = ead_id.split(':')
-    raise(ArgumentError, "This ead_id: #{ead_id} does not follow the expected format") if ids.count != 2
-    unit_id = ids[0]
-    persistent_id = ids[1]
-    unit_path_prefix = get_ead_unit_path_prefix(unit_id)
-    unit_path_prefix + unit_id + ".xml#" + persistent_id
-  end
-
-  # rubocop:disable Metrics/PerceivedComplexity
-  def get_ead_unit_path_prefix(ead_unit)
-    if ead_unit.include?("SPEC.RARE")
-      "RARE/"
-    elsif ead_unit.include?("SPEC.TRI")
-      "TRI/"
-    elsif ead_unit.include?("SPEC.PA.56")
-      "ByrdPolar/"
-    elsif ead_unit.include?("SPEC.RG.56")
-      "ByrdPolar/"
-    elsif ead_unit.include?("RG 56")
-      "ByrdPolar/"
-    elsif ead_unit.include?("RG")
-      "UA/"
-    elsif ead_unit.include?("SPEC.CGA")
-      "Cartoons/"
-    else
-      ""
-    end
-  end
-  # rubocop:enable Metrics/PerceivedComplexity
 end
