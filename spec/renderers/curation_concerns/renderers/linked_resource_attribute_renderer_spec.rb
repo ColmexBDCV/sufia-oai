@@ -17,8 +17,8 @@ RSpec.describe CurationConcerns::Renderers::LinkedResourceAttributeRenderer do
          "<td><ul class='tabular'>" \
          "<li class=\"attribute name\">"\
          "<a href=\"http://example.com/somepath\">"\
-         "<span class='glyphicon glyphicon-new-window'></span>&nbsp;"\
-         "somepath</a></li>\n" \
+         "somepath</a>"\
+         " <span class='glyphicon glyphicon-new-window'></span></li>\n" \
          "</ul></td></tr>"
       end
 
@@ -33,8 +33,8 @@ RSpec.describe CurationConcerns::Renderers::LinkedResourceAttributeRenderer do
          "<td><ul class='tabular'>" \
          "<li class=\"attribute name\">"\
          "<a href=\"http://example.com/\">"\
-         "<span class='glyphicon glyphicon-new-window'></span>&nbsp;"\
-         "http://example.com/</a></li>\n" \
+         "http://example.com/</a>"\
+         " <span class='glyphicon glyphicon-new-window'></span></li>\n" \
          "</ul></td></tr>"
       end
 
@@ -46,12 +46,12 @@ RSpec.describe CurationConcerns::Renderers::LinkedResourceAttributeRenderer do
     context 'when the attribute value contains percent signs' do
       let(:value) { 'http://example.com/foo%C3%A9bar/' }
       let(:tr_content) do
-        "<tr><th>Name</th>\n" \
-         "<td><ul class='tabular'>" \
-         "<li class=\"attribute name\">"\
+        "<tr><th>Name</th>\n"\
+         "<td><ul class='tabular'>"\
+         "<li class=\"attribute name\">\n"\
          "<a href=\"http://example.com/foo%C3%A9bar/\">"\
-         "<span class='glyphicon glyphicon-new-window'></span>&nbsp;"\
-         "http://example.com/foo%C3%A9bar/</a></li>\n" \
+         "http://example.com/foo%C3%A9bar/</a>"\
+         " <span class='glyphicon glyphicon-new-window'></span></li>" \
          "</ul></td></tr>"
       end
 

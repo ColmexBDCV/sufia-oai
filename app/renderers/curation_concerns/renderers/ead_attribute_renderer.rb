@@ -5,8 +5,7 @@ module CurationConcerns
 
       def li_value(value)
         resolver = ::FindingAidResolver.new(value)
-        link_text = safe_join [tag(:span, class: 'glyphicon glyphicon-new-window'), " ", resolver.short_id]
-        link_to(link_text, resolver.url)
+        link_to(resolver.short_id, resolver.url) + ' ' + tag(:span, class: 'glyphicon glyphicon-new-window')
       rescue ArgumentError
         super
       end

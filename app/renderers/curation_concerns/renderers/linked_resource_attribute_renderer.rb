@@ -4,15 +4,12 @@ module CurationConcerns
       private
 
       def li_value(value)
-        link_text = "<span class='glyphicon glyphicon-new-window'></span>&nbsp;#{ERB::Util.h(value)}"
-        # rubocop:disable Rails/OutputSafety
-        link_to(link_text.html_safe, url_from(value))
-        # rubocop:enable Rails/OutputSafety
+        link_to(value, url_from(value)) + ' ' + tag(:span, class: 'glyphicon glyphicon-new-window')
       end
 
       def url_from(value)
-        value.gsub!('%', '%%')
-        options.fetch(:template, value).to_s % { value: value }
+        escaped_value = value.gsub('%', '%%')
+        options.fetch(:template, escaped_value).to_s % { value: escaped_value }
       end
     end
   end

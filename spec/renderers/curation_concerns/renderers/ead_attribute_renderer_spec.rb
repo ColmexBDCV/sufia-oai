@@ -18,8 +18,8 @@ RSpec.describe CurationConcerns::Renderers::EadAttributeRenderer do
          "<td><ul class='tabular'>" \
          "<li class=\"attribute name\">"\
          "<a href=\"http://example.com/RARE/SPEC.RARE.0137.xml#ref11\">"\
-         "<span class='glyphicon glyphicon-new-window'></span> "\
-         "SPEC.RARE.0137::ref11</a></li>\n" \
+         "SPEC.RARE.0137::ref11</a>"\
+         " <span class='glyphicon glyphicon-new-window'></span></li>\n" \
          "</ul></td></tr>"
       end
 
