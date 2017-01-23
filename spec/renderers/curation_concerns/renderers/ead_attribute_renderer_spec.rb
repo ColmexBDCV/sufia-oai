@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe CurationConcerns::Renderers::EadAttributeRenderer do
-  let(:value) { 'SPEC.RARE.0137:ref11' }
+  let(:value) { '+//ISIL US-ou//TEXT EAD::SPEC.RARE.0137::ref11//EN' }
   let(:renderer) { described_class.new(:name, [value]) }
 
   before do
@@ -18,8 +18,8 @@ RSpec.describe CurationConcerns::Renderers::EadAttributeRenderer do
          "<td><ul class='tabular'>" \
          "<li class=\"attribute name\">"\
          "<a href=\"http://example.com/RARE/SPEC.RARE.0137.xml#ref11\">"\
-         "<span class='glyphicon glyphicon-new-window'></span>&nbsp;"\
-         "SPEC.RARE.0137:ref11</a></li>\n" \
+         "<span class='glyphicon glyphicon-new-window'></span> "\
+         "SPEC.RARE.0137::ref11</a></li>\n" \
          "</ul></td></tr>"
       end
 
@@ -34,7 +34,7 @@ RSpec.describe CurationConcerns::Renderers::EadAttributeRenderer do
         "<tr><th>Name</th>\n" \
          "<td><ul class='tabular'>" \
          "<li class=\"attribute name\">"\
-         "invalid</li>\n" \
+         "<a href=\"/catalog?f%5Bname_sim%5D%5B%5D=invalid\">invalid</a></li>\n" \
          "</ul></td></tr>"
       end
 

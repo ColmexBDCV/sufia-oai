@@ -1,16 +1,14 @@
 module CurationConcerns
   module Renderers
-    class EadAttributeRenderer < LinkedAttributeRenderer
+    class EadAttributeRenderer < FacetedAttributeRenderer
       private
 
       def li_value(value)
         resolver = ::FindingAidResolver.new(value)
-        link_text = "<span class='glyphicon glyphicon-new-window'></span>&nbsp;#{ERB::Util.h(value)}"
-        # rubocop:disable Rails/OutputSafety
-        link_to(link_text.html_safe, resolver.url)
-        # rubocop:enable Rails/OutputSafety
+        link_text = safe_join [tag(:span, class: 'glyphicon glyphicon-new-window'), " ", resolver.short_id]
+        link_to(link_text, resolver.url)
       rescue ArgumentError
-        value
+        super
       end
     end
   end

@@ -7,18 +7,23 @@ class FindingAidResolver
     cartoon: [/SPEC.CGA/]
   }.freeze
 
-  attr_reader :unit, :identifier
+  attr_reader :collection, :identifier
 
-  # ead_id format ex: SPEC.RARE.0137:ref11
+  # ead_id format ex: +//ISIL US-ou//TEXT EAD::SPEC.RARE.0137::ref11//EN
   def initialize(ead_id)
-    ids = ead_id.split(':')
-    raise(ArgumentError, "This ead_id: #{ead_id} does not follow the expected format") if ids.count != 2
-    @unit = ids[0]
-    @identifier = ids[1]
+    parts = ead_id.strip.match(%r"^\+//ISIL US-[\w]{1,2}//TEXT EAD::([-\w\. ]+)(?:::([-\w\. ]+))?(?://[A-Z]{2})?$")
+    raise(ArgumentError, "#{ead_id} does not follow the expected format") unless parts.try(:[], 1)
+    @collection = parts[1]
+    @identifier = parts[2]
   end
 
   def path
-    "#{prefix}#{'/' unless prefix.nil?}#{unit}.xml##{identifier}"
+    @path || begin
+               @path = "#{collection}.xml"
+               @path.prepend("#{prefix}/") if prefix
+               @path << "##{identifier}" if identifier
+               @path
+             end
   end
 
   def url
@@ -26,17 +31,22 @@ class FindingAidResolver
   end
 
   def prefix
-    case @unit
-    when *PREFIX_IDENTIFIERS[:rare]
-      "RARE"
-    when *PREFIX_IDENTIFIERS[:tri]
-      "TRI"
-    when *PREFIX_IDENTIFIERS[:byrd]
-      "ByrdPolar"
-    when *PREFIX_IDENTIFIERS[:ua]
-      "UA"
-    when *PREFIX_IDENTIFIERS[:cartoon]
-      "Cartoons"
-    end
+    return @prefix if defined? @prefix
+    @prefix = case @collection
+              when *PREFIX_IDENTIFIERS[:rare]
+                "RARE"
+              when *PREFIX_IDENTIFIERS[:tri]
+                "TRI"
+              when *PREFIX_IDENTIFIERS[:byrd]
+                "ByrdPolar"
+              when *PREFIX_IDENTIFIERS[:ua]
+                "UA"
+              when *PREFIX_IDENTIFIERS[:cartoon]
+                "Cartoons"
+              end
+  end
+
+  def short_id
+    "#{collection}#{'::' if identifier}#{identifier}"
   end
 end
