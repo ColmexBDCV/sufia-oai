@@ -22,18 +22,18 @@ RSpec.describe CatalogSearchBuilder do
   describe '#multivalued_filters' do
     let(:params) { Blacklight::Solr::Request.new(fq: filters) }
     let(:filters) do
-      ["{!term f=archival_unit_sim tag=au}MY_COOL_ID",
+      ["{!term f=archival_unit_sim tag=au}+//ISIL US-ou//TEXT EAD::SPEC.RARE.0137::ref11//EN",
        "{!term f=archival_unit_sim tag=au}ANOTHER_THING",
        "{!term f=foo}bar"]
     end
 
     it 'transforms multivalued fields into a single OR query' do
-      expected = '({!term f=archival_unit_sim tag=au}MY_COOL_ID) OR ({!term f=archival_unit_sim tag=au}ANOTHER_THING)'
+      expected = '{!tag=au}archival_unit_sim:"+//ISIL US-ou//TEXT EAD::SPEC.RARE.0137::ref11//EN" {!tag=au}archival_unit_sim:"ANOTHER_THING"'
       expect(subject.multivalued_filters(params)).to include(expected)
     end
 
     it 'removes the original queries' do
-      expect(subject.multivalued_filters(params)).not_to include("{!term f=archival_unit_sim tag=au}MY_COOL_ID")
+      expect(subject.multivalued_filters(params)).not_to include("{!term f=archival_unit_sim tag=au}+//ISIL US-ou//TEXT EAD::SPEC.RA'RE.0137::ref11//EN")
       expect(subject.multivalued_filters(params)).not_to include("{!term f=archival_unit_sim tag=au}ANOTHER_THING")
     end
 
@@ -45,7 +45,15 @@ RSpec.describe CatalogSearchBuilder do
       let(:filters) { ["{!term f=archival_unit_sim tag=au}MY_COOL_ID"] }
 
       it 'generates the query' do
-        expect(subject.multivalued_filters(params)).to include("({!term f=archival_unit_sim tag=au}MY_COOL_ID)")
+        expect(subject.multivalued_filters(params)).to include('{!tag=au}archival_unit_sim:"MY_COOL_ID"')
+      end
+    end
+
+    context 'with no tag' do
+      let(:filters) { ["{!term f=archival_unit_sim}MY_COOL_ID"] }
+
+      it 'generates the query without local params' do
+        expect(subject.multivalued_filters(params)).to include('archival_unit_sim:"MY_COOL_ID"')
       end
     end
   end
