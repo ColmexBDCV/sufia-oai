@@ -1,10 +1,10 @@
 require "rails_helper"
 
-RSpec.describe OaiController, type: :routing do
+RSpec.describe API::V1::OaiController, type: :routing do
   describe "routing" do
     it "routes to #oai" do
-      expect(get: "/catalog/oai").to route_to("oai#oai")
-      expect(post: "/catalog/oai").to route_to("oai#oai")
+      expect(get: "/api/oai").to route_to(controller: 'api/v1/oai', action: 'oai', format: 'xml')
+      expect(post: "/api/oai").to route_to(controller: 'api/v1/oai', action: 'oai', format: 'xml')
     end
   end
 end

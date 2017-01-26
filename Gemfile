@@ -39,6 +39,10 @@ gem 'whenever'
 gem 'blacklight_oai_provider', git: 'https://github.com/osulibraries/blacklight_oai_provider.git', branch: 'master'
 gem 'rack-cors', require: 'rack/cors'
 
+# API
+gem 'versionist'
+gem 'rabl'
+
 group :development, :test do
   gem 'byebug'
   gem 'rspec-rails', '~> 3.5'

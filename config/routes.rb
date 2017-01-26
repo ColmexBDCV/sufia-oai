@@ -9,7 +9,6 @@ Rails.application.routes.draw do
 
   resource :catalog, only: [:index], as: 'catalog', path: '/catalog', controller: 'catalog' do
     concerns :searchable
-    concerns :oai_provider, controller: 'oai'
   end
 
   devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
@@ -71,6 +70,17 @@ Rails.application.routes.draw do
   get '/about', to: 'application#not_found'
   get '/contact', to: 'application#not_found'
   get '/help', to: 'application#not_found'
+
+  # API
+  namespace :api, defaults: { format: :json }, constraints: { format: /(json|xml)/ } do
+    api_version(module: "v1",
+                path: { value: "v1" },
+                header: { name: "Accept", value: "application/vnd.library.osu.edu; version=1" },
+                default: true) do
+
+      concerns :oai_provider, path: '/oai', controller: 'oai', format: 'xml'
+    end
+  end
 
   # This must be the very last route in the file because it has a catch-all route for 404 errors.
   # This behavior seems to show up only in production mode.

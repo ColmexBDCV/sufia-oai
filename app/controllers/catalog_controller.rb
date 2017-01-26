@@ -320,21 +320,6 @@ class CatalogController < ApplicationController
     # If there are more than this many search results, no spelling ("did you
     # mean") suggestion is offered.
     config.spell_max = 5
-
-    # Add OAI-PMH support
-    config.oai = {
-      provider: {
-        repository_name: 'The Ohio State University Libraries Digital Collections',
-        record_prefix: 'oai:library.osu.edu',
-        sample_id: 'dc/g733fx36w',
-        admin_email: Sufia.config.contact_email
-      },
-      document: {
-        limit: 25,
-        timestamp_field: 'system_modified_dtsi',
-        set_class: '::OaiSet'
-      }
-    }
   end
 
   def index
