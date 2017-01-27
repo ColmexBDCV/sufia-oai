@@ -10,7 +10,7 @@ class IiifGatekeeperController < ApplicationController
       authorize! :update, @file_set if @file_set.under_copyright? && original_ident?
       render json: { status: 'approved' }
     else
-      head :not_found
+      render json: { status: 'not found' }, status: :not_found
     end
   end
 
@@ -18,6 +18,8 @@ class IiifGatekeeperController < ApplicationController
 
   def load_file_set
     @file_set = FileSet.find(identifiers[:file_set_id])
+  rescue
+    @file_set = nil
   end
 
   def identifiers
