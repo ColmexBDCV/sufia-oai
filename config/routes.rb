@@ -73,12 +73,13 @@ Rails.application.routes.draw do
 
   # API
   namespace :api, defaults: { format: :json }, constraints: { format: /(json|xml)/ } do
-    api_version(module: "v1",
+    api_version(module: "V1",
                 path: { value: "v1" },
                 header: { name: "Accept", value: "application/vnd.library.osu.edu; version=1" },
                 default: true) do
 
       concerns :oai_provider, path: '/oai', controller: 'oai', format: 'xml'
+      resources :properties, only: [:index, :show]
     end
   end
 
