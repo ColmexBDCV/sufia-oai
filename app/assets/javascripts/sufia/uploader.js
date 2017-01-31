@@ -29,7 +29,7 @@
         // limitMultiFileUploadSize: 500000000, // bytes
         limitConcurrentUploads: 6,
         maxNumberOfFiles: 100,
-        maxFileSize: 500000000, // bytes, i.e. 500 MB
+        maxFileSize: 1073741824, // bytes, 1GB
         autoUpload: true,
         url: Routes.sufia_uploads_path({trailing_slash: true}),
         type: 'POST'
