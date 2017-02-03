@@ -14,7 +14,7 @@ class Property
     def find(name)
       raise(ArgumentError, 'Invalid property') unless FIELDS.keys.include?(name)
 
-      solr_params = { rows: 0, facet: true, 'facet.limit' => 1, 'facet.field' => FIELDS[name] }
+      solr_params = { rows: 0, facet: true, 'facet.limit' => -1, 'facet.field' => FIELDS[name] }
       response = repository.search search_builder.merge(solr_params)
       new(name: name, values: values_from_facets(response.facet_fields))
     end

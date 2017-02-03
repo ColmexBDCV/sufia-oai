@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Property do
-  let(:controller) { CatalogController.new }
-
   describe '.FIELDS' do
     it 'includes all the fields that can be queried' do
       expected_fields = %w(archival_unit collection_identifier)
@@ -18,24 +16,51 @@ RSpec.describe Property do
     end
   end
 
-  # describe '.find' do
-  #   let(:field) { 'collection_identifier' }
-  #   let(:values) { %w(ABC.123 FOO.456) }
+  describe '.find' do
+    let(:user) { User.new }
+    let(:controller) { CatalogController.new }
+    let(:field) { 'collection_identifier' }
+    let(:values) { %w(ABC.123 FOO.456) }
 
-  #   before do
-  #     create(:work, field => values[0])
-  #     create(:work, field => values[1])
-  #     configure_class
-  #   end
+    before do
+      create(:work, :public, field => values[0])
+      create(:work, :public, field => values[1])
+      stub_controller
+      configure_class
+    end
 
-  #   it 'returns a Property containing all values of the field' do
-  #     property = described_class.find field
+    it 'returns a Property containing all values of the field' do
+      property = described_class.find field
 
-  #     expect(property).to be_a described_class
-  #     expect(property.name).to eq field
-  #     expect(property.values).to match_array values
-  #   end
-  # end
+      expect(property).to be_a described_class
+      expect(property.name).to eq field
+      expect(property.values).to match_array values
+    end
+  end
+
+  describe '#initialize' do
+    let(:property) { described_class.new(hash) }
+    let(:hash) { { ame: 'my_property', values: ['foo', 'bar'] } }
+
+    it 'sets the name and values from a hash' do
+      expect(property.name).to eq hash[:name]
+      expect(property.values).to eq hash[:values]
+    end
+  end
+
+  describe '#values=' do
+    let(:property) { described_class.new }
+
+    it 'is creates a values array from scalar input' do
+      property.values = 'foo'
+      expect(property.values).to eq ['foo']
+    end
+  end
+
+  def stub_controller
+    allow(controller).to receive(:current_user).and_return(user)
+    allow(controller).to receive(:params).and_return({})
+  end
 
   def configure_class
     described_class.repository = controller.repository
