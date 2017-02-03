@@ -34,8 +34,12 @@
         <% end -%>
 	      <% item_counter += 1 %>
       <% end %>
-      <%= display_facet.items.length > facet_field.limit ? "<li class='more_li'><a href='' class='more_link' title='more units'>more<span class='off_screen'> units</span></a></li>".html_safe : "" %>
-      <%= display_facet.items.length > facet_field.limit ? "<li class='less_li' style='display:none;'><a href='' class='more_link' title='less units'>less<span class='off_screen'> units</span></a></li>".html_safe : "" %>
+      <% unless display_facet.items.length < facet_field.limit || params[:action] == "facet" %>
+        <li class="more_facets_link">
+          <%= link_to t("more_#{field_name}_html", scope: 'blacklight.search.facets', default: :more_html, field_name: facet_field.label),
+            facet_catalog_url(id: field_name), class: "more_facets_link" %>
+        </li>
+      <% end %>
     </ul>
   <% end %>
 </div>
