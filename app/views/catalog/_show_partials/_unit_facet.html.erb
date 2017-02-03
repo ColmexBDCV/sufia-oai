@@ -34,8 +34,8 @@
         <% end -%>
 	      <% item_counter += 1 %>
       <% end %>
-      <%= display_facet.items.length > facet_field.limit ? "<li class='more_li'><a href='' class='more_link' title='more units'>more<span class='off_screen'> units</span></a></li>" : "" %>
-      <%= display_facet.items.length > facet_field.limit ? "<li class='less_li' style='display:none;'><a href='' class='more_link' title='less units'>less<span class='off_screen'> units</span></a></li>" : "" %>
+      <%= display_facet.items.length > facet_field.limit ? "<li class='more_li'><a href='' class='more_link' title='more units'>more<span class='off_screen'> units</span></a></li>".html_safe : "" %>
+      <%= display_facet.items.length > facet_field.limit ? "<li class='less_li' style='display:none;'><a href='' class='more_link' title='less units'>less<span class='off_screen'> units</span></a></li>".html_safe : "" %>
     </ul>
   <% end %>
 </div>
