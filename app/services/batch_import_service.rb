@@ -204,7 +204,7 @@ class BatchImportService
 
   def process_field_mappings(row, field_mappings, generic_work)
     field_mappings.each do |field_mapping|
-      next if field_mapping.key.in?(["pid", "cid"])
+      next if field_mapping.key.in?(["pid", "cid", "visibility_level"])
       key_column_number_arr = @import.import_field_mappings.where(key: field_mapping.key).first.value.reject!( &:blank? )
       key_column_value_arr = []
 

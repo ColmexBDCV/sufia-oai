@@ -48,8 +48,8 @@ RSpec.describe BatchImportService do
 
   it "Simple Import: Creates on GenericWork with 1 FileSet" do
     batch_import = described_class.new(import1, user)
-
-    row = ["image", "Dreese", "Dreese Hall photo", "building", "osu", nil, "university", "archive", "50 x 25 cm", "paper", nil, "179.jpg", "Bartos, Chris", nil]
+    
+    row = ["image", "Dreese", "Dreese Hall photo", "building", "osu", nil, "private", "university", "archive", "50 x 25 cm", "paper", nil, "179.jpg", "Bartos, Chris", nil]
     current_row = 1
     files = [{ filename: "181.jpg", title: "Hayes" }]
 
@@ -60,7 +60,7 @@ RSpec.describe BatchImportService do
   it "Simple Import: Creates on GenericWork with 1 FileSet and Collection_name is set" do
     batch_import = described_class.new(import1, user)
 
-    row = ["image", "Dreese", "Dreese Hall photo", "building", "osu", nil, "university", "archive", "50 x 25 cm", "paper", nil, "179.jpg", "Bartos, Chris", "Collection Name"]
+    row = ["image", "Dreese", "Dreese Hall photo", "building", "osu", nil, "private", "university", "archive", "50 x 25 cm", "paper", nil, "179.jpg", "Bartos, Chris", "Collection Name"]
     current_row = 1
     files = [{ filename: "181.jpg", title: "Hayes" }]
 
@@ -71,7 +71,7 @@ RSpec.describe BatchImportService do
 
   it "Complex Import: Creates on GenericWork with 3 FileSets" do
     batch_import = described_class.new(import2, user)
-    row = ["images", "Halls", "Collection of Halls", "building", "osu", nil, "university", "archive", "50 x 25 cm", "paper", nil, nil, "Bartos, Chris", "1"]
+    row = ["images", "Halls", "Collection of Halls", "building", "osu", nil, "private", "university", "archive", "50 x 25 cm", "paper", nil, nil, "Bartos, Chris", "1"]
     current_row = 1
     files = [{ filename: "179.jpg", title: "Dreese" }, { filename: "181.jpg", title: "Hayes" }, { filename: "209.jpg", title: "Orton" }]
 
@@ -82,7 +82,7 @@ RSpec.describe BatchImportService do
   it "Complex Import: Get pid, cid, and title from row" do
     batch_import = described_class.new(import2, user)
 
-    row = ["images", "Halls", "Collection of Halls", "building", "osu", nil, "university", "archive", "50 x 25 cm", "paper", nil, nil, "Bartos, Chris", "1", nil]
+    row = ["images", "Halls", "Collection of Halls", "building", "osu", nil, "private", "university", "archive", "50 x 25 cm", "paper", nil, nil, "Bartos, Chris", "1", nil]
 
     cid = batch_import.instance_eval { get_cid_from(row) }
     pid = batch_import.instance_eval { get_pid_from(row) }
@@ -96,7 +96,7 @@ RSpec.describe BatchImportService do
   it "Simple Import: Get pid, cid, and title from row" do
     batch_import = described_class.new(import1, user)
 
-    row = ["image", "Dreese", "Dreese Hall photo", "building", "osu", nil, "university", "archive", "50 x 25 cm", "paper", nil, "179.jpg", "Bartos, Chris"]
+    row = ["image", "Dreese", "Dreese Hall photo", "building", "osu", nil, "private", "university", "archive", "50 x 25 cm", "paper", nil, "179.jpg", "Bartos, Chris"]
 
     cid = batch_import.instance_eval { get_cid_from(row) }
     pid = batch_import.instance_eval { get_pid_from(row) }
@@ -110,7 +110,7 @@ RSpec.describe BatchImportService do
   it "allows subject containing commas" do
     batch_import = described_class.new(import1, user)
 
-    row = ["image", "Dreese", "Dreese Hall photo", "building", "osu", nil, "foo, bar", "another subject", "50 x 25 cm", "paper", nil, "179.jpg", "Bartos, Chris", nil]
+    row = ["image", "Dreese", "Dreese Hall photo", "building", "osu", nil, "private", "foo, bar", "another subject", "50 x 25 cm", "paper", nil, "179.jpg", "Bartos, Chris", nil]
     current_row = 1
     files = [{ filename: "181.jpg", title: "Hayes" }]
 
