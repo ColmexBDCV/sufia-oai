@@ -48,7 +48,7 @@ RSpec.describe BatchImportService do
 
   it "Simple Import: Creates on GenericWork with 1 FileSet" do
     batch_import = described_class.new(import1, user)
-    
+
     row = ["image", "Dreese", "Dreese Hall photo", "building", "osu", nil, "private", "university", "archive", "50 x 25 cm", "paper", nil, "179.jpg", "Bartos, Chris", nil]
     current_row = 1
     files = [{ filename: "181.jpg", title: "Hayes" }]
