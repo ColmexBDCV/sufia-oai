@@ -120,7 +120,7 @@ class BatchImportService
       gw.rights = [@import.rights]
       gw.preservation_level_rationale = @import.preservation_level
       gw.preservation_level = "Full"
-      gw.visibility = @import.visibility
+      gw.visibility = get_visibility_from(row)
       gw.unit = @import.unit.key if @import.unit
       CurationConcerns::Actors::ActorStack.new(gw, @user, [CurationConcerns::Actors::GenericWorkActor]).create({})
     end
@@ -164,6 +164,11 @@ class BatchImportService
 
   def get_title_from(row)
     @import.get_column_from(row, 'title')
+  end
+
+  def get_visibility_from(row)
+    visibility = @import.get_column_from(row, 'visibility_level')
+    visibility == '' ? "restricted" : visibility
   end
 
   def collection_identifiers(row, key_column_number_arr, generic_work)
