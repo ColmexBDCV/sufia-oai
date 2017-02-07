@@ -27,7 +27,7 @@ module GenericWorkHelper
       presenter.attribute_to_html(:preservation_level_rationale),
       presenter.attribute_to_html(:preservation_level),
       presenter.attribute_to_html(:provenance, render_as: :linked, search_field: 'provenance_tesim'),
-      presenter.attribute_to_html(:spatial, render_as: :linked, search_field: 'spatial_tesim'),
+      presenter.attribute_to_html(:spatial, render_as: :linked, search_field: 'spatial_tesim', label: 'Place'),
       presenter.attribute_to_html(:temporal, render_as: :faceted, label: 'Time period'),
       presenter.attribute_to_html(:work_type, render_as: :faceted, label: 'Genre'),
       presenter.attribute_to_html(:material, render_as: :linked, search_field: 'material_tesim'),
