@@ -168,7 +168,7 @@ class BatchImportService
 
   def get_visibility_from(row)
     visibility = @import.get_column_from(row, 'visibility_level')
-    visibility == '' ? "restricted" : visibility
+    visibility.blank? ? @import.visibility : visibility
   end
 
   def collection_identifiers(row, key_column_number_arr, generic_work)

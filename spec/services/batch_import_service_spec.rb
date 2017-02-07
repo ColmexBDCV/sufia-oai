@@ -70,7 +70,7 @@ RSpec.describe BatchImportService do
     expect(work.file_sets.first.visibility).to eq("restricted")
   end
 
-  it "Simple Import: Creates on GenericWork with 1 FileSet with visibility of open when row is ''" do
+  it "Simple Import: Creates on GenericWork with 1 FileSet with visibility of restricted when row is ''" do
     batch_import = described_class.new(import1, user)
 
     row = ["image", "Dreese", "Dreese Hall photo", "building", "osu", nil, "", "university", "archive", "50 x 25 cm", "paper", nil, "179.jpg", "Bartos, Chris", nil]
@@ -83,7 +83,7 @@ RSpec.describe BatchImportService do
     expect(work.file_sets.first.visibility).to eq("restricted")
   end
 
-  it "Simple Import: Creates on GenericWork with 1 FileSet with visibility of open when row is nil" do
+  it "Simple Import: Creates on GenericWork with 1 FileSet with visibility of restricted when row is nil" do
     batch_import = described_class.new(import1, user)
 
     row = ["image", "Dreese", "Dreese Hall photo", "building", "osu", nil, nil, "university", "archive", "50 x 25 cm", "paper", nil, "179.jpg", "Bartos, Chris", nil]
@@ -164,10 +164,10 @@ RSpec.describe BatchImportService do
     files = [{ filename: "179.jpg", title: "Dreese" }, { filename: "181.jpg", title: "Hayes" }, { filename: "209.jpg", title: "Orton" }]
 
     work = batch_import.import_item(row, current_row, files)
-    expect(work.visibility).to eq("restricted")
-    expect(work.file_sets.first.visibility).to eq("restricted")
-    expect(work.file_sets.second.visibility).to eq("restricted")
-    expect(work.file_sets.third.visibility).to eq("restricted")
+    expect(work.visibility).to eq("open")
+    expect(work.file_sets.first.visibility).to eq("open")
+    expect(work.file_sets.second.visibility).to eq("open")
+    expect(work.file_sets.third.visibility).to eq("open")
   end
 
   it "Complex Import: Creates on GenericWork with 3 FileSets make visibility open when nil" do
@@ -177,10 +177,10 @@ RSpec.describe BatchImportService do
     files = [{ filename: "179.jpg", title: "Dreese" }, { filename: "181.jpg", title: "Hayes" }, { filename: "209.jpg", title: "Orton" }]
 
     work = batch_import.import_item(row, current_row, files)
-    expect(work.visibility).to eq("restricted")
-    expect(work.file_sets.first.visibility).to eq("restricted")
-    expect(work.file_sets.second.visibility).to eq("restricted")
-    expect(work.file_sets.third.visibility).to eq("restricted")
+    expect(work.visibility).to eq("open")
+    expect(work.file_sets.first.visibility).to eq("open")
+    expect(work.file_sets.second.visibility).to eq("open")
+    expect(work.file_sets.third.visibility).to eq("open")
   end
 
   it "Complex Import: Get pid, cid, and title from row" do

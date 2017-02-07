@@ -289,6 +289,7 @@ FactoryGirl.define do
     end
 
     factory :complex_import do
+      visibility "open"
       transient do
         csv_filename 'images_complex.csv'
         mappings do
@@ -329,6 +330,7 @@ FactoryGirl.define do
     end
 
     factory :complex_orphans do
+      visibility "authenticated"
       transient do
         csv_filename 'images_complex_orphans.csv'
         mappings do
