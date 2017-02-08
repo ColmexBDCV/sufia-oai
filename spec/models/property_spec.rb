@@ -18,7 +18,7 @@ RSpec.describe Property do
 
   describe '.find' do
     let(:user) { User.new }
-    let(:controller) { CatalogController.new }
+    let(:controller) { API::V1::PropertiesController.new }
     let(:field) { 'collection_identifier' }
     let(:values) { %w(ABC.123 FOO.456) }
 
@@ -35,6 +35,15 @@ RSpec.describe Property do
       expect(property).to be_a described_class
       expect(property.name).to eq field
       expect(property.values).to match_array values
+    end
+
+    context 'with an includes filter' do
+      let(:params) { { includes: 'OO' } }
+
+      it 'returns only values containing the filter text' do
+        property = described_class.find field, params
+        expect(property.values).to match_array [values[1]]
+      end
     end
   end
 

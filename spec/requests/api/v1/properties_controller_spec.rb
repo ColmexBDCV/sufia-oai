@@ -40,6 +40,15 @@ RSpec.describe API::V1::PropertiesController do
         get path
         expect(parsed[:property][:values]).to match_array values
       end
+
+      context 'with an includes parameter' do
+        let(:path) { "/api/v1/properties/#{name}.json?includes=other" }
+
+        it 'only contains values with the parameter text' do
+          get path
+          expect(parsed[:property][:values]).to match_array [values[1]]
+        end
+      end
     end
   end
 
