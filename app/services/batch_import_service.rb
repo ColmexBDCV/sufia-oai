@@ -44,11 +44,11 @@ class BatchImportService
           csv_processor.build_csv_array(row) # Build CSV once.
 
           break unless csv_processor.child?(get_cid_from(child))
-          csv_processor.add_file(get_filename_from(child), get_title_from(child))
+          csv_processor.add_file(get_filename_from(child), get_title_from(child), get_visibility_from(child))
         end
       else
         # Once we're done collection the files, create the csv_row_array for the GenericWork record
-        csv_processor.add_file(get_filename_from(row), get_title_from(row))
+        csv_processor.add_file(get_filename_from(row), get_title_from(row), get_visibility_from(row))
         csv_processor.build_csv_array(row)
       end
       process_import_item(current_row, csv_processor)
@@ -141,6 +141,10 @@ class BatchImportService
       actor.create_metadata(gw)
       fs.creator = gw.creator
       actor.create_content(file)
+
+      # Save new visibility
+      fs.visibility = file_info[:visibility] unless file_info[:visibility] == ""
+      fs.save
     end
   end
 

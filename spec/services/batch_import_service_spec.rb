@@ -144,6 +144,45 @@ RSpec.describe BatchImportService do
     expect(work.file_sets.third.visibility).to eq("restricted")
   end
 
+  it "Complex Import: Creates on GenericWork with 3 FileSets make visibility Restricted and the Work itself Open" do
+    batch_import = described_class.new(import2, user)
+    row = ["images", "Halls", "Collection of Halls", "building", "osu", nil, "open", "university", "archive", "50 x 25 cm", "paper", nil, nil, "Bartos, Chris", "1"]
+    current_row = 1
+    files = [{ filename: "179.jpg", title: "Dreese", visibility: "restricted" }, { filename: "181.jpg", title: "Hayes", visibility: "restricted" }, { filename: "209.jpg", title: "Orton", visibility: "restricted" }]
+
+    work = batch_import.import_item(row, current_row, files)
+    expect(work.visibility).to eq("open")
+    expect(work.file_sets.first.visibility).to eq("restricted")
+    expect(work.file_sets.second.visibility).to eq("restricted")
+    expect(work.file_sets.third.visibility).to eq("restricted")
+  end
+
+  it "Complex Import: Creates on GenericWork with 3 FileSets make visibility open and the Work itself Restricted" do
+    batch_import = described_class.new(import2, user)
+    row = ["images", "Halls", "Collection of Halls", "building", "osu", nil, "restricted", "university", "archive", "50 x 25 cm", "paper", nil, nil, "Bartos, Chris", "1"]
+    current_row = 1
+    files = [{ filename: "179.jpg", title: "Dreese", visibility: "open" }, { filename: "181.jpg", title: "Hayes", visibility: "open" }, { filename: "209.jpg", title: "Orton", visibility: "open" }]
+
+    work = batch_import.import_item(row, current_row, files)
+    expect(work.visibility).to eq("restricted")
+    expect(work.file_sets.first.visibility).to eq("open")
+    expect(work.file_sets.second.visibility).to eq("open")
+    expect(work.file_sets.third.visibility).to eq("open")
+  end
+
+  it "Complex Import: Creates on GenericWork with 3 FileSets make visibility '' and the Work itself Restricted" do
+    batch_import = described_class.new(import2, user)
+    row = ["images", "Halls", "Collection of Halls", "building", "osu", nil, "restricted", "university", "archive", "50 x 25 cm", "paper", nil, nil, "Bartos, Chris", "1"]
+    current_row = 1
+    files = [{ filename: "179.jpg", title: "Dreese", visibility: "" }, { filename: "181.jpg", title: "Hayes", visibility: "" }, { filename: "209.jpg", title: "Orton", visibility: "" }]
+
+    work = batch_import.import_item(row, current_row, files)
+    expect(work.visibility).to eq("restricted")
+    expect(work.file_sets.first.visibility).to eq("restricted")
+    expect(work.file_sets.second.visibility).to eq("restricted")
+    expect(work.file_sets.third.visibility).to eq("restricted")
+  end
+
   it "Complex Import: Creates on GenericWork with 3 FileSets make visibility open" do
     batch_import = described_class.new(import2, user)
     row = ["images", "Halls", "Collection of Halls", "building", "osu", nil, "open", "university", "archive", "50 x 25 cm", "paper", nil, nil, "Bartos, Chris", "1"]
