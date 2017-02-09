@@ -238,7 +238,7 @@ class BatchImportService
 
   # Maps a specific row of csv data to a generic_work object for ingest
   def assign_csv_values_to_genericwork(row, generic_work)
-    field_mappings = @import.import_field_mappings.where('import_field_mappings.key != ?', 'image_filename')
+    field_mappings = @import.import_field_mappings.where('import_field_mappings.key not in (?, ?)', 'image_filename', 'visibility_level')
     process_field_mappings(row, field_mappings, generic_work)
   end
 

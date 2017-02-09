@@ -280,4 +280,13 @@ RSpec.describe BatchImportService do
     work = batch_import.import_item(row, current_row, files)
     expect(work.subject).to include('foo, bar', 'another subject')
   end
+
+  it "doesn't run when key is 'visibility_level'" do
+    batch_import = described_class.new(import1, user)
+    row = ["image", "Dreese", "Dreese Hall photo", "building", "osu", nil, "restricted", "foo, bar", "another subject", "50 x 25 cm", "paper", nil, "179.jpg", "Bartos, Chris", nil]
+    field_mappings = import1.import_field_mappings.where('import_field_mappings.key != ?', 'image_filename')
+    generic_work = GenericWork.new
+
+    expect{batch_import.instance_eval { process_field_mappings(row, field_mappings, generic_work) }}.not_to raise_error
+  end
 end
