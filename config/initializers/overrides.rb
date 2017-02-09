@@ -10,4 +10,5 @@ Rails.application.config.to_prepare do
 
   OAI::Provider::Response::RecordResponse.include Overrides::Oai::IdentifierFormat
   OAI::Provider::Response::Base.include Overrides::Oai::IdExtractor
+  Sufia::SufiaHelperBehavior.include Overrides::Sufia::SufiaHelperBehavior
 end
