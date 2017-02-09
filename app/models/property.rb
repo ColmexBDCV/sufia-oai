@@ -11,11 +11,11 @@ class Property
       FIELDS.keys.map { |f| new(name: f) }
     end
 
-    def find(name)
+    def find(name, params = {})
       raise(ArgumentError, 'Invalid property') unless FIELDS.keys.include?(name)
 
-      solr_params = { rows: 0, facet: true, 'facet.limit' => -1, 'facet.field' => FIELDS[name] }
-      response = repository.search search_builder.merge(solr_params)
+      params[:includes] = "#{FIELDS[name]}: *#{params[:includes]}*" if params[:includes]
+      response = repository.search search_builder.with(params).merge('facet.field' => FIELDS[name])
       new(name: name, values: values_from_facets(response.facet_fields))
     end
 

@@ -11,7 +11,11 @@ module API
       end
 
       def show
-        @property = Property.find params[:id]
+        @property = Property.find(params[:id], params.slice(:includes))
+      end
+
+      def search_builder_class
+        PropertySearchBuilder
       end
 
       private
