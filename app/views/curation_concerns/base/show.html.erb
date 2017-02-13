@@ -14,8 +14,8 @@
     <%#= render 'social_media' %>
     <%= render 'citations', presenter: @presenter %>
     <div class="col-xs-12 hidden-xs">
-    <%= render 'relationships', presenter: @presenter %>
-    <hr />
+    <!-- <%# render 'relationships', presenter: @presenter %>
+    <hr /> -->
     <%= render partial: 'units/unit_info', locals: { unit: Unit.find_by_key(@presenter.unit.first.to_s) } %>
     </div>
   </div>
@@ -24,8 +24,8 @@
     <%= render 'metadata', presenter: @presenter %>
     <%= render 'items', presenter: @presenter %>
     <div class="col-xs-12 visible-xs">
-      <%= render 'relationships', presenter: @presenter %>
-      <hr />
+      <!-- <%# render 'relationships', presenter: @presenter %>
+      <hr /> -->
       <%= render partial: "units/unit_info", locals: { unit: Unit.find_by_key(@presenter.unit.first.to_s) } %>
     </div>
   </div>
