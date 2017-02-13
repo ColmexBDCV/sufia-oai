@@ -36,6 +36,10 @@ en:
         part_of: "Sub-Collection"
         spatial: "Place"
         source: "Call Number"
+    hints:
+      generic_work:
+        based_near: "The geographic location and/or name of the repository, building, site, or other entity whose boundaries include the original work"
+        spatial: "A place name related to the work, such as its site of publication, or the city, state, or country the work contents are about."
   curation_concerns:
     base:
       metadata:
