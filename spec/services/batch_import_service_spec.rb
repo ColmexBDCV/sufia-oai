@@ -287,6 +287,6 @@ RSpec.describe BatchImportService do
     field_mappings = import1.import_field_mappings.where('import_field_mappings.key != ?', 'image_filename')
     generic_work = GenericWork.new
 
-    expect{batch_import.instance_eval { process_field_mappings(row, field_mappings, generic_work) }}.not_to raise_error
+    expect { batch_import.instance_eval { process_field_mappings(row, field_mappings, generic_work) }}.not_to raise_error
   end
 end
