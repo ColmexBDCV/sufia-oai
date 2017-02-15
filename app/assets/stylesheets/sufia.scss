@@ -60,7 +60,7 @@ html {
   border-bottom:1px solid #101010;
   min-height:300px;
   max-height:300px;
-  background-image: image-url('banner5.png');
+  background-image: image-url('banner6.png');
   border-top:none;
   margin-top:-20px;
 }
@@ -83,6 +83,11 @@ html {
 #home_header_4{
   @extend #home_header;
   background-image: image-url('banner4.png');
+}
+
+#home_header_5{
+  @extend #home_header;
+  background-image: image-url('banner5.png');
 }
 
 .navbar{
