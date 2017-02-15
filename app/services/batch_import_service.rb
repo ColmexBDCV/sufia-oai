@@ -15,7 +15,7 @@ class BatchImportService
   # If the CSV is simple, it will just grab the one image and the metadata per CSV record.
   # rubocop:disable Metrics/PerceivedComplexity
   def process(start_at = nil)
-    options = { headers: @import.includes_headers? ? true : false }
+    options = { headers: @import.includes_headers? ? true : false, skip_lines: /^(?:,\s*)+$/ }
     row_count = File.read(@import.csv_file_path).split(/\r/).count
 
     CSV.foreach(@import.csv_file_path, options ).each_with_index do |row, ind|
@@ -154,7 +154,6 @@ class BatchImportService
 
   def get_filename_from(row)
     filename = @import.get_column_from(row, 'image_filename')
-    raise 'filename cannot be blank' if filename.blank?
     filename
   end
 
