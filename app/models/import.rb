@@ -184,7 +184,7 @@ class Import < ActiveRecord::Base
   end
 
   def csv_columns
-    csv = CSV.read csv_file_path, headers: true
+    csv = CSV.read csv_file_path, headers: true, skip_lines: /^(?:,\s*)+$/
     csv.headers.map.with_index { |item, index| ["Column: #{index + 1} - #{item}", index] }
   end
 
@@ -245,7 +245,7 @@ class Import < ActiveRecord::Base
   end
 
   def csv_options
-    { headers: includes_headers? ? true : false, encoding: "UTF-8" }
+    { headers: includes_headers? ? true : false, encoding: "UTF-8", skip_lines: /^(?:,\s*)+$/ }
   end
 
   def simple_or_complex

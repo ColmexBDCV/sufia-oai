@@ -15,7 +15,7 @@ class BatchImportService
   # If the CSV is simple, it will just grab the one image and the metadata per CSV record.
   # rubocop:disable Metrics/PerceivedComplexity
   def process(start_at = nil)
-    options = { headers: @import.includes_headers? ? true : false }
+    options = { headers: @import.includes_headers? ? true : false, skip_lines: /^(?:,\s*)+$/ }
     row_count = File.read(@import.csv_file_path).split(/\r/).count
 
     CSV.foreach(@import.csv_file_path, options ).each_with_index do |row, ind|
@@ -44,11 +44,11 @@ class BatchImportService
           csv_processor.build_csv_array(row) # Build CSV once.
 
           break unless csv_processor.child?(get_cid_from(child))
-          csv_processor.add_file(get_filename_from(child), get_title_from(child))
+          csv_processor.add_file(get_filename_from(child), get_title_from(child), get_visibility_from(child))
         end
       else
         # Once we're done collection the files, create the csv_row_array for the GenericWork record
-        csv_processor.add_file(get_filename_from(row), get_title_from(row))
+        csv_processor.add_file(get_filename_from(row), get_title_from(row), get_visibility_from(row))
         csv_processor.build_csv_array(row)
       end
       process_import_item(current_row, csv_processor)
@@ -120,7 +120,7 @@ class BatchImportService
       gw.rights = [@import.rights]
       gw.preservation_level_rationale = @import.preservation_level
       gw.preservation_level = "Full"
-      gw.visibility = @import.visibility
+      gw.visibility = get_visibility_from(row)
       gw.unit = @import.unit.key if @import.unit
       CurationConcerns::Actors::ActorStack.new(gw, @user, [CurationConcerns::Actors::GenericWorkActor]).create({})
     end
@@ -141,6 +141,10 @@ class BatchImportService
       actor.create_metadata(gw)
       fs.creator = gw.creator
       actor.create_content(file)
+
+      # Save new visibility
+      fs.visibility = file_info[:visibility] unless file_info[:visibility] == ""
+      fs.save
     end
   end
 
@@ -150,7 +154,6 @@ class BatchImportService
 
   def get_filename_from(row)
     filename = @import.get_column_from(row, 'image_filename')
-    raise 'filename cannot be blank' if filename.blank?
     filename
   end
 
@@ -164,6 +167,11 @@ class BatchImportService
 
   def get_title_from(row)
     @import.get_column_from(row, 'title')
+  end
+
+  def get_visibility_from(row)
+    visibility = @import.get_column_from(row, 'visibility_level')
+    visibility.blank? ? @import.visibility : visibility
   end
 
   def collection_identifiers(row, key_column_number_arr, generic_work)
@@ -204,7 +212,7 @@ class BatchImportService
 
   def process_field_mappings(row, field_mappings, generic_work)
     field_mappings.each do |field_mapping|
-      next if field_mapping.key.in?(["pid", "cid"])
+      next if field_mapping.key.in?(["pid", "cid", "visibility_level"])
       key_column_number_arr = @import.import_field_mappings.where(key: field_mapping.key).first.value.reject!( &:blank? )
       key_column_value_arr = []
 
@@ -229,7 +237,7 @@ class BatchImportService
 
   # Maps a specific row of csv data to a generic_work object for ingest
   def assign_csv_values_to_genericwork(row, generic_work)
-    field_mappings = @import.import_field_mappings.where('import_field_mappings.key != ?', 'image_filename')
+    field_mappings = @import.import_field_mappings.where('import_field_mappings.key not in (?, ?)', 'image_filename', 'visibility_level')
     process_field_mappings(row, field_mappings, generic_work)
   end
 

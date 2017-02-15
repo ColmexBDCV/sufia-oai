@@ -13,8 +13,8 @@ class CSVProcessor
     @pid && !@filename
   end
 
-  def add_file(file, title)
-    @files << { filename: file, title: title }
+  def add_file(file, title, visibility)
+    @files << { filename: file, title: title, visibility: visibility }
   end
 
   def build_csv_array(row)
