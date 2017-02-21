@@ -50,6 +50,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'rubocop', '~> 0.42.0', require: false
   gem 'rubocop-rspec', '~> 1.5.1', require: false
+  gem 'license_finder'
 end
 
 group :development do

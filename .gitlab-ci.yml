@@ -43,3 +43,12 @@ rubocop:
     - bundle install --quiet --deployment --jobs $(nproc)
   script:
     - bundle exec rubocop
+
+licenses:
+  cache:
+    paths:
+    - vendor/bundle/
+  before_script:
+    - bundle install --quiet --deployment --jobs $(nproc)
+  script:
+    - bundle exec license_finder --decisions-file=.dependency_decisions.yml

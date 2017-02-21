@@ -1,7 +1,8 @@
-Digital Collections System
-==========================
+Digital Collections
+===================
 
-[Fedora/Hydra/Sufia][1] digital object repository.
+The [Ohio State University Libraries][14] digital object repository based on
+[Fedora/Hydra/Sufia][1].
 
 Prerequisites
 -------------
@@ -20,8 +21,8 @@ The following dependencies must be installed to run this application.
 While not required, macOS users may find the [Homebrew][11] package manager
 helpful to manage dependency installation.
 
-Note that this project should run on macOS, Unix, or Unix-like operating systems.
-It has not been tested on Microsoft Windows.
+Note that this project should run on GNU/Linux, macOS, or other Unix-like
+operating systems. It has not been tested on Microsoft Windows.
 
 ### Ruby
 
@@ -93,7 +94,7 @@ Installation
 Change to the project directory, be sure the correct version of Ruby is in use,
 and install all gem dependencies:
 
-    $ cd sufia7
+    $ cd purple
     $ ruby -v
     $ bundle install
 
@@ -115,7 +116,7 @@ Specifically, you should set:
 
 Next, you will need to start Solr and Fedora manually to download and configure
 their dependencies. Run each of the commands below, wait for the service to
-start, the use `Ctrl-C` to close the program.
+start, then use `Ctrl-C` to close the program.
 
     $ solr_wrapper -d solr/config/ --collection_name hydra-development
     $ fcrepo_wrapper -p 8984
@@ -142,14 +143,53 @@ access Solr at `http://localhost:8983/` and Fedora at `http://localhost:8984/`.
 
 ### Creating initial admin user and role
 
-An administrative user needs to be created to access all the features of Sufia.
+An administrative user needs to be created to access all the features of DC.
 First, visit `http://localhost:3000/users/sign_in` and create an account. Next,
 open a Rails console to set up admin access:
 
     $ bundle exec rails c
-    > u = User.find_by_user_key("your_user_email@example.com")
+    > u = User.find_by_user_key("your_user@example.com")
     > u.admin = true
     > u.save
+
+Development
+-----------
+
+Tests are run using RSpec:
+
+    $ bundle exec rspec  #to run all tests
+    $ bundle exec rspec spec/path/to/my_spec.rb  #run a single spec file
+
+Before committing, be sure your code matches the project style guide using
+rubocop.
+
+    $ bundle exec rubocop
+
+Dependencies added to the project should comply with certain license
+requirements. Specifically, including or linking against GPL licensed code
+should be avoided. Check the licenses of installed dependencies using
+`license_finder`:
+
+    $ bundle exec license_finder --decisions-file=.dependency_decisions.yml
+
+License and Copyright
+---------------------
+
+Copyright 2017 The Ohio State University
+
+```
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
 
 [1]: https://github.com/projecthydra/sufia
 [2]: https://www.ruby-lang.org/en/
@@ -164,3 +204,4 @@ open a Rails console to set up admin access:
 [11]: http://brew.sh
 [12]: https://github.com/postmodern/chruby
 [13]: https://rvm.io
+[14]: https://library.osu.edu

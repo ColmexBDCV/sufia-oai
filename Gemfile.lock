@@ -381,6 +381,12 @@ GEM
       slop
     legato (0.7.0)
       multi_json
+    license_finder (2.1.2)
+      bundler
+      httparty
+      rubyzip
+      thor
+      xml-simple
     link_header (0.0.8)
     linkeddata (1.99.0)
       equivalent-xml (~> 0.6)
@@ -819,6 +825,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   js-routes
+  license_finder
   newrelic_rpm
   omniauth
   omniauth-shibboleth
@@ -855,4 +862,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   1.14.3
+   1.14.4
