@@ -25,21 +25,23 @@ bash "Get Fits" do
   unzip fits-0.8.5.zip
   cd fits-0.8.5
   chmod a+x /usr/local/src/fits-0.8.5/fits.sh
-  fits.sh -h
-  ln -s /usr/local/src/fits-0.8.5/fits.sh /bin/fits
 	EOH
 end
 
-remote_file "/usr/local/src/LibreOffice_5.0.6_Linux_x86-64_rpm.tar.gz" do
-    source "http://download.documentfoundation.org/libreoffice/stable/5.0.6/rpm/x86_64/LibreOffice_5.0.6_Linux_x86-64_rpm.tar.gz"
+link "/usr/local/src/fits-0.8.5/fits.sh" do
+      to "/bin/fits"
+end
+
+remote_file "/usr/local/src/LibreOffice_5.3.0_Linux_x86-64_rpm.tar.gz" do
+    source "http://download.documentfoundation.org/libreoffice/stable/5.3.0/rpm/x86_64/LibreOffice_5.3.0_Linux_x86-64_rpm.tar.gz"
     action :create
 end
 
 bash "Get LibreOffice" do
   cwd "/usr/local/src/"
 	code <<-EOH
-  tar -xvf LibreOffice_5.0.6*
-  cd LibreOffice_5.0.6*
+  tar -xvf LibreOffice_5.3.0*
+  cd LibreOffice_5.3.0*
   yum -y localinstall RPMS/*.rpm
 	EOH
 end
