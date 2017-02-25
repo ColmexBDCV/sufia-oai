@@ -9,7 +9,6 @@ role :web,    %w(root@174.138.73.166)
 role :app,    %w(root@174.138.73.166)
 role :db,     %w(root@174.138.73.166)
 
-root@174.138.73.166
 # Rails Environment
 # ======================
 

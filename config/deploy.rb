@@ -6,7 +6,7 @@ set :whenever_identifier, -> { "#{fetch(:application)}_#{fetch(:stage)}" }
 
 set :application, 'purple'
 set :scm, :git
-set :repo_url, 'git@code.osu.edu:osul-ads/purple.git'
+set :repo_url, 'https://github.com/codeofsolomon/dc.git'
 
 # Default branch is master
 set :branch, ENV['BRANCH'] || "master"

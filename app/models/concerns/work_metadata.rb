@@ -7,7 +7,7 @@ module WorkMetadata
       index.as :stored_searchable
     end
 
-    property :abstract, predicate: ::RDF::DC.abstract do |index|
+    property :abstract, predicate: ::RDF::Vocab::DC.abstract do |index|
       index.type :text
       index.as :stored_searchable, :facetable
     end
@@ -26,27 +26,27 @@ module WorkMetadata
     end
 
     # Is also the part_of field, just adds stored searchable and facetable
-    property :sub_collection, predicate: ::RDF::DC.isPartOf do |index|
+    property :sub_collection, predicate: ::RDF::Vocab::DC.isPartOf do |index|
       index.as :stored_searchable, :facetable
     end
 
-    property :spatial, predicate: ::RDF::DC.spatial do |index|
+    property :spatial, predicate: ::RDF::Vocab::DC.spatial do |index|
       index.as :stored_searchable, :facetable
     end
 
-    property :alternative, predicate: ::RDF::DC.alternative do |index|
+    property :alternative, predicate: ::RDF::Vocab::DC.alternative do |index|
       index.as :stored_searchable, :facetable
     end
 
-    property :temporal, predicate: ::RDF::DC.temporal do |index|
+    property :temporal, predicate: ::RDF::Vocab::DC.temporal do |index|
       index.as :stored_searchable, :facetable
     end
 
-    property :format, predicate: ::RDF::DC.format do |index|
+    property :format, predicate: ::RDF::Vocab::DC.format do |index|
       index.as :stored_searchable, :facetable
     end
 
-    property :provenance, predicate: ::RDF::DC.provenance do |index|
+    property :provenance, predicate: ::RDF::Vocab::DC.provenance do |index|
       index.as :stored_searchable, :facetable
     end
 
@@ -65,7 +65,7 @@ module WorkMetadata
       index.as :stored_searchable, :facetable
     end
 
-    property :bibliographic_citation, predicate: ::RDF::DC.bibliographicCitation, multiple: true do |index|
+    property :bibliographic_citation, predicate: ::RDF::Vocab::DC.bibliographicCitation, multiple: true do |index|
       index.as :stored_searchable, :facetable
     end
 

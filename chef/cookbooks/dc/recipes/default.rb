@@ -37,12 +37,13 @@ remote_file "/usr/local/src/LibreOffice_5.3.0_Linux_x86-64_rpm.tar.gz" do
     action :create
 end
 
+#yum -y localinstall RPMS/*.rpm
 bash "Get LibreOffice" do
   cwd "/usr/local/src/"
 	code <<-EOH
   tar -xvf LibreOffice_5.3.0*
   cd LibreOffice_5.3.0*
-  yum -y localinstall RPMS/*.rpm
+  su -c 'yum -y install *.rpm'
 	EOH
 end
 
