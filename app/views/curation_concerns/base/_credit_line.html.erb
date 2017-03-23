@@ -1,4 +1,4 @@
-<div class="well well-sm">Credit line:
+<div class="well well-sm">Creditos:
   <% if presenter.sub_collection.present? %>
     <% presenter.sub_collection.each do |sub_collection| %>
       <%= sub_collection + "#{", "}" %>
@@ -7,5 +7,5 @@
   <% if presenter.collection_name.present? %>
     <%= "#{@presenter.collection_name.first}" + "#{", "}" %>
   <% end %>
-  <%= "#{"The Ohio State University, "}" + Unit.find_by_key(@presenter.unit.first.to_s).name %>
+  <%= "#{"Biblioteca Daniel Cosío Villegas - El Colegio de México, "}" + Unit.find_by_key(@presenter.unit.first.to_s).name %>
 </div>
