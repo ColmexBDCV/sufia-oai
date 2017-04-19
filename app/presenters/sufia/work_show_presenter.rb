@@ -6,7 +6,7 @@ module Sufia
              :sub_collection, :preservation_level, :preservation_level_rationale,
              :provenance, :spatial, :staff_notes, :temporal, :work_type, :material,
              :material_type, :measurement, :measurement_unit, :measurement_type,
-             :bibliographic_citation, :collection_identifier, :audience, :rights_statements,
+             :bibliographic_citation, :collection_identifier, :audience, :rights_statements, :orcid,
              to: :solr_document
 
     def editor?
@@ -15,6 +15,10 @@ module Sufia
 
     def destroyer?
       current_ability.can?(:destroy, solr_document)
+    end
+
+    def creator_with_ids
+      # if solr_document[:orcid].not empty, return creator and ids
     end
 
     def tweeter

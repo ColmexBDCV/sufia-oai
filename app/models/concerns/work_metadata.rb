@@ -82,5 +82,10 @@ module WorkMetadata
       index.type :text
       index.as :stored_searchable, :facetable
     end
+
+    property :orcid, predicate: ::RDF::Vocab::Identifiers.orcid, multiple: false do |index|
+      index.type :text
+      index.as :stored_searchable
+    end
   end
 end

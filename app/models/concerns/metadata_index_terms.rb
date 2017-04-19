@@ -96,4 +96,8 @@ module MetadataIndexTerms
   def rights_statements
     self[Solrizer.solr_name('rights_statements')]
   end
+
+  def orcid
+    self[Solrizer.solr_name('orcid')]
+  end
 end

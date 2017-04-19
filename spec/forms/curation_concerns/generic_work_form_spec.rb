@@ -8,8 +8,8 @@ RSpec.describe CurationConcerns::GenericWorkForm do
   let(:ability) { double }
   let(:required_fields) { [:resource_type, :title, :unit] }
   let(:term_list) do
-    [:resource_type, :title, :unit, :collection_name, :creator, :contributor,
-     :abstract, :description, :bibliographic_citation, :keyword,
+    [:resource_type, :title, :unit, :collection_name, :creator, :contributor, :audience,
+     :abstract, :description, :bibliographic_citation, :keyword, :rights_statements,
      :rights, :provenance, :publisher, :date_created, :subject,
      :language, :identifier, :archival_unit, :based_near, :related_url,
      :work_type, :spatial, :alternative, :temporal, :format, :staff_notes,
@@ -20,7 +20,7 @@ RSpec.describe CurationConcerns::GenericWorkForm do
      :visibility_during_embargo, :embargo_release_date,
      :visibility_after_embargo, :visibility_during_lease,
      :lease_expiration_date, :visibility_after_lease, :visibility,
-     :ordered_member_ids, :in_works_ids, :collection_ids]
+     :ordered_member_ids, :in_works_ids, :collection_ids, :orcid]
   end
 
   describe "modules" do

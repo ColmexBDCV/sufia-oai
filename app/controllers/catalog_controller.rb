@@ -105,6 +105,7 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("title", :stored_searchable), label: "Title"
     config.add_show_field solr_name("description", :stored_searchable), label: "Description"
     config.add_show_field solr_name("keyword", :stored_searchable), label: "Keyword"
+    config.add_show_field solr_name("orcid", :stored_searchable), label: "Orcid"
     config.add_show_field solr_name("subject", :stored_searchable), label: "Subject"
     #config.add_show_field solr_name("orcid", :stored_searchable), label: "Orcid"
     config.add_show_field solr_name("creator", :stored_searchable), label: "Creator"
