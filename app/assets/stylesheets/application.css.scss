@@ -51,3 +51,22 @@ ul.property-list li > span:first-child {
 .form-group.required .control-label {
   font-weight: bold;
 }
+
+.panel-default > .panel-heading
+{
+  
+  color: #F2F2F2;
+    background-color: #622222!important;
+    /* border-color: #ddd; */
+
+}
+
+.panel-success, .facet_limit-active {
+    border-color: #F2F2F2;
+}
+
+.facet_limit-active > .panel-heading {
+    color: #F2F2F2;
+    background-color: #5D6A8F;
+    border-color: #5D6A8F;
+}

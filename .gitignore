@@ -49,3 +49,7 @@ ehthumbs.db
 #.env file
 .env
 .env.local
+app/assets/files/*
+app/assets/uploads/*
+app/assets/imports/*
+app/assets/derivatives/*

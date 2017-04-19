@@ -1,5 +1,6 @@
 function initFileBrowser() {
   // Import directory location browser init
+  console.log(Routes.browse_imports_path());
   $('#import_file_browser').fileTree({
     script: Routes.browse_imports_path(),
     expandSpeed: 500,

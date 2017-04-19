@@ -1,0 +1,384 @@
+en:
+  sufia:
+    admin_sets:
+      index:
+        header:         "Administrative Collections"
+    controls:
+      home:             "Home"
+      about:            "About"
+      help:             "Help"
+      contact:          "Contact"
+    product_name:       "Sufia"
+    product_twitter_handle: "@BiblioColmex"
+    institution_name:   "Biblioteca Daniel Cosío Villegas"
+    institution_name_full: "El Colegio de México"
+    sort_label: "Organizar"
+    account_name:       "Número de credencial"
+    account_label:      "Usuario"
+    passive_consent_to_agreement: "Al guardar este trabajo estoy de acuerdo con los"
+    active_consent_to_agreement:  "He leído y estoy de acuerdo con"
+    deposit_agreement:  "Acuerdo de depósito"
+    document_language:  "es"
+    share_button:       "Compartir la Obra"
+    view_profile:       "Ver Perfil"
+    edit_profile:       "Editar perfil"
+    single_use_links:
+      button: "Enlace temporal al recurso"
+      expiration_message: "Link %{link} expires %{time}"
+    directory:
+      suffix:           "@example.org"
+    search:
+      form:
+        q:
+          label:          "Buscar"
+          placeholder:    "Introducir término de búsqueda"
+        option:
+          all:
+            label_short:  "Filtro"
+            label_long:   "Todo"
+          my_works:
+            label_short:  "Mis Obras"
+            label_long:   "Mis Obras"
+          my_collections:
+            label_short:  "Mis Colecciones"
+            label_long:   "Mis Colecciones"
+          my_shares:
+            label_short:  "Mis Obras Compartidas"
+            label_long:   "Mis Obras Compartidas"
+      button:
+        html: '<span class="glyphicon glyphicon-search"></span> IR'
+        text: "Buscar"
+    upload:
+      my_computer:
+        sr_tab_label: "Acceder a archivos desde"
+        tab_label: "Mi Computadora"
+        sr_instructions: "Primero debe aceptar el acuerdo de depósito y luego seleccionar los archivos. Pulse el botón Iniciar una vez que se hayan seleccionado todos los archivos"
+      browse_everything:
+        sr_tab_label: "Fuente de Archivo"
+        tab_label: "La Nube"
+        browse_files_button: "Explorar archivos desde la nube"
+        files_selected: "Archivos seleccionados"
+      local_ingest:
+        tab_label: "Ubicación de la red"
+      processing: "El archivo se esta procesando. Puede editarlo despues de que finalice el proceso."
+
+        permissions_message: "El sistema está actualizando los permisos de archivo. Esto puede tomar unos minutos. Actualiza tu navegador o vuelve a este registro más tarde para ver los permisos de archivo actualizados."
+
+    change_permissions_message_html: "<p>Se han modificado los permisos de este objeto:%{curation_concern_human_readable_type}, <i>%{curation_concern}</i>. Ser a visible a <b>%{visibility_badge}</b>.</p><p>¿Desea modificar los archivos de la %{curation_concern_human_readable_type} a <b>%{visibility_badge}</b> tambien?</p>"
+      alert:
+        fail_html: "Se produjo un problema durante la subida, ninguno de los archivos se cargó correctamente. Por favor%{reload_href}.  Utilice %{contact_href} para reportar el error si persiste."
+        fail_restart_href_text: "comenzar de nuevo"
+        contact_href_text: "Formulario de contacto"
+        partial_fail_html: "Uno o varios archivos no se han cargado correctamente. Para continuar usando los archivos que subieron %{metadata_href}. <br /> Utilice %{contact_href} para reportar el error si persiste.."
+        partial_fail_metadata_href_text: "editar los metadatos"
+      cloud_timeout_message_html: "Tenga en cuenta que si carga un gran número de archivos dentro de un corto período de tiempo, el proveedor de la nube puede no ser capaz de atender su solicitud. Si experimenta cualquier error de carga desde la nube, háganoslo saber a través de la %{contact_href}."
+    homepage:
+      featured_works:
+        tab_label:          'Obras destacadas'
+        title:              'Obras destacadas'
+        no_works:           'No hay obras destacadas.'
+        drag:               'Arrastrar'
+      recently_uploaded:
+        depositor:          'Depositor'
+        details:            'Detalles'
+        tab_label:          'Recientemente subidas'
+        no_public:          'No se ha depositado una obra publica'
+    toolbar:
+      admin:
+        menu: "Admin"
+        statistics: "Estadísticas del repositorio"
+      dashboard:
+        menu: "Panel de control"
+        my: "Mi panel de control"
+        highlights: "Obras Destacadas"
+        transfers: "Obras Transferidas"
+        shares: "Obras Compartidas"
+      works:
+        menu: "Obras"
+        new: “Crear Obra"
+        my: "Mis Obras"
+        batch: "Crear por lote"
+      collections:
+        menu: "Colecciones"
+        my: "Mis Colecciones"
+        new: "Crear Colección"
+    dashboard:
+    Título: "Mi tablero de instrumentos"
+       View_collections: "Ver Colecciones"
+       Create_collection: "Crear Colección"
+       View_files: "Ver Archivos" 
+       View_works: "Ver obras" 
+       Create_work: "Crear Trabajo" 
+       User_activity: "Actividad del usuario" 
+       No_activity: "El usuario no tiene actividad reciente" 
+       User_notifications: "Notificaciones de Usuario" 
+       No_notifications: "Usuario no tiene notificaciones" 
+       Additional_notifications: "Ver todas las notificaciones" 
+       Manage_proxies: "Administrar Proxies"
+       Proxy_activity: "Actividad de proxy"
+       Authorize_proxies: "Autorizar Proxies"
+
+      current_proxies:          "Current Proxies"
+      proxy_user:               "Proxy User"
+      transfer_of_ownership:    "Transferencia de responsabilidad"
+      transfers_sent:           "Enviado”
+      transfers_received:       "Recibido”
+      transfer_works_link:      "Seleccione las Obras a Transferir"
+      no_transfer_requests:     "No ha recibido solicitudes de transferencia”
+      no_transfers:             "No ha transferido ninguna obra”
+      stats:
+        heading:            "Sus Estadísticas”
+        files:              "Archivos Depositados”
+        file_views:         "Ver”
+        file_downloads:     "Descargar”
+        works:              "Obras Creadas”
+        collections:        "Colecciones Creadas”
+        following:          "Personas que sigue”
+        followers:          "Personas que lo siguen”
+      my:
+        works:        "Mis Obras”
+        collections:  "Mis Colecciones”
+        highlights:   "Mis Obras Destacadas”
+        shares:       "Archivos Compartidos Conmigo”
+        facet_label:
+          files:        "Filtrar sus Archios”
+          collections:  "Filtrar sus Colecciones”
+          highlighted: "Filtrar sus Obras Destacadas”
+          shared:      "Filtrar sus Obras Compartidas”
+          works:       "Filtrar sus Trabajos”
+        sr:
+          show_label:       "mostrar detalles de"
+          detail_label:     "Mostrar resumen de"
+          batch_checkbox:   "Marque aquí para agregar a una colección o editar lista"
+          check_all_label:  "Seleccione para agregar a una colección o editar lista"
+          listing:          "Lista de obras depositadas"
+          press_to:         "Selecicone para"
+        heading:
+          title:          "Título"
+          date_uploaded:  "Fecha de carga"
+          visibility:     "Visibilidad"
+          action:         "Accion"
+        collection_list:
+          description:    "Descripción:"
+          edit_access:    "Editar Acceso"
+          groups:         "Grupos:"
+          users:          "Usuarios:"
+        action:
+          select:                  "Eliga una acción"
+          edit_collection:         "Editar colección"
+          delete_collection:       "Borrar colección"
+          edit_work:               "Editar obra"
+          delete_work:             "Borrar obra"
+          transfer:                "Transferir posesión de la obra"
+          work_confirmation:       "Deleting a work from %{application_name} is permanent. Click OK to delete this work from %{application_name}, or Cancel to cancel this operation"
+          collection_confirmation: "Deleting a collection from %{application_name} is permanent. Click OK to delete this collection from %{application_name}, or Cancel to cancel this operation"
+
+    messages:
+      success:
+        single: "se guardo con éxito."
+        multiple:
+          link: "Los Archivos"
+          keyword: "se guardaron con éxito"
+        title:  "Los archivos se guardaron con éxito"
+        subject: "Se finalizó la carga masiva"
+      failure:
+        single: "no se pudieron actualizar. No tiene suficientes privilegios para editarlos."
+        multiple:
+          link: "Los siguientes archivos"
+          keyword: "no se pudieron actualizar. No tiene suficientes privilegios para editarlos."
+        title:  "Los archivos no se pudieron"
+        subject: "Permiso para la subida de archivos por lote fue denegado"
+    background_attribution: ""
+    bread_crumb:
+      search_results: "Regresar a los resultados"
+    visibility:
+      open: "Acceso abierto"
+      private: "Privado"
+      open_title_attr: "Cambiar el nivel acceso a este recurso"
+      private_title_attr: "Cambiar el nivel acceso a este recurso"
+    user_profile:
+      no_followers: "No cuentas con seguidores"
+      no_following: "No sigues a nadie"
+      no_followers_other: "No one is following this user."
+      no_following_other: "Este usuario no sigue nadie"
+      orcid:
+        alt: "Icono de ORCID"
+        label: "ORCID Profile"
+
+      tab_highlighted: "Destacado"
+      tab_profile: "Perfíl"
+      tab_activity: "Actividad"
+      zotero:
+        alt: "Iconó de Zotero"
+        label: "Períl de Zotero"
+        connected: "Conectedo"
+        unlinked: "Enlazar Zotero"
+    batch:
+      help:
+        title: "El archivo tendra el título preestablecido. Por favor cree un título más detallado, y los achivos seran preservados por el sistema."
+        resource_type: "Puede seleccionar varios tipos para asociar a todos los archivos"
+    works:
+      new:
+        header: Agregar nueva obra
+        in_collections: Esta obra en colecciones
+        after_create_html: "Sus archivos están siendo procesados por %{application_name} en segundo plano. Los metadatos y controles de acceso que ha especificado se están aplicando. Los archivos se marcarán <span class=\"label label-danger\" title=\"Private\">privado</span> hasta que este proceso esté completo (no debe tomar demasiado tiempo). Puede que tenga que actualizar esta página para ver estas actualizaciones"
+      edit:
+        header: Editar obra
+        in_collections: Esta obra en colecciones
+        additional_fields: "Agregar otro campo"
+        tab:
+          metadata:      "Descripciones"
+          files:         "Archivos"
+          relationships: "Relacion"
+          share:         "Compartir"
+      progress:
+        header: Guardar Obra
+      show:
+        no_preview: No hay vista previa disponible
+    batch_uploads:
+      new:
+        header: Crear nuevos trabajos en lote
+        in_collections: Esta obra en colecciones
+      progress:
+        header: Guardar obras
+      files:
+        instructions: Cada archivo se cargará en una nueva obra separada, resultando en un trabajo por archivo subido.
+    collection:
+      is_part_of: "Es parte de"
+      browse_view: "Vista de exploración"
+      actions:
+        header: "Acciones"
+        edit:
+          label: "Editar"
+          desc: "Editar esta colección"
+        add_works:
+          label: "Agregar obras"
+          desc: "agregar obras a esta coleccion"
+        delete:
+          label: "Borrar"
+          desc: "Borrar esta colección"
+          confirmation: "¿borrar esta colección?"
+      edit:
+        manage_items: "Gestionar obras de esta colección"
+        description: "Desripciones"
+        additional_fields: "Campos adicionales"
+      document_list:
+        edit: "Editar"
+        no_visible_works: "La colección está vacía o no contiene elementos a los que tenga acceso."
+      select_form:
+        title: "agregar a la colección"
+        no_collections: "No tiene acceso a ninguna colección existente. Puede crear una nueva colección."
+        select_heading: "Seleccione la colección a la que va a agregar sus archivos a:"
+        close: "Cerrar"
+        create: "Crear colección"
+        update: "Actualizar colección"
+        create_new: "Agrear a nueva colección"
+    mailbox:
+      date:     'Fecha'
+      subject:  'Tema'
+      message:  'Mensaje'
+      delete:   'Borrar Mensaje'
+      notifications_deleted: "Se han eliminado las notificaciones"
+    file_set:
+      browse_view: "Vista de exploración"
+    work:
+      browse_view: "Vista de exploración"
+    footer:
+      copyright_html: "<strong>Copyright &copy; 2016 Project Hydra</strong> Licensed under the Apache License, Version 2.0"
+    admin:
+      stats:
+        registered: "Registrado"
+        deposited_form:
+          heading: "Mostrar Archivos Depositados:"
+          start_label: "Iniciar"
+          end_label: "Finalizar"
+        user_deposits:
+          heading: "Display files deposited by users"
+          start_label: "Iniciando"
+          end_label: "Finalizando"
+    test:
+      progress:
+        header: "Título de prueba"
+
+  simple_form:
+    labels:
+      generic_work: &work_labels
+        based_near:       "Ubicación"
+        description:      "Resumen"
+        keyword:          "Palabras Clave"
+        date_created:     "Fecha de creación"
+        related_url:      "URL relacioando"
+        files:            "UCargue una nueva versión de este archivo desde su computadora"
+        collection_ids:   "Agregar como parte de una colección"
+      collection:
+        total_items:      "Total Items"
+        size:             "Size"
+        <<: *work_labels
+
+    hints:
+      generic_work:
+        resource_type_html: "Pre-defined categories to describe the type of content being uploaded, such as &quot;article&quot; or &quot;dataset.&quot;  More than one type may be selected."
+        title: "A name to aid in identifying a work."
+        keyword: "Words or phrases you select to describe what the work is about. These are used to search for content."
+        subject: "Headings or index terms describing what the work is about; these do need to conform to an existing vocabulary."
+        creator_html: "The person or group responsible for the work. Usually this is the author of the content. Personal names should be entered with the last name first, e.g. &quot;Smith, John.&quot;."
+        related_url: "A link to a website or other specific content (audio, video, PDF document) related to the work. An example is the URL of a research project from which the work was derived."
+        based_near_html: "A place name related to the work, such as its site of publication, or the city, state, or country the work contents are about. Calls upon the <a href='http://www.geonames.org'>GeoNames web service</a>."
+        contributor_html: "A person or group you want to recognize for playing a role in the creation of the work, but not the primary role."
+        date_created: "The date on which the work was generated."
+        description: "Free-text notes about the work. Examples include abstracts of a paper or citation information for a journal article."
+        identifier: "A unique handle identifying the work. An example would be a DOI for a journal article, or an ISBN or OCLC number for a book."
+        language: "The language of the work's content."
+        publisher: "The person or group making the work available. Generally this is the institution."
+        rights: "Licensing and distribution information governing access to the work. Select from the provided drop-down list."
+      collection:
+        resource_type_html: "Pre-defined categories to describe the type of content being uploaded, such as &quot;article&quot; or &quot;dataset.&quot;  More than one type may be selected."
+        title: "A name to aid in identifying a collection."
+        keyword: "Words or phrases you select to describe what the collection is about. These are used to search for content."
+        subject: "Headings or index terms describing what the collection is about; these do need to conform to an existing vocabulary."
+        creator_html: "The person or group responsible for the collection. Usually this is the author of the content. Personal names should be entered with the last name first, e.g. &quot;Smith, John.&quot;."
+        related_url: "A link to a website or other specific content (audio, video, PDF document) related to the collection. An example is the URL of a research project from which the collection was derived."
+        based_near_html: "A place name related to the collection, such as its site of publication, or the city, state, or country the collection contents are about. Calls upon the <a href='http://www.geonames.org'>GeoNames web service</a>."
+        contributor_html: "A person or group you want to recognize for playing a role in the creation of the collection, but not the primary role."
+        date_created: "The date on which the collection was created."
+        description: "Free-text notes about the collection. Examples include abstracts of a paper or citation information for a journal article."
+        identifier: "A unique handle identifying the collection. An example would be a DOI for a journal article, or an ISBN or OCLC number for a book."
+        language: "The language of the collection's content."
+        publisher: "The person or group making the collection available. Generally this is the institution."
+        rights: "Licensing and distribution information governing access to the collection. Select from the provided drop-down list."
+
+  curation_concerns:
+    base:
+      relationships:
+        header: Relationships
+        empty:       "This %{type} is not currently in any collections."
+        collections: "In collections:"
+      metadata:
+        header: Descriptions
+        attribute_name_label: Attribute Name
+        attribute_values_label: Values
+      items:
+        header: Items
+        empty:  "This %{type} has no files associated with it. Click \"edit\" to add more files."
+      citations:
+        header: 'Citations:'
+    visibility:
+      open:
+        label_html: Public
+      authenticated:
+        label_html: "%{institution}"
+      embargo:
+        label_html: Embargo
+      lease:
+        label_html: Lease
+      private:
+        label_html: Private
+  blacklight:
+    search:
+      fields:
+        show:
+          keyword: Keyword
+
+  helpers:
+    action:
+      cancel: "Cancel"

@@ -14,7 +14,7 @@ module Overrides
                  end
           return user_or_key if user.nil?
           text = user.respond_to?(:name) ? user.name : user_or_key
-          link_to text, ENV['RAILS_RELATIVE_URL_ROOT'].to_s + sufia.routes.url_helpers.profile_path(user)
+          link_to text, ENV['RAILS_RELATIVE_URL_ROOT'].to_s + sufia.routes.url_helpers.profile_path(user) #if sufia
         end
       end
     end
