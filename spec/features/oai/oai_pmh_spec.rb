@@ -4,12 +4,14 @@ RSpec.feature 'OAI-PMH catalog endpoint' do
   describe 'Identify verb' do
     scenario 'displays repository information' do
       visit api_oai_provider_path(verb: 'Identify')
-      expect(page).to have_content('The Ohio State University Libraries Digital Collections')
+      expect(page).to have_content('Repositorio Institucional de El Colegio de México - Biblioteca Daniel Cosío Villega')
     end
   end
 
   describe 'ListRecords verb' do
-    before { create_list(:generic_work, 3, :public) }
+    before do
+      create_list(:generic_work, 3, :public)
+    end
 
     scenario 'displays all records' do
       visit api_oai_provider_path(verb: 'ListRecords', metadataPrefix: 'oai_dc')
@@ -28,10 +30,16 @@ RSpec.feature 'OAI-PMH catalog endpoint' do
     let(:work) { create(:generic_work) }
     let(:identifier) { "oai:library.osu.edu:dc/#{work.id}" }
 
-    scenario 'displays a single record' do
+    scenario 'displays a single record', js: true do
       visit api_oai_provider_path(verb: 'GetRecord', metadataPrefix: 'oai_dc', identifier: identifier)
-      expect(page).to have_selector('record', count: 1)
+      expect(page).to have_css('.oairecord', count: 1)
       expect(page).to have_content(identifier)
+    end
+
+    scenario "a record has a creator field with all of the ids that are required" do
+      visit api_oai_provider_path(verb: 'GetRecord', metadataPrefix: 'oai_dc', identifier: identifier)
+
+      # expect(page).to have_content(new_id)
     end
 
     context 'when record has a handle' do
