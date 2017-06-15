@@ -38,6 +38,16 @@ RSpec.describe GenericWork, type: :model do
     end
   end
 
+  describe "#audience" do
+    let(:work) { create(:generic_work, unit: unit.key, audience: ['The Audience']) }
+    it { expect(work.audience).to eq ['The Audience'] }
+  end
+
+  describe "#rights" do
+    let(:work) { create(:generic_work, unit: unit.key, rights_statements: ['The rights statements.']) }
+    it { expect(work.rights_statements).to eq ['The rights statements.'] }
+  end
+
   describe "#set_admin_poilcy" do
     context "for a new work" do
       it "assigns the unit admin policy to the work" do

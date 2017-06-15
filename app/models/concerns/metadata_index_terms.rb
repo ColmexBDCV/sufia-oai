@@ -88,4 +88,12 @@ module MetadataIndexTerms
   def archival_unit
     self[Solrizer.solr_name('archival_unit')]
   end
+
+  def audience
+    self[Solrizer.solr_name('audience')]
+  end
+
+  def rights_statements
+    self[Solrizer.solr_name('rights_statements')]
+  end
 end
