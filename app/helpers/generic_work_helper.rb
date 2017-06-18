@@ -7,7 +7,9 @@ module GenericWorkHelper
       presenter.attribute_to_html(:contributor, label: 'Contributors', render_as: :linked, search_field: 'contributor_tesim'),
       presenter.attribute_to_html(:subject, render_as: :faceted ),
       presenter.attribute_to_html(:publisher, render_as: :faceted ),
-      presenter.attribute_to_html(:rights, render_as: :rights),
+      presenter.attribute_to_html(:audience, label: 'Audience', render_as: :linked, search_field: 'audience_tesim'),
+      presenter.attribute_to_html(:rights_statements, label: 'Rights'),
+      presenter.attribute_to_html(:rights, label: 'Access', render_as: :rights),
       presenter.attribute_to_html(:language, render_as: :faceted ),
       presenter.attribute_to_html(:keyword, render_as: :faceted ),
       presenter.attribute_to_html(:date_created, render_as: :linked, search_field: 'date_created_tesim', label: 'Date' ),
@@ -33,7 +35,7 @@ module GenericWorkHelper
       presenter.attribute_to_html(:material, render_as: :linked, search_field: 'material_tesim'),
       presenter.attribute_to_html(:measurement, render_as: :linked, search_field: 'measurement_tesim'),
       presenter.attribute_to_html(:embargo_release_date, render_as: :date),
-      presenter.attribute_to_html(:lease_expiration_date, render_as: :date)
+      presenter.attribute_to_html(:lease_expiration_date, render_as: :date),
     ]
 
     attributes.insert(2, presenter.attribute_to_html(:staff_notes, search_field: 'staff_notes_tesim')) if can? :update, presenter.solr_document

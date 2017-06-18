@@ -6,7 +6,7 @@ module Sufia
              :sub_collection, :preservation_level, :preservation_level_rationale,
              :provenance, :spatial, :staff_notes, :temporal, :work_type, :material,
              :material_type, :measurement, :measurement_unit, :measurement_type,
-             :bibliographic_citation, :collection_identifier,
+             :bibliographic_citation, :collection_identifier, :audience, :rights_statements,
              to: :solr_document
 
     def editor?

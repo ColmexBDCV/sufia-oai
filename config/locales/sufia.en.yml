@@ -36,6 +36,8 @@ en:
         part_of: "Sub-Collection"
         spatial: "Place"
         source: "Call Number"
+        rights: "Access"
+        rights_statements: "Rights"
     hints:
       generic_work:
         based_near: "The geographic location and/or name of the repository, building, site, or other entity whose boundaries include the original work"

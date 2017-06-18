@@ -72,5 +72,15 @@ module WorkMetadata
     property :handle, predicate: ::RDF::Vocab::Identifiers.hdl do |index|
       index.as :stored_searchable, :facetable
     end
+
+    property :audience, predicate: ::RDF::Vocab::DC.audience do |index|
+      index.type :text
+      index.as :stored_searchable, :facetable
+    end
+
+    property :rights_statements, predicate: ::RDF::Vocab::EDM.rights do |index|
+      index.type :text
+      index.as :stored_searchable, :facetable
+    end
   end
 end
