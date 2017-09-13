@@ -1,0 +1,2 @@
+class ConacytCatalogsController < ApplicationController
+end
