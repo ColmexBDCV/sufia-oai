@@ -7,7 +7,7 @@ class Import < ActiveRecord::Base
   belongs_to :unit
   accepts_nested_attributes_for :import_field_mappings
 
-  has_attached_file :csv, path: "#{Rails.configuration.x.import.storage_path}/csv/:id/:basename.:extension"
+  has_attached_file :csv, path: "#{Rails.configuration.import.storage_path}/csv/:id/:basename.:extension"
 
   validates_attachment_file_name :csv, matches: /\.csv\z/
   validates_attachment_presence :csv
@@ -168,7 +168,7 @@ class Import < ActiveRecord::Base
 
   # Defines path where imported csv files are stored
   def csv_import_path
-    File.join(Rails.configuration.x.import.storage_path, 'csv', id.to_s)
+    File.join(Rails.configuration.import.storage_path, 'csv', id.to_s)
   end
 
   def csv_file_path
@@ -176,7 +176,7 @@ class Import < ActiveRecord::Base
   end
 
   def image_base
-    File.join(Rails.configuration.x.import.base_path, server_import_location_name)
+    File.join(Rails.configuration.import.base_path, server_import_location_name)
   end
 
   def image_path_for(filename)

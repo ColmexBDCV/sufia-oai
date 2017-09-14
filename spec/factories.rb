@@ -22,8 +22,6 @@ FactoryGirl.define do
       work.apply_depositor_metadata(evaluator.user.user_key)
     end
 
-    factory :public_generic_work, traits: [:public]
-
     trait :public do
       visibility Hydra::AccessControls::AccessRight::VISIBILITY_TEXT_VALUE_PUBLIC
     end
@@ -200,30 +198,31 @@ FactoryGirl.define do
     visibility_level: "5",
     collection_name: "6",
     creator: "7",
-    contributor: "8",
-    description: "9",
-    keyword: "10",
-    publisher: "11",
-    date_created: "12",
-    subject: "13",
-    language: "14",
-    identifier: "15",
-    based_near: "16",
-    related_url: "17",
-    staff_notes: "18",
-    spatial: "19",
-    alternative: "20",
-    temporal: "21",
-    format: "22",
-    work_type: "23",
-    source: "24",
-    materials: "25",
-    measurements: "26",
-    part_of: "27",
-    bibliographic_citation: "28",
-    provenance: "29",
-    collection_identifier: "30",
-    handle: "31"
+    orcid: "8",
+    contributor: "9",
+    description: "10",
+    keyword: "11",
+    publisher: "12",
+    date_created: "13",
+    subject: "14",
+    language: "15",
+    identifier: "16",
+    based_near: "17",
+    related_url: "18",
+    staff_notes: "19",
+    spatial: "20",
+    alternative: "21",
+    temporal: "22",
+    format: "23",
+    work_type: "24",
+    source: "25",
+    materials: "26",
+    measurements: "27",
+    part_of: "28",
+    bibliographic_citation: "29",
+    provenance: "30",
+    collection_identifier: "31",
+    handle: "32"
   }
 
   factory :import, aliases: [:simple_import] do
@@ -238,14 +237,15 @@ FactoryGirl.define do
     transient do
       csv_filename 'images.csv'
       mappings do
-        { mapping_keys[:resource_type]          => { "id" => (ImportFieldMapping.last.id - 31).to_s, "value" => ["", csv_columns[:type]] },
-          mapping_keys[:title]                  => { "id" => (ImportFieldMapping.last.id - 30).to_s, "value" => ["", csv_columns[:title]] },
-          mapping_keys[:image_filename]         => { "id" => (ImportFieldMapping.last.id - 29).to_s, "value" => ["", csv_columns[:filename]] },
-          mapping_keys[:pid]                    => { "id" => (ImportFieldMapping.last.id - 28).to_s, "value" => [""] },
-          mapping_keys[:cid]                    => { "id" => (ImportFieldMapping.last.id - 27).to_s, "value" => [""] },
-          mapping_keys[:visibility_level]       => { "id" => (ImportFieldMapping.last.id - 26).to_s, "value" => ["", csv_columns[:visibility]] },
-          mapping_keys[:collection_name]        => { "id" => (ImportFieldMapping.last.id - 25).to_s, "value" => ["", csv_columns[:collection]] },
-          mapping_keys[:creator]                => { "id" => (ImportFieldMapping.last.id - 24).to_s, "value" => ["", csv_columns[:creator]] },
+        { mapping_keys[:resource_type]          => { "id" => (ImportFieldMapping.last.id - 32).to_s, "value" => ["", csv_columns[:type]] },
+          mapping_keys[:title]                  => { "id" => (ImportFieldMapping.last.id - 31).to_s, "value" => ["", csv_columns[:title]] },
+          mapping_keys[:image_filename]         => { "id" => (ImportFieldMapping.last.id - 30).to_s, "value" => ["", csv_columns[:filename]] },
+          mapping_keys[:pid]                    => { "id" => (ImportFieldMapping.last.id - 29).to_s, "value" => [""] },
+          mapping_keys[:cid]                    => { "id" => (ImportFieldMapping.last.id - 28).to_s, "value" => [""] },
+          mapping_keys[:visibility_level]       => { "id" => (ImportFieldMapping.last.id - 27).to_s, "value" => ["", csv_columns[:visibility]] },
+          mapping_keys[:collection_name]        => { "id" => (ImportFieldMapping.last.id - 26).to_s, "value" => ["", csv_columns[:collection]] },
+          mapping_keys[:creator]                => { "id" => (ImportFieldMapping.last.id - 25).to_s, "value" => ["", csv_columns[:creator]] },
+          mapping_keys[:orcid]                => { "id" => (ImportFieldMapping.last.id - 24).to_s, "value" => ["", csv_columns[:creator]] },
           mapping_keys[:contributor]            => { "id" => (ImportFieldMapping.last.id - 23).to_s, "value" => [""] },
           mapping_keys[:description]            => { "id" => (ImportFieldMapping.last.id - 22).to_s, "value" => ["", csv_columns[:description]] },
           mapping_keys[:keyword]                => { "id" => (ImportFieldMapping.last.id - 21).to_s, "value" => ["", csv_columns[:keyword1], csv_columns[:keyword2], csv_columns[:keyword3]] },
@@ -293,14 +293,14 @@ FactoryGirl.define do
       transient do
         csv_filename 'images_complex.csv'
         mappings do
-          { mapping_keys[:resource_type]          => { "id" => (ImportFieldMapping.last.id - 31).to_s, "value" => ["", csv_columns[:type]] },
-            mapping_keys[:title]                  => { "id" => (ImportFieldMapping.last.id - 30).to_s, "value" => ["", csv_columns[:title]] },
-            mapping_keys[:image_filename]         => { "id" => (ImportFieldMapping.last.id - 29).to_s, "value" => ["", csv_columns[:filename]] },
-            mapping_keys[:pid]                    => { "id" => (ImportFieldMapping.last.id - 28).to_s, "value" => ["", csv_columns[:pid]] },
-            mapping_keys[:cid]                    => { "id" => (ImportFieldMapping.last.id - 27).to_s, "value" => ["", csv_columns[:cid]] },
-            mapping_keys[:visibility_level]       => { "id" => (ImportFieldMapping.last.id - 26).to_s, "value" => ["", csv_columns[:visibility]] },
-            mapping_keys[:collection_name]        => { "id" => (ImportFieldMapping.last.id - 25).to_s, "value" => [""] },
-            mapping_keys[:creator]                => { "id" => (ImportFieldMapping.last.id - 24).to_s, "value" => ["", csv_columns[:creator]] },
+          { mapping_keys[:resource_type]          => { "id" => (ImportFieldMapping.last.id - 32).to_s, "value" => ["", csv_columns[:type]] },
+            mapping_keys[:title]                  => { "id" => (ImportFieldMapping.last.id - 31).to_s, "value" => ["", csv_columns[:title]] },
+            mapping_keys[:image_filename]         => { "id" => (ImportFieldMapping.last.id - 30).to_s, "value" => ["", csv_columns[:filename]] },
+            mapping_keys[:pid]                    => { "id" => (ImportFieldMapping.last.id - 29).to_s, "value" => ["", csv_columns[:pid]] },
+            mapping_keys[:cid]                    => { "id" => (ImportFieldMapping.last.id - 28).to_s, "value" => ["", csv_columns[:cid]] },
+            mapping_keys[:visibility_level]       => { "id" => (ImportFieldMapping.last.id - 27).to_s, "value" => ["", csv_columns[:visibility]] },
+            mapping_keys[:collection_name]        => { "id" => (ImportFieldMapping.last.id - 26).to_s, "value" => [""] },
+            mapping_keys[:creator]                => { "id" => (ImportFieldMapping.last.id - 25).to_s, "value" => ["", csv_columns[:creator]] },
             mapping_keys[:contributor]            => { "id" => (ImportFieldMapping.last.id - 23).to_s, "value" => [""] },
             mapping_keys[:description]            => { "id" => (ImportFieldMapping.last.id - 22).to_s, "value" => ["", csv_columns[:description]] },
             mapping_keys[:keyword]                => { "id" => (ImportFieldMapping.last.id - 21).to_s, "value" => ["", csv_columns[:keyword1], csv_columns[:keyword2], csv_columns[:keyword3]] },
@@ -334,14 +334,14 @@ FactoryGirl.define do
       transient do
         csv_filename 'images_complex_orphans.csv'
         mappings do
-          { mapping_keys[:resource_type]           => { "id" => (ImportFieldMapping.last.id - 31).to_s, "value" => ["", csv_columns[:type]] },
-            mapping_keys[:title]                   => { "id" => (ImportFieldMapping.last.id - 30).to_s, "value" => ["", csv_columns[:title]] },
-            mapping_keys[:image_filename]          => { "id" => (ImportFieldMapping.last.id - 29).to_s, "value" => ["", csv_columns[:filename]] },
-            mapping_keys[:pid]                     => { "id" => (ImportFieldMapping.last.id - 28).to_s, "value" => ["", csv_columns[:pid]] },
-            mapping_keys[:cid]                     => { "id" => (ImportFieldMapping.last.id - 27).to_s, "value" => ["", csv_columns[:cid]] },
-            mapping_keys[:visibility_level]        => { "id" => (ImportFieldMapping.last.id - 26).to_s, "value" => ["", csv_columns[:visibility]] },
-            mapping_keys[:collection_name]         => { "id" => (ImportFieldMapping.last.id - 25).to_s, "value" => [""] },
-            mapping_keys[:creator]                 => { "id" => (ImportFieldMapping.last.id - 24).to_s, "value" => ["", csv_columns[:creator]] },
+          { mapping_keys[:resource_type]           => { "id" => (ImportFieldMapping.last.id - 32).to_s, "value" => ["", csv_columns[:type]] },
+            mapping_keys[:title]                   => { "id" => (ImportFieldMapping.last.id - 31).to_s, "value" => ["", csv_columns[:title]] },
+            mapping_keys[:image_filename]          => { "id" => (ImportFieldMapping.last.id - 30).to_s, "value" => ["", csv_columns[:filename]] },
+            mapping_keys[:pid]                     => { "id" => (ImportFieldMapping.last.id - 29).to_s, "value" => ["", csv_columns[:pid]] },
+            mapping_keys[:cid]                     => { "id" => (ImportFieldMapping.last.id - 28).to_s, "value" => ["", csv_columns[:cid]] },
+            mapping_keys[:visibility_level]        => { "id" => (ImportFieldMapping.last.id - 27).to_s, "value" => ["", csv_columns[:visibility]] },
+            mapping_keys[:collection_name]         => { "id" => (ImportFieldMapping.last.id - 26).to_s, "value" => [""] },
+            mapping_keys[:creator]                 => { "id" => (ImportFieldMapping.last.id - 25).to_s, "value" => ["", csv_columns[:creator]] },
             mapping_keys[:contributor]             => { "id" => (ImportFieldMapping.last.id - 23).to_s, "value" => [""] },
             mapping_keys[:description]             => { "id" => (ImportFieldMapping.last.id - 22).to_s, "value" => ["", csv_columns[:description]] },
             mapping_keys[:keyword]                 => { "id" => (ImportFieldMapping.last.id - 21).to_s, "value" => ["", csv_columns[:keyword1], csv_columns[:keyword2], csv_columns[:keyword3]] },
@@ -375,14 +375,68 @@ FactoryGirl.define do
       transient do
         csv_filename 'images_with_blanks.csv'
         mappings do
-          { mapping_keys[:resource_type]          => { "id" => (ImportFieldMapping.last.id - 31).to_s, "value" => ["", csv_columns[:type]] },
-            mapping_keys[:title]                  => { "id" => (ImportFieldMapping.last.id - 30).to_s, "value" => ["", csv_columns[:title]] },
-            mapping_keys[:image_filename]         => { "id" => (ImportFieldMapping.last.id - 29).to_s, "value" => ["", csv_columns[:filename]] },
-            mapping_keys[:pid]                    => { "id" => (ImportFieldMapping.last.id - 28).to_s, "value" => [""] },
-            mapping_keys[:cid]                    => { "id" => (ImportFieldMapping.last.id - 27).to_s, "value" => [""] },
-            mapping_keys[:visibility_level]       => { "id" => (ImportFieldMapping.last.id - 26).to_s, "value" => ["", csv_columns[:visibility]] },
-            mapping_keys[:collection_name]        => { "id" => (ImportFieldMapping.last.id - 25).to_s, "value" => ["", csv_columns[:collection]] },
-            mapping_keys[:creator]                => { "id" => (ImportFieldMapping.last.id - 24).to_s, "value" => ["", csv_columns[:creator]] },
+          { mapping_keys[:resource_type]          => { "id" => (ImportFieldMapping.last.id - 32).to_s, "value" => ["", csv_columns[:type]] },
+            mapping_keys[:title]                  => { "id" => (ImportFieldMapping.last.id - 31).to_s, "value" => ["", csv_columns[:title]] },
+            mapping_keys[:image_filename]         => { "id" => (ImportFieldMapping.last.id - 30).to_s, "value" => ["", csv_columns[:filename]] },
+            mapping_keys[:pid]                    => { "id" => (ImportFieldMapping.last.id - 29).to_s, "value" => [""] },
+            mapping_keys[:cid]                    => { "id" => (ImportFieldMapping.last.id - 28).to_s, "value" => [""] },
+            mapping_keys[:visibility_level]       => { "id" => (ImportFieldMapping.last.id - 27).to_s, "value" => ["", csv_columns[:visibility]] },
+            mapping_keys[:collection_name]        => { "id" => (ImportFieldMapping.last.id - 26).to_s, "value" => ["", csv_columns[:collection]] },
+            mapping_keys[:creator]                => { "id" => (ImportFieldMapping.last.id - 25).to_s, "value" => ["", csv_columns[:creator]] },
+            mapping_keys[:contributor]            => { "id" => (ImportFieldMapping.last.id - 23).to_s, "value" => [""] },
+            mapping_keys[:description]            => { "id" => (ImportFieldMapping.last.id - 22).to_s, "value" => ["", csv_columns[:description]] },
+            mapping_keys[:keyword]                => { "id" => (ImportFieldMapping.last.id - 21).to_s, "value" => ["", csv_columns[:keyword1], csv_columns[:keyword2], csv_columns[:keyword3]] },
+            mapping_keys[:publisher]              => { "id" => (ImportFieldMapping.last.id - 20).to_s, "value" => [""] },
+            mapping_keys[:date_created]           => { "id" => (ImportFieldMapping.last.id - 19).to_s, "value" => [""] },
+            mapping_keys[:subject]                => { "id" => (ImportFieldMapping.last.id - 18).to_s, "value" => ["", csv_columns[:subject1], csv_columns[:subject2]] },
+            mapping_keys[:language]               => { "id" => (ImportFieldMapping.last.id - 17).to_s, "value" => [""] },
+            mapping_keys[:identifier]             => { "id" => (ImportFieldMapping.last.id - 16).to_s, "value" => [""] },
+            mapping_keys[:base_near]              => { "id" => (ImportFieldMapping.last.id - 15).to_s, "value" => [""] },
+            mapping_keys[:related_url]            => { "id" => (ImportFieldMapping.last.id - 14).to_s, "value" => [""] },
+            mapping_keys[:staff_notes]            => { "id" => (ImportFieldMapping.last.id - 13).to_s, "value" => [""] },
+            mapping_keys[:spatial]                => { "id" => (ImportFieldMapping.last.id - 12).to_s, "value" => [""] },
+            mapping_keys[:alternative]            => { "id" => (ImportFieldMapping.last.id - 11).to_s, "value" => [""] },
+            mapping_keys[:temporal]               => { "id" => (ImportFieldMapping.last.id - 10).to_s, "value" => [""] },
+            mapping_keys[:format]                 => { "id" => (ImportFieldMapping.last.id - 9).to_s,  "value" => [""] },
+            mapping_keys[:work_type]              => { "id" => (ImportFieldMapping.last.id - 8).to_s,  "value" => [""] },
+            mapping_keys[:source]                 => { "id" => (ImportFieldMapping.last.id - 7).to_s,  "value" => [""] },
+            mapping_keys[:materials]              => { "id" => (ImportFieldMapping.last.id - 6).to_s,  "value" => ["", csv_columns[:material1], csv_columns[:material2]] },
+            mapping_keys[:measurements]           => { "id" => (ImportFieldMapping.last.id - 5).to_s,  "value" => ["", csv_columns[:measurement]] },
+            mapping_keys[:part_of]                => { "id" => (ImportFieldMapping.last.id - 4).to_s,  "value" => [""] },
+            mapping_keys[:bibliographic_citation] => { "id" => (ImportFieldMapping.last.id - 3).to_s,  "value" => [""] },
+            mapping_keys[:provenance]             => { "id" => (ImportFieldMapping.last.id - 2).to_s,  "value" => [""] },
+            mapping_keys[:collection_identifier]  => { "id" => (ImportFieldMapping.last.id - 1).to_s,  "value" => [""] },
+            mapping_keys[:handle]                 => { "id" => ImportFieldMapping.last.id.to_s,        "value" => [""] } }
+        end
+      end
+    end
+
+    factory :simple_with_orcid do
+      name "My Orcid Import"
+      includes_headers true
+      server_import_location_name "/images/"
+      import_type "Generic"
+      rights "http://creativecommons.org/licenses/by/3.0/us/"
+      preservation_level "Preservation Master"
+      visibility "open"
+      orcid_csv_columns = {
+        title: "0",
+        orcid: "1",
+        creator: "2"
+      }
+      transient do
+        csv_filename 'test.csv'
+
+        mappings do
+          { mapping_keys[:resource_type]          => { "id" => (ImportFieldMapping.last.id - 32).to_s, "value" => ["", csv_columns[:type]] },
+            mapping_keys[:title]                  => { "id" => (ImportFieldMapping.last.id - 31).to_s, "value" => ["", orcid_csv_columns[:title]] },
+            mapping_keys[:image_filename]         => { "id" => (ImportFieldMapping.last.id - 30).to_s, "value" => ["", csv_columns[:filename]] },
+            mapping_keys[:pid]                    => { "id" => (ImportFieldMapping.last.id - 29).to_s, "value" => [""] },
+            mapping_keys[:cid]                    => { "id" => (ImportFieldMapping.last.id - 28).to_s, "value" => [""] },
+            mapping_keys[:visibility_level]       => { "id" => (ImportFieldMapping.last.id - 27).to_s, "value" => ["", csv_columns[:visibility]] },
+            mapping_keys[:collection_name]        => { "id" => (ImportFieldMapping.last.id - 26).to_s, "value" => ["", csv_columns[:collection]] },
+            mapping_keys[:creator]                => { "id" => (ImportFieldMapping.last.id - 25).to_s, "value" => ["", orcid_csv_columns[:creator]] },
+            mapping_keys[:orcid]                => { "id" => (ImportFieldMapping.last.id - 24).to_s, "value" => ["", orcid_csv_columns[:orcid]] },
             mapping_keys[:contributor]            => { "id" => (ImportFieldMapping.last.id - 23).to_s, "value" => [""] },
             mapping_keys[:description]            => { "id" => (ImportFieldMapping.last.id - 22).to_s, "value" => ["", csv_columns[:description]] },
             mapping_keys[:keyword]                => { "id" => (ImportFieldMapping.last.id - 21).to_s, "value" => ["", csv_columns[:keyword1], csv_columns[:keyword2], csv_columns[:keyword3]] },

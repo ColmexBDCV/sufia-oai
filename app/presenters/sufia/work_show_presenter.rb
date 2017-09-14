@@ -17,10 +17,6 @@ module Sufia
       current_ability.can?(:destroy, solr_document)
     end
 
-    def creator_with_ids
-      # if solr_document[:orcid].not empty, return creator and ids
-    end
-
     def tweeter
       user = ::User.find_by_user_key(depositor)
       if user.try(:twitter_handle).present?
