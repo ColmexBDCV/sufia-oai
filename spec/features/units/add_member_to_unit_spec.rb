@@ -4,23 +4,23 @@ RSpec.feature 'Add member to Unit' do
   let(:unit) { create(:unit) }
   let(:user) { create(:admin_user) }
 
-  context 'as a logged in user', js: true do
+  context 'as a logged in user' do
     before do
       login_as user
     end
 
-    scenario "can add units" do
+    scenario "can add units", js: true do
       visit edit_unit_path(unit)
 
       expect(page).to have_text 'Edit My Unit'
-      # click_link 'Add member to unit'
-      # expect(page).to have_text 'test'
-      # select user.name, from: 'User'
-      # select 'Manager', from: 'Level'
-      # click_button 'Update Unit'
-      # expect(page).to have_text 'test'
+      click_link 'Add member to unit'
+      expect(page).to have_text 'test'
+      select user.name, from: 'User'
+      select 'Manager', from: 'Level'
+      click_button 'Update Unit'
 
-      # expect(page).to have_content user.name
+      expect(page).to have_text 'My Unit'
+      expect(page).to have_content user.name
     end
   end
 end

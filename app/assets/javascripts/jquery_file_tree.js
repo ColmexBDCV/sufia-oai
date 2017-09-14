@@ -26,12 +26,11 @@
 // 1.00 - released (24 March 2008)
 //
 // TERMS OF USE
-// 
+//
 // This plugin is dual-licensed under the GNU General Public License and the MIT License and
-// is copyright 2008 A Beautiful Site, LLC. 
+// is copyright 2008 A Beautiful Site, LLC.
 //
 if(jQuery) (function($){
-        console.log("testing");	
 	$.extend($.fn, {
 		fileTree: function(o) {
 			// Defaults
@@ -49,9 +48,9 @@ if(jQuery) (function($){
 			if( o.folderCallback == undefined ) o.folderCallback = function(){};
 			if( o.errorCallback == undefined ) o.errorCallback = function(){};
 			if( o.errorMessage == undefined ) o.errorMessage = 'There was an error reading this directory';
-			
+
 			$(this).each( function() {
-				
+
 				function showTree(c, t) {
 					$(c).addClass('wait');
 					$(".jqueryFileTree.start").remove();
@@ -67,7 +66,7 @@ if(jQuery) (function($){
 				  	$(c).removeClass('wait').find('.start').html('');
 				  });
 				}
-				
+
 				function bindTree(t) {
 					$(t).find('LI A').bind(o.folderEvent, function() {
 						if( $(this).parent().hasClass('directory') ) {
@@ -101,5 +100,5 @@ if(jQuery) (function($){
 			});
 		}
 	});
-	
+
 })(jQuery);

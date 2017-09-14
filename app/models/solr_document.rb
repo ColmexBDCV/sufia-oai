@@ -24,6 +24,7 @@ class SolrDocument
                          format:      Solrizer.solr_name('format'),
                          identifier:  'oai_identifier',
                          language:    Solrizer.solr_name('language'),
+                         orcid:    Solrizer.solr_name('orcid'),
                          publisher:   Solrizer.solr_name('publisher'),
                          rights:      Solrizer.solr_name('rights'),
                          source:      Solrizer.solr_name('source'),

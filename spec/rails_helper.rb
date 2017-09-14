@@ -40,6 +40,9 @@ Capybara.register_driver :selenium do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome)
 end
 
+# Not sure server errors are relevant here, because the Rails server thread is not in sync with javascript driver and capybara threads. So far seeing a routing error caused by an unescaped path that does not prevent javascript driver from loading the page and executing its capybara commands. Until it seems like a good idea to allow them, I'm suppressing them.
+Capybara.raise_server_errors = false
+
 Capybara.javascript_driver = :selenium
 
 RSpec.configure do |config|

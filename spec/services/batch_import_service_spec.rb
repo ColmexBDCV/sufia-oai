@@ -9,9 +9,10 @@ RSpec.describe BatchImportService do
   let!(:import2) { create(:complex_import, :with_field_mappings, unit: unit) }
   let!(:import3) { create(:complex_orphans, :with_field_mappings, unit: unit) }
   let!(:import4) { create(:simple_with_blank_rows, :with_field_mappings, unit: unit) }
+  let!(:import5) { create(:simple_with_orcid, :with_field_mappings, unit: unit) }
 
   after do
-    FileUtils.rm_rf Rails.configuration.x.import.storage_path if Rails.env.test?
+    FileUtils.rm_rf Rails.configuration.import.storage_path if Rails.env.test?
   end
 
   it "will validate CSV by finding orphaned children" do
@@ -53,7 +54,6 @@ RSpec.describe BatchImportService do
     row = ["image", "Dreese", "Dreese Hall photo", "building", "osu", nil, "restricted", "university", "archive", "50 x 25 cm", "paper", nil, "179.jpg", "Bartos, Chris", nil]
     current_row = 1
     files = [{ filename: "181.jpg", title: "Hayes" }]
-
     work = batch_import.import_item(row, current_row, files)
     expect(work.file_sets.count).to eq(1)
   end
@@ -122,18 +122,13 @@ RSpec.describe BatchImportService do
     expect(work.collection_name.first).to eq("Collection Name")
   end
 
-  it "Simple Import: Get pid, cid, and title from row" do
-    batch_import = described_class.new(import1, user)
+  it "Simple Import: Get orcid from row" do
+    batch_import = described_class.new(import5, user)
+    row = ["Don Quixote", "123456", "Cervantes"]
 
-    row = ["image", "Dreese", "Dreese Hall photo", "building", "osu", nil, "restricted", "university", "archive", "50 x 25 cm", "paper", nil, "179.jpg", "Bartos, Chris"]
+    orcid = batch_import.instance_eval { get_orcid_from(row) }
 
-    cid = batch_import.instance_eval { get_cid_from(row) }
-    pid = batch_import.instance_eval { get_pid_from(row) }
-    title = batch_import.instance_eval { get_title_from(row) }
-
-    expect(cid).to eq(nil)
-    expect(pid).to eq(nil)
-    expect(title).to eq("Dreese")
+    expect(orcid).to eq("123456")
   end
 
   it "Simple Import: Get visibility from row" do

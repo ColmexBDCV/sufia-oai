@@ -14,6 +14,7 @@ class BatchImportService
   # If the CSV is complex, it grabes the Metadata, along with an array of files (fileset) for that metadata.
   # If the CSV is simple, it will just grab the one image and the metadata per CSV record.
   # rubocop:disable Metrics/PerceivedComplexity
+  # TODO: double check that orcid needed here
   def process(start_at = nil)
     options = { headers: @import.includes_headers? ? true : false, skip_lines: /^(?:,\s*)+$/ }
     row_count = File.read(@import.csv_file_path).split(/\r/).count
@@ -44,11 +45,11 @@ class BatchImportService
           csv_processor.build_csv_array(row) # Build CSV once.
 
           break unless csv_processor.child?(get_cid_from(child))
-          csv_processor.add_file(get_filename_from(child), get_title_from(child), get_visibility_from(child))
+          csv_processor.add_file(get_filename_from(child), get_title_from(child), get_visibility_from(child), get_orcid_from(child))
         end
       else
         # Once we're done collection the files, create the csv_row_array for the GenericWork record
-        csv_processor.add_file(get_filename_from(row), get_title_from(row), get_visibility_from(row))
+        csv_processor.add_file(get_filename_from(row), get_title_from(row), get_visibility_from(row), get_orcid_from(row))
         csv_processor.build_csv_array(row)
       end
       process_import_item(current_row, csv_processor)
@@ -167,6 +168,10 @@ class BatchImportService
 
   def get_title_from(row)
     @import.get_column_from(row, 'title')
+  end
+
+  def get_orcid_from(row)
+    @import.get_column_from(row, 'orcid')
   end
 
   def get_visibility_from(row)

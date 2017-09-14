@@ -28,7 +28,9 @@ RSpec.feature 'OAI-PMH catalog endpoint' do
 
   describe 'GetRecord verb' do
     let(:work) { create(:generic_work) }
-    let(:identifier) { "oai:library.osu.edu:dc/#{work.id}" }
+    # TODO: change identifier, add orcid metadata property
+    # make new context?
+    let(:identifier) { "oai:repositorio.colmex.mx:dc/#{work.id}" }
 
     scenario 'displays a single record', js: true do
       visit api_oai_provider_path(verb: 'GetRecord', metadataPrefix: 'oai_dc', identifier: identifier)
@@ -36,10 +38,18 @@ RSpec.feature 'OAI-PMH catalog endpoint' do
       expect(page).to have_content(identifier)
     end
 
-    scenario "a record has a creator field with all of the ids that are required" do
-      visit api_oai_provider_path(verb: 'GetRecord', metadataPrefix: 'oai_dc', identifier: identifier)
+    context 'rdf records' do
+      scenario "a record has a creator field with all of the ids that are required" do
+        visit api_oai_provider_path(verb: 'GetRecord', metadataPrefix: 'oai_dc', identifier: identifier)
 
-      # expect(page).to have_content(new_id)
+        # expect(page).to have_content(new_id)
+      end
+
+      scenario "a record can display an rdf field" do
+        visit api_oai_provider_path(verb: 'GetRecord', metadataPrefix: 'oai_rdf', identifier: identifier, field: orcid)
+
+        expect(page).to have_content(new_id)
+      end
     end
 
     context 'when record has a handle' do
