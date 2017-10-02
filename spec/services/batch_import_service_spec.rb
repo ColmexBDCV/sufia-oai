@@ -58,6 +58,11 @@ RSpec.describe BatchImportService do
     expect(work.file_sets.count).to eq(1)
   end
 
+  it "Simple Import: Creates 1 GenericWork with 1 FileSet with orcid field" do
+    # byebug
+    # the service is setting the orcid property to an array but it isn't. there's a method that could set it to a string. test that it successfully imports and sets metadata with orcid.
+  end
+
   it "Simple Import: Creates on GenericWork with 1 FileSet with visibility of restricted" do
     batch_import = described_class.new(import1, user)
 

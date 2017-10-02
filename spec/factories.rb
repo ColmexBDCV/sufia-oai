@@ -422,10 +422,11 @@ FactoryGirl.define do
       orcid_csv_columns = {
         title: "0",
         orcid: "1",
-        creator: "2"
+        creator: "2",
+        type: "3"
       }
       transient do
-        csv_filename 'test.csv'
+        csv_filename 'test_simple_orcid.csv'
 
         mappings do
           { mapping_keys[:resource_type]          => { "id" => (ImportFieldMapping.last.id - 32).to_s, "value" => ["", csv_columns[:type]] },
