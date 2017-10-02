@@ -20,7 +20,7 @@ RSpec.describe CurationConcerns::GenericWorkForm do
      :visibility_during_embargo, :embargo_release_date,
      :visibility_after_embargo, :visibility_during_lease,
      :lease_expiration_date, :visibility_after_lease, :visibility,
-     :ordered_member_ids, :in_works_ids, :collection_ids, :orcid]
+     :ordered_member_ids, :in_works_ids, :collection_ids, :orcid, :cvu]
   end
 
   describe "modules" do

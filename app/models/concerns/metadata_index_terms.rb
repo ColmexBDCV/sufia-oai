@@ -100,4 +100,8 @@ module MetadataIndexTerms
   def orcid
     self[Solrizer.solr_name('orcid')]
   end
+
+  def cvu
+    self[Solrizer.solr_name('cvu')]
+  end
 end

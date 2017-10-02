@@ -6,7 +6,7 @@ class ImportFieldMapping < ActiveRecord::Base
           :identifier, :based_near, :related_url, :staff_notes, :spatial,
           :alternative, :temporal, :format, :work_type, :source, :materials,
           :measurements, :part_of, :bibliographic_citation, :provenance,
-          :collection_identifier, :handle].freeze
+          :collection_identifier, :handle, :cvu].freeze
 
   def self.initiate_mappings(import)
     KEYS.each do |key|

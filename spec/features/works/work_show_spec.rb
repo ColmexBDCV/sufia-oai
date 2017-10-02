@@ -10,6 +10,11 @@ RSpec.feature 'Work show' do
 
   scenario "It has orcid metadata", js: true do
     visit curation_concerns_generic_work_path generic_work
-    expect(page).to have_content 'Test orcid'
+    expect(page).to have_content 'Test Orcid'
+  end
+
+  scenario "It has cvu metadata", js: true do
+    visit curation_concerns_generic_work_path generic_work
+    expect(page).to have_content 'Test CVU'
   end
 end

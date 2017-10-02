@@ -15,7 +15,7 @@ RSpec.describe Sufia::WorkShowPresenter do
       provenance spatial staff_notes temporal work_type material
       material_type measurement measurement_unit measurement_type
       bibliographic_citation collection_identifier
-      audience rights_statements orcid
+      audience rights_statements orcid cvu
     ]
   end
   describe "delegations" do
@@ -51,5 +51,7 @@ RSpec.describe Sufia::WorkShowPresenter do
     it { is_expected.to delegate_method(:audience).to(:solr_document) }
     it { is_expected.to delegate_method(:rights_statements).to(:solr_document) }
     it { is_expected.to delegate_method(:orcid).to(:solr_document) }
+
+    it { is_expected.to delegate_method(:cvu).to(:solr_document) }
   end
 end

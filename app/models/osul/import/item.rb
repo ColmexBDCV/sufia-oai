@@ -140,7 +140,7 @@ module Osul
 
       def terms
         # removed visibility b/c it's coming from solr :visibility
-        [ :date_uploaded, :identifier, :abstract, :resource_type, :title, :creator, :orcid, :contributor, :description, :bibliographic_citation,
+        [ :date_uploaded, :identifier, :abstract, :resource_type, :title, :creator, :orcid, :cvu, :contributor, :description, :bibliographic_citation,
           :rights, :provenance, :publisher, :date_created, :subject, :language, :based_near, :related_url,
           :work_type, :spatial, :alternative, :temporal, :format, :staff_notes, :source, :part_of, :preservation_level_rationale,
           :preservation_level, :depositor, :handle, :id, :visibility, :unit, :collection_identifier]

@@ -170,6 +170,7 @@ class BatchImportService
     @import.get_column_from(row, 'title')
   end
 
+  # TODO: is this method needed?
   def get_orcid_from(row)
     @import.get_column_from(row, 'orcid')
   end
@@ -189,6 +190,13 @@ class BatchImportService
   def orcid(row, key_column_number_arr, generic_work)
     key_column_number_arr.each do |num|
       generic_work.orcid = row[num.to_i]
+      break
+    end
+  end
+
+  def cvu(row, key_column_number_arr, generic_work)
+    key_column_number_arr.each do |num|
+      generic_work.cvu = row[num.to_i]
       break
     end
   end
@@ -234,6 +242,9 @@ class BatchImportService
         next
       elsif field_mapping.key == 'orcid'
         orcid(row, key_column_number_arr, generic_work)
+        next
+      elsif field_mapping.key == 'cvu'
+        cvu(row, key_column_number_arr, generic_work)
         next
       elsif field_mapping.key == 'measurements'
         measurements(row, key_column_number_arr, generic_work)
