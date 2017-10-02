@@ -61,10 +61,10 @@ class ImportsController < ApplicationController
   end
 
   def browse
-    root = Rails.configuration.x.import.base_path
+    root = Rails.configuration.import.base_path
     @dir = URI.unescape(params[:dir])
-    path = root + "/" + @dir
 
+    path = root + "/" + @dir
     # Change to requested directory
     Dir.chdir(File.expand_path(path).untaint)
 

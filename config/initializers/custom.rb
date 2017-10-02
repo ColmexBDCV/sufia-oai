@@ -1,10 +1,21 @@
 # Initializer contains miscellaneous custom application configuration settings
 
-# settings from environment
-if Rails.env.eq? "test"
+# settings from environment: adding root to paths for dev and test
+if Rails.env == "test"
+  storage_path = "#{Rails.root}#{ENV['TEST_IMPORT_PATH']}"
+  base_path = "#{Rails.root}#{ENV['TEST_FEDORA_NFS_UPLOAD_PATH']}"
+
   Rails.application.config.import = Hashie::Mash.new(
-    storage_path: ENV['TEST_IMPORT_PATH'] || File.join(Rails.root, 'tmp', 'imports'),
-    base_path: ENV['TEST_FEDORA_NFS_UPLOAD_PATH'] || Rails.root
+    storage_path: storage_path,
+    base_path: base_path
+  )
+elsif Rails.env == "development"
+  storage_path = "#{Rails.root}#{ENV['IMPORT_PATH']}"
+  base_path = "#{Rails.root}#{ENV['FEDORA_NFS_UPLOAD_PATH']}"
+
+  Rails.application.config.import = Hashie::Mash.new(
+    storage_path: storage_path,
+    base_path: base_path
   )
 else
   Rails.application.config.import = Hashie::Mash.new(
