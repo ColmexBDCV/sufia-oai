@@ -87,5 +87,10 @@ module WorkMetadata
       index.type :text
       index.as :stored_searchable
     end
+
+    property :cvu, predicate: ::RDF::Vocab::Identifiers.local, multiple: false do |index|
+      index.type :text
+      index.as :stored_searchable
+    end
   end
 end

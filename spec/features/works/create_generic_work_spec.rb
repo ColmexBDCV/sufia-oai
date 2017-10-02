@@ -14,6 +14,8 @@ RSpec.feature 'Create a GenericWork' do
       fill_in 'Title', with: 'Test GenericWork'
       fill_in 'Creator', with: 'Person, Test'
       fill_in 'Keyword', with: 'Test'
+      fill_in 'Orcid', with: 'Test Orcid'
+      fill_in 'Cvu', with: 'Test CVU'
       select unit.name, from: 'Unit'
       find("#generic_work_rights").find(:xpath, 'option[1]').select_option
       click_on "Files"
@@ -21,6 +23,8 @@ RSpec.feature 'Create a GenericWork' do
       click_button 'Save'
 
       expect(page).to have_content 'Test GenericWork'
+      expect(page).to have_content 'Test Orcid'
+      expect(page).to have_content 'Test CVU'
     end
 
     scenario 'with audience' do

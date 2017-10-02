@@ -12,6 +12,7 @@ module GenericWorkHelper
       presenter.attribute_to_html(:rights, label: 'Access', render_as: :rights),
       presenter.attribute_to_html(:language, render_as: :faceted ),
       presenter.attribute_to_html(:orcid, label: "ORCID" ),
+      presenter.attribute_to_html(:cvu, label: "CVU" ),
       presenter.attribute_to_html(:keyword, render_as: :faceted ),
       presenter.attribute_to_html(:date_created, render_as: :linked, search_field: 'date_created_tesim', label: 'Date' ),
       presenter.attribute_to_html(:identifier),

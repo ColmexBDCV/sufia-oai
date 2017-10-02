@@ -9,10 +9,10 @@ RSpec.describe BatchImportService do
   let!(:import2) { create(:complex_import, :with_field_mappings, unit: unit) }
   let!(:import3) { create(:complex_orphans, :with_field_mappings, unit: unit) }
   let!(:import4) { create(:simple_with_blank_rows, :with_field_mappings, unit: unit) }
-  let!(:import5) { create(:simple_with_orcid, :with_field_mappings, unit: unit) }
+  let!(:import5) { create(:simple_with_orcid_and_cvu, :with_field_mappings, unit: unit) }
 
   after do
-    FileUtils.rm_rf Rails.configuration.import.storage_path if Rails.env.test?
+    # FileUtils.rm_rf Rails.configuration.import.storage_path if Rails.env.test?
   end
 
   it "will validate CSV by finding orphaned children" do
@@ -129,11 +129,12 @@ RSpec.describe BatchImportService do
 
   it "Simple Import: Get orcid from row" do
     batch_import = described_class.new(import5, user)
-    row = ["Don Quixote", "123456", "Cervantes"]
+    row = ["Don Quixote", "123456", "Cervantes", "great cvu"]
 
     orcid = batch_import.instance_eval { get_orcid_from(row) }
 
     expect(orcid).to eq("123456")
+    expect(orcid).to eq("great cvu")
   end
 
   it "Simple Import: Get visibility from row" do

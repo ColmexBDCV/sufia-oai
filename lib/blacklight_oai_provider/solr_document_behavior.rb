@@ -10,11 +10,7 @@ module BlacklightOaiProvider
 
     # TODO: find out how to call the oai_rdf_xml method where appropriate
     def to_oai_dc
-      if orcid
-        export_as('oai_rdf_xml')
-      else
-        export_as('oai_dc_xml')
-      end
+      export_as('oai_dc_xml')
     end
 
     def to_oai_rdf
