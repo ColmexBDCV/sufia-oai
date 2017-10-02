@@ -14,7 +14,6 @@ class BatchImportService
   # If the CSV is complex, it grabes the Metadata, along with an array of files (fileset) for that metadata.
   # If the CSV is simple, it will just grab the one image and the metadata per CSV record.
   # rubocop:disable Metrics/PerceivedComplexity
-  # TODO: double check that orcid needed here
   def process(start_at = nil)
     options = { headers: @import.includes_headers? ? true : false, skip_lines: /^(?:,\s*)+$/ }
     row_count = File.read(@import.csv_file_path).split(/\r/).count
@@ -45,11 +44,11 @@ class BatchImportService
           csv_processor.build_csv_array(row) # Build CSV once.
 
           break unless csv_processor.child?(get_cid_from(child))
-          csv_processor.add_file(get_filename_from(child), get_title_from(child), get_visibility_from(child), get_orcid_from(child))
+          csv_processor.add_file(get_filename_from(child), get_title_from(child), get_visibility_from(child))
         end
       else
         # Once we're done collection the files, create the csv_row_array for the GenericWork record
-        csv_processor.add_file(get_filename_from(row), get_title_from(row), get_visibility_from(row), get_orcid_from(row))
+        csv_processor.add_file(get_filename_from(row), get_title_from(row), get_visibility_from(row))
         csv_processor.build_csv_array(row)
       end
       process_import_item(current_row, csv_processor)
@@ -121,6 +120,7 @@ class BatchImportService
       gw.rights = [@import.rights]
       gw.preservation_level_rationale = @import.preservation_level
       gw.preservation_level = "Full"
+
       gw.visibility = get_visibility_from(row)
       gw.unit = @import.unit.key if @import.unit
       CurationConcerns::Actors::ActorStack.new(gw, @user, [CurationConcerns::Actors::GenericWorkActor]).create({})
@@ -186,6 +186,13 @@ class BatchImportService
     end
   end
 
+  def orcid(row, key_column_number_arr, generic_work)
+    key_column_number_arr.each do |num|
+      generic_work.orcid = row[num.to_i]
+      break
+    end
+  end
+
   def measurements(row, key_column_number_arr, generic_work)
     key_column_number_arr.each do |num|
       measurement_hash = measurement_format_for(row[num.to_i].try(:strip))
@@ -224,6 +231,9 @@ class BatchImportService
       # Certain fields require special parsing
       if field_mapping.key == 'collection_identifier'
         collection_identifiers(row, key_column_number_arr, generic_work)
+        next
+      elsif field_mapping.key == 'orcid'
+        orcid(row, key_column_number_arr, generic_work)
         next
       elsif field_mapping.key == 'measurements'
         measurements(row, key_column_number_arr, generic_work)
