@@ -18,6 +18,7 @@ module CurationConcerns
                   :visibility_after_embargo, :visibility_during_lease,
                   :lease_expiration_date, :visibility_after_lease, :visibility,
                   :ordered_member_ids, :in_works_ids, :collection_ids]
+                  #:ordered_member_ids, :in_works_ids, :collection_ids, :orcid]
 
     self.required_fields = [:resource_type, :title, :unit]
 

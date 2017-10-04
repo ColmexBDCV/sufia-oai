@@ -1,0 +1,2 @@
+module ConacytCatalogsHelper
+end
