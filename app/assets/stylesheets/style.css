@@ -1,0 +1,10 @@
+.easy-autocomplete.eac-square input{
+     border: 1px solid #ccc;
+     border-radius: 4px;
+}
+
+.easy-autocomplete-container{
+  z-index: 5;
+  margin-top: 34px;
+
+}

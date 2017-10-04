@@ -1,6 +1,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  get 'client/persona_name', to: 'conacyt_catalogs#persona_name' 
   Hydra::BatchEdit.add_routes(self)
   mount Blacklight::Engine => '/'
 

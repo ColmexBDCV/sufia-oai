@@ -22,6 +22,7 @@
 //= require cocoon
 //= require sufia
 //= require homepage
+//= require xray
 //= require_tree .
 
  var appReady = function() {

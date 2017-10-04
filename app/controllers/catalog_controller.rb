@@ -108,6 +108,7 @@ class CatalogController < ApplicationController
     config.add_show_field solr_name("orcid", :stored_searchable), label: "Orcid"
     config.add_show_field solr_name("cvu", :stored_searchable), label: "CVU"
     config.add_show_field solr_name("subject", :stored_searchable), label: "Subject"
+    #config.add_show_field solr_name("orcid", :stored_searchable), label: "Orcid"
     config.add_show_field solr_name("creator", :stored_searchable), label: "Creator"
     config.add_show_field solr_name("contributor", :stored_searchable), label: "Contributor"
     config.add_show_field solr_name("publisher", :stored_searchable), label: "Publisher"
