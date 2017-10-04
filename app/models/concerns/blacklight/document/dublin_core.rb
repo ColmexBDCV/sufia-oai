@@ -52,11 +52,11 @@ module Blacklight::Document::DublinCore
     if cvu_value.nil? && orcid_value.nil?
       xml.tag! "dc:#{field}", v
     elsif cvu_value.present? && orcid_value.present?
-      xml.tag!("dc:#{field}", v, id: "repositorio.colmex.mx/orcid/#{orcid_value}/cvu/#{cvu_value}")
+      xml.tag!("dc:#{field}", v, id: "info:eu-repo/dai/mx/orcid/#{orcid_value}")
     elsif orcid_value.nil?
-      xml.tag!("dc:#{field}", v, id: "repositorio.colmex.mx/cvu/#{cvu_value}")
+      xml.tag!("dc:#{field}", v, id: "info:eu-repo/dai/mx/cvu/#{cvu_value}")
     else
-      xml.tag!("dc:#{field}", v, id: "repositorio.colmex.mx/orcid/#{orcid_value}")
+      xml.tag!("dc:#{field}", v, id: "info:eu-repo/dai/mx/ orcid/#{orcid_value}")
     end
   end
 
