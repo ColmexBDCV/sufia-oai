@@ -51,3 +51,6 @@ app/assets/files/*
 app/assets/uploads/*
 app/assets/imports/*
 app/assets/derivatives/*
+
+#DB config file
+config/database.yml
