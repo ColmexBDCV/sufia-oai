@@ -1,6 +1,5 @@
-<div class="stats">
-  <h1>Statistics for <%= application_name %>
-    <%= Sufia::VERSION %></h1>
+<div class="stats container-fluid">
+  <h1>Statistics for <%= application_name %></h1>
   <h2>Total <%= application_name %> Users:&nbsp; <%= @presenter.users_count %> </h2>
   <hr/>
   <%= render "admin/stats/works" %>
