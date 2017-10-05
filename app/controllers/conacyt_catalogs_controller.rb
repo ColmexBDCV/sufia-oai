@@ -3,7 +3,7 @@ class ConacytCatalogsController < ApplicationController
 
   def initialize
     # @conn = Faraday.new :url =>'http://catalogs.repositorionacionalcti.mx/webresources/', :headers => { :Authorization => 'Basic ZWNtOkVjTTA1XzA2'}
-      @conn = Faraday.new :url => 'http://localhost:5000/'
+      @conn = Faraday.new :url => 'http://localhost:5050/'
   end
 
   def index
