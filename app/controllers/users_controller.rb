@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   def user_params
     permitted_params = [:avatar, :facebook_handle, :twitter_handle,
                         :googleplus_handle, :linkedin_handle, :remove_avatar,
-                        :orcid, :name, :phone, :paternal_surname, :maternal_surname]
+                        :orcid, :fistname, :phone, :paternal_surname, :maternal_surname]
 
     # Only admins can make a user an admin
     permitted_params.concat([:admin]) if current_user.admin?

@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
 
   #Allows new fields in sign_up an update an account
   def configure_permitted_parameters
-   devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :paternal_surname, :maternal_surname, :phone])
+   devise_parameter_sanitizer.permit(:sign_up, keys: [:firstname, :paternal_surname, :maternal_surname, :phone])
    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :paternal_surname, :maternal_surname, :phone])
   end
 

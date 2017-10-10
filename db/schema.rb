@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171009174841) do
+ActiveRecord::Schema.define(version: 20171010172715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -485,7 +485,7 @@ ActiveRecord::Schema.define(version: 20171009174841) do
     t.binary   "zotero_token"
     t.string   "zotero_userid"
     t.boolean  "admin",                  default: false
-    t.string   "name"
+    t.string   "firstname"
     t.string   "paternal_surname"
     t.string   "maternal_surname"
     t.string   "phone"
