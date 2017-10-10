@@ -10,15 +10,15 @@ class ConacytStatsController < ApplicationController
   end
 
   def padron
-    usuarios = User.select('email, name, phone, paternal_surname, maternal_surname').all()
+    usuarios = User.select('email, firstname, phone, paternal_surname, maternal_surname').all()
 
-    depositarios = {}
+    d = { depositarios: []}
 
-    usuarios.each |u| do
-        depositarios.push(
+    usuarios.each do |u|
+        d[:depositarios].push(
           {
             correo: u.email,
-            nombre: u.name,
+            nombre: u.firstname,
             numTel: u.phone,
             pApellido: u.paternal_surname,
             sApellido: u.maternal_surname
@@ -27,7 +27,7 @@ class ConacytStatsController < ApplicationController
         )
     end
 
-  render :json => usuarios
+    render :json => d
 
   end
 
