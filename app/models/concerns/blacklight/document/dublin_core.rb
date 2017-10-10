@@ -56,7 +56,7 @@ module Blacklight::Document::DublinCore
     elsif orcid_value.nil?
       xml.tag!("dc:#{field}", v, id: "info:eu-repo/dai/mx/cvu/#{cvu_value}")
     else
-      xml.tag!("dc:#{field}", v, id: "info:eu-repo/dai/mx/ orcid/#{orcid_value}")
+      xml.tag!("dc:#{field}", v, id: "info:eu-repo/dai/mx/orcid/#{orcid_value}")
     end
   end
 
