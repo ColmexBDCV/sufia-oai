@@ -1,11 +1,4 @@
-<%= simple_form_for @user, url: sufia.profile_path(@user.to_param), html: {multipart: true, class: 'form-horizontal' } do |f| %>
-  <div class="form-group">
-    <div class="col-xs-8 col-xs-offset-4">
-      <%- if current_user.admin? %>
-        <%= f.input :admin %>
-      <%- end %>
-    </div>
-  </div>
+<%= form_for @user, url: sufia.profile_path(@user.to_param), html: {multipart: true, class: 'form-horizontal' } do |f| %>
   <div class="form-group">
     <%= f.label :avatar, '<i class="glyphicon glyphicon-camera"></i> Change picture'.html_safe, class: "col-xs-4 control-label" %>
     <div class="col-xs-8">
@@ -31,9 +24,38 @@
     </div>
   </div><!-- .form-group -->
 
+
   <% if Sufia.config.arkivo_api %>
     <%= render partial: 'zotero', locals: { f: f, user: @user } %>
   <% end %>
+
+  <div class="form-group">
+    <%= f.label :name, '<i class="fa fa-twitter"></i> Name'.html_safe, class: 'col-xs-4 control-label' %>
+    <div class="col-xs-8">
+       <%= f.text_field :name, class: "form-control" %>
+    </div>
+  </div><!-- .form-group -->
+
+  <div class="form-group">
+    <%= f.label :paternal_surname, '<i class="fa fa-twitter"></i> Paternal Surname'.html_safe, class: 'col-xs-4 control-label' %>
+    <div class="col-xs-8">
+       <%= f.text_field :paternal_surname, class: "form-control" %>
+    </div>
+  </div><!-- .form-group -->
+
+  <div class="form-group">
+    <%= f.label :maternal_surname, '<i class="fa fa-twitter"></i> Maternal Surname'.html_safe, class: 'col-xs-4 control-label' %>
+    <div class="col-xs-8">
+       <%= f.text_field :maternal_surname, class: "form-control" %>
+    </div>
+  </div><!-- .form-group -->
+
+  <div class="form-group">
+    <%= f.label :phone, '<i class="fa fa-twitter"></i> Phone'.html_safe, class: 'col-xs-4 control-label' %>
+    <div class="col-xs-8">
+       <%= f.text_field :phone, class: "form-control" %>
+    </div>
+  </div><!-- .form-group -->
 
   <div class="form-group">
     <%= f.label :orcid, class: 'col-xs-4 control-label' do %>
@@ -67,6 +89,6 @@
 
   <%= render 'trophy_edit', trophies: @trophies %>
 
-  <%= f.submit 'Save Profile', class: "btn btn-primary" %>
+  <%= f.button '<i class="glyphicon glyphicon-save"></i> Save Profile'.html_safe, type: 'submit', class: "btn btn-primary" %>
 <% end %>
 <%= render 'dashboard/_index_partials/proxy_rights', user: @user %>

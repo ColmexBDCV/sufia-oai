@@ -16,6 +16,9 @@ class ApplicationController < ActionController::Base
 
   before_action :store_current_location, unless: :devise_controller?
 
+  #First step for allow new fields for devise
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
@@ -30,6 +33,12 @@ class ApplicationController < ActionController::Base
 
   def disable_turbolinks
     @disable_turbolinks = true
+  end
+
+  #Allows new fields in sign_up an update an account
+  def configure_permitted_parameters
+   devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :paternal_surname, :maternal_surname, :phone])
+   devise_parameter_sanitizer.permit(:account_update, keys: [:name, :paternal_surname, :maternal_surname, :phone])
   end
 
   private

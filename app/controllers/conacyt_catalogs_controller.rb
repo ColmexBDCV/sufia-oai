@@ -3,7 +3,7 @@ class ConacytCatalogsController < ApplicationController
 
   def initialize
     # @conn = Faraday.new :url =>'http://catalogs.repositorionacionalcti.mx/webresources/', :headers => { :Authorization => 'Basic ZWNtOkVjTTA1XzA2'}
-      @conn = Faraday.new :url => 'http://localhost:5000/'
+      @conn = Faraday.new :url => 'http://localhost:5050/'
   end
 
   def index
@@ -21,6 +21,15 @@ class ConacytCatalogsController < ApplicationController
 
   end
 
+  def miguel
+    conn = Faraday.new :url => 'http://biblioteca.colmex.mx/', :headers => { :Authorization => 'Basic YWRtaW5CZGN2OkQ0TjFFTEMwUzEw'}
+
+    q = conn.get "administrator"
+
+    render :html => q.body
+  end
+
+
   def persona_name
 
 
@@ -34,7 +43,7 @@ class ConacytCatalogsController < ApplicationController
     nombres = []
 
     data.each do |dato|
-      nombres.push({ nombre: "#{dato["nombres"]} #{dato["primerApellido"]} #{dato["segundoApellido"]}" })
+      nombres.push({id: "#{dato["_id"]}", nombre: "#{dato["nombres"]} #{dato["primerApellido"]} #{dato["segundoApellido"]}" })
     end
 
     render json: nombres

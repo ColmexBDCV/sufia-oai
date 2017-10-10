@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160930191850) do
+ActiveRecord::Schema.define(version: 20171009174841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -334,6 +334,7 @@ ActiveRecord::Schema.define(version: 20160930191850) do
     t.string   "image_uri"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+    t.string   "audience"
   end
 
   create_table "proxy_deposit_requests", force: :cascade do |t|
@@ -484,6 +485,10 @@ ActiveRecord::Schema.define(version: 20160930191850) do
     t.binary   "zotero_token"
     t.string   "zotero_userid"
     t.boolean  "admin",                  default: false
+    t.string   "name"
+    t.string   "paternal_surname"
+    t.string   "maternal_surname"
+    t.string   "phone"
   end
 
   add_index "users", ["admin"], name: "index_users_on_admin", using: :btree

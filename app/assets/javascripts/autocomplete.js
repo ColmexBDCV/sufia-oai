@@ -9,14 +9,15 @@ var options = {
   },
 
   getValue: function(element) {
+    console.log(element);
   	return element.nombre;
   },
 
   list: {
-    maxNumberOfElements: 20,
-    match: {
-      enabled: true
-    }
+    maxNumberOfElements: 10,
+    // match: {
+    //   enabled: true
+    // }
   },
 
   theme: "square"
