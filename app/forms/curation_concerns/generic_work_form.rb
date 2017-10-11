@@ -5,8 +5,7 @@ module CurationConcerns
 
     self.model_class = ::GenericWork
 
-    self.terms = [:resource_type, :title, :unit, :collection_name, :creator, :contributor,
-                  :audience, :abstract, :description, :bibliographic_citation, :keyword,
+    self.terms = [:resource_type, :title, :unit, :collection_name, :creator, :orcid, :cvu, :contributor, :audience, :abstract, :description, :bibliographic_citation, :keyword,
                   :rights_statements, :rights, :provenance, :publisher, :date_created, :subject,
                   :language, :identifier, :archival_unit, :based_near, :related_url, :work_type,
                   :spatial, :alternative, :temporal, :format, :staff_notes,
@@ -17,7 +16,7 @@ module CurationConcerns
                   :visibility_during_embargo, :embargo_release_date,
                   :visibility_after_embargo, :visibility_during_lease,
                   :lease_expiration_date, :visibility_after_lease, :visibility,
-                  :ordered_member_ids, :in_works_ids, :collection_ids, :orcid, :cvu]
+                  :ordered_member_ids, :in_works_ids, :collection_ids]
 
     self.required_fields = [:resource_type, :title, :unit]
 
