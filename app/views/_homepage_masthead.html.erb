@@ -8,10 +8,14 @@
         </div><!-- /univ_info -->
         <div class="univ_links">
                 <div class="links">
-                        <ul>
-        <li><a href="http://localhost:3000/users/sign_up" class="help">Registrar</a></li>
-        <li><a href="http://localhost:3000/users/sign_in" class="buckeyelink" >Ingresar</a></li>
-      </ul>
+                  <ul>
+                    <li>
+                      <%= link_to('Registrar', main_app.new_user_registration_path) %>
+                    </li>
+                    <li>
+                      <%= link_to('Ingresar', main_app.new_user_session_path) %>
+                    </li>
+                  </ul>
 
                 </div><!-- /links -->
         </div><!-- /univ_links -->
