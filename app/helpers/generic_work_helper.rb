@@ -40,7 +40,7 @@ module GenericWorkHelper
       presenter.attribute_to_html(:lease_expiration_date, render_as: :date),
     ]
 
-    attributes.insert(2, presenter.attribute_to_html(:staff_notes, search_field: 'staff_notes_tesim')) if can? :update, presenter.solr_document
+    # attributes.insert(2, presenter.attribute_to_html(:staff_notes, search_field: 'staff_notes_tesim')) if can? :update, presenter.solr_document
     attributes.reject!(&:empty?)
   end
 end

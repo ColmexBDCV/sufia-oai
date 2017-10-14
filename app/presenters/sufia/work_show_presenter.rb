@@ -57,6 +57,8 @@ module Sufia
 
     def authorize_member_presenters(action, type)
       presenters = []
+      # byebug
+      # can I replace these members with all users?
       send("#{type}_presenters").each do |member|
         presenters << member if @current_ability.can?(action, member.id)
       end
