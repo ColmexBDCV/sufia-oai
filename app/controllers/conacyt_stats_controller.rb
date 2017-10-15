@@ -52,27 +52,40 @@ class ConacytStatsController < ApplicationController
 
       render :json => a
   end
+
   def autores
 
     a = { autores: []}
 
-      autores = WorkViewStat.group(:work_id).sum(:work_views)
+    works = WorkViewStat.group(:work_id).sum(:work_views)
 
-      autores.each do |key, value|
-        work = GenericWork.where(id: key)
+    works.each do |key, value|
+      work = GenericWork.where(id: key)
 
-        if !work.empty? then
+      if !work.empty? then
+
+        esta = a[:autores].index { |h| h[:nombre] == work[0].creator }
+
+        if esta then 
+           
+          a[:autores][esta][:numero] =  a[:autores][esta][:numero] + value
+
+        else
+            
+          autor = work[0].creator
           a[:autores].push(
-             {
-                nombre: work[0].creator,
-                numero:  value
-             } 
+            {
+              nombre: autor,
+              numero:  value
+            } 
           )
         end
       end
+    end
 
-      render :json => a
+    render :json => a
   end
+
   def descargas
 
     d = { descargas: []}
