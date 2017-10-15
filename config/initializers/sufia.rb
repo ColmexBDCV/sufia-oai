@@ -16,7 +16,7 @@ Sufia.config do |config|
   # Enable displaying usage statistics in the UI
   # Defaults to FALSE
   # Requires a Google Analytics id and OAuth2 keyfile.  See README for more info
-  # config.analytics = false
+  config.analytics = true
 
   # Specify a Google Analytics tracking ID to gather usage statistics
   config.google_analytics_id = ENV['GA_TRACKING_ID']

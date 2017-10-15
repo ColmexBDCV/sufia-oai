@@ -334,7 +334,6 @@ ActiveRecord::Schema.define(version: 20171010172715) do
     t.string   "image_uri"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
-    t.string   "audience"
   end
 
   create_table "proxy_deposit_requests", force: :cascade do |t|

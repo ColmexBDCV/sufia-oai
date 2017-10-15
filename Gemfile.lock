@@ -871,7 +871,7 @@ DEPENDENCIES
   simplecov
   sinatra
   sitemap_generator
-  solr_wrapper (~> 0.17)
+  solr_wrapper
   spring
   sqlite3
   sufia (= 7.0.0)

@@ -1,8 +1,16 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  
+  #Conacyt Requirements
+  
   get 'client/persona_name', to: 'conacyt_catalogs#persona_name'
   get 'padron', to: 'conacyt_stats#padron'
+  get 'articulos', to: 'conacyt_stats#articulos'
+  get 'autores', to: 'conacyt_stats#autores'
+  get 'descargas', to: 'conacyt_stats#descargas'
+
+  #End Conacyt Requirements
 
   Hydra::BatchEdit.add_routes(self)
   mount Blacklight::Engine => '/'
