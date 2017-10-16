@@ -30,7 +30,7 @@ class ConacytStatsController < ApplicationController
     render :json => d
 
   end
-  #articulos = WorkViewStat.group('work_id').count('work_id', :distinct => true) 
+  #articulos = WorkViewStat.group('work_id').count('work_id', :distinct => true)
   def articulos
 
     a = { articulos: []}
@@ -45,7 +45,7 @@ class ConacytStatsController < ApplicationController
              {
                 id: work[0].identifier,
                 numero:  value
-             } 
+             }
           )
         end
       end
@@ -66,18 +66,18 @@ class ConacytStatsController < ApplicationController
 
         esta = a[:autores].index { |h| h[:nombre] == work[0].creator }
 
-        if esta then 
-           
+        if esta then
+
           a[:autores][esta][:numero] =  a[:autores][esta][:numero] + value
 
         else
-            
+
           autor = work[0].creator
           a[:autores].push(
             {
               nombre: autor,
               numero:  value
-            } 
+            }
           )
         end
       end
@@ -96,15 +96,15 @@ class ConacytStatsController < ApplicationController
         work_key = Fileset.where(id: key)
         work = GenericWork.where(work_key[0].parent)
         if !work.empty? then
-          d[:descargasgas].push(
+          d[:descargas].push(
              {
                 id: work[0].identifier,
                 numero:  value
-             } 
+             }
           )
         end
       end
-      
+
       render :json => d
   end
 end
