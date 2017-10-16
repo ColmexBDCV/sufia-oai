@@ -36,6 +36,7 @@ class ConacytCatalogsController < ApplicationController
     palabra = params[:phrase].gsub(" ", "%20")
 
     # persona = @conn.get "persona/byNombreCompleto/params;nombre=#{palabra};limit=20"
+    console.log(@conn)
     persona = @conn.get "api/personas/#{palabra}"
     #persona = @conn.post "api/personas", { :nombre => palabra}
     data = JSON.parse(persona.body.force_encoding('utf-8'))
