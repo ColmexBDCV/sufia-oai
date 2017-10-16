@@ -9,7 +9,7 @@ var options = {
   },
 
   getValue: function(element) {
-    console.log(element);
+    
   	return element.nombre;
   },
 

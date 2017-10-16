@@ -21,15 +21,6 @@ class ConacytCatalogsController < ApplicationController
 
   end
 
-  def miguel
-    conn = Faraday.new :url => 'http://biblioteca.colmex.mx/', :headers => { :Authorization => 'Basic YWRtaW5CZGN2OkQ0TjFFTEMwUzEw'}
-
-    q = conn.get "administrator"
-
-    render :html => q.body
-  end
-
-
   def persona_name
 
 
