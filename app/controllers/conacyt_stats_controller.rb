@@ -93,14 +93,17 @@ class ConacytStatsController < ApplicationController
       descargas = FileDownloadStat.group(:file_id).sum(:downloads)
 
       descargas.each do |key, value|
-        work_key = Fileset.where(id: key)
-        work = GenericWork.where(work_key[0].parent)
-        if !work.empty? then
+        # work_key = FileSet.where(id: key)
+        # work = GenericWork.where(work_key[0].parent)
+         work = nil
+	 begin work = FileSet.find(key).parent rescue work = nil end
+        unless work.nil? then
+
           d[:descargas].push(
-             {
-                id: work[0].identifier,
-                numero:  value
-             }
+            {
+              id: work.identifier,
+             numero:  value
+            }
           )
         end
       end
