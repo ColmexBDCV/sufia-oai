@@ -16,7 +16,7 @@ module Blacklight::Document::DublinCore
   end
 
   def dublin_core_field_names
-    [:contributor, :coverage, :creator, :date, :description, :format, :identifier, :language, :publisher, :relation, :rights, :source, :subject, :title, :type]
+    [:contributor, :coverage, :creator, :date, :description, :format, :identifier, :language, :publisher, :relation, :rights, :source, :subject, :title, :type, :access]
   end
 
   # dublin core elements are mapped against the #dublin_core_field_names whitelist.
@@ -32,6 +32,8 @@ module Blacklight::Document::DublinCore
           if field == :creator
             # end xml looks like this: <dc:creator id="repositorio.colmex.mx/orcid/123456">Cervantes</dc:creator>
             add_identifiers(field, v, xml)
+          elsif field == :access
+            add_access_rights(field, v, xml)
           else
             xml.tag! "dc:#{field}", v
           end
@@ -43,6 +45,22 @@ module Blacklight::Document::DublinCore
 
   alias_method :export_as_xml, :export_as_oai_dc_xml
   alias_method :export_as_dc_xml, :export_as_oai_dc_xml
+
+  # we need to add a metadata xml tag for access type
+  def add_access_rights(field, v, xml)
+    value = ""
+    if v == "restricted"
+      value = "restrictedAccess"
+    elsif v == "open"
+      value = "openAccess"
+    elsif v == "embargoed"
+      value = "embargoedAccess"
+    else
+      value = "closedAccess"
+    end
+
+    xml.tag! "dc:rights", "info:eu-repo/semantics/#{value}"
+  end
 
   private
 

@@ -11,7 +11,8 @@ class GenericWork < ActiveFedora::Base
                  'https://library.osu.edu/statements/rights/pre-1923/'].freeze
 
   self.human_readable_type = 'Work'
-
+  self.indexer = OAIIndexer
+  
   validates :unit, presence: { message: 'must belong to a unit.' }
   validates :unit, inclusion: { in: ->(_obj) { Unit.pluck(:key) } }
 

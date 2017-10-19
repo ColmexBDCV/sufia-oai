@@ -104,4 +104,8 @@ module MetadataIndexTerms
   def cvu
     self[Solrizer.solr_name('cvu')]
   end
+
+  def access
+    self[Solrizer.solr_name('access')]
+  end
 end

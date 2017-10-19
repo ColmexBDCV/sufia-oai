@@ -31,11 +31,16 @@ class SolrDocument
                          source:      Solrizer.solr_name('source'),
                          subject:     Solrizer.solr_name('subject'),
                          title:       Solrizer.solr_name('title'),
-                         type:        Solrizer.solr_name('resource_type'))
+                         type:        Solrizer.solr_name('resource_type'),
+                          access: Solrizer.solr_name('access'))
 
   # Override image mime types to include 'application/octet-stream'
   def self.image_mime_types
     ['image/png', 'image/jpeg', 'image/jpg', 'image/jp2', 'image/bmp', 'image/gif', 'image/tiff', "application/octet-stream"]
+  end
+
+  def self.create_access(object)
+    byebug
   end
 
   # Email uses the semantic field mappings below to generate the body of an email.
