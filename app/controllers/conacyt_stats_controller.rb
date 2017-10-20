@@ -43,7 +43,7 @@ class ConacytStatsController < ApplicationController
         if !work.empty? then
           a[:articulos].push(
              {
-                id: work[0].identifier,
+                id: work[0].identifier[0],
                 numero:  value
              }
           )
@@ -72,7 +72,7 @@ class ConacytStatsController < ApplicationController
 
         else
 
-          autor = work[0].creator
+          autor = work[0].creator[0]
           a[:autores].push(
             {
               nombre: autor,
@@ -101,7 +101,7 @@ class ConacytStatsController < ApplicationController
 
           d[:descargas].push(
             {
-              id: work.identifier,
+              id: work.identifier[0],
              numero:  value
             }
           )
