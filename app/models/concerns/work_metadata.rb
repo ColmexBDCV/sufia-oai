@@ -92,5 +92,11 @@ module WorkMetadata
       index.type :text
       index.as :stored_searchable
     end
+
+    property :creator_colmex, predicate: ::RDF::Vocab::MODS.namePrincipal, multiple: true do |index|
+      index.type :text
+      index.as :stored_searchable
+    end
+
   end
 end

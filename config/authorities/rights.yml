@@ -4,7 +4,7 @@ terms:
       active: true
     - id: https://creativecommons.org/licenses/by-nd/4.0
       term: Atribución- SinDerivadas (Creative Commons)
-      active: true
+      active: false
     - id: https://creativecommons.org/licenses/by-nc/2.5/mx/
       term: Atribución- No comercial (Creative Commons MX)
       active: true
@@ -32,7 +32,9 @@ terms:
     - id: http://creativecommons.org/licenses/by-nc-nd/4.0
       term: Atribución-NoComercial-SinDerivadas
       active: true
-
+    - id: http://creativecommons.org/licenses/by-nd/4.0
+      term: Atribución- SinDerivadas (Creative Commons)
+      active: true
 
 
 

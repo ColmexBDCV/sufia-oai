@@ -97,6 +97,10 @@ module MetadataIndexTerms
     self[Solrizer.solr_name('rights_statements')]
   end
 
+  def creator_colmex
+    self[Solrizer.solr_name('creator_colmex')]
+  end
+
   def orcid
     self[Solrizer.solr_name('orcid')]
   end

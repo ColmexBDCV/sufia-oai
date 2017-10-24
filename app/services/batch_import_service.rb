@@ -201,6 +201,13 @@ class BatchImportService
     end
   end
 
+  def creator_colmex(row, key_column_number_arr, generic_work)
+    key_column_number_arr.each do |num|
+      generic_work.creator_colmex = row[num.to_i]
+      break
+    end
+  end
+
   def measurements(row, key_column_number_arr, generic_work)
     key_column_number_arr.each do |num|
       measurement_hash = measurement_format_for(row[num.to_i].try(:strip))
