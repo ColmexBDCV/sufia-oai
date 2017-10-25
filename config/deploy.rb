@@ -4,9 +4,9 @@ lock '3.5.0'
 set :whenever_identifier, -> { "#{fetch(:application)}_#{fetch(:stage)}" }
 # set :whenever_command, "bundle exec whenever"
 
-set :application, 'purple'
+set :application, 'colmex-sufia-oai'
 set :scm, :git
-set :repo_url, 'https://github.com/codeofsolomon/dc.git'
+set :repo_url, 'https://github.com/ColmexBDCV/sufia-oai'
 
 # Default branch is master
 set :branch, ENV['BRANCH'] || "master"
@@ -14,8 +14,8 @@ set :branch, ENV['BRANCH'] || "master"
 set :rvm_ruby_version, 'ruby-2.3.1'
 
 # Default deploy_to directory is /var/www/my_app_name
-set :deploy_to, "/var/www/purple"
-set :tmp_dir, "/var/www/tmp"
+set :deploy_to, "/var/dc"
+set :tmp_dir, "/var/dc/tmp"
 
 set :linked_files, %w(.env public/sitemap.xml.gz config/analytics.yml config/blacklight.yml config/database.yml config/fedora.yml config/redis.yml config/solr.yml config/handle_server.yml config/newrelic.yml)
 set :linked_dirs, %w(log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system public/assets)

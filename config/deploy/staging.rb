@@ -1,9 +1,9 @@
 # Server Roles
 # ==================
 
-role :web,    %w(rails@lib-wit2rub-v03.lib.ohio-state.edu)
-role :app,    %w(rails@lib-wit2rub-v04.lib.ohio-state.edu)
-role :db,     %w(rails@lib-wit2rub-v03.lib.ohio-state.edu)
+role :web,    %w(rails@colmex.staging.server)
+role :app,    %w(rails@colmex.staging.server)
+role :db,     %w(rails@colmex.staging.server)
 
 # Rails Environment
 # ======================
