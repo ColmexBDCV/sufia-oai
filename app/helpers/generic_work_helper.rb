@@ -2,8 +2,8 @@ module GenericWorkHelper
   def generic_work_descriptions(presenter)
     attributes = [
       presenter.attribute_to_html(:resource_type, render_as: :faceted, label: 'Type' ),
-      presenter.attribute_to_html(:creator_colmex, render_as: :faceted, label: 'Creador Colmex' ),
-      presenter.attribute_to_html(:creator, render_as: :faceted ),
+      presenter.attribute_to_html(:creator_colmex, render_as: :faceted, label: 'Creador' ),
+      #presenter.attribute_to_html(:creator, render_as: :faceted ),
       presenter.attribute_to_html(:orcid, label: "Creator Orcid" ),
       presenter.attribute_to_html(:cvu, label: "Creator CVU" ),
       presenter.attribute_to_html(:description, label: 'Notes' ),
