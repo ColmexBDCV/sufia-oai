@@ -2,12 +2,16 @@ module GenericWorkHelper
   def generic_work_descriptions(presenter)
     attributes = [
       presenter.attribute_to_html(:resource_type, render_as: :faceted, label: 'Type' ),
-      presenter.attribute_to_html(:creator_colmex, render_as: :faceted, label: 'Creador' ),
-      #presenter.attribute_to_html(:creator, render_as: :faceted ),
+      presenter.attribute_to_html(:creator_conacyt, render_as: :faceted, label: 'Creador Conacyt' ),
+      presenter.attribute_to_html(:creator, render_as: :faceted ),
       presenter.attribute_to_html(:orcid, label: "Creator Orcid" ),
       presenter.attribute_to_html(:cvu, label: "Creator CVU" ),
+      presenter.attribute_to_html(:contributor_conacyt, label: "Contributor Conacyt" ),
+      presenter.attribute_to_html(:contributor_orcid, label: "Contributor Orcid" ),
+      presenter.attribute_to_html(:contributor_cvu, label: "Contributor CVU" ),
       presenter.attribute_to_html(:description, label: 'Notes' ),
       presenter.attribute_to_html(:contributor, label: 'Contributors', render_as: :linked, search_field: 'contributor_tesim'),
+      presenter.attribute_to_html(:subject_conacyt, render_as: :faceted ),
       presenter.attribute_to_html(:subject, render_as: :faceted ),
       presenter.attribute_to_html(:publisher, render_as: :faceted ),
       presenter.attribute_to_html(:audience, label: 'Audience', render_as: :linked, search_field: 'audience_tesim'),

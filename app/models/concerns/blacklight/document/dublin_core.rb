@@ -16,7 +16,7 @@ module Blacklight::Document::DublinCore
   end
 
   def dublin_core_field_names
-    [:contributor, :coverage, :creator, :date, :description, :format, :identifier, :language, :publisher, :relation, :rights, :source, :subject, :title, :type, :access]
+    [:contributor_conacyt, :coverage, :creator_conacyt, :date, :description, :format, :identifier, :language, :publisher, :relation, :rights, :source, :subject_conacyt, :title, :type, :access]
   end
 
   # dublin core elements are mapped against the #dublin_core_field_names whitelist.
@@ -29,11 +29,13 @@ module Blacklight::Document::DublinCore
              'xsi:schemaLocation' => %(http://www.openarchives.org/OAI/2.0/oai_dc/ http://www.openarchives.org/OAI/2.0/oai_dc.xsd)) do
       to_semantic_values.select { |field, values| dublin_core_field_name? field }.each do |field, values|
         Array.wrap(values).each do |v|
-          if field == :creator
+          if field == :creator_conacyt || field == :contributor_conacyt
             # end xml looks like this: <dc:creator id="repositorio.colmex.mx/orcid/123456">Cervantes</dc:creator>
             add_identifiers(field, v, xml)
           elsif field == :access
             add_access_rights(field, v, xml)
+          elsif field == :subject_conacyt
+              xml.tag! "dc:subject", v  
           else
             xml.tag! "dc:#{field}", v
           end
@@ -65,17 +67,35 @@ module Blacklight::Document::DublinCore
   private
 
   def add_identifiers(field, v, xml)
-    orcid_value = add_orcid
-    cvu_value = add_cvu
-    if cvu_value.nil? && orcid_value.nil?
-      xml.tag! "dc:#{field}", v
-    elsif cvu_value.present? && orcid_value.present?
-      xml.tag!("dc:#{field}", v, id: "info:eu-repo/dai/mx/orcid/#{orcid_value}")
-    elsif orcid_value.nil?
-      xml.tag!("dc:#{field}", v, id: "info:eu-repo/dai/mx/cvu/#{cvu_value}")
-    else
-      xml.tag!("dc:#{field}", v, id: "info:eu-repo/dai/mx/orcid/#{orcid_value}")
+    # orcid_value = add_orcid
+    # cvu_value = add_cvu
+    if field == :creator_conacyt
+      orcid_value = check_field("orcid")
+      cvu_value = check_field("cvu")
+      if cvu_value.nil? && orcid_value.nil?
+        xml.tag! "dc:creator", v
+      elsif cvu_value.present? && orcid_value.present?
+        xml.tag!("dc:creator", v, id: "info:eu-repo/dai/mx/orcid/#{orcid_value}")
+      elsif orcid_value.nil?
+        xml.tag!("dc:creator", v, id: "info:eu-repo/dai/mx/cvu/#{cvu_value}")
+      else
+        xml.tag!("dc:creator", v, id: "info:eu-repo/dai/mx/orcid/#{orcid_value}")
+      end
     end
+    if field == :contributor_conacyt
+      contributor_orcid_value = check_field("contributor_orcid")
+      contributor_cvu_value = check_field("contributor_cvu")
+      if contributor_cvu_value.nil? && contributor_orcid_value.nil?
+        xml.tag! "dc:contributor", v
+      elsif contributor_cvu_value.present? && contributor_orcid_value.present?
+        xml.tag!("dc:contributor", v, id: "info:eu-repo/dai/mx/orcid/#{contributor_orcid_value}")
+      elsif contributor_orcid_value.nil?
+        xml.tag!("dc:contributor", v, id: "info:eu-repo/dai/mx/cvu/#{contributor_cvu_value}")
+      else
+        xml.tag!("dc:contributor", v, id: "info:eu-repo/dai/mx/orcid/#{contributor_orcid_value}")
+      end
+    end
+
   end
 
   def add_orcid
@@ -88,6 +108,12 @@ module Blacklight::Document::DublinCore
     return unless respond_to?("cvu")
     return if cvu.nil?
     send("cvu").first
+  end
+
+  def check_field(campo)
+    return unless respond_to?(campo)
+    return if campo.nil?
+    send(campo).first
   end
 
   def dublin_core_field_name? field

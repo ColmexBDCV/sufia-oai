@@ -6,6 +6,10 @@
 
 .easy-autocomplete-container{
   z-index: 5;
-  margin-top: 34px;
+  //margin-top: 34px;
 
+}
+
+.easy-autocomplete.eac-square ul li, .easy-autocomplete.eac-square ul .eac-category{
+  padding: 0px;
 }

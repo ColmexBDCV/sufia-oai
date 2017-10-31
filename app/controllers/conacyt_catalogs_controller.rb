@@ -3,7 +3,7 @@ class ConacytCatalogsController < ApplicationController
 
   def initialize
     # @conn = Faraday.new :url =>'http://catalogs.repositorionacionalcti.mx/webresources/', :headers => { :Authorization => 'Basic ZWNtOkVjTTA1XzA2'}
-      @conn = Faraday.new :url => 'http://localhost:5050/'
+      @conn = Faraday.new :url => 'http://repositorio.colmex.mx:5050/'
   end
 
   def index
@@ -27,7 +27,6 @@ class ConacytCatalogsController < ApplicationController
     palabra = params[:phrase].gsub(" ", "%20")
 
     # persona = @conn.get "persona/byNombreCompleto/params;nombre=#{palabra};limit=20"
-    console.log(@conn)
     persona = @conn.get "api/personas/#{palabra}"
     #persona = @conn.post "api/personas", { :nombre => palabra}
     data = JSON.parse(persona.body.force_encoding('utf-8'))
@@ -35,7 +34,18 @@ class ConacytCatalogsController < ApplicationController
     nombres = []
 
     data.each do |dato|
-      nombres.push({id: "#{dato["_id"]}", nombre: "#{dato["nombres"]} #{dato["primerApellido"]} #{dato["segundoApellido"]}" })
+      hash = {}
+      hash[:id] = dato["_id"]
+      nombre = ""
+      nombre = dato.key?("nombres") ? dato["nombres"] : nombre+""
+      nombre = dato.key?("primerApellido") ? nombre+" "+dato["primerApellido"] : nombre+""
+      nombre = dato.key?("segundoApellido") ? nombre+" "+dato["segundoApellido"] : nombre+""
+      hash[:nombre] = nombre
+      hash[:cvu] = dato.key?("idCvuConacyt") ?   dato["idCvuConacyt"] : nil
+      hash[:orcid] = dato.key?("idOrcid") ?   dato["idOrcid"] : nil
+
+      #nombres.push({id: "#{dato["_id"]}", nombre: "#{dato["nombres"]} #{dato["primerApellido"]} #{dato["segundoApellido"]}", cvu: "#{dato["idCvuConacyt"]}", orcid: "#{dato[idOrcid]}"  })
+      nombres.push(hash)
     end
 
     render json: nombres

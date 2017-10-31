@@ -93,7 +93,27 @@ module WorkMetadata
       index.as :stored_searchable
     end
 
-    property :creator_colmex, predicate: ::RDF::Vocab::MODS.namePrincipal, multiple: true do |index|
+    property :creator_conacyt, predicate: ::RDF::Vocab::MODS.namePrincipal, multiple: false do |index|
+      index.type :text
+      index.as :stored_searchable
+    end
+
+    property :contributor_conacyt, predicate: ::RDF::Vocab::MODS.name, multiple: false do |index|
+      index.type :text
+      index.as :stored_searchable
+    end
+
+    property :contributor_cvu, predicate: ::RDF::Vocab::MODS.partName, multiple: false do |index|
+      index.type :text
+      index.as :stored_searchable
+    end
+
+    property :contributor_orcid, predicate: ::RDF::Vocab::MADS.Variant, multiple: false do |index|
+      index.type :text
+      index.as :stored_searchable
+    end
+
+    property :subject_conacyt, predicate: ::RDF::Vocab::MODS.subjectTopic, multiple: false do |index|
       index.type :text
       index.as :stored_searchable
     end

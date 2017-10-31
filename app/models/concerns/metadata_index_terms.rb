@@ -97,8 +97,8 @@ module MetadataIndexTerms
     self[Solrizer.solr_name('rights_statements')]
   end
 
-  def creator_colmex
-    self[Solrizer.solr_name('creator_colmex')]
+  def creator_conacyt
+    self[Solrizer.solr_name('creator_conacyt')]
   end
 
   def orcid
@@ -109,7 +109,24 @@ module MetadataIndexTerms
     self[Solrizer.solr_name('cvu')]
   end
 
+  def contributor_conacyt
+    self[Solrizer.solr_name('contributor_conacyt')]
+  end
+
+  def contributor_orcid
+    self[Solrizer.solr_name('contributor_orcid')]
+  end
+
+  def contributor_cvu
+    self[Solrizer.solr_name('contributor_cvu')]
+  end
+
   def access
     self[Solrizer.solr_name('access')]
   end
+
+  def subject_conacyt
+    self[Solrizer.solr_name('subject_conacyt')]
+  end
+
 end

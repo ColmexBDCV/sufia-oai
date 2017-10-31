@@ -9,7 +9,9 @@ var options = {
   },
 
   getValue: function(element) {
-    
+
+    //console.log(element);
+
   	return element.nombre;
   },
 
@@ -18,17 +20,27 @@ var options = {
     // match: {
     //   enabled: true
     // }
+    onSelectItemEvent: function(evt) {
+			var orcid = $(':focus').getSelectedItemData().orcid;
+      var cvu = $(':focus').getSelectedItemData().cvu;
+      $(':focus').parent().parent().next().children('input').val(orcid).trigger("change");
+      $(':focus').parent().parent().next().next().children('input').val(cvu).trigger("change");
+		}
   },
 
   theme: "square"
 };
 
 
-$(document).ready(function(){
+$(document).on('turbolinks:load',function(){
 
-  $('[id*="_creator"]').easyAutocomplete(options);
+  $('[name*="creator_conacyt]"]').easyAutocomplete(options);
 
-  $('[id*="_contributor"]').easyAutocomplete(options);
+  $('[name*="contributor_conacyt]"]').easyAutocomplete(options);
 
   $('.easy-autocomplete').removeAttr('style');
+
+
+
+
 });

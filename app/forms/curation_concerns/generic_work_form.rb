@@ -5,8 +5,10 @@ module CurationConcerns
 
     self.model_class = ::GenericWork
 
-    self.terms = [:resource_type, :title, :unit, :collection_name, :creator_colmex, :creator, :orcid, :cvu, :contributor, :audience, :abstract, :description, :bibliographic_citation, :keyword,
-                  :rights_statements, :rights, :provenance, :publisher, :date_created, :subject,
+    self.terms = [:resource_type, :title, :unit, :collection_name, :creator, :creator_conacyt,
+                  :orcid, :cvu, :contributor, :contributor_conacyt, :contributor_orcid, :contributor_cvu,
+                  :audience, :abstract, :description, :bibliographic_citation, :keyword,
+                  :rights_statements, :rights, :provenance, :publisher, :date_created, :subject, :subject_conacyt,
                   :language, :identifier, :archival_unit, :based_near, :related_url, :work_type,
                   :spatial, :alternative, :temporal, :format, :staff_notes,
                   :source, :sub_collection, :preservation_level_rationale,
