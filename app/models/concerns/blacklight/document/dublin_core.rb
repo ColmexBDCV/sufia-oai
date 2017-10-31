@@ -70,8 +70,8 @@ module Blacklight::Document::DublinCore
     # orcid_value = add_orcid
     # cvu_value = add_cvu
     if field == :creator_conacyt
-      orcid_value = check_field("orcid")
-      cvu_value = check_field("cvu")
+      orcid_value = add_orcid
+      cvu_value = add_cvu
       if cvu_value.nil? && orcid_value.nil?
         xml.tag! "dc:creator", v
       elsif cvu_value.present? && orcid_value.present?
@@ -83,8 +83,8 @@ module Blacklight::Document::DublinCore
       end
     end
     if field == :contributor_conacyt
-      contributor_orcid_value = check_field("contributor_orcid")
-      contributor_cvu_value = check_field("contributor_cvu")
+      contributor_orcid_value = add_contributor_orcid
+      contributor_cvu_value = add_contributor_cvu
       if contributor_cvu_value.nil? && contributor_orcid_value.nil?
         xml.tag! "dc:contributor", v
       elsif contributor_cvu_value.present? && contributor_orcid_value.present?
@@ -110,11 +110,18 @@ module Blacklight::Document::DublinCore
     send("cvu").first
   end
 
-  def check_field(campo)
-    return unless respond_to?(campo)
-    return if campo.nil?
-    send(campo)
+  def add_contributor_orcid
+    return unless respond_to?("contributor_orcid")
+    return if contributor_orcid.nil?
+    send("contributor_orcid").first
   end
+
+  def add_contributor_cvu
+    return unless respond_to?("contributor_cvu")
+    return if contributor_cvu.nil?
+    send("contributor_cvu").first
+  end
+
 
   def dublin_core_field_name? field
     dublin_core_field_names.include? field.to_sym
