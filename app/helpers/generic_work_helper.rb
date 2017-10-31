@@ -11,7 +11,7 @@ module GenericWorkHelper
       #presenter.attribute_to_html(:contributor_cvu, label: "Contributor CVU" ),
       presenter.attribute_to_html(:description, label: 'Notes' ),
       presenter.attribute_to_html(:contributor, label: 'Contributors', render_as: :linked, search_field: 'contributor_tesim'),
-      presenter.attribute_to_html(:subject_conacyt, render_as: :faceted ),
+      #presenter.attribute_to_html(:subject_conacyt, render_as: :faceted ),
       presenter.attribute_to_html(:subject, render_as: :faceted ),
       presenter.attribute_to_html(:publisher, render_as: :faceted ),
       presenter.attribute_to_html(:audience, label: 'Audience', render_as: :linked, search_field: 'audience_tesim'),
