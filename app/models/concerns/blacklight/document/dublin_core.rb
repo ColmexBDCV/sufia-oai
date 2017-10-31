@@ -35,7 +35,7 @@ module Blacklight::Document::DublinCore
           elsif field == :access
             add_access_rights(field, v, xml)
           elsif field == :subject_conacyt
-              xml.tag! "dc:subject", v  
+              xml.tag! "dc:subject", v
           else
             xml.tag! "dc:#{field}", v
           end
@@ -113,7 +113,7 @@ module Blacklight::Document::DublinCore
   def check_field(campo)
     return unless respond_to?(campo)
     return if campo.nil?
-    send(campo).first
+    send(campo)
   end
 
   def dublin_core_field_name? field
