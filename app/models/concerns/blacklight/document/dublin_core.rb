@@ -21,6 +21,7 @@ module Blacklight::Document::DublinCore
 
   # dublin core elements are mapped against the #dublin_core_field_names whitelist.
   def export_as_oai_dc_xml
+    
     xml = Builder::XmlMarkup.new
     xml.tag!("oai_dc:dc",
              'xmlns:oai_dc' => "http://www.openarchives.org/OAI/2.0/oai_dc/",
@@ -32,10 +33,13 @@ module Blacklight::Document::DublinCore
           if field == :creator_conacyt || field == :contributor_conacyt
             # end xml looks like this: <dc:creator id="repositorio.colmex.mx/orcid/123456">Cervantes</dc:creator>
             add_identifiers(field, v, xml)
+          elsif field == :identifier
+              xml.tag! "dc:#{field}", "http://repositorio.colmex.mx/concern/generic_works/#{id}"
           elsif field == :access
             add_access_rights(field, v, xml)
           elsif field == :subject_conacyt
-              xml.tag! "dc:subject", v
+              xml.tag! "dc:subject", "info:eu-repo/semantics/#{v}"
+
           else
             xml.tag! "dc:#{field}", v
           end
@@ -43,6 +47,7 @@ module Blacklight::Document::DublinCore
       end
     end
     xml.target!
+
   end
 
   alias_method :export_as_xml, :export_as_oai_dc_xml
