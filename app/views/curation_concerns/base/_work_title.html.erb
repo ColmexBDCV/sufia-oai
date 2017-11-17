@@ -7,7 +7,7 @@
     <% end %>
 <% end %>
 <%- if presenter.respond_to?(:unit) && presenter.unit.present? %>
-  <span class="unit-title">- from the
+  <span class="unit-title">- Desde
     <%= link_to unit_name(presenter.unit.first), unit_catalog_path(presenter.unit.first) %>
   </span>
 <%- end %>

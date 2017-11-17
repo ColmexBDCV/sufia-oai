@@ -1,23 +1,23 @@
 terms:
   - id: Collection 
-    term: Collection 
+    term: Colección 
   - id: Dataset 
-    term: Dataset 
+    term: Conjunto de datos
   - id: Event 
-    term: Event 
+    term: Evento 
   - id: Image
-    term: Image
+    term: Imagen
   - id: Interactive Resource 
-    term: Interactive Resource
+    term: Recurso interactivo
   - id: Moving Image
-    term: Moving Image
+    term: Imagen en movimiento
   - id: Physical Object
-    term: Physical Object
+    term: Objeto físico
   - id: Service
-    term: Service
+    term: Servicio
   - id: Sound
-    term: Sound
+    term: Sonóro
   - id: Still Image
-    term: Still Image
+    term: Imagen fija
   - id: Text
-    term: Text
+    term: Texto

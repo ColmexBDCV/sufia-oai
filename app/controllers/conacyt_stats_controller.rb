@@ -98,7 +98,7 @@ class ConacytStatsController < ApplicationController
          work = nil
 	 begin work = FileSet.find(key).parent rescue work = nil end
         unless work.nil? then
-
+	
           d[:descargas].push(
             {
               id: work.identifier[0],

@@ -7,13 +7,13 @@
     <hr />
   </div>
   <div class="col-sm-4">
-    Last modified: <%= @presenter.date_modified %>
+    Última modificación: <%= @presenter.date_modified %>
     <%= render 'representative_media', presenter: @presenter %>
     <%= render 'credit_line', presenter: @presenter %>
     <%#= render 'show_actions', presenter: @presenter %>
     <%#= render 'social_media' %>
     <%= render 'citations', presenter: @presenter %>
-    <div class="col-xs-12 hidden-xs">
+    <div class="col-xs-12 hidden-xs" style="padding:0px">
     <!-- <%# render 'relationships', presenter: @presenter %>
     <hr /> -->
     <%= render partial: 'units/unit_info', locals: { unit: Unit.find_by_key(@presenter.unit.first.to_s) } %>
@@ -21,12 +21,12 @@
   </div>
   <div class="col-sm-8">
     <%= render 'work_description', presenter: @presenter %>
-    <%#= render 'metadata', presenter: @presenter %>
+    <%= render 'metadata', presenter: @presenter %>
     <%= render 'items', presenter: @presenter %>
     <div class="col-xs-12 visible-xs">
       <!-- <%# render 'relationships', presenter: @presenter %>
       <hr /> -->
-      <%= render partial: "units/unit_info", locals: { unit: Unit.find_by_key(@presenter.unit.first.to_s) } %>
+      <%#= render partial: "units/unit_info", locals: { unit: Unit.find_by_key(@presenter.unit.first.to_s) } %>
     </div>
   </div>
 </div>

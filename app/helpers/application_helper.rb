@@ -1,6 +1,6 @@
 module ApplicationHelper
   def login_strategy
-    Rails.env.production? ? :shibboleth : :developer
+   Rails.env.production? ? :shibboleth : :developer
   end
 
   def title_for(model, property = :name)

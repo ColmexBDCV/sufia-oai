@@ -1,34 +1,34 @@
 terms:
     - id: https://creativecommons.org/licenses/by/2.5/mx/
       term: Atribución by (Creative Commons MX)
-      active: true
+      active: false
     - id: https://creativecommons.org/licenses/by-nd/4.0
-      term: Atribución- SinDerivadas (Creative Commons)
+      term: Atribución- SinDerivadas
       active: false
     - id: https://creativecommons.org/licenses/by-nc/2.5/mx/
       term: Atribución- No comercial (Creative Commons MX)
-      active: true
+      active: false
     - id: https://creativecommons.org/licenses/by-nc-nd/2.5/mx/
       term: Atribución- No comercial- SinDerivadas (Creative Commons MX)
-      active: true
+      active: false
     - id: https://creativecommons.org/licenses/by-nc-sa/2.5/mx/
       term: Atribución- No comercial- CompartirIgual(Creative Commons MX)
-      active: true
+      active: false
     - id: https://creativecommons.org/licenses/by-nc-sa/2.5/mx/
       term: Atribución- CompartirIgual (Creative Commons MX)
-      active: true
+      active: false
     - id: http://repositorio.colmex.mx/agreement
       term: Todos los derechos reservados por El Colegio de México
-      active: true
+      active: false
     - id: http://repositorio.colmex.mx/agreement
       term: Algunos derechos reservados por El Colegio de México
-      active: true
+      active: false
     - id: http://repositorio.colmex.mx/agreement
       term: Dominio público
-      active: true
+      active: false
     - id: http://repositorio.colmex.mx/agreement
       term: Carta de transmisión- no exclusiva ( solo tesis COLMEX)
-      active: true
+      active: false
     - id: http://creativecommons.org/licenses/by-nc-nd/4.0
       term: Atribución-NoComercial-SinDerivadas
       active: true
@@ -36,36 +36,33 @@ terms:
       term: Atribución- SinDerivadas (Creative Commons)
       active: true
 
-
-
-
     - id: http://creativecommons.org/licenses/by/3.0/us/
       term: Attribution 3.0 United States
-      active: false
+      active: true
     - id: http://creativecommons.org/licenses/by-sa/3.0/us/
       term: Attribution-ShareAlike 3.0 United States
-      active: false
+      active: true
     - id: http://creativecommons.org/licenses/by-nc/3.0/us/
       term: Attribution-NonCommercial 3.0 United States
-      active: false
+      active: true
     - id: http://creativecommons.org/licenses/by-nd/3.0/us/
       term: Attribution-NoDerivs 3.0 United States
-      active: false
+      active: true
     - id: http://creativecommons.org/licenses/by-nc-nd/3.0/us/
       term: Attribution-NonCommercial-NoDerivs 3.0 United States
-      active: false
+      active: true
     - id: http://creativecommons.org/licenses/by-nc-sa/3.0/us/
       term: Attribution-NonCommercial-ShareAlike 3.0 United States
-      active: false
+      active: true
     - id: http://creativecommons.org/publicdomain/mark/1.0/
       term: Public Domain Mark 1.0
-      active: false
+      active: true
     - id: http://creativecommons.org/publicdomain/zero/1.0/
       term: CC0 1.0 Universal
-      active: false
+      active: true
     - id: http://www.europeana.eu/portal/rights/rr-r.html
       term: All rights reserved
-      active: false
+      active: true
     - id: https://library.osu.edu/statements/rights/post-1923/
       term: This item, made available for research and educational purposes, may be protected by copyright; the user is responsible for making a final determination of copyright status.
       active: false

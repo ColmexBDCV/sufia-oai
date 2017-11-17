@@ -10,7 +10,7 @@ module API
             provider: {
               repository_name: 'Repositorio Institucional de El Colegio de México - Biblioteca Daniel Cosío Villegas',
               repository_url: proc { api_oai_provider_url },
-              record_prefix: 'oai:repositorio.colmex.mx',
+              record_prefix: 'oai:repositorio2.colmex.mx',
               sample_id: 'dc/g733fx36w',
               admin_email: Sufia.config.contact_email
             },
