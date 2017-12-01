@@ -76,7 +76,8 @@
 
       <%= f.fields_for :import_field_mappings do |i| %>
         <div class='form-group <%= import_field_form_class_for i %>'>
-          <%= i.label i.object.key.to_sym, i.object.key.gsub('_', ' ').titleize, class: 'col-md-3 control-label' %>
+          <% value = (i.object.key == "collection_name") ?  "subject_conacyt" : i.object.key %>
+          <%= i.label i.object.key.to_sym, value.gsub('_', ' ').titleize, class: 'col-md-3 control-label' %>
           <div class='col-md-9'>
             <%= i.select :value, options_for_select(@import.csv_columns, selected: i.object.value),
               {}, { class: import_field_select_class_for(i), multiple: true, data: { placeholder: 'Select columns...' } }  %>

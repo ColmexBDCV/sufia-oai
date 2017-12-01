@@ -30,7 +30,7 @@ module Osul
       serialize :part_of, Array
       # serialize :preservation_level_rationale, Array
       # serialize :preservation_level, Array
-      # serialize :collection_identifier, Array
+      #serialize :collection_identifier, Array
       # serialize :visibility, Array
       # serialize :collection_id, Array
       # serialize :depositor, Array
@@ -140,10 +140,10 @@ module Osul
 
       def terms
         # removed visibility b/c it's coming from solr :visibility
-        [ :date_uploaded, :identifier, :abstract, :resource_type, :title, :creator_colmex, :creator, :orcid, :cvu, :contributor, :description, :bibliographic_citation,
+        [ :date_uploaded, :identifier, :abstract, :resource_type, :title, :creator, :contributor, :description, :bibliographic_citation,
           :rights, :provenance, :publisher, :date_created, :subject, :language, :based_near, :related_url,
           :work_type, :spatial, :alternative, :temporal, :format, :staff_notes, :source, :part_of, :preservation_level_rationale,
-          :preservation_level, :depositor, :handle, :id, :visibility, :unit, :collection_identifier]
+          :preservation_level, :depositor, :handle, :id, :visibility, :unit, :collection_identifier, :audience]
       end
 
       def complex_terms

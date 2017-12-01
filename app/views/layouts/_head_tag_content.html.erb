@@ -12,17 +12,17 @@
 
 <!-- Open Graph metadata -->
 <meta property="og:title" content="<%= content_for?(:page_title) ? yield(:page_title) : default_page_title %>" />
-<meta property="og:description" content="La Biblioteca Daniel Cosio Villegas de El Colegio de México ofrece acceso a sus materiales a través de su sistema de colecciones digitales. Estos materiales representan solo una pequeña parte de los materiales que disponibles en la biblioteca y se añaden materiales adicionales frequentemente.” />
+<meta property="og:description" content="La Biblioteca Daniel Cosio Villegas de El Colegio de México ofrece acceso a sus materiales a través de su sistema de colecciones digitales. Estos materiales representan solo una pequeña parte de los materiales que disponibles en la biblioteca y se añaden materiales adicionales frequentemente." />
 
 <!-- Twitter card metadata -->
 <%= yield :twitter_meta %>
 <!-- Google Scholar metadata -->
 <%= yield :gscholar_meta %>
-
+<%= favicon_link_tag 'favicon.ico' %>
 <title><%= content_for?(:page_title) ? yield(:page_title) : default_page_title %></title>
-<meta name="description" content="La Biblioteca Daniel Cosío Villegas de El Colegio de México ofrece acceso a sus materiales a través de su sistema de colecciones digitales. Estos materiales representan solo una pequeña parte de los materiales que disponibles en la biblioteca y se añaden materiales adicionales frequentemente..">
+<meta name="description" content="La Biblioteca Daniel Cosío Villegas de El Colegio de México ofrece acceso a sus materiales a través de su sistema de colecciones digitales. Estos materiales representan solo una pequeña parte de los materiales que disponibles en la biblioteca y se añaden materiales adicionales frequentemente.">
 <!-- application css -->
-<link rel="stylesheet" href=“#”>
+<!-- <link rel="stylesheet" href=“#”> -->
 <%= stylesheet_link_tag 'application', media: 'screen' %>
 <%= stylesheet_link_tag 'print', media: 'print' %>
 

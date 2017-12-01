@@ -125,8 +125,8 @@ module MetadataIndexTerms
     self[Solrizer.solr_name('access')]
   end
 
-  def subject_conacyt
-    self[Solrizer.solr_name('subject_conacyt')]
-  end
+  # def subject_conacyt
+  #   self[Solrizer.solr_name('subject_conacyt')]
+  # end
 
 end

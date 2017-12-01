@@ -23,4 +23,8 @@ spa:
   osul:
     unit_label: "Colecciones"
     collection_label: "Colección"
-    imports: "Impotración"
+    imports: "Importación"
+  activerecord:
+    errors:
+      messages:
+        record_invalid: "No anda"

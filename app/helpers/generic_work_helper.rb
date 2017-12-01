@@ -19,10 +19,10 @@ module GenericWorkHelper
       presenter.attribute_to_html(:identifier, label: 'Identificador'),
       presenter.attribute_to_html(:archival_unit, render_as: :ead, label: 'Archival Unit'),
       presenter.attribute_to_html(:unit, render_as: :unit, label: 'Unidad'),
-      presenter.attribute_to_html(:collection_name, render_as: :faceted, label: 'Colleción'),
+      #presenter.attribute_to_html(:collection_name, render_as: :faceted, label: 'Colleción'),
       presenter.attribute_to_html(:sub_collection, render_as: :faceted, label: 'Sub-Colleción'),
       presenter.attribute_to_html(:bibliographic_citation, render_as: :linked, search_field: 'bibliographic_citation_tesim', label: 'Publicado en'),
-      presenter.attribute_to_html(:collection_identifier, render_as: :linked, search_field: 'collection_identifier_tesim'),
+      #presenter.attribute_to_html(:collection_identifier, render_as: :linked, search_field: 'collection_identifier_tesim'),
       presenter.attribute_to_html(:based_near, render_as: :faceted, label: 'Localización' ),
       presenter.attribute_to_html(:related_url, render_as: :linked_resource),
       presenter.attribute_to_html(:alternative),
@@ -44,4 +44,5 @@ module GenericWorkHelper
     # attributes.insert(2, presenter.attribute_to_html(:staff_notes, search_field: 'staff_notes_tesim')) if can? :update, presenter.solr_document
     attributes.reject!(&:empty?)
   end
+
 end

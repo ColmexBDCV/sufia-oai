@@ -113,10 +113,10 @@ module WorkMetadata
       index.as :stored_searchable
     end
 
-    property :subject_conacyt, predicate: ::RDF::Vocab::MODS.subjectTopic, multiple: false do |index|
-      index.type :text
-      index.as :stored_searchable
-    end
+    # property :subject_conacyt, predicate: ::RDF::Vocab::MODS.subjectTopic, multiple: false do |index|
+    #   index.type :text
+    #   index.as :stored_searchable
+    # end
 
   end
 end

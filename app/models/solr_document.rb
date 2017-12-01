@@ -34,7 +34,7 @@ class SolrDocument
                          rights:      Solrizer.solr_name('rights'),
                          source:      Solrizer.solr_name('source'),
                          subject:     Solrizer.solr_name('subject'),
-                         subject_conacyt:     Solrizer.solr_name('subject_conacyt'),
+                         # subject_conacyt:     Solrizer.solr_name('subject_conacyt'),
                          title:       Solrizer.solr_name('title'),
                          type:        Solrizer.solr_name('resource_type'),
                          access: Solrizer.solr_name('access'))

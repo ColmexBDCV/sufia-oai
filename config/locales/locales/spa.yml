@@ -23,4 +23,4 @@ spa:
   osul:
     unit_label: "Colecciones"
     collection_label: "Colección"
-    imports: "Impotración"
+    imports: "Importación"

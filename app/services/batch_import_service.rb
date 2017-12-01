@@ -8,6 +8,7 @@ class BatchImportService
     return false unless @import.ready?
     ImportJob.perform_later(@import.id, @user.id)
     @import.in_progress!
+
   end
 
   # process -- determines if the CSV is a complex CSV or just a simple one.
@@ -170,40 +171,14 @@ class BatchImportService
     @import.get_column_from(row, 'title')
   end
 
-  # TODO: is this method needed?
-  def get_orcid_from(row)
-    @import.get_column_from(row, 'orcid')
-  end
-
   def get_visibility_from(row)
     visibility = @import.get_column_from(row, 'visibility_level')
     visibility.blank? ? @import.visibility : visibility
   end
 
-  def collection_identifiers(row, key_column_number_arr, generic_work)
+  def collection_identifier(row, key_column_number_arr, generic_work)
     key_column_number_arr.each do |num|
       generic_work.collection_identifier = row[num.to_i]
-      break
-    end
-  end
-
-  def orcid(row, key_column_number_arr, generic_work)
-    key_column_number_arr.each do |num|
-      generic_work.orcid = row[num.to_i]
-      break
-    end
-  end
-
-  def cvu(row, key_column_number_arr, generic_work)
-    key_column_number_arr.each do |num|
-      generic_work.cvu = row[num.to_i]
-      break
-    end
-  end
-
-  def creator_colmex(row, key_column_number_arr, generic_work)
-    key_column_number_arr.each do |num|
-      generic_work.creator_colmex = row[num.to_i]
       break
     end
   end
@@ -242,16 +217,9 @@ class BatchImportService
       next if field_mapping.key.in?(["pid", "cid", "visibility_level"])
       key_column_number_arr = @import.import_field_mappings.where(key: field_mapping.key).first.value.reject!( &:blank? )
       key_column_value_arr = []
-
       # Certain fields require special parsing
       if field_mapping.key == 'collection_identifier'
-        collection_identifiers(row, key_column_number_arr, generic_work)
-        next
-      elsif field_mapping.key == 'orcid'
-        orcid(row, key_column_number_arr, generic_work)
-        next
-      elsif field_mapping.key == 'cvu'
-        cvu(row, key_column_number_arr, generic_work)
+        collection_identifier(row, key_column_number_arr, generic_work)
         next
       elsif field_mapping.key == 'measurements'
         measurements(row, key_column_number_arr, generic_work)

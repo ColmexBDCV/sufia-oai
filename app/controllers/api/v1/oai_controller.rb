@@ -15,7 +15,7 @@ module API
               admin_email: Sufia.config.contact_email
             },
             document: {
-              limit: 25,
+              limit: 3000,
               timestamp_field: 'system_modified_dtsi',
               set_class: '::OaiSet'
             }
