@@ -98,13 +98,22 @@ class ConacytStatsController < ApplicationController
          work = nil
 	 begin work = FileSet.find(key).parent rescue work = nil end
         unless work.nil? then
-	
-          d[:descargas].push(
-            {
-              id: work.identifier[0],
-             numero:  value
-            }
-          )
+
+          esta = d[:descargas].index { |h| d[:id] == work.identifier[0] }
+          if esta then
+
+            a[:autores][esta][:numero] =  a[:autores][esta][:numero] + value
+
+          else
+
+            id = work.identifier[0]
+            a[:autores].push(
+              {
+                nombre: id,
+                numero:  value
+              }
+            )
+          end
         end
       end
 

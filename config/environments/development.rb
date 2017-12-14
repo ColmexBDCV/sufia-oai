@@ -39,7 +39,7 @@ Rails.application.configure do
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
-  config.active_job.queue_adapter = :sidekiq
-  
+  config.active_job.queue_adapter = :inline
+
 config.web_console.whiny_requests = false
 end

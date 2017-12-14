@@ -15,8 +15,8 @@
         <div class='col-md-9 well'>
           <% preview_object.each do |key, value| %>
             <div class="col-md-6 col-xs-12">
-                <% value = (key == "collection_name") ?  "subject_conacyt" : key %>
-              <strong><%= value.to_s.gsub('_', ' ').titleize %>: </strong>
+                <% key = (key == :collection_name) ?  :subject_conacyt : key %>
+              <strong><%= key.to_s.gsub('_', ' ').titleize %>: </strong>
               <%= truncate value.reject(&:blank?).join(', ') %>
             </div>
           <% end %>

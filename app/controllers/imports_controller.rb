@@ -14,6 +14,7 @@ class ImportsController < ApplicationController
   # GET /imports/1
   # GET /imports/1.json
   def show
+
     num_of_previews =  10
     @preview_objects = @import.preview_import_from_csv(num_of_previews)
   end
@@ -53,6 +54,7 @@ class ImportsController < ApplicationController
 
   # GET /imports/1/report
   def report
+    
   end
 
   def resume
