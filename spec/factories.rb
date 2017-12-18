@@ -1,4 +1,8 @@
 FactoryGirl.define do
+  factory :conacyt_stat do
+    type 1
+    work "MyString"
+  end
   fixture_path = File.expand_path('../fixtures', __FILE__)
 
   factory :osul_import_imported_item, class: 'Osul::Import::ImportedItem' do

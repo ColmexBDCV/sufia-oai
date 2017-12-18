@@ -52,7 +52,10 @@ spa:
         default: "The server encountered an error."
     schema_org:
       resource_type:
-        Article: "http://schema.org/Article"
+        property: "type"
+        value: "name"
+        type: "http://schema.org/Type"
+        Article: ""
         Audio: "http://schema.org/AudioObject"
         Book: "http://schema.org/Book"
         Conference Proceeding: "http://schema.org/ScholarlyArticle"
@@ -81,7 +84,9 @@ spa:
       date_created:
         property: dateCreated
       description:
+        type: "http://schema.org/Descripton"
         property: description
+        value: "name"
       language:
         property: inLanguage
       publisher:
@@ -96,7 +101,42 @@ spa:
         property: keywords
       title:
         property: name
-
+      audience:
+        property: audience
+        type: "http://schema.org/Audience"
+        value: name
+      rights:
+        property: rights
+        type: "http://schema.org/Rights"
+        value: name
+      language:
+        property: language
+        type: "http://schema.org/Language"
+        value: name
+      date_created:
+        property: date_created
+        type: "http://schema.org/Date_created"
+        value: name
+      identifier:
+        property: identifier
+        type: "http://schema.org/Identificador"
+        value: name
+      unit:
+        property: unit
+        type: "http://schema.org/Unit"
+        value: name
+      preservation_level:
+        property: preservation_level
+        type: "http://schema.org/Preservation_level"
+        value: name
+      preservation_level_rationale:
+        property: preservation_level_rationale
+        type: "http://schema.org/Preservation_level_rationale"
+        value: name
+      orcid:
+        property: orcid
+        type: "http://schema.org/Orcid"
+        value: name
     visibility:
       open:
         text: "Open Access"
@@ -170,7 +210,8 @@ spa:
           format_tesim: "Formato de archivo"
           identifier_tesim: "Identificador"
         show:
-          title_tesim: "Título"
+        resource_type: "Tipo"
+        title_tesim: "Título"
         keyword_tesim: "Palabras Clave"
         subject_tesim: "Tema"
         creator_tesim: "Creador"

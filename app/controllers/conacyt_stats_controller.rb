@@ -30,7 +30,56 @@ class ConacytStatsController < ApplicationController
     render :json => d
 
   end
-  #articulos = WorkViewStat.group('work_id').count('work_id', :distinct => true)
+  def articulos
+    a = { articulos: []}
+    
+    articles = ConacytStat.where(category: 0).group(:work).count
+
+    articles.each do |key, value|
+      a[:articulos].push(
+             {
+                id: key,
+                numero: value
+             }
+      )
+    end
+
+    render :json => a
+  end
+  def autores
+    a = { autores: []}
+    
+    authors = ConacytStat.where(category: 0).group(:author).count
+
+    authors.each do |key, value|
+      a[:autores].push(
+             {
+                nombre: key,
+                numero: value
+             }
+      )
+    end
+
+    render :json => a
+  end
+  def descargas
+    d = { descargas: []}
+    
+    downloads = ConacytStat.where(category: 1).group(:work).count
+
+    downloads.each do |key, value|
+      d[:descargas].push(
+             {
+                id: key,
+                numero: value
+             }
+      )
+    end
+
+    render :json => d
+  end
+  #Endpoints para usar con Analitycs
+=begin 
   def articulos
 
     a = { articulos: []}
@@ -102,14 +151,14 @@ class ConacytStatsController < ApplicationController
           esta = d[:descargas].index { |h| d[:id] == work.identifier[0] }
           if esta then
 
-            a[:autores][esta][:numero] =  a[:autores][esta][:numero] + value
+            a[:descargas][esta][:numero] =  a[:descargas][esta][:numero] + value
 
           else
 
             id = work.identifier[0]
-            a[:autores].push(
+            a[:descargas].push(
               {
-                nombre: id,
+                id: id,
                 numero:  value
               }
             )
@@ -119,4 +168,5 @@ class ConacytStatsController < ApplicationController
 
       render :json => d
   end
+=end
 end
