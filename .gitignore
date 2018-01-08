@@ -44,7 +44,7 @@ Thumbs.db
 ehthumbs.db
 
 #.env file
-#.env
+.env
 .env.local
 .env.test
 app/assets/files/*
@@ -54,3 +54,4 @@ app/assets/derivatives/*
 
 #DB config file
 config/database.yml
+
