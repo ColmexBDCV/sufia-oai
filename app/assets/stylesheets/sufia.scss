@@ -31,11 +31,12 @@ html {
   margin-left: 5px;
 }
 
-.navbar-text{
+.navbar-inverse .navbar-text{
+ color: #fff;
 }
 
 #osu-library-logo{
- color: #222;
+ color: #fff;
 }
 
 .login-link {
@@ -128,12 +129,12 @@ padding-top:100px;
 }
 
 body {
-  font-family:'proximanova',Arial,sans-serif;
+  font-family:'Proxima Nova',Arial,sans-serif;
 }
 
 h1, h2 {font-family:'capita','Times New Roman',serif; font-weight:300;}
 
-h3, h4, h5 {font-family:'proximanova', Arial, sans-serif;}
+h3, h4, h5 {font-family:'Proxima Nova', Arial, sans-serif;}
 
 h3.media-heading {font-family:'capita','Times New Roman',serif; font-weight:300;}
 
@@ -204,7 +205,7 @@ padding-left:10px;
 }
 
 div.facets h3 {
-  font-family: 'proximanova',Arial,sans-serif;
+  font-family: 'Proxima Nova',Arial,sans-serif;
   font-weight: 500;
   font-size:18px;
 }
@@ -248,7 +249,9 @@ float:none;
 .footer_bg{
   background-color:#222;
 }
-
+.footer>div{
+    color: #FFFFFF;
+}
 .my_table{
   overflow: visible;
 }
@@ -268,4 +271,14 @@ address {
 
 #atlwdg-container{
   max-width: 80%;
+}
+#osul_bottom_logo {
+	font-size: 0.8em;
+}
+.img-thumbnail {
+	    border: #fff;
+}
+btn-success {
+    background-color: #5e002b !important;
+    border-color: #5e002b !important;
 }

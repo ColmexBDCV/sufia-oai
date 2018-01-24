@@ -1,5 +1,6 @@
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
+    @field_mappings = @import.import_field_mappings
  * listed below.
  *
  * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
@@ -69,4 +70,21 @@ ul.property-list li > span:first-child {
     color: #F2F2F2;
     background-color: #5D6A8F;
     border-color: #5D6A8F;
+}
+.panel-title, .facet-field-heading {
+	//color: #f6f6f6!important;
+}
+.panel-info, .panel-info > .panel-heading {
+    background-color: #eeeeee;
+    color: #000;
+    border-color: #cecaca;
+}
+.panel-info > .panel-title, .panel-info > h1{
+   color: #222222;
+}
+btn-success {
+	color:#fff;  background-color:#5cb85c !important;  border-color:#5e002b !important;
+}
+.btn-success:focus,.btn-success.focus {
+	color:#fff; background-color:#5e002b; border-color:#5e002b;
 }

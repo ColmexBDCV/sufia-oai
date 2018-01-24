@@ -105,6 +105,14 @@
     </li><!-- /.btn-group -->
   <% else %>
     <li class="login-link">
+      <!-- <%= link_to omniauth_authorize_path(:user, login_strategy) do %>
+        <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Login
+      <% end %> -->
+
+      <%= link_to main_app.new_user_session_path do %>
+        <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
+        Ingresar
+      <% end %>
     </li>
   <% end %>
 </ul>
