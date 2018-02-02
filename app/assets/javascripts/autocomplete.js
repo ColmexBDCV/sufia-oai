@@ -3,7 +3,7 @@
 var options = {
 
   url: function(phrase) {
-    return "/client/persona_name?phrase="+phrase;
+    return "/client/autor?phrase="+phrase;
     // return "/client/persona_name";
 
   },

@@ -6,6 +6,42 @@ class ConacytCatalogsController < ApplicationController
       @conn = Faraday.new :url => 'http://repositorio.colmex.mx:5050/'
   end
 
+
+  def autor
+
+    buscar = params[:phrase].gsub(" ", "%20")
+
+    conn = Faraday.new :url =>'http://catalogs.repositorionacionalcti.mx/webresources/', :headers => { :Authorization => 'Basic ZWNtOkVjTTA1XzA2'}
+    creator = conn.get "persona/byNombreCompleto/params;nombre=#{buscar}"
+
+    data = JSON.parse(creator.body.force_encoding('utf-8'))
+
+    # render json: data
+    # return
+
+    autores = []
+
+
+    data.each do |dato|
+      hash = {}
+      # hash[:id] = dato["_id"]
+      nombre = ""
+      nombre = dato.key?("nombres") ? dato["nombres"] : nombre+""
+      nombre = dato.key?("primerApellido") ? nombre+" "+dato["primerApellido"] : nombre+""
+      nombre = dato.key?("segundoApellido") ? nombre+" "+dato["segundoApellido"] : nombre+""
+      hash[:nombre] = nombre
+      hash[:cvu] = dato.key?("idCvuConacyt") ?  dato["idCvuConacyt"] : nil
+      hash[:orcid] = dato.key?("idOrcid") ?   dato["idOrcid"] : nil
+      hash[:idPersona] = dato["idPersona"]
+
+      #nombres.push({id: "#{dato["_id"]}", nombre: "#{dato["nombres"]} #{dato["primerApellido"]} #{dato["segundoApellido"]}", cvu: "#{dato["idCvuConacyt"]}", orcid: "#{dato[idOrcid]}"  })
+      autores.push(hash)
+    end
+
+    render json: autores
+
+  end
+
   def index
     # Authorization : Basic ZWNtOkVjTTA1XzA2
 
@@ -49,6 +85,5 @@ class ConacytCatalogsController < ApplicationController
     end
 
     render json: nombres
-
   end
 end

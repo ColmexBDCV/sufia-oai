@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   #Conacyt Requirements
 
   get 'client/persona_name', to: 'conacyt_catalogs#persona_name'
+  get 'client/autor', to: 'conacyt_catalogs#autor'
   get 'padron', to: 'conacyt_stats#padron'
   get 'ranking/articulos', to: 'conacyt_stats#articulos'
   get 'ranking/autores', to: 'conacyt_stats#autores'
