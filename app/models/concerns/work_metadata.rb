@@ -17,7 +17,7 @@ module WorkMetadata
     end
 
     # http://www.loc.gov/standards/vracore/VRA_Core4_Element_Description.pdf#page2
-    property :collection_identifier, predicate: ::RDF::URI.new('http://purl.org/vra/Collection'), multiple: false do |index|
+    property :collection_identifier, predicate: ::RDF::URI.new('http://purl.org/vra/Collection'), multiple: true do |index|
       index.as :stored_searchable, :facetable
     end
 
@@ -113,10 +113,17 @@ module WorkMetadata
       index.as :stored_searchable
     end
 
-    # property :subject_conacyt, predicate: ::RDF::Vocab::MODS.subjectTopic, multiple: false do |index|
-    #   index.type :text
-    #   index.as :stored_searchable
-    # end
+    property :subject_conacyt, predicate: ::RDF::Vocab::MODS.subjectTopic, multiple: false do |index|
+      index.type :text
+      index.as :stored_searchable
+    end
+
+    property :idpersona, predicate: ::RDF::Vocab::MODS.identifier, multiple: false do |index|
+      index.type :text
+      index.as :stored_searchable
+    end
+    
+
 
   end
 end

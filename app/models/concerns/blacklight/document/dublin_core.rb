@@ -16,7 +16,7 @@ module Blacklight::Document::DublinCore
   end
 
   def dublin_core_field_names
-    [:contributor_conacyt, :coverage, :creator_conacyt, :date, :description, :format, :identifier, :language, :publisher, :relation, :rights, :source, :title, :type, :access, :audience]
+    [:idpersona, :contributor_conacyt, :coverage, :creator_conacyt, :date, :description, :format, :identifier, :language, :publisher, :relation, :rights, :source, :title, :type, :access, :audience]
   end
 
   # dublin core elements are mapped against the #dublin_core_field_names whitelist.
