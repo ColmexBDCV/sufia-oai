@@ -2,6 +2,7 @@ class OaiSet < BlacklightOaiProvider::Set
   class << self
     def all
       Unit.visible
+      GenericWork.where(creator_conacyt: nil)
     end
 
     # Return a Solr filter query given a set spec

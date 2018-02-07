@@ -38,7 +38,8 @@ class SolrDocument
                          title:       Solrizer.solr_name('title'),
                          type:        Solrizer.solr_name('resource_type'),
                          access: Solrizer.solr_name('access'),
-                         idpersona:  Solrizer.solr_name('idpersona'))
+                         idpersona:  Solrizer.solr_name('idpersona'),
+                         curp:  Solrizer.solr_name('curp'))
 
   # Override image mime types to include 'application/octet-stream'
   def self.image_mime_types

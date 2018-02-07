@@ -122,7 +122,12 @@ module WorkMetadata
       index.type :text
       index.as :stored_searchable
     end
-    
+
+    property :curp, predicate: ::RDF::Vocab::MODS.note, multiple: false do |index|
+      index.type :text
+      index.as :stored_searchable
+    end
+
 
 
   end

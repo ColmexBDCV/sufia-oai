@@ -109,6 +109,10 @@ module MetadataIndexTerms
     self[Solrizer.solr_name('cvu')]
   end
 
+  def curp
+    self[Solrizer.solr_name('curp')]
+  end
+
   def contributor_conacyt
     self[Solrizer.solr_name('contributor_conacyt')]
   end
@@ -129,7 +133,7 @@ module MetadataIndexTerms
     self[Solrizer.solr_name('subject_conacyt')]
   end
 
-  def cvu
+  def idpersona
     self[Solrizer.solr_name('idpersona')]
   end
 end

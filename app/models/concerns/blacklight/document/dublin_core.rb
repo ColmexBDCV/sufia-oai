@@ -90,14 +90,22 @@ module Blacklight::Document::DublinCore
     if field == :creator_conacyt
       orcid_value = add_orcid
       cvu_value = add_cvu
-      if cvu_value.nil? && orcid_value.nil?
-        xml.tag! "dc:creator", v
-      elsif cvu_value.present? && orcid_value.present?
-        xml.tag!("dc:creator", v, id: "info:eu-repo/dai/mx/orcid/#{orcid_value}")
-      elsif orcid_value.nil?
-        xml.tag!("dc:creator", v, id: "info:eu-repo/dai/mx/cvu/#{cvu_value}")
+      curp_value = add_curp
+      identifier = nil
+      if curp_value.present?
+        identifier = "info:eu-repo/dai/mx/curp/#{curp_value}"
+      end
+      if cvu_value.present?
+        identifier = "info:eu-repo/dai/mx/cvu/#{cvu_value}"
+      end
+      if orcid_value.present?
+        identifier = "info:eu-repo/dai/mx/orcid/#{orcid_value}"
+      end
+
+      unless identifier.nil?
+        xml.tag!("dc:creator", v, id:identifier)
       else
-        xml.tag!("dc:creator", v, id: "info:eu-repo/dai/mx/orcid/#{orcid_value}")
+        xml.tag! "dc:creator", v
       end
     end
     if field == :contributor_conacyt
@@ -120,6 +128,12 @@ module Blacklight::Document::DublinCore
     return unless respond_to?("orcid")
     return if orcid.nil?
     send("orcid").first
+  end
+
+  def add_curp
+    return unless respond_to?("curp")
+    return if curp.nil?
+    send("curp").first
   end
 
   def add_cvu
