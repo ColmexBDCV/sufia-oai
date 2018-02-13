@@ -55,3 +55,5 @@ app/assets/derivatives/*
 #DB config file
 config/database.yml
 
+app/services/assignor_service.rb
+
