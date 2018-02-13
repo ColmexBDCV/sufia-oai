@@ -2,7 +2,6 @@ class ConacytCatalogsController < ApplicationController
   protect_from_forgery with: :null_session
 
   def initialize
-    # @conn = Faraday.new :url =>'http://catalogs.repositorionacionalcti.mx/webresources/', :headers => { :Authorization => 'Basic ZWNtOkVjTTA1XzA2'}
       @conn = Faraday.new :url => 'http://repositorio.colmex.mx:5050/'
   end
 
