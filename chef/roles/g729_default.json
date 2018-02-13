@@ -1,0 +1,22 @@
+{
+  "name": "asterisk_test_default",
+  "description": "A role for default asterisk for test setup",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+  },
+  "override_attributes": {
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[flush_iptables]",
+    //"recipe[vim]",
+    //"recipe[nginx::notification]",
+    //"recipe[nginx::pbxapi]",
+    //"recipe[mongodb::mongodb_org_repo]",
+    //"recipe[mongodb]",
+    //"recipe[asterisk-13]"
+    "recipe[fail2ban::pbxapi_asterisk]"
+  ],
+  "env_run_lists": {
+  }
+}

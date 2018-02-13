@@ -1,0 +1,12 @@
+<figure>
+  <audio controls="controls" class="audiojs" preload="auto">
+    <source src="<%= main_app.download_path(file_set, file: 'ogg') %>" type="audio/ogg" />
+    <source src="<%= main_app.download_path(file_set, file: 'mp3') %>" type="audio/mpeg" />
+    Your browser does not support the audio tag.
+  </audio>
+  <%- if CurationConcerns.config.display_media_download_link %>
+    <%= link_to main_app.download_path(file_set), target: "_new" do %>
+      <figcaption>Download the original audio file</figcaption>
+    <% end %>
+  <%- end %>
+</figure>

@@ -1,0 +1,284 @@
+/* ...
+ *= require jquery-ui
+ *= require select2
+ *= require_self
+*/
+
+@import "bootstrap-sprockets";
+@import 'bootstrap';
+@import 'blacklight/blacklight';
+@import "font-awesome";
+@import "blacklight_gallery/gallery";
+@import "blacklight_gallery/masonry";
+@import "blacklight_gallery/slideshow";
+@import "blacklight_gallery/osd_viewer";
+@import 'sufia/sufia';
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+.navbar-brand {
+  padding: 10px 15px;
+}
+
+.navbar-right {
+  margin-right: 0px;
+}
+
+#logo {
+  margin-left: 5px;
+}
+
+.navbar-inverse .navbar-text{
+ color: #fff;
+}
+
+#osu-library-logo{
+ color: #fff;
+}
+
+.login-link {
+  margin-right: 10px;
+}
+
+.user-options {
+  //margin-right: 10px;
+}
+
+.btn, .facets-toggle {
+  border-radius: 0px !important;
+}
+
+#search-submit-header {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+
+#home_header {
+  position: relative;
+  border-bottom:1px solid #101010;
+  min-height:300px;
+  max-height:300px;
+  background-image: image-url('banner6.png');
+  border-top:none;
+  margin-top:-20px;
+}
+
+#home_header_1{
+  @extend #home_header;
+  background-image: image-url('banner1.png');
+}
+
+#home_header_2{
+  @extend #home_header;
+  background-image: image-url('banner2.png');
+}
+
+#home_header_3{
+  @extend #home_header;
+  background-image: image-url('banner3.png');
+}
+
+#home_header_4{
+  @extend #home_header;
+  background-image: image-url('banner4.png');
+}
+
+#home_header_5{
+  @extend #home_header;
+  background-image: image-url('banner5.png');
+}
+
+.navbar{
+  margin-bottom:0 !important;
+  //padding-bottom:10px;
+}
+
+#user_utility_links{
+  margin-top:10px;
+}
+
+.search-bar{
+padding-top:100px;
+}
+
+.input-group-lg{
+  line-height:40px !important;
+  font-size:18px;
+}
+
+.collections-header{
+  text-align:center;
+  margin-bottom: 20px;
+  border-bottom:20px;
+}
+
+.collection-image{
+  text-align:center;
+  margin-bottom: 20px;
+}
+
+.collections{
+  padding-bottom:20px;
+}
+
+.coll-title{
+  font-size:1.5em;
+}
+
+body {
+  font-family:'Proxima Nova',Arial,sans-serif;
+}
+
+h1, h2 {font-family:'capita','Times New Roman',serif; font-weight:300;}
+
+h3, h4, h5 {font-family:'Proxima Nova', Arial, sans-serif;}
+
+h3.media-heading {font-family:'capita','Times New Roman',serif; font-weight:300;}
+
+.collection_description{
+  text-align:center;
+  padding:5px;
+}
+
+a.coll-title-link:link{
+  color:#333;
+}
+
+a.coll-title-link:visited{
+  color:#333;
+}
+
+h3.coll-title{
+  font-family:'capita','Times New Roman',serif; font-weight:300;
+}
+
+@media (max-width: 992px) {
+  h1 {
+    font-size: 30px;
+  }
+  h2 {
+    font-size: 24px;
+  }
+  .small_paragraph {
+      text-align: justify;
+      padding: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 30px;
+  }
+  h2 {
+    font-size: 24px;
+  }
+  .xs_paragraph {
+      text-align: justify;
+      padding: 15px;
+  }
+}
+
+.main-title-heading {
+  font-weight:bold;
+  letter-spacing:2px;
+}
+
+.search-bar-option-dropdown{
+border-radius: 0px !important;
+}
+
+.breadcrumb{
+margin-top:10px;
+}
+
+.unit-title{
+font-size:larger;
+padding-left:10px;
+}
+
+.media-object-homepage{
+  width:200px;
+  height:150px;
+}
+
+div.facets h3 {
+  font-family: 'Proxima Nova',Arial,sans-serif;
+  font-weight: 500;
+  font-size:18px;
+}
+
+#content-wrapper{
+  margin-top:20px;
+}
+
+.catalog{
+  list-style-type:none;
+}
+
+#appliedParams.constraints-container{
+  margin-bottom:20px;
+}
+
+.xs-toggle{
+position:inherit;
+float:none;
+}
+
+.table-responsive {
+  overflow-x:auto;
+}
+
+.footer {
+  -moz-box-shadow: 0 200px #222;
+	-webkit-box-shadow: 0 200px #222;
+  box-shadow: 0 200px #222;
+  border-bottom:none;
+}
+
+.footer a:link, .footer a:visited {
+  color:#d8d8d8;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+.footer_bg{
+  background-color:#222;
+}
+.footer>div{
+    color: #FFFFFF;
+}
+.my_table{
+  overflow: visible;
+}
+
+.table-condensed>tbody>tr>td {
+  max-width:100px;
+  overflow-x:auto;
+}
+
+.unit_description_search{
+  padding:5px;
+}
+
+address {
+  margin-bottom: 0;
+}
+
+#atlwdg-container{
+  max-width: 80%;
+}
+#osul_bottom_logo {
+	font-size: 0.8em;
+}
+.img-thumbnail {
+	    border: #fff;
+}
+btn-success {
+    background-color: #5e002b !important;
+    border-color: #5e002b !important;
+}

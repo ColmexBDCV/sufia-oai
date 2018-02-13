@@ -1,0 +1,54 @@
+image: code.osu.edu:5000/osul-ads/ruby:7-2.3
+
+variables:
+  SOLR_CORE_NAME: "dcs-test"
+  SOLR_CONFIG_DIR: "solr/config"
+  SOLR_URL: "http://osul__solr:8983/solr/dcs-test"
+  FEDORA_URL: "http://osul__fcrepo:8080/fcrepo/rest"
+  REDIS_HOST: "redis"
+  REDIS_PORT: "6379"
+  HDL_HOME: "vendor/hsj/8.1.1"
+  LORIS_SERVER_URI: "http://example.test/"
+
+cache:
+  paths:
+  - vendor/hsj/
+  - vendor/bundle/
+
+before_script:
+  # Setup the environment
+  - if [ ! -f vendor/hsj/8.1.1/bin/hdl-genericbatch ]; then mkdir -p vendor/hsj/8.1.1 && curl -fsL https://www.handle.net/hnr-source/hsj-8.1.1.tar.gz | tar xz -C vendor/hsj/8.1.1 --strip-components=1; fi
+  - mkdir ~/.handle
+  - cp spec/support/hdl/resolver_site ~/.handle
+  - echo "*" > ~/.handle/local_nas
+  - bundle install --quiet --deployment --jobs $(nproc)
+  - bundle exec rake db:schema:load > /dev/null
+  - bundle exec rake db:test:prepare > /dev/null
+  - bundle exec rake assets:precompile 2> /dev/null
+
+rspec:
+  services:
+    - redis
+    - osul/fcrepo:4.5.1
+    - osul/solr:6.1
+    - osul/handle:8.1.1
+  script:
+    - bundle exec rspec
+
+rubocop:
+  cache:
+    paths:
+    - vendor/bundle/
+  before_script:
+    - bundle install --quiet --deployment --jobs $(nproc)
+  script:
+    - bundle exec rubocop
+
+licenses:
+  cache:
+    paths:
+    - vendor/bundle/
+  before_script:
+    - bundle install --quiet --deployment --jobs $(nproc)
+  script:
+    - bundle exec license_finder --decisions-file=.dependency_decisions.yml

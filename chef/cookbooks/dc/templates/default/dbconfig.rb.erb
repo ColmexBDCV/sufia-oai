@@ -1,0 +1,19 @@
+if ENV['STAGE_ENV'] == "production"
+  $db_sys3 = Hash.new
+  $db_sys3[:host] = <%= @db1_host %>
+  $db_sys3[:username] = <%= @db1_username %>
+  $db_sys3[:database] = <%= @db1_name %>
+  $db_sys3[:password] = <%= @db1_password %>
+elsif ENV['STAGE_ENV'] == "integration"
+  $db_sys3 = Hash.new
+  $db_sys3[:host] = <%= @db2_host %>
+  $db_sys3[:username] = <%= @db2_username %>
+  $db_sys3[:database] = <%= @db2_name %>
+  $db_sys3[:password] = <%= @db2_password %>
+else
+  $db_sys3 = Hash.new
+  $db_sys3[:host] = <%= @db1_host %>
+  $db_sys3[:username] = <%= @db1_username %>
+  $db_sys3[:database] = <%= @db1_name %>
+  $db_sys3[:password] = <%= @db1_password %>
+end

@@ -1,0 +1,177 @@
+---
+- - :whitelist
+  - MIT
+  - :who: 
+    :why: 
+    :versions: []
+    :when: 2017-02-20 16:50:51.933596987 Z
+- - :whitelist
+  - Public Domain
+  - :who: 
+    :why: 
+    :versions: []
+    :when: 2017-02-20 16:51:28.559380918 Z
+- - :whitelist
+  - Apache 2.0
+  - :who: 
+    :why: 
+    :versions: []
+    :when: 2017-02-20 18:09:07.417046078 Z
+- - :whitelist
+  - Unlicense
+  - :who: 
+    :why: 
+    :versions: []
+    :when: 2017-02-20 18:10:24.528501126 Z
+- - :whitelist
+  - APACHE-2
+  - :who: 
+    :why: 
+    :versions: []
+    :when: 2017-02-20 18:10:44.948392219 Z
+- - :whitelist
+  - LGPL
+  - :who: 
+    :why: 
+    :versions: []
+    :when: 2017-02-20 18:11:54.126064554 Z
+- - :whitelist
+  - New BSD
+  - :who: 
+    :why: 
+    :versions: []
+    :when: 2017-02-20 18:21:38.227651378 Z
+- - :whitelist
+  - Simplified BSD
+  - :who: 
+    :why: 
+    :versions: []
+    :when: 2017-02-20 18:21:49.909233331 Z
+- - :whitelist
+  - BSD
+  - :who: 
+    :why: 
+    :versions: []
+    :when: 2017-02-20 18:22:02.382936922 Z
+- - :whitelist
+  - LGPLv2+
+  - :who: 
+    :why: 
+    :versions: []
+    :when: 2017-02-20 18:22:42.789572426 Z
+- - :whitelist
+  - ISC
+  - :who: 
+    :why: 
+    :versions: []
+    :when: 2017-02-20 18:24:15.390740704 Z
+- - :whitelist
+  - ruby
+  - :who: 
+    :why: Allowed to distribute under BSD
+    :versions: []
+    :when: 2017-02-20 18:31:45.056951513 Z
+- - :license
+  - oai
+  - Public Domain
+  - :who: 
+    :why: 
+    :versions: []
+    :when: 2017-02-20 18:53:01.342105073 Z
+- - :license
+  - xpath
+  - MIT
+  - :who: 
+    :why: 
+    :versions: []
+    :when: 2017-02-20 18:53:20.024581135 Z
+- - :license
+  - nom-xml
+  - BSD
+  - :who: 
+    :why: 
+    :versions: []
+    :when: 2017-02-20 19:05:27.122045729 Z
+- - :license
+  - kaminari_route_prefix
+  - MIT
+  - :who: 
+    :why: 
+    :versions: []
+    :when: 2017-02-20 19:06:40.029746400 Z
+- - :license
+  - json
+  - ruby
+  - :who: 
+    :why: 
+    :versions: []
+    :when: 2017-02-20 19:15:46.376875542 Z
+- - :license
+  - hydra-editor
+  - Apache 2.0
+  - :who: 
+    :why: 
+    :versions: []
+    :when: 2017-02-20 19:16:52.829776844 Z
+- - :license
+  - blacklight_advanced_search
+  - Apache 2.0
+  - :who: 
+    :why: 
+    :versions: []
+    :when: 2017-02-20 19:17:44.527441764 Z
+- - :add_package
+  - imagesloaded
+  - 
+  - &1
+    :who: 
+    :why: 
+    :versions: []
+    :when: 2017-02-20 21:45:12.209352173 Z
+- - :license
+  - imagesloaded
+  - MIT
+  - *1
+- - :add_package
+  - masonry
+  - 
+  - &2
+    :who: 
+    :why: 
+    :versions: []
+    :when: 2017-02-20 21:46:05.436489372 Z
+- - :license
+  - masonry
+  - MIT
+  - *2
+- - :add_package
+  - jquery_file_upload
+  - 
+  - &3
+    :who: 
+    :why: 
+    :versions: []
+    :when: 2017-02-20 21:46:54.568134407 Z
+- - :license
+  - jquery_file_upload
+  - MIT
+  - *3
+- - :add_package
+  - jquery_file_tree_plugin
+  - 
+  - &4
+    :who: 
+    :why: 
+    :versions: []
+    :when: 2017-02-20 21:47:38.517280710 Z
+- - :license
+  - jquery_file_tree_plugin
+  - MIT
+  - *4
+- - :license
+  - bundler
+  - MIT
+  - :who: 
+    :why: 
+    :versions: []
+    :when: 2017-02-21 14:18:07.530597293 Z

@@ -1,0 +1,23 @@
+{
+  "name": "guest_default",
+  "description": "A role for default guest setup",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+  },
+  "override_attributes": {
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[yum-epel]",
+    "recipe[yum-repoforge]",
+    "recipe[vim]",
+    "recipe[flush_iptables]",
+    "recipe[lua]",
+    "recipe[luarocks]",
+    "recipe[guest]",
+    "recipe[agile-nfs-client]",
+    "recipe[agile-ssh-setting]"
+  ],
+  "env_run_lists": {
+  }
+}

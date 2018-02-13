@@ -1,0 +1,45 @@
+<div>
+  <%# raise solr_fname.inspect unless display_facet -%>
+  <% if display_facet && display_facet.items.length > 0 %>
+    <ul class="facet-values list-unstyled">
+    <% item_counter = 0 %>
+      <% display_facet.items.each do |item| -%>
+        <% if item.hits > 0 %>
+          <% if facet_in_params? solr_field, item.value %>
+            <li>
+              <span class="facet-label selected">
+                <%= h(Unit.find_by_key(item.value)&.name) %>
+                <%- link_options = remove_facet_params(solr_field, item.value, params).merge!({ controller: controller_name, action: action_name }) %>
+                <%- if controller_name == "catalog" %>
+                  <%= link_to url_for(link_options), class: 'remove' do %><span class="glyphicon glyphicon-remove"></span><% end %>
+                <%- else %>
+                  <%= link_to sufia.url_for(link_options), class: 'remove' do %><span class="glyphicon glyphicon-remove"></span><% end %>
+                <%- end %>
+              </span>
+              <span class="selected facet-count" style="width: 8px;"><%= item.hits %></span>
+            </li>
+          <% else %>
+		        <%- if item_counter > facet_field.limit - 1 -%>
+              <li class="more">
+		        <%- else -%>
+		          <li>
+		        <%- end -%>
+              <% link_options = add_facet_params(solr_field, item.value).merge!({ controller: controller_name, action: action_name }) %>
+              <span class="facet-label">
+                <%=link_to h(Unit.find_by_key(item.value)&.name), url_for(link_options) %>
+              </span>
+              <span class="facet-count" style="width: 8px;"><%= item.hits %></span>
+            </li>
+          <% end -%>
+        <% end -%>
+	      <% item_counter += 1 %>
+      <% end %>
+      <% unless display_facet.items.length < facet_field.limit || params[:action] == "facet" %>
+        <li class="more_facets_link">
+          <%= link_to t("more_#{field_name}_html", scope: 'blacklight.search.facets', default: :more_html, field_name: facet_field.label),
+            facet_catalog_url(id: field_name), class: "more_facets_link" %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

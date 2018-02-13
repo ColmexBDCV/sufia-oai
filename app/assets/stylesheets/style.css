@@ -1,0 +1,43 @@
+
+.easy-autocomplete.eac-square input{
+     border: 1px solid #ccc;
+     border-radius: 4px;
+}
+
+.easy-autocomplete-container{
+  z-index: 5;
+  //margin-top: 34px;
+
+}
+
+.easy-autocomplete.eac-square ul li, .easy-autocomplete.eac-square ul .eac-category{
+  padding: 0px;
+}
+
+h1.main-title-heading, #osul_bottom_logo {
+	text-align: center;
+}
+
+@media (min-width: 768px) {
+	footer .navbar-text{
+		float: none;
+  }
+
+  .main-title-heading {
+    font-size: 4em !important;
+  }
+}
+
+@media (max-width: 400px){
+
+	#logo{
+		width: 290px
+	}
+
+}
+
+.facet-values {
+	font-size: 0.85em;
+}
+
+

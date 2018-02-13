@@ -1,0 +1,28 @@
+{
+  "name": "gateway",
+  "description": "",
+  "json_class": "Chef::Role",
+  "default_attributes": {
+    "tz": "Asia/Tokyo",
+    "gateway": {
+    },
+    "fail2ban": {
+      "ignoreip": "127.0.0.1 192.168.0.0/16 172.16.0.0/12 10.0.0.0/8",
+      "dest_mail": "system@agile.ne.jp"
+    }
+  },
+  "override_attributes": {
+  },
+  "chef_type": "role",
+  "run_list": [
+    "recipe[yum-epel]",
+    "recipe[timezone-ii]",
+    "recipe[vim]",
+    "recipe[sngrep]",
+    "recipe[flush_iptables]",
+    "recipe[logrotate-gateway]"
+  ],
+  "env_run_lists": {
+
+  }
+}

@@ -1,0 +1,41 @@
+<%= simple_form_for @unit do |f| %>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading"><strong>Unit information</strong></div>
+      <div class="panel-body">
+        <%= f.input :name, label: "Unit name" %>
+        <%= f.input :description %>
+        <%= f.input :contact_person, label: "Contact Person" %>
+        <%= f.input :address, label: "Address" %>
+        <%= f.input :phone, label: "Telephone"  %>
+        <%= f.input :fax, label: "Fax"  %>
+        <%= f.input :email, label: "Email" %>
+        <%= f.input :url, label: "Primary URL" %>
+        <%= f.input :image, as: :file %>
+        <%= f.input :visible %>  
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div id="memberships">
+      <div class="panel panel-default">
+        <div class="panel-heading"><strong>Members</strong></div>
+        <div class="panel-body">
+          <%= f.simple_fields_for :memberships do |membership| %>
+            <%= render "membership_fields", :f => membership %>
+          <% end %>
+          <div class="links">
+            <%= link_to_add_association f, :memberships, class: "btn btn-success" do %>
+              <span class="sr-only">Add member to unit</span><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%= f.button :submit %>
+<% end %>

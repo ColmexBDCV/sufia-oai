@@ -1,0 +1,51 @@
+en:
+  sufia:
+    file_set:
+      show:
+        download: "Download original file"
+    product_name:       "Digital Collections"
+    product_twitter_handle: "@HydraSphere"
+    institution_name:   "Biblioteca Daniel Cosio Villegas"
+#    institution_name_full:   "El Colegio de Mexico A.C."
+    account_name:       "My Institution Account Id"
+    directory:
+      suffix:           "@example.org"
+    footer:
+      copyright_html: "<strong>Copyright &copy; 2016 Project Hydra</strong> Licensed under the Apache License, Version 2.0"
+    background_attribution: "Background image courtesy of Mercer, John H. : Image Collection"
+    visibility:
+      open: "Public"
+    search:
+      form:
+        q:
+          placeholder: "Introduzca el término de búsqueda"
+        option:
+          all:
+            label_long: "Todo"
+  simple_form:
+    labels:
+      generic_work:
+        resource_type: "Tipo"
+        abstract: "Resumen"
+        description: "Notas"
+        bibliographic_citation: "Cita bibliografica"
+        date_created: "Fecha"
+        work_type: "Genero"
+        temporal: "Periodo Temporal"
+        source: "Fuente"
+        part_of: "Sub-Colleccion"
+        sub_collection: "Sub-Collection"
+        spatial: "Lugar"
+        source: "Fuente"
+        rights: "Access"
+        rights_statements: "Rights"
+    hints:
+      generic_work:
+        based_near: "The geographic location and/or name of the repository, building, site, or other entity whose boundaries include the original work"
+        spatial: "A place name related to the work, such as its site of publication, or the city, state, or country the work contents are about."
+  curation_concerns:
+    base:
+      metadata:
+        work_type: "Genero"
+        source: "Clasifiacion"
+        audience: "audience"

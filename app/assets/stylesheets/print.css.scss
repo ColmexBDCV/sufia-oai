@@ -1,0 +1,39 @@
+/*
+ *= require print
+ */
+
+@import 'bootstrap';
+
+#osu_navbar, #masthead, .citations, .breadcrumb, .show-actions, .filename, .date_uploaded, .permission, thead, figure {
+   display:none;
+}
+
+tr.file_set td:last-child {
+  display:none;
+}
+
+.thumbnail {
+  max-width:400px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a[href]:after {
+   content: none !important;
+}
+
+h1, h2 {
+  font-size:16px;
+  font-weight: bold;
+}
+
+table{
+  font-size: smaller;
+}
+
+.print-col-md-6 {
+  float:left;
+  width:50%;
+}
