@@ -1,9 +1,0 @@
-<%= f.input :subject_conacyt,
-    label: "Subject Conacyt",
-    #collection: SubjectService.select_active_options,
-    collection: SubjectService.areascono,
-    #collection: ConacytCatalogsController.areacono,
-    include_blank: true,
-    item_helper: method(:include_current_value),
-    input_html: { class: 'form-control' } %>
-<%= render "curation_concerns/file_sets/rights_modal" %>

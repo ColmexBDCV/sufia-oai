@@ -1,8 +1,0 @@
-<% if Rails.configuration.x.feedback_url %>
-  jQuery.ajax({
-    url: "<%= Rails.configuration.x.feedback_url %>",
-    type: "get",
-    cache: true,
-    dataType: "script"
-  });
-<% end %>
