@@ -41,21 +41,6 @@ class ConacytCatalogsController < ApplicationController
 
   end
 
-  def index
-    # Authorization : Basic ZWNtOkVjTTA1XzA2
-
-
-
-
-    # areacono = conn.get 'areacono'
-    # @api = { areacono: JSON.parse(areacono.body.force_encoding('utf-8')) }
-    # campocono = conn.get 'campocono'
-    # @api[:campocono] = JSON.parse(campocono.body.force_encoding('utf-8'))
-    # disciplinacono = conn.get 'disciplinacono'
-    # @api[:disciplinacono] = JSON.parse(disciplinacono.body.force_encoding('utf-8'))
-
-  end
-
   def persona_name
 
 
