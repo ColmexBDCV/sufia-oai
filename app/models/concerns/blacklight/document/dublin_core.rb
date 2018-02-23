@@ -40,7 +40,7 @@ module Blacklight::Document::DublinCore
             xml.tag! "dc:identifier", "http://repositorio.colmex.mx/concern/generic_works/#{id}"
             unless collection_name.nil?
               collection_name.each do |value|
-                xml.tag! "dc:subject", "info:eu-repo/semantics/#{value}"
+                xml.tag! "dc:subject", "info:eu-repo/classification/cti/#{value}"
               end
             end
             # end
