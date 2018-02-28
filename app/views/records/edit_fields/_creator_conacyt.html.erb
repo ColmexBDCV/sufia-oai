@@ -1,2 +1,4 @@
-<div class="reply form-group" >
-<%= f.input :creator_conacyt, label: 'Creator Conacyt', input_html: { class: 'form-control'}, required: false %>
+
+<%#= f.input :creator_conacyt, label: 'Creator Conacyt', input_html: { class: 'form-control'}, required: false %>
+<%= f.input :creator_conacyt, as: :multi_value, input_html: { rows: '14', type: 'textarea', disabled: 'disabled'}, required: f.object.required?(key) %>
+

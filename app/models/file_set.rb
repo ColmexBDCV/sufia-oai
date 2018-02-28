@@ -37,12 +37,3 @@ class FileSet < ActiveFedora::Base
     super
   end
 end
-
-GenericWork.all.each do |e|
-  unless e.representative_id.nil?
-    pdf = FileSet.find e.representative_id
-    puts "\"#{e.title[0]}\",#{pdf.label}";
-  else
-      puts "\"#{e.title[0]}\""
-  end
-end

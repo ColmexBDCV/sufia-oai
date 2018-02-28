@@ -4,7 +4,7 @@ module GenericWorkHelper
       presenter.attribute_to_html(:resource_type, render_as: :faceted, label: 'Tipo' ),
       presenter.attribute_to_html(:creator, render_as: :faceted, label: 'Creador' ),
       #presenter.attribute_to_html(:creator, render_as: :faceted ),
-      presenter.attribute_to_html(:orcid, label: "Creador ORCID" ),
+      #presenter.attribute_to_html(:orcid, label: "Creador ORCID" ),
       #presenter.attribute_to_html(:cvu, label: "Creador CVU" ),
       presenter.attribute_to_html(:description, label: 'Notas' ),
       presenter.attribute_to_html(:contributor, label: 'Contribuidores', render_as: :linked, search_field: 'contributor_tesim'),

@@ -101,39 +101,12 @@ module MetadataIndexTerms
     self[Solrizer.solr_name('creator_conacyt')]
   end
 
-  def orcid
-    self[Solrizer.solr_name('orcid')]
-  end
-
-  def cvu
-    self[Solrizer.solr_name('cvu')]
-  end
-
-  def curp
-    self[Solrizer.solr_name('curp')]
-  end
-
   def contributor_conacyt
     self[Solrizer.solr_name('contributor_conacyt')]
-  end
-
-  def contributor_orcid
-    self[Solrizer.solr_name('contributor_orcid')]
-  end
-
-  def contributor_cvu
-    self[Solrizer.solr_name('contributor_cvu')]
   end
 
   def access
     self[Solrizer.solr_name('access')]
   end
 
-  def subject_conacyt
-    self[Solrizer.solr_name('subject_conacyt')]
-  end
-
-  def idpersona
-    self[Solrizer.solr_name('idpersona')]
-  end
 end

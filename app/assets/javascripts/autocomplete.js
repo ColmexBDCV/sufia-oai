@@ -34,11 +34,11 @@ var options = {
 
 $(document).on('turbolinks:load',function(){
 
-  $('[name*="creator_conacyt]"]').easyAutocomplete(options);
+  // $('[name*="creator_conacyt]"]').easyAutocomplete(options);
 
-  $('[name*="contributor_conacyt]"]').easyAutocomplete(options);
+  // $('[name*="contributor_conacyt]"]').easyAutocomplete(options);
 
-  $('.easy-autocomplete').removeAttr('style');
+  // $('.easy-autocomplete').removeAttr('style');
 
 
 

@@ -83,52 +83,14 @@ module WorkMetadata
       index.as :stored_searchable, :facetable
     end
 
-    property :orcid, predicate: ::RDF::Vocab::Identifiers.orcid, multiple: false do |index|
+    property :creator_conacyt, predicate: ::RDF::Vocab::MODS.namePrincipal, multiple: true do |index|
       index.type :text
       index.as :stored_searchable
     end
 
-    property :cvu, predicate: ::RDF::Vocab::Identifiers.local, multiple: false do |index|
+    property :contributor_conacyt, predicate: ::RDF::Vocab::MODS.name, multiple: true do |index|
       index.type :text
       index.as :stored_searchable
     end
-
-    property :creator_conacyt, predicate: ::RDF::Vocab::MODS.namePrincipal, multiple: false do |index|
-      index.type :text
-      index.as :stored_searchable
-    end
-
-    property :contributor_conacyt, predicate: ::RDF::Vocab::MODS.name, multiple: false do |index|
-      index.type :text
-      index.as :stored_searchable
-    end
-
-    property :contributor_cvu, predicate: ::RDF::Vocab::MODS.partName, multiple: false do |index|
-      index.type :text
-      index.as :stored_searchable
-    end
-
-    property :contributor_orcid, predicate: ::RDF::Vocab::MADS.Variant, multiple: false do |index|
-      index.type :text
-      index.as :stored_searchable
-    end
-
-    property :subject_conacyt, predicate: ::RDF::Vocab::MODS.subjectTopic, multiple: false do |index|
-      index.type :text
-      index.as :stored_searchable
-    end
-
-    property :idpersona, predicate: ::RDF::Vocab::MODS.identifier, multiple: false do |index|
-      index.type :text
-      index.as :stored_searchable
-    end
-
-    property :curp, predicate: ::RDF::Vocab::MODS.note, multiple: false do |index|
-      index.type :text
-      index.as :stored_searchable
-    end
-
-
-
   end
 end

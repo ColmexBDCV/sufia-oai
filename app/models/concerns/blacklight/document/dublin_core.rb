@@ -40,7 +40,7 @@ module Blacklight::Document::DublinCore
             xml.tag! "dc:identifier", "http://repositorio.colmex.mx/concern/generic_works/#{id}"
             unless collection_name.nil?
               collection_name.each do |value|
-                xml.tag! "dc:subject", "info:eu-repo/semantics/#{value}"
+                xml.tag! "dc:subject", "info:eu-repo/classification/cti/#{value}"
               end
             end
             # end
@@ -81,79 +81,59 @@ module Blacklight::Document::DublinCore
   def add_sc(collection_name, xml)
     #return unless respond_to?("collection_name")
     #return if collection_name.nil?
-
   end
 
   def add_identifiers(field, v, xml)
     # orcid_value = add_orcid
     # cvu_value = add_cvu
-    if field == :creator_conacyt
-      orcid_value = add_orcid
-      cvu_value = add_cvu
-      curp_value = add_curp
-      identifier = nil
-      if curp_value.present?
-        identifier = "info:eu-repo/dai/mx/curp/#{curp_value}"
-      end
-      if cvu_value.present?
-        identifier = "info:eu-repo/dai/mx/cvu/#{cvu_value}"
-      end
-      if orcid_value.present?
-        identifier = "info:eu-repo/dai/mx/orcid/#{orcid_value}"
-      end
+    hash = parse_conacyt(v)
+    if hash.key?('curp')
+      identifier = "info:eu-repo/dai/mx/curp/#{hash['curp']}"
+    end
+    if hash.key?('idCvuConacyt')
+      identifier = "info:eu-repo/dai/mx/cvu/#{hash['idCvuConacyt']}"
+    end
+    if hash.key?('idOrcid')
+      identifier = "info:eu-repo/dai/mx/orcid/#{hash['idOrcid']}"
+    end
+    name = "#{hash['nombres']} #{hash['primerApellido']}"
+    if hash.key?('segundoApellido')
+      name += " #{hash['segundoApellido']}"
+    end
 
+    if field == :creator_conacyt
       unless identifier.nil?
-        xml.tag!("dc:creator", v, id:identifier)
+        xml.tag!("dc:creator", name, id:identifier)
       else
-        xml.tag! "dc:creator", v
+        xml.tag! "dc:creator", name
       end
     end
     if field == :contributor_conacyt
-      contributor_orcid_value = add_contributor_orcid
-      contributor_cvu_value = add_contributor_cvu
-      if contributor_cvu_value.nil? && contributor_orcid_value.nil?
-        xml.tag! "dc:contributor", v
-      elsif contributor_cvu_value.present? && contributor_orcid_value.present?
-        xml.tag!("dc:contributor", v, id: "info:eu-repo/dai/mx/orcid/#{contributor_orcid_value}")
-      elsif contributor_orcid_value.nil?
-        xml.tag!("dc:contributor", v, id: "info:eu-repo/dai/mx/cvu/#{contributor_cvu_value}")
+      unless identifier.nil?
+        xml.tag!("dc:contributor", name, id:identifier)
       else
-        xml.tag!("dc:contributor", v, id: "info:eu-repo/dai/mx/orcid/#{contributor_orcid_value}")
+        xml.tag! "dc:contributor", name
       end
     end
 
   end
 
-  def add_orcid
-    return unless respond_to?("orcid")
-    return if orcid.nil?
-    send("orcid").first
-  end
+  def parse_conacyt(v)
+    array = v.split("\n")
 
-  def add_curp
-    return unless respond_to?("curp")
-    return if curp.nil?
-    send("curp").first
-  end
+    value = {}
 
-  def add_cvu
-    return unless respond_to?("cvu")
-    return if cvu.nil?
-    send("cvu").first
-  end
+    array.each do |a|
 
-  def add_contributor_orcid
-    return unless respond_to?("contributor_orcid")
-    return if contributor_orcid.nil?
-    send("contributor_orcid").first
-  end
+      b = a.split(": ")
 
-  def add_contributor_cvu
-    return unless respond_to?("contributor_cvu")
-    return if contributor_cvu.nil?
-    send("contributor_cvu").first
-  end
+      value[b[0]] = b[1]
 
+    end
+
+    return value
+
+  end
 
   def dublin_core_field_name? field
     dublin_core_field_names.include? field.to_sym
