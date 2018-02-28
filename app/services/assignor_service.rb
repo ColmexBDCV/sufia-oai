@@ -44,7 +44,11 @@ module AssignorService
 
             a = conn.get "persona/byNombreCompleto/params;nombre=#{buscar}"
 
-            data = JSON.parse(a.body.force_encoding('utf-8'))
+            begin
+              data = JSON.parse(a.body.force_encoding('utf-8'))
+            rescue JSON::ParserError
+              data = {}
+            end
 
             unless data.empty?
 
@@ -74,9 +78,15 @@ module AssignorService
       unless creator.empty?
         gw.creator_conacyt = creator
         gw.save
+      else
+        gw.creator_conacyt = nil
+        gw.save
       end
       unless contributor.empty?
         gw.contributor_conacyt = contributor
+        gw.save
+      else
+        gw.contributor_conacyt = nil
         gw.save
       end
       num += 1
