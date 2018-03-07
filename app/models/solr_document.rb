@@ -25,8 +25,6 @@ class SolrDocument
                          identifier:  'oai_identifier',
                          language:    Solrizer.solr_name('language'),
                          creator_conacyt:    Solrizer.solr_name('creator_conacyt'),
-                         orcid:    Solrizer.solr_name('orcid'),
-                         cvu:    Solrizer.solr_name('cvu'),
                          contributor_conacyt:    Solrizer.solr_name('contributor_conacyt'),
                          contributor_orcid:    Solrizer.solr_name('contributor_orcid'),
                          contributor_cvu:    Solrizer.solr_name('contributor_cvu'),
@@ -37,9 +35,7 @@ class SolrDocument
                          subject_conacyt:     Solrizer.solr_name('subject_conacyt'),
                          title:       Solrizer.solr_name('title'),
                          type:        Solrizer.solr_name('resource_type'),
-                         access: Solrizer.solr_name('access'),
-                         idpersona:  Solrizer.solr_name('idpersona'),
-                         curp:  Solrizer.solr_name('curp'))
+                         access: Solrizer.solr_name('access'))
 
   # Override image mime types to include 'application/octet-stream'
   def self.image_mime_types
