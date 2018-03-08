@@ -14,7 +14,40 @@ module CurationConcerns
 
     def stats
       creator_conacyt = GenericWork.find(params[:id]).creator_conacyt
-      ConacytStat.create( work: params[:id], category: 'articulos', author: creator_conacyt )     
+      ConacytStat.create( work: params[:id], category: 'articulos', author: creator_conacyt )
+    end
+
+    def show
+
+      respond_to do |wants|
+        wants.html do
+          presenter && parent_presenter
+          if params.key?("api")
+            render json: @presenter.solr_document
+          end
+        end
+        wants.json do
+          # load and authorize @curation_concern manually because it's skipped for html
+          # This has to use #find instead of #load_instance_from_solr because
+          # we want to return values like file_set_ids in the json
+          @curation_concern = _curation_concern_type.find(params[:id]) unless curation_concern
+          authorize! :show, @curation_concern
+          render :show, status: :ok
+        end
+        additional_response_formats(wants)
+        wants.ttl do
+          render text: presenter.export_as_ttl
+        end
+        wants.jsonld do
+          render text: presenter.export_as_jsonld
+        end
+        wants.nt do
+          render text: presenter.export_as_nt
+        end
+      end
+
+
+
     end
 
     private

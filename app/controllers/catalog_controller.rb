@@ -333,7 +333,13 @@ class CatalogController < ApplicationController
   def index
     @unit = Unit.find_by_key(params.dig(:f, :unit_sim))
     @page_number = params["page"].to_i
+
     super
+
+    if params.key?("api")
+      render json: @document_list
+    end
+
   end
 
   # disable the bookmark control from displaying in gallery view
