@@ -336,9 +336,6 @@ class CatalogController < ApplicationController
 
     super
 
-    if params.key?("api")
-      render json: @document_list
-    end
 
   end
 

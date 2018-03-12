@@ -22,9 +22,6 @@ module CurationConcerns
       respond_to do |wants|
         wants.html do
           presenter && parent_presenter
-          if params.key?("api")
-            render json: @presenter.solr_document
-          end
         end
         wants.json do
           # load and authorize @curation_concern manually because it's skipped for html
