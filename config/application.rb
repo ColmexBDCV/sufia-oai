@@ -45,6 +45,7 @@ module Dcs
         resource '/catalog.rss', headers: :any, methods: :get
         resource '/catalog.js*', headers: :any, methods: :get
         resource '/api/*', headers: :any, methods: :get
+        resource '/concern/*', headers: :any, methods: :get
       end
     end
   end

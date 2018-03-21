@@ -137,6 +137,10 @@ spa:
         property: orcid
         type: "http://schema.org/Orcid"
         value: name
+      format:
+        property: format
+        type: "http://schema.org/Format"
+        value: name
     visibility:
       open:
         text: "Open Access"

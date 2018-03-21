@@ -17,7 +17,8 @@ module API
             document: {
               limit: 3000,
               timestamp_field: 'system_modified_dtsi',
-              set_class: '::OaiSet'
+              #set_class: '::OaiSet'
+              set_fields: 'sub_collection_tesim'
             }
           }
         end
